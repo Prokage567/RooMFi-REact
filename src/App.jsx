@@ -1,13 +1,11 @@
-import {useState}from 'react';
-import Box from '@mui/material/Box';
+import * as React from 'react';
+import {RouterProvider } from 'react-router-dom';
+import router from './router';
 
-function login() {
+function App() {
   return (
-    <>
-      <Box>hehe</Box>
-    </>
+    <RouterProvider router={router} />
+    
   )
-}
-
-
-export default login
+} 
+export default App
