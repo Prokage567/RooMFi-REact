@@ -13,20 +13,15 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
-import theme from '../theme';
-import logo from './assets/images/logo.svg'
+import theme from '../../theme';
+import logo from '../assets/images/logo.svg'
 import './index.css'
+import Theme from '../components/CustomComponents';
 
 
 function Login() {
     useEffect(() => {
-        document.body.style.background = 'url(src/assets/images/background.svg)'
-        document.body.style.backgroundRepeat = 'no-repeat'
-        document.body.style.backgroundSize = 'cover'
-        document.body.style.Height = '80vh'
-        document.body.style.minWidth = '90vw'
-        document.body.style.backgroundAttachment = 'fixed'
-
+        Theme()
     }, [])
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -52,13 +47,13 @@ function Login() {
                             </Box>
                         </Box>
 
-                        <Box className="hello" sx={{ paddingBottom: "4vh", paddingLeft: "25px", paddingRight: "25px" }}>
+                        <Box sx={{ paddingBottom: "4vh", paddingLeft: "25px", paddingRight: "25px" }}>
                             <Typography variat="overline" sx={{ color: "#D9D9D9", fontFamily: "kronaOne", fontSize: "12px" }}>
                                 Username or Emaild Address:
                             </Typography>
 
                             <FormControl sx={{ background: "#D9D9D9", width: "315px", borderRadius: "5px" }} variant="filled">
-                                <Input sx={{ paddingLeft: "10px" }}></Input>
+                                <Input id="username"sx={{ paddingLeft: "10px" }}></Input>
                             </FormControl>
 
                             <Typography variat="overline" sx={{ color: "#D9D9D9", fontFamily: "kronaOne", fontSize: "12px", paddingTop: "25px" }}>
@@ -66,7 +61,7 @@ function Login() {
                             </Typography>
 
                             <FormControl sx={{ background: "#D9D9D9", width: "315px", borderRadius: "5px" }} variant="filled">
-                                <Input  type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={ 
+                                <Input id="password" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={ 
                                     <InputAdornment position="end">
                                     <Button onClick={handleClickShowPassword}>                  
                                         {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -76,7 +71,7 @@ function Login() {
                                 }></Input>
                             </FormControl>
                             <Typography color='#D9D9D9' style={{ textAlign: "center", fontSize: "10px", fontFamily: "kronaOne", paddingBottom: "25px", paddingTop: "25px" }}>
-                                Don't have an account yet?<Link to="../Register" style={{ textDecoration: "none", color: "#D9D9D9" }}> Register</Link>
+                                Don't have an account yet?<Link to="../pages/Register" style={{ textDecoration: "none", color: "#D9D9D9" }}> Register</Link>
                             </Typography>
                             <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
 
