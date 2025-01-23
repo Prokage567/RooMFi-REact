@@ -17,7 +17,7 @@ import theme from '../../theme';
 import logo from '../assets/images/logo.svg'
 import './index.css'
 import Theme from '../components/CustomComponents';
-
+import'./App.css'
 
 function Login() {
     useEffect(() => {
@@ -71,7 +71,7 @@ function Login() {
                                 }></Input>
                             </FormControl>
                             <Typography color='#D9D9D9' style={{ textAlign: "center", fontSize: "10px", fontFamily: "kronaOne", paddingBottom: "25px", paddingTop: "25px" }}>
-                                Don't have an account yet?<Link to="../pages/Register" style={{ textDecoration: "none", color: "#D9D9D9" }}> Register</Link>
+                                Don't have an account yet?<Link to="../Register" style={{ textDecoration: "none", color: "#D9D9D9" }}> Register</Link>
                             </Typography>
                             <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
 
