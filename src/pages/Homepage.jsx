@@ -5,7 +5,6 @@ function Homepage() {
     return (
       <>
       <Box>
-        
       </Box>
       </>
     )
