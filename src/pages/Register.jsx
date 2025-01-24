@@ -9,7 +9,7 @@ import {
     , VisibilityOff
 } from '@mui/icons-material'
 import * as React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import InputAdornment from '@mui/material/InputAdornment'
 import Typography from '@mui/material/Typography'
 import { Link, useNavigate } from 'react-router-dom'
@@ -17,10 +17,10 @@ import { ThemeProvider } from '@emotion/react'
 import theme from '../../theme'
 import logo from '../assets/images/logo.svg'
 import './index.css'
-import { DMLAuth } from '../api/auth'
+import { AuthRegister } from '../api/auth'
 import $ from 'jquery'
 import Theme from '../components/CustomComponents'
-
+import { toast } from 'react-toastify'
 
 
 const customStyle = {
@@ -39,24 +39,32 @@ function Register() {
     useEffect(() => {
         Theme()
     }, [])
+
+    const [warn, setwarn] = useState({})
+    const [load, setload] = useState(false)
     const navigate = useNavigate()
     const register = () => {
-        const name = $("#username").val()
-        const email = $("#email").val()
-        const first_name = $("#firstName").val()
-        const last_name = $("#lastName").val()
-        const password = $("#password").val()
-        const password_confirmation = $("#PassConfirm").val()
+        if (!load) {
+            const name = $("#username").val()
+            const email = $("#email").val()
+            const first_name = $("#firstName").val()
+            const last_name = $("#lastName").val()
+            const password = $("#password").val()
+            const password_confirmation = $("#PassConfirm").val()
 
-        DMLAuth({ name, email, first_name, last_name, password, password_confirmation }, "POST").then(response => {
-
-            if (response?.ok) {
-
-            }
-        })
+            AuthRegister({ name, email, first_name, last_name, password, password_confirmation }).then(response => {
+                console.log(response)
+                if (response?.created) {
+                    toast.success("success")
+                    navigate('../login')
+                }
+                setwarn(response.errors)
+            }).finally(() =>
+                setload(false))
+        }
 
     }
-    const [showPassword, setShowPassword] = React.useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleClickShowPassword = () => setShowPassword((show) => !show)
 
@@ -121,6 +129,7 @@ function Register() {
                                         paddingLeft: "10px"
                                     }} />
                                 </FormControl>
+                                {warn?.name && (<div style={{fontSize:"15px", color:"red"}}>{warn.name}</div>)}
                                 <Typography sx={
                                     customFonts
                                 }>
@@ -133,6 +142,7 @@ function Register() {
                                         paddingLeft: "10px"
                                     }} />
                                 </FormControl>
+                                {warn?.email && (<div style={{fontSize:"15px", color:"red"}}>{warn.email}</div>)}
                                 <Typography sx={
                                     customFonts
                                 }>
@@ -145,6 +155,7 @@ function Register() {
                                         paddingLeft: "10px"
                                     }} />
                                 </FormControl>
+                                {warn?.first_name && (<div style={{fontSize:"15px", color:"red"}}>{warn.first_name}</div>)}
                                 <Typography sx={
                                     customFonts
                                 }>
@@ -157,6 +168,7 @@ function Register() {
                                         paddingLeft: "10px"
                                     }} />
                                 </FormControl>
+                                {warn?.last_name && (<div style={{fontSize:"15px", color:"red"}}>{warn.last_name}</div>)}
                                 <Typography sx={
                                     customFonts
                                 }>
@@ -172,7 +184,9 @@ function Register() {
                                             </Button>
                                         </InputAdornment>
                                     } />
+
                                 </FormControl>
+                                {warn?.password && (<div style={{fontSize:"15px", color:"red"}}>{warn.password}</div>)}
                                 <Typography className="hello" sx={
                                     customFonts
                                 }>
@@ -188,7 +202,9 @@ function Register() {
                                             </Button>
                                         </InputAdornment>
                                     } />
-                                </FormControl>
+
+                                    </FormControl>
+                                    {warn?.password_confirmation && (<div styles={{fontSize:"15px", color:"500"}}>{warn.password_confirmation}</div>)}                                
                                 <Typography color='#D9D9D9' style={{
                                     textAlign: "center",
                                     fontSize: "15px",

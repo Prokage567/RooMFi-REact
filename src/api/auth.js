@@ -1,18 +1,20 @@
 import {URL} from "./config";
- export const AuthMethod = async()=>{
+ export const AuthRegister = async(inputs)=>{
 const res = await fetch(`${URL}/register`,{
-    method: "GET",
+    method: "POST",
     headers:{
         Accept: 'application/json',
         'Content-Type': 'application/json'
     }
+    ,
+        body: JSON.stringify(inputs)
 })
 return await res.json()
  }
 
- export const DMLAuth = async(inputs, type)=>{
-    const res = await fetch(`${URL}/register`,{
-        method: type,
+ export const AuthLogin = async(inputs)=>{
+    const res = await fetch(`${URL}/login`,{
+        method: "POST",
         headers:{
             Accept: 'application/json',
             'Content-Type': 'application/json'
