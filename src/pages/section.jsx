@@ -1,6 +1,15 @@
 
 import React from "react"
 import head from "../assets/images/head.svg"  
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
 import { Button as btn, Button} from "react-day-picker"
 
 export default function section() {
@@ -8,10 +17,16 @@ export default function section() {
 
   return (
     <>
-    <div  className="w-1000px">
-    <img src= {head}></img>
+    <div className>
+    <img  src= {head} width="2500vw" />
     </div>
-    <div className='text-xl bg-red-950'>HELOOOO</div> 
+
+    <DropdownMenu>
+      <DropdownMenuTrigger>Section</DropdownMenuTrigger>
+      <DropdownMenuContent>
+        HELLO!!
+      </DropdownMenuContent>
+    </DropdownMenu>
     </>
   )
 }
