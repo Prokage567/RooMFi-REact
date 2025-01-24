@@ -5,6 +5,8 @@ import logo from "../assets/images/logo.svg"
 function Homepage() {
     return (
       <>
+      <Box>
+      </Box>
       <div>
         <img src={head2}/>
       </div>
