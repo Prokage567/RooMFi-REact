@@ -1,35 +1,38 @@
 
-import React from "react"
-import head from "../assets/images/head.svg"  
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { React, useState } from "react"
+import { Calendar as Cal } from "../components/ui/calendar"
+import './index.css'
 
-import { Button as btn, Button} from "react-day-picker"
+export default function section(){
+  const [date, setDate] = useState(new Date())
 
-export default function section() {
-  // const [date, setDate] = React.useState<Date | undefined>(new Date())
-
-  return (
+  return(
     <>
-    <div className>
-    <img  src= {head} width="2500vw" />
-    </div>
+        <div  className="justify-end">
+        <Cal
+          mode="single"
+          selected= {date}
+          onSelect = {setDate}
+          className="rounded-md font-[NiramitReg]  "
+          
+        />
 
-    <DropdownMenu>
-      <DropdownMenuTrigger>Section</DropdownMenuTrigger>
-      <DropdownMenuContent>
-        HELLO!!
-      </DropdownMenuContent>
-    </DropdownMenu>
-    </>
+        </div>
+    </> 
   )
 }
+
+
+// export default function section() {
+//   // const [date, setDate] = React.useState<Date | undefined>(new Date())
+
+
+//   return (
+//     <>
+
+//     </>
+//   )
+// }
 
 
 
