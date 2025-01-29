@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { Box } from '@mui/material';
-
+import withAuth from '../highOrdeerComponent/withAuth';
 function Homepage() {
     return (
       <>
       <Box>
-        whegff
       </Box>
       </>
     )
 }
 
-export default Homepage
+export default withAuth(Homepage)

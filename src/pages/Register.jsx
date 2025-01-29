@@ -21,6 +21,7 @@ import { AuthRegister } from '../api/auth'
 import $ from 'jquery'
 import Theme from '../components/CustomComponents'
 import { toast } from 'react-toastify'
+import withoutAuth from '../highOrdeerComponent/withoutAuth'
 
 
 const customStyle = {
@@ -53,7 +54,6 @@ function Register() {
             const password_confirmation = $("#PassConfirm").val()
 
             AuthRegister({ name, email, first_name, last_name, password, password_confirmation }).then(response => {
-                console.log(response)
                 if (response?.created) {
                     toast.success("success")
                     navigate('../login')
@@ -238,4 +238,4 @@ function Register() {
     )
 }
 
-export default Register
+export default withoutAuth(Register)

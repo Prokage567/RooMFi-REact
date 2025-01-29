@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
-
+import { logout as lg} from '../api/auth';
+import { toast } from 'react-toastify';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,7 +14,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    removeCookie('token');
+    lg(cookies.token).then(
+        res=>{
+            if(res?.ok){
+                toast.success(res?.message??"successfully Logout!")
+            }
+        }
+    )
+    setCookie('token')
     setUser(null);
   };
 

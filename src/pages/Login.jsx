@@ -22,6 +22,7 @@ import {useCookies} from 'react-cookie'
 import { AuthLogin } from '../api/auth';
 import $ from 'jquery'
 import { toast } from 'react-toastify'
+import withoutAuth from '../highOrdeerComponent/withoutAuth';
 
 const customStyle = {
     background: "#D9D9D9",
@@ -51,7 +52,6 @@ function Login() {
             const password = $("#current-password").val()
 
             AuthLogin({ name, password }).then(response => {
-                console.log(response.token)
                 if (response?.Authenticated) {
                     toast.success("successfully logged in!")
                     setCookie("token", response?.token)
@@ -63,7 +63,7 @@ function Login() {
         }
     }
 
-    const [showPassword, setShowPassword] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     return (
@@ -175,4 +175,4 @@ function Login() {
     )
 }
 
-export default Login
+export default withoutAuth(Login)
