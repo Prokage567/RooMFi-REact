@@ -16,11 +16,11 @@ const AccordionTrigger = React.forwardRef(({img, className, children, ...props }
     <AccordionPrimitive.Trigger
       ref={ref}
       className={cn(
-        "flex flex-1 items-center lg:w-[220px] md:w-[150px] w-[50px] md:hover:bg-cyan-700 hover:rounded-[10px] lg:hover:bg-cyan-700 hover:rounded-[10px] py-4 text-sm font-large transition-all justify-center [&[data-state=closed]>svg]:-rotate-90 [&[data-state=open]>svg]:rotate-165",
+        "flex flex-1 items-center md:justify-center lg:w-[220px] md:w-[150px] w-[50px] md:hover:bg-cyan-700 hover:rounded-[10px] lg:hover:bg-cyan-700 hover:rounded-[10px] py-4 text-sm font-large transition-all [&[data-state=closed]>svg]:-rotate-90 [&[data-state=open]>svg]:rotate-165",
         className
       )}
       {...props}>
-      <img src={img} width="45px" className="hover:bg-cyan-700 hover:rounded-[10px] pl-[3px] pr-[3px] absolute lg:left-5 left-2 pt-1 pb-1" />
+      <img src={img} width="45px" className="hover:bg-cyan-700 hover:rounded-[10px] pl-[3px] pr-[3px] relative lg:left-5 md:-left-7 left-2 pt-1 pb-1" />
       <div className="hidden lg:block md:block md:-indent-[8px] lg:indent-[30px]">
         {children}
       </div>
