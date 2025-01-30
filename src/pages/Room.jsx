@@ -1,9 +1,14 @@
-export default function Room(){
+
+
+function Room(){
+    
 
     return(
-        <>  <div className="justify-center flex">
-        jhsFgawf
-        </div>
+        <>  
+            <main className="flex-1 bg-white">
+                <div className=""></div>
+            </main>
         </>
     )
 }
+export default Room

@@ -22,7 +22,7 @@ import {useCookies} from 'react-cookie'
 import { AuthLogin } from '../api/auth';
 import $ from 'jquery'
 import { toast } from 'react-toastify'
-import withoutAuth from '../highOrdeerComponent/withoutAuth';
+import withAuth from '../highOrdeerComponent/withAuth';
 
 const customStyle = {
     background: "#D9D9D9",
@@ -175,4 +175,4 @@ function Login() {
     )
 }
 
-export default withoutAuth(Login)
+export default withAuth(Login)

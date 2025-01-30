@@ -38,7 +38,7 @@ export default function MainLayout() {
             </div>
             <nav className="flex">
                 <div>
-                    <aside className={cn("fixed w-[235px] h-full bg-blue-950 text-white shadow-lg flex flex-col pl-5 pr-8 shadow-[5px_0_10px_rgba(0,0,0,0.35)] ")}>
+                    <aside className={cn("fixed w-[235px] h-full bg-blue-950 text-white flex flex-col pl-5 pr-8 shadow-[5px_0_10px_rgba(0,0,0,0.35)] ")}>
                         <nav className="font-[NiramitReg]">
                             <div className="flex flex-row mt-5 hover:bg-cyan-900">
                                 <img src={icon} height="35px" width="35px" />
@@ -107,7 +107,7 @@ export default function MainLayout() {
             <div className='justify-items-center flex'>
                 <div className="flex relative max-w-md mx-auto mt-7 ">
                     <Input type="text" placeholder="Search room..." value={search}
-                        className={"h-[45px] border-2 border-blue-950 pl-10 pr-4 py-2 border-2 rounded-full w-[500px] focus:border-[1] "} />
+                        className={"h-[45px] border-blue-950 pl-10 pr-4 py-2 border-2 rounded-full w-[500px] focus:border-[1] "} />
                     <Button type="submit">Search</Button>
                 </div>
             </div>
