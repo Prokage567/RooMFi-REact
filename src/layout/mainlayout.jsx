@@ -57,7 +57,7 @@ export default function MainLayout() {
                                             <AccordionContent>Computer Laboratories</AccordionContent>
                                             <AccordionContent>Electronics Laboratories</AccordionContent>
                                             <AccordionContent>Electrical Laboratories</AccordionContent>
-                                            <AccordionContent >Automations & Mechatronics</AccordionContent>
+                                            <AccordionContent>Automations & Mechatronics</AccordionContent>
                                             <AccordionContent>Instrumentations</AccordionContent>
                                             <AccordionContent>Fiber Optic Laboratory</AccordionContent>
                                             <AccordionContent>Other Rooms</AccordionContent>
@@ -67,7 +67,24 @@ export default function MainLayout() {
                                 <Link to="/section">
                                     <Accordion type="single" collapsible className="w-full">
                                         <AccordionItem value="item-2">
-                                            <AccordionTrigger >Section</AccordionTrigger>
+                                            <AccordionTrigger>Section</AccordionTrigger>
+                                            <AccordionContent>CPROG/AUTO</AccordionContent>
+                                            <AccordionContent>STEM</AccordionContent>
+                                            <AccordionContent>1H1</AccordionContent>
+                                            <AccordionContent>1H2</AccordionContent>
+                                            <AccordionContent>1H3</AccordionContent>
+                                            <AccordionContent>IET</AccordionContent>
+                                            <AccordionContent>IAMT</AccordionContent>
+                                            <AccordionContent>DAD</AccordionContent>
+                                            <AccordionContent>DENSO</AccordionContent>
+                                        </AccordionItem>
+                                    </Accordion>
+                                </Link>
+
+                                <Link to="/teacher" className="flex items-center">
+                                    <Accordion type="single" collapsible className="w-full">
+                                        <AccordionItem value="item-3">
+                                            <AccordionTrigger>Teacher</AccordionTrigger>
                                             <AccordionContent>CPROG/AUTO</AccordionContent>
                                             <AccordionContent>STEM</AccordionContent>
                                             <AccordionContent>1H1</AccordionContent>
@@ -81,10 +98,6 @@ export default function MainLayout() {
                                     </Accordion>
                                 </Link>
                             </div>
-
-                            <a className="flex items-center p-2 hover:bg-cyan-700">
-                                Teacher
-                            </a>
                         </nav>
                     </aside>
                 </div>
