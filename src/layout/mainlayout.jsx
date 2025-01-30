@@ -52,7 +52,7 @@ export default function MainLayout() {
                             <div className='overflow-auto no-scrollbar max-h-screen w-[13vw]'>
                             <a className="flex flex-col items-center mt-[20px]">
                                 <Accordion type="single" collapsible className="w-full">
-                                    <AccordionItem>
+                                    <AccordionItem value="1">
                                         <AccordionTrigger>Room</AccordionTrigger>
                                         <AccordionContent>Lecture Rooms</AccordionContent>
                                         <AccordionContent>Science Laboratories</AccordionContent>
@@ -67,7 +67,7 @@ export default function MainLayout() {
                                 </Accordion>
 
                                 <Accordion type="single" collapsible className="w-full">
-                                    <AccordionItem>
+                                    <AccordionItem value="2">
                                         <AccordionTrigger >Section</AccordionTrigger>
                                         <AccordionContent>CPROG/AUTO</AccordionContent>
                                         <AccordionContent>STEM</AccordionContent>
@@ -99,10 +99,6 @@ export default function MainLayout() {
                     <Button type="submit">Search</Button>
                 </div>
             </div>
-
-            <Calendar>
-
-            </Calendar>
             <Outlet />
         </>
     )
