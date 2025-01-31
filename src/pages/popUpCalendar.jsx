@@ -9,13 +9,15 @@ import {
 } from "@/components/ui/popover"
 import './index.css'
 import { CalendarIcon } from 'lucide-react'
+import dayjs from 'dayjs'
+import {cn} from "@/lib/utils"
 
 export default function popUpCalendar({
     className,
   }) {
     const [date, setDate] = React.useState({
-      from: new Date(2022, 0, 20),
-      to: addDays(new Date(2022, 0, 20), 20),
+      from: dayjs("2022-01-20").toDate(),
+      to: dayjs("2022-01-20").add(20, "days").toDate(),
     })
    
     return (

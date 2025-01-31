@@ -6,13 +6,14 @@ import Add from "../assets/images/add.svg"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input} from "../components/ui/input"
 import {Label} from "../components/ui/label"
+import {Checkbox} from "../components/ui/checkbox"
+import { Button } from "../components/ui/button"
 
 
 
@@ -57,61 +58,40 @@ export default function section(){
               <Input autofocus e={false}  
                      id="subject" 
                      placeholder="Input Subject" />
+
+              <div className="grid grid-flow-col w-[450px] h-[150px] gap-2 ">
+
+                <div className=" w-[150px] row-span-3" >
+                  <Label className="ml-10">Time</Label><br/>
+                  <Label >From:</Label>
+                  <Input className="border-none focus:outline-white"  type="time"/>
+                  <Label>To:</Label>
+                  <Input className="border-none" type="time"/>
+                </div>
+
+                <div className="col-span-2 w-[270px]  h-[110px]  mt-2 ">
+                  <div className="items-top flex space-x-2">
+                    <Checkbox id="application" />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="application"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                        Apply to all week days? (monday)
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-span-2 row-span-2 ml-[210px]">
+                  <Button> save </Button>
+                </div>
+
+              </div>
+                      
             </div>
-
-            
-
           </DialogContent>
         </Dialog>
-
-    </> 
-  )
+      </>
+    )
 }
 
-
-// export default function section() {
-//   // const [date, setDate] = React.useState<Date | undefined>(new Date())
-
-
-//   return (
-//     <>
-
-//     </>
-//   )
-// }
-
-
-//  import { Box } from '@mui/material'
-// import React from 'react'
-// import "./App.css"
-// import head from "../assets/images/head.svg"
-
-
-// const nav_bar= {
-//    backgroundColor: "#242F5B", 
-//     width: "286px",
-//     height: "100vh",
-//     top:"90px",
-//     left:"0px",
-//     boxShadow: "10px -1px 20px rgba(36, 47, 91, 0.5)"
-// }
-// export default function section() {
-
- 
-//     return (
-//         <>
-//             <Box sx= {{
-//                  overflow: "hidden",
-//                  height: "90px",
-//             }}>
-//                 <img src= {head} width="1536px"></img>
-//             </Box>
-
-//             <Box sx= {nav_bar}>
-//                 hello!!
-//             </Box>
-//         </>
-
-
-//   )
-// }
