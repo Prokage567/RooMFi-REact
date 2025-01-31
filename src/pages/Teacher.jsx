@@ -93,7 +93,7 @@ return(
         </div>
         <div className='justify-center flex -ml-[650px]'>
             <div className="flex items-center">
-                <Card className="mt-7 w-[300px] h-[250]">
+                <Card className="mt-7 w-[300px] h-[250] overflow-auto">
                     <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 bg-[#BFAC88]">
                         <CardTitle style={{ margin: 0 }} className="font-normal mt-0 text-[18px] font-[NiramitReg] text-[#0F1A42] text-center">Jeco Renz Concepcion</CardTitle>
                         <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">I.T Teacher</CardDescription>
