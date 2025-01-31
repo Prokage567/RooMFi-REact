@@ -21,7 +21,7 @@ import { AuthRegister } from '../api/auth'
 import $ from 'jquery'
 import Theme from '../components/CustomComponents'
 import { toast } from 'react-toastify'
-import withAuth from '../highOrdeerComponent/withAuth'
+import withoutAuth from '../highOrdeerComponent/withoutAuth'
 
 
 const customStyle = {
@@ -238,4 +238,4 @@ function Register() {
     )
 }
 
-export default withAuth(Register)
+export default withoutAuth(Register)
