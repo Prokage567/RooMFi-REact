@@ -6,7 +6,7 @@ import head from '../assets/images/head.svg'
 import logo from '../assets/images/logo.svg'
 import icon from '../assets/images/homeIcon.svg'
 import icon2 from '../assets/images/icon2.svg'
-import {Input} from '@/components/ui/Input'
+import { Input } from '@/components/ui/Input'
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
@@ -52,7 +52,7 @@ export default function MainLayout() {
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
                                     <Link to="/room" className="flex flex-col ">
-                                    <AccordionTrigger img={icon2}>Room</AccordionTrigger>
+                                        <AccordionTrigger img={icon2}>Room</AccordionTrigger>
                                     </Link>
                                     <AccordionContent>Lecture Rooms</AccordionContent>
                                     <AccordionContent>Science Laboratories</AccordionContent>
@@ -68,23 +68,23 @@ export default function MainLayout() {
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-2">
                                     <Link to="/room" className="flex flex-col ">
-                                    <AccordionTrigger img={icon2}>Room</AccordionTrigger>
+                                        <AccordionTrigger img={icon2}>Section</AccordionTrigger>
                                     </Link>
-                                    <AccordionContent>Lecture Rooms</AccordionContent>
-                                    <AccordionContent>Science Laboratories</AccordionContent>
-                                    <AccordionContent>Computer Laboratories</AccordionContent>
-                                    <AccordionContent>Electronics Laboratories</AccordionContent>
-                                    <AccordionContent>Electrical Laboratories</AccordionContent>
-                                    <AccordionContent>Automations & Mechatronics</AccordionContent>
-                                    <AccordionContent>Instrumentations</AccordionContent>
-                                    <AccordionContent>Fiber Optic Laboratory</AccordionContent>
-                                    <AccordionContent>Other Rooms</AccordionContent>
+                                    <AccordionContent>CPROG/AUTO</AccordionContent>
+                                    <AccordionContent>STEM</AccordionContent>
+                                    <AccordionContent>1H1</AccordionContent>
+                                    <AccordionContent>1H2</AccordionContent>
+                                    <AccordionContent>1H3</AccordionContent>
+                                    <AccordionContent>IET</AccordionContent>
+                                    <AccordionContent>IAMT</AccordionContent>
+                                    <AccordionContent>DAD</AccordionContent>
+                                    <AccordionContent>DENSO</AccordionContent>
                                 </AccordionItem>
                             </Accordion>
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-3">
                                     <Link to="/room" className="flex flex-col ">
-                                    <AccordionTrigger img={icon2}>Room</AccordionTrigger>
+                                        <AccordionTrigger img={icon2}>Teacher</AccordionTrigger>
                                     </Link>
                                     <AccordionContent>Lecture Rooms</AccordionContent>
                                     <AccordionContent>Science Laboratories</AccordionContent>
@@ -100,7 +100,7 @@ export default function MainLayout() {
                         </div>
                     </nav>
                     <main>
-                        
+
                         <Outlet />
                     </main>
                 </div>
