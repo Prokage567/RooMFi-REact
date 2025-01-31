@@ -22,6 +22,8 @@ export default function section(){
 
   return(
     <>
+    {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
+    solution that might help remove this file and merge it with section*/}
         <div  className="justify-end border ml-[160px] line mr-[30px]">
         <Cal
           mode="single"

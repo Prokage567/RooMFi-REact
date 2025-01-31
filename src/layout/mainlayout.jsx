@@ -5,6 +5,7 @@ import '../pages/index.css'
 import logo from '../assets/images/logo.svg'
 import icon from '../assets/images/homeIcon.svg'
 import icon2 from '../assets/images/icon2.svg'
+import icon3 from '../assets/images/icon3.svg'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export default function MainLayout() {
@@ -32,7 +33,7 @@ export default function MainLayout() {
                     </div>
                 </nav>
                 <div className='flex-1 flex text-white font-[NiramitReg]'>
-                    <nav className="bg-blue-950 shadow-[5px_0_10px_rgba(0,0,0,0.35)]">
+                    <nav className="bg-[#242F5B] shadow-[5px_0_10px_rgba(0,0,0,0.35)]">
                         <div className=''>
                             <Link to='/homepage' className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-cyan-700 lg:hover:bg-cyan-700 hover:rounded-[10px] font-[NiramitBold] sticky top-0 transition-all ">
                                 <img src={icon} className=' lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-cyan-700 hover:rounded-[10px]'/>
@@ -47,7 +48,7 @@ export default function MainLayout() {
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
                                     <Link to="/room" className="flex flex-col ">
-                                        <AccordionTrigger img={icon2} className="lg:-ml-3 md:-ml-[12px] ml-0">Room</AccordionTrigger>
+                                        <AccordionTrigger img={icon2} className="lg:ml-1 md:ml-[4px] ml-0 whitespace-pre">Room    </AccordionTrigger>
                                     </Link>
                                     <AccordionContent>Lecture Rooms</AccordionContent>
                                     <AccordionContent>Science Laboratories</AccordionContent>
@@ -79,7 +80,7 @@ export default function MainLayout() {
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-3">
                                     <Link to="/teacher" className="flex flex-col ">
-                                        <AccordionTrigger img={icon2}>Teacher</AccordionTrigger>
+                                        <AccordionTrigger img={icon3}>Teacher</AccordionTrigger>
                                     </Link>
                                     <AccordionContent>Lecture Rooms</AccordionContent>
                                     <AccordionContent>Science Laboratories</AccordionContent>
@@ -94,7 +95,7 @@ export default function MainLayout() {
                             </Accordion>
                         </div>
                     </nav>
-                    <main>
+                    <main className='text-slate-900'>
                         <Outlet />
                     </main>
                 </div>
