@@ -20,12 +20,12 @@ const AccordionTrigger = React.forwardRef(({img, className, children, ...props }
         className
       )}
       {...props}>
-      <img src={img} width="45px" className="hover:bg-cyan-700 hover:rounded-[10px] pl-[3px] pr-[3px] relative lg:left-5 md:-left-7 left-2 pt-1 pb-1" />
+      <img src={img} width="35px" className="hover:bg-cyan-700 hover:rounded-[10px] pl-[3px] pr-[3px] relative lg:left-5 md:-left-7 left-2 pt-1 pb-1" />
       <div className="hidden lg:block md:block md:-indent-[8px] lg:indent-[30px]">
         {children}
       </div>
       <ChevronDown
-        className="h-7 w-7 lg:ml-[30px] hidden lg:block shrink-0 text-stone transition-transform duration-200 " />
+        className="h-7 w-7 lg:ml-[35px] hidden lg:block shrink-0 text-stone transition-transform duration-200 " />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ))
