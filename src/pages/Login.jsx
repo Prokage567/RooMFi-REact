@@ -55,7 +55,7 @@ function Login() {
                 if (response?.Authenticated) {
                     toast.success("successfully logged in!")
                     setCookie("token", response?.token)
-                    navigate('../homepage')
+                    navigate('./homepage')
                 } 
                 setwarn(response.errors)
             }).finally(() =>

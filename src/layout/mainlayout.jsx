@@ -2,28 +2,12 @@ import { useContext, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { AuthContext } from '../context/context'
 import '../pages/index.css'
-import head from '../assets/images/head.svg'
 import logo from '../assets/images/logo.svg'
 import icon from '../assets/images/homeIcon.svg'
 import icon2 from '../assets/images/icon2.svg'
-import { Input } from '@/components/ui/Input'
-import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
 
 export default function MainLayout() {
-
-    const [allSection, setAllSection] = useState(false);
 
     const [search, setSearch] = useState();
 
@@ -111,7 +95,6 @@ export default function MainLayout() {
                         </div>
                     </nav>
                     <main>
-                        <Input symbol={true}></Input>
                         <Outlet />
                     </main>
                 </div>
