@@ -9,6 +9,17 @@ import icon2 from '../assets/images/icon2.svg'
 import { Input } from '@/components/ui/Input'
 import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 
 export default function MainLayout() {
 
@@ -30,9 +41,26 @@ export default function MainLayout() {
                         <div className="md:[200px] flex flex-row p-3">
                             <img src={logo} className='w-[85px] md:w-[75px] lg:w-[65px]' />
                             <div className='font-[KronaOne] text-orange-500 md:text-[50px]/[34.8px] lg:text-[40px]/[31.8px] text-[55px]/[39.8px] indent-[15px]'>
-                                <br />
+                                <br/>
                                 RooMFI
                             </div>
+                            <Dialog className="rounded-full" >
+                                      <DialogTrigger>
+                                         
+                                      </DialogTrigger>
+                            
+                                      <DialogContent className="bg-slate-900 border-none text-[#fff]">
+                                        <DialogHeader>
+                                          <DialogTitle className=" font-thin font-[NiramitReg]">Create an Account</DialogTitle>
+                                        </DialogHeader>
+                            
+                                        <div className="grid w-full max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
+                                          <Label htmlFor="email">Room NO.</Label>
+                                          <Input type="email" id="email" placeholder="Input Room Number" />
+                                        </div>
+                            
+                                      </DialogContent>
+                                    </Dialog>
                         </div>
                     </div>
                 </nav>
