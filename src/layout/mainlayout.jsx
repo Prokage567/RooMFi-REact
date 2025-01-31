@@ -104,14 +104,15 @@ export default function MainLayout() {
 
 
             </nav >
-            <div className='justify-items-center flex'>
+            {/* <div className='justify-items-center flex'>
                 <div className="flex relative max-w-md mx-auto mt-7 ">
                     <Input type="text" placeholder="Search room..." value={search}
                         className={"h-[45px] border-2 border-blue-950 pl-10 pr-4 py-2 border-2 rounded-full w-[500px] focus:border-[1] "} />
                     <Button type="submit">Search</Button>
                 </div>
-            </div>
-            <Outlet />
+            </div> */}
+            <div className="flex justify-center">
+            <Outlet /></div>
         </>
     )
 }
