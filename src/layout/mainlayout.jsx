@@ -83,7 +83,7 @@ export default function MainLayout() {
                             </Accordion>
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-3">
-                                    <Link to="/room" className="flex flex-col ">
+                                    <Link to="/teacher" className="flex flex-col ">
                                         <AccordionTrigger img={icon2}>Teacher</AccordionTrigger>
                                     </Link>
                                     <AccordionContent>Lecture Rooms</AccordionContent>
@@ -100,7 +100,7 @@ export default function MainLayout() {
                         </div>
                     </nav>
                     <main>
-
+                        
                         <Outlet />
                     </main>
                 </div>
