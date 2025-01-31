@@ -39,7 +39,7 @@ export default function MainLayout() {
                 <div className='flex-1 flex text-white font-[NiramitReg]'>
                     <nav className="bg-blue-950 shadow-[5px_0_10px_rgba(0,0,0,0.35)]">
                         <div className=''>
-                            <Link to='/homepage' className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-cyan-700 hover:rounded-[10px] lg:hover:bg-cyan-700 hover:rounded-[10px] font-[NiramitBold] sticky top-0 transition-all ">
+                            <Link to='/homepage' className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-cyan-700 lg:hover:bg-cyan-700 hover:rounded-[10px] font-[NiramitBold] sticky top-0 transition-all ">
                                 <img src={icon} className=' lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-cyan-700 hover:rounded-[10px]'/>
                                 <div className='hidden lg:block md:block transition-all'>
                                     <br />
