@@ -6,8 +6,6 @@ import head from '../assets/images/head.svg'
 import logo from '../assets/images/logo.svg'
 import icon from '../assets/images/homeIcon.svg'
 import icon2 from '../assets/images/icon2.svg'
-import { Input } from '@/components/ui/Input'
-import { cn } from "@/lib/utils"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 
 export default function MainLayout() {
