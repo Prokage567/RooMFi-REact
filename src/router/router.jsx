@@ -3,7 +3,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Homepage from "../pages/Homepage";
 import Room from "../pages/room";
-import Section from "../pages/section";
+import Section from "../pages/Section";
+import PopUpCalendar from "../pages/popUpCalendar";
 import MainLayout from "../layout/mainlayout";
 import Teacher from "../pages/Teacher";
 
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         {
             path: "/teacher",
             element: <Teacher />
+        },
+        {
+            path:"/PopUpCalendar",
+            element: <PopUpCalendar />
         }
     ]
     

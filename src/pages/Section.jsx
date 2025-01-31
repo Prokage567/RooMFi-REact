@@ -15,6 +15,7 @@ import { Input} from "../components/ui/input"
 import {Label} from "../components/ui/label"
 
 
+
 export default function section(){
   const [date, setDate] = useState(new Date())
 
@@ -39,14 +40,26 @@ export default function section(){
               <DialogTitle className=" font-thin font-[NiramitReg]">Add an Event</DialogTitle>
             </DialogHeader>
 
-            <div className="grid w-full max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
+            <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
               <Label htmlFor="email">Room NO.</Label>
-              <Input type="email" id="email" placeholder="Input Room Number" />
+              <Input  autofocus e={false} 
+                      className="focus:outline-double" 
+                      type="number" 
+                      id="room.no" 
+                      placeholder="Input Room Number" />
+
               <Label htmlFor="email">Teacher Name</Label>
-              <Input type="email" id="email" placeholder="Type or Select a Teacher" />
+              <Input autofocus e={false} 
+                     id="teacher_name"
+                     placeholder="Type or Select a Teacher" />
+
               <Label htmlFor="email">Subject</Label>
-              <Input type="email" id="email" placeholder="Input Subject" />
+              <Input autofocus e={false}  
+                     id="subject" 
+                     placeholder="Input Subject" />
             </div>
+
+            
 
           </DialogContent>
         </Dialog>
