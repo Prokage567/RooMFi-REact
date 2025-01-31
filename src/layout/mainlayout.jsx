@@ -42,23 +42,6 @@ export default function MainLayout() {
                                 <br/>
                                 RooMFI
                             </div>
-                            <Dialog className="rounded-full" >
-                                      <DialogTrigger>
-                                         
-                                      </DialogTrigger>
-                            
-                                      <DialogContent className="bg-slate-900 border-none text-[#fff]">
-                                        <DialogHeader>
-                                          <DialogTitle className=" font-thin font-[NiramitReg]">Create an Account</DialogTitle>
-                                        </DialogHeader>
-                            
-                                        <div className="grid w-full max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
-                                          <Label htmlFor="email">Room NO.</Label>
-                                          <Input type="email" id="email" placeholder="Input Room Number" />
-                                        </div>
-                            
-                                      </DialogContent>
-                                    </Dialog>
                         </div>
                     </div>
                 </nav>
