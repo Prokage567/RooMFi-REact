@@ -6,7 +6,6 @@ import Room from "../pages/room";
 import Section from "../pages/section";
 import MainLayout from "../layout/mainlayout";
 import Teacher from "../pages/teacher";
-import Teacher from "../pages/Teacher";
 
 const router = createBrowserRouter([
   {

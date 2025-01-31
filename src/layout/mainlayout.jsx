@@ -108,7 +108,7 @@ export default function MainLayout() {
                 <div className="flex relative max-w-md mx-auto mt-7 ">
                     <Input type="text" placeholder="Search room..." value={search}
                         className={"h-[45px] border-2 border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1] "} />
-                    <Button type="submit">Search</Button>
+                    <Button type="submit" className='mt-[0.15rem]'>Search</Button>
                 </div>
             </div>
             <Outlet />
