@@ -1,13 +1,13 @@
 import React from 'react'
 import { format } from "date-fns"
-import { Calendar } from '../components/ui/calendar'
-import {Button} from "../components/ui/button" 
+import { Calendar } from './ui/calendar'
+import {Button} from "./ui/button" 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import './index.css'
+import '../pages/index.css'
 import { CalendarIcon } from 'lucide-react'
 import dayjs from 'dayjs'
 import {cn} from "@/lib/utils"
