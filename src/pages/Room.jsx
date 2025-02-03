@@ -1,28 +1,70 @@
 import * as React from "react"
  
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import { Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious
+   } from "@/components/ui/carousel"
+import Room317 from "../assets/images/rooms/317.jpg"
+import { Card, CardContent } from "@/components/ui/card"
 
-function Room(){
+
+
+export default function Room(){
 
     return(
-        <>  
-        
-        <div className="justify-center flex">
-            <div className="pl-10 pt-5 text-[45px] text-[#0F1A42]">
-                Lecture Rooms
-            </div>
-            <div>
-                <AspectRatio ratio={16/9} className="bg-muted">
-                    <img 
-                        src="" 
-                        alt="" 
-                        className=""
-                    />
-                </AspectRatio>
-            </div>
-
+        <>
+        <div className="flex items-center justify-center flex-col">
+        <Carousel className="w-full max-w-4xl mx-auto">
+          <CarouselContent>
+            <CarouselItem className="basis-1/4">
+              <Card className="shadow-lg">
+                <CardContent className="p-2">
+                  <img src={Room317} alt="317" className="w-full h-48 object-cover rounded-lg" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+            <CarouselItem className="basis-1/4">
+              <Card className="shadow-lg">
+                <CardContent className="p-2">
+                  <img src={Room317} alt="317" className="w-full h-48 object-cover rounded-lg" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+            <CarouselItem className="basis-1/4">
+              <Card className="shadow-lg">
+                <CardContent className="p-2">
+                  <img src={Room317} alt="317" className="w-full h-48 object-cover rounded-lg" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+            <CarouselItem className="basis-1/4">
+              <Card className="shadow-lg">
+                <CardContent className="p-2">
+                  <img src={Room317} alt="317" className="w-full h-48 object-cover rounded-lg" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+            <CarouselItem className="basis-1/4">
+              <Card className="shadow-lg">
+                <CardContent className="p-2">
+                  <img src={Room317} alt="317" className="w-full h-48 object-cover rounded-lg" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+            <CarouselItem className="basis-1/4">
+              <Card className="shadow-lg">
+                <CardContent className="p-2">
+                  <img src={Room317} alt="317" className="w-full h-48 object-cover rounded-lg" />
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          </CarouselContent>
+        <CarouselPrevious/>
+        <CarouselNext />
+        </Carousel>
         </div>
         </>
     )
-}
-export default Room
+  }
