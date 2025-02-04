@@ -1,6 +1,14 @@
 
 import { React, useState } from "react"
 import { Calendar as Cal } from "../components/ui/calendar"
+import { Cal as Kal } from "../components/ui/popCalendar"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../components/ui/accordion"
+
 import './index.css'
 import Add from "../assets/images/add.svg" 
 import {
@@ -12,16 +20,14 @@ import { Input} from "../components/ui/input"
 import {Label} from "../components/ui/label"
 import {Checkbox} from "../components/ui/checkbox"
 import { Button } from "../components/ui/button"
-// import {PopUpCalendar as PopUp} from "../components/popUpCalendar/"
 import {format} from "date-fns"
-import { Calendar } from '../components/ui/calendar' 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
 import '../pages/index.css'
-import { CalendarIcon } from 'lucide-react'
+import { Calendar, CalendarIcon } from 'lucide-react'
 import dayjs from 'dayjs'
 import {cn} from "@/lib/utils"
 
@@ -38,7 +44,7 @@ export default function section({
       })
 
   return(
-    <>               
+    <>
     {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
         
@@ -62,31 +68,40 @@ export default function section({
             <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
               <Label className="text-[20px]">Room NO.</Label>
               <Input  autofocus e={false} 
-                      className="focus:outline-double h-10 placeholder:text-[18px] text-[20px] " 
+                      className="focus:outline-double h-10 placeholder:text- md:text-[20px] [18px] text-[20px] " 
                       type="number" 
                       id="room.no" 
                       placeholder="Input Room Number" />
-
+{/* 
               <Label className="text-[20px]">Teacher Name</Label>
               <Input autofocus e={false} 
                      id="teacher_name"
-                     className="h-10 placeholder:text-[18px] text-[20px]"
-                     placeholder="Type or Select a Teacher" />
+                     className="h-10 placeholder:text-[18px] md:text-[20px]"
+                     placeholder="Type or Select a Teacher" /> */}
+              
+              <Accordion className="" type="single" collapsible>
+                <AccordionItem value="item1" collapsible>
+                <AccordionTrigger>Type or Select a Teacher</AccordionTrigger>
+                <AccordionContent> yuhs </AccordionContent>
+                <AccordionContent> yuhs </AccordionContent>
+                <AccordionContent> yuhs </AccordionContent>
+                </AccordionItem>   
+              </Accordion>
 
               <Label className="text-[20px]">Subject</Label>
               <Input autofocus e={false}  
-                     className="h-10 placeholder:text-[18px] text-[20px]"
+                     className="h-10 placeholder:text-[18px]  md:text-[20px] bg-white text-[30px] text-[#0F172A]"
                      id="subject" 
                      placeholder="Input Subject" />
 
-              <div className={cn("grid gap-2", className)}>
+              <div className={cn("grid gap-2 mt-3", className)}>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
                             id="date"
                             variant={"outline"}
                             className={cn(
-                              "w-[300px] justify-start text-left font-normal",
+                              "w-[300px] justify-start text-left text-[18px] font-normal hover:border-white hover:border hover:line bg-transparent",
                               !date && "text-muted-foreground"
                             )}
                           >
@@ -105,22 +120,21 @@ export default function section({
                             )}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
+                        <PopoverContent className="w-[600px] h-[350px]" align="start">
+                          <Kal
                             initialFocus
                             mode="range"
                             defaultMonth={date?.from}
                             selected={date}
                             onSelect={setDate}
                             numberOfMonths={2}
-                          
                           />
                         </PopoverContent>
                       </Popover>
                     </div>
               
               
-              <div className="grid grid-flow-col w-[450px] mt-[15px] h-[150px] gap-2 ">
+              <div className="grid grid-flow-col w-[450px] mt-[10px] h-[150px] gap-2 ">
 
                 <div className=" w-[150px] row-span-3" >
                   <Label className="ml-10 text-[20px]">Time</Label><br/>
