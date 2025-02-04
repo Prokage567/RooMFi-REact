@@ -12,23 +12,43 @@ import { Input} from "../components/ui/input"
 import {Label} from "../components/ui/label"
 import {Checkbox} from "../components/ui/checkbox"
 import { Button } from "../components/ui/button"
-// import {PopUpCalendar as PopUp} from "../components/popUpCalendar"
+// import {PopUpCalendar as PopUp} from "../components/popUpCalendar/"
+import {format} from "date-fns"
+import { Calendar } from '../components/ui/calendar' 
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import '../pages/index.css'
+import { CalendarIcon } from 'lucide-react'
+import dayjs from 'dayjs'
+import {cn} from "@/lib/utils"
 
 
 
-export default function section(){
-  const [date, setDate] = useState(new Date())
+export default function section({
+  className,
+}) {
+  // const [date, setDate] = useState(new Date())
+  
+      const [date, setDate] = useState({
+        from: dayjs("2022-01-20").toDate(),
+        to: dayjs("2022-01-20").add(20, "days").toDate(),
+      })
 
   return(
     <>
     {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
-        <div  className="justify-end border ml-[160px] line mr-[30px]">
+        
+        <div className="flex flex col"> 
+          <div  className="justify-end border ml-[100px] line">
         <Cal
           mode="single"
           selected= {date}
           onSelect = {setDate}
-          className="rounded-md ml-[30px] font-[NiramitReg] text-[#242F5B] mt-[10px] border-none"
+          className="rounded-md font-[NiramitReg] text-[#242F5B] -pl-[500px] mt-[10px] border-none"
         />
         </div>
 
@@ -58,9 +78,48 @@ export default function section(){
                      className="h-10 placeholder:text-[18px] text-[20px]"
                      id="subject" 
                      placeholder="Input Subject" />
-              
-              {/* <PopUp  /> */}
 
+              <div className={cn("grid gap-2", className)}>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            id="date"
+                            variant={"outline"}
+                            className={cn(
+                              "w-[300px] justify-start text-left font-normal",
+                              !date && "text-muted-foreground"
+                            )}
+                          >
+                            <CalendarIcon />
+                            {date?.from ? (
+                              date.to ? (
+                                <>
+                                  {format(date.from, "LLL dd, y")} -{" "}
+                                  {format(date.to, "LLL dd, y")}
+                                </>
+                              ) : (
+                                format(date.from, "LLL dd, y")
+                              )
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            initialFocus
+                            mode="range"
+                            defaultMonth={date?.from}
+                            selected={date}
+                            onSelect={setDate}
+                            numberOfMonths={2}
+                          
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+              
+              
               <div className="grid grid-flow-col w-[450px] mt-[15px] h-[150px] gap-2 ">
 
                 <div className=" w-[150px] row-span-3" >
@@ -73,7 +132,7 @@ export default function section(){
 
                 <div className="col-span-2 w-[270px]  h-[110px]  mt-2 ">
                   <div className="items-top flex space-x-2">
-                    <Checkbox id="application" />
+                    <Checkbox id="application" className="border-white hover:bg-slate-500/80"/>
                     <div className="grid gap-1.5 leading-none">
                       <label
                         htmlFor="application"
@@ -93,6 +152,7 @@ export default function section(){
             </div>
           </DialogContent>
         </Dialog>
+          </div>
       </>
     )
 }

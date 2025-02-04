@@ -34,11 +34,21 @@ export const checkToken = async () => {
         }
     })
     return await res.json()
-
 }
 export const logout = async (inputs) => {
     const res = await fetch(`${URL}/logout`, {
         method: "POST",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${inputs}`
+        }
+    })
+    return await res.json()
+}
+export const getSched = async () => {
+    const res = await fetch(`${URL}/teacher`, {
+        method: "GET",
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
