@@ -51,8 +51,7 @@ export const getSched = async () => {
         method: "GET",
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${inputs}`
+            'Content-Type': 'application/json'
         }
     })
     return await res.json()
