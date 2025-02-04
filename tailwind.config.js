@@ -50,8 +50,37 @@ export default {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
+<<<<<<< HEAD
+=======
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+>>>>>>> ae5281432a1d30dbce135d76e425b1ebb6e12fd8
   		}
   	}
   },
   plugins: [require("tailwindcss-animate")],
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> ae5281432a1d30dbce135d76e425b1ebb6e12fd8

@@ -2,7 +2,6 @@ import {
     Box,
     Button,
     FormControl,
-    FormHelperText,
     Input
 } from '@mui/material'
 import {
@@ -10,39 +9,62 @@ import {
     , VisibilityOff
 } from '@mui/icons-material'
 import * as React from 'react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import InputAdornment from '@mui/material/InputAdornment'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ThemeProvider } from '@emotion/react'
 import theme from '../../theme'
 import logo from '../assets/images/logo.svg'
 import './index.css'
-import { DMLAuth } from '../api/auth'
-import { toast } from 'react-toastify'
+import { AuthRegister } from '../api/auth'
 import $ from 'jquery'
 import Theme from '../components/CustomComponents'
+import { toast } from 'react-toastify'
+import withoutAuth from '../highOrdeerComponent/withoutAuth'
+
+
+const customStyle = {
+    background: "#D9D9D9",
+    width: "315px",
+    borderRadius: "5px"
+}
+const customFonts = {
+    color: "#D9D9D9",
+    fontFamily: "NiramitReg",
+    fontSize: "17px",
+    paddingTop: "5px"
+}
 
 function Register() {
     useEffect(() => {
         Theme()
     }, [])
 
+    const [warn, setwarn] = useState({})
+    const [load, setload] = useState(false)
+    const navigate = useNavigate()
     const register = () => {
-        const username = $("#username").val()
-        const email = $("#email").val()
-        const firstName = $("#firstName").val()
-        const lastName = $("#lastName").val()
-        const password = $("#password").val()
-        const PassConfirm = $("#PassConfirm").val()
+        if (!load) {
+            const name = $("#username").val()
+            const email = $("#email").val()
+            const first_name = $("#firstName").val()
+            const last_name = $("#lastName").val()
+            const password = $("#password").val()
+            const password_confirmation = $("#PassConfirm").val()
 
-        DMLAuth({ name: username, email: email, first_name: firstName, last_name: lastName, password: password, password_confirmation: PassConfirm }, "POST")
-            .then(response => {
-                console.log(register)
-            })
+            AuthRegister({ name, email, first_name, last_name, password, password_confirmation }).then(response => {
+                if (response?.created) {
+                    toast.success("success")
+                    navigate('../login')
+                }
+                setwarn(response.errors)
+            }).finally(() =>
+                setload(false))
+        }
 
     }
-    const [showPassword, setShowPassword] = React.useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const handleClickShowPassword = () => setShowPassword((show) => !show)
 
@@ -86,144 +108,128 @@ function Register() {
                             </Box>
                         </Box>
 
-                        <Box onClick={() => register} sx={{
+                        <Box sx={{
                             paddingBottom: "4vh",
                             paddingLeft: "25px",
                             paddingRight: "25px"
                         }}>
-                            <Typography sx={{
-                                color: "#D9D9D9",
-                                fontFamily: "NiramitReg",
-                                fontSize: "17px"
-                            }}>
-                                Username:
-                            </Typography>
-                            <FormControl sx={{
-                                background: "#D9D9D9",
-                                width: "315px",
-                                borderRadius: "5px"
-                            }} variant="filled">
-                                <Input id="username" sx={{
-                                    paddingLeft: "10px"
-                                }} />
-                            </FormControl>
-                            <Typography sx={{
-                                color: "#D9D9D9",
-                                fontFamily: "NiramitReg",
-                                fontSize: "17px",
-                                paddingTop: "5px"
-                            }}>
-                                Email Address:
-                            </Typography>
-                            <FormControl sx={{
-                                background: "#D9D9D9",
-                                width: "315px",
-                                borderRadius: "5px"
-                            }} variant="filled">
-                                <Input id="email" sx={{
-                                    paddingLeft: "10px"
-                                }} />
-                            </FormControl>
-                            <Typography sx={{
-                                color: "#D9D9D9",
-                                fontFamily: "NiramitReg",
-                                fontSize: "17px",
-                                paddingTop: "5px"
-                            }}>
-                                Firstname:
-                            </Typography>
-                            <FormControl sx={{
-                                background: "#D9D9D9",
-                                width: "315px",
-                                borderRadius: "5px"
-                            }} variant="filled">
-                                <Input id="firstName" sx={{
-                                    paddingLeft: "10px"
-                                }} />
-                            </FormControl>
-                            <Typography sx={{
-                                color: "#D9D9D9",
-                                fontFamily: "NiramitReg",
-                                fontSize: "17px",
-                                paddingTop: "5px"
-                            }}>
-                                Lastname:
-                            </Typography>
-                            <FormControl sx={{
-                                background: "#D9D9D9",
-                                width: "315px",
-                                borderRadius: "5px"
-                            }} variant="filled">
-                                <Input id="lastName" sx={{
-                                    paddingLeft: "10px"
-                                }} />
-                            </FormControl>
-                            <Typography sx={{
-                                color: "#D9D9D9",
-                                fontFamily: "NiramitReg",
-                                fontSize: "17px",
-                                paddingTop: "5px"
-                            }}>
-                                Password:
-                            </Typography>
-                            <FormControl sx={{
-                                background: "#D9D9D9",
-                                width: "315px",
-                                borderRadius: "5px",
-                            }} variant="filled">
-                                <Input id="password" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={
-                                    <InputAdornment position="end">
-                                        <Button onClick={handleClickShowPassword}>
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </Button>
-                                    </InputAdornment>
-                                } />
-                            </FormControl>
-                            <Typography className="hello" sx={{
-                                color: "#D9D9D9",
-                                fontFamily: "NiramitReg",
-                                fontSize: "17px",
-                                paddingTop: "5px"
-                            }}>
-                                Password Confirmation:
-                            </Typography>
-                            <FormControl sx={{
-                                background: "#D9D9D9",
-                                width: "315px",
-                                borderRadius: "5px"
-                            }} variant="filled">
-                                <Input id="PassConfirm" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={
-                                    <InputAdornment position="end">
-                                        <Button onClick={handleClickShowPassword}>
-                                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                                        </Button>
-                                    </InputAdornment>
-                                } />
-                            </FormControl>
-                            <Typography color='#D9D9D9' style={{
-                                textAlign: "center",
-                                fontSize: "15px",
-                                fontFamily: "NiramitReg",
-                                paddingBottom: "25px",
-                                paddingTop: "25px"
-                            }}>
-                                Already have an account?<Link to="../pages/Login" style={{
-                                    textDecoration: "none",
-                                    color: "#D9D9D9"
-                                }}> back to Login</Link>
-                            </Typography>
-                            <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+                            <form onSubmit={register}>
 
-                                <Button  sx={{
-                                    borderRadius: "10px 10px 10px 10px",
-                                    background: "#000C3D",
-                                    color: "white",
-                                    width: "250px",
-                                    fontFamily: "NiramitReg"
+                                <Typography sx={{
+                                    color: "#D9D9D9",
+                                    fontFamily: "NiramitReg",
+                                    fontSize: "17px"
                                 }}>
-                                    Create Account
-                                </Button>
-                            </Box>
+                                    Username:
+                                </Typography>
+                                <FormControl sx={
+                                    customStyle
+                                } variant="filled">
+                                    <Input id="username" sx={{
+                                        paddingLeft: "10px"
+                                    }} />
+                                </FormControl>
+                                {warn?.name && (<div style={{fontSize:"15px", color:"red"}}>{warn.name}</div>)}
+                                <Typography sx={
+                                    customFonts
+                                }>
+                                    Email Address:
+                                </Typography>
+                                <FormControl sx={
+                                    customStyle
+                                } variant="filled">
+                                    <Input id="email" sx={{
+                                        paddingLeft: "10px"
+                                    }} />
+                                </FormControl>
+                                {warn?.email && (<div style={{fontSize:"15px", color:"red"}}>{warn.email}</div>)}
+                                <Typography sx={
+                                    customFonts
+                                }>
+                                    Firstname:
+                                </Typography>
+                                <FormControl sx={
+                                    customStyle
+                                } variant="filled">
+                                    <Input id="firstName" sx={{
+                                        paddingLeft: "10px"
+                                    }} />
+                                </FormControl>
+                                {warn?.first_name && (<div style={{fontSize:"15px", color:"red"}}>{warn.first_name}</div>)}
+                                <Typography sx={
+                                    customFonts
+                                }>
+                                    Lastname:
+                                </Typography>
+                                <FormControl sx={
+                                    customStyle
+                                } variant="filled">
+                                    <Input id="lastName" sx={{
+                                        paddingLeft: "10px"
+                                    }} />
+                                </FormControl>
+                                {warn?.last_name && (<div style={{fontSize:"15px", color:"red"}}>{warn.last_name}</div>)}
+                                <Typography sx={
+                                    customFonts
+                                }>
+                                    Password:
+                                </Typography>
+                                <FormControl sx={
+                                    customStyle
+                                } variant="filled">
+                                    <Input id="password" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={
+                                        <InputAdornment position="end">
+                                            <Button onClick={handleClickShowPassword}>
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </Button>
+                                        </InputAdornment>
+                                    } />
+
+                                </FormControl>
+                                {warn?.password && (<div style={{fontSize:"15px", color:"red"}}>{warn.password}</div>)}
+                                <Typography className="hello" sx={
+                                    customFonts
+                                }>
+                                    Password Confirmation:
+                                </Typography>
+                                <FormControl sx={
+                                    customStyle
+                                } variant="filled">
+                                    <Input id="PassConfirm" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={
+                                        <InputAdornment position="end">
+                                            <Button onClick={handleClickShowPassword}>
+                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </Button>
+                                        </InputAdornment>
+                                    } />
+
+                                    </FormControl>
+                                    {warn?.password_confirmation && (<div styles={{fontSize:"15px", color:"500"}}>{warn.password_confirmation}</div>)}                                
+                                <Typography color='#D9D9D9' style={{
+                                    textAlign: "center",
+                                    fontSize: "15px",
+                                    fontFamily: "NiramitReg",
+                                    paddingBottom: "25px",
+                                    paddingTop: "25px"
+                                }}>
+                                    Already have an account?<Link to="../Login" style={{
+                                        textDecoration: "none",
+                                        color: "#D9D9D9"
+                                    }}> back to Login</Link>
+                                </Typography>
+                                <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+
+                                    <Button onClick={register} sx={{
+                                        borderRadius: "10px 10px 10px 10px",
+                                        background: "#000C3D",
+                                        color: "white",
+                                        width: "250px",
+                                        fontFamily: "NiramitReg"
+                                    }}>
+                                        Create Account
+                                    </Button >
+                                </Box>
+                            </form>
                         </Box>
                     </Box>
                 </Box >
@@ -232,4 +238,4 @@ function Register() {
     )
 }
 
-export default Register
+export default withoutAuth(Register)
