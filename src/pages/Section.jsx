@@ -42,7 +42,7 @@ export default function section({
     {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
         
-        <div className="flex flex col"> 
+        <div className="flex  col"> 
           <div  className="justify-end border ml-[100px] line">
         <Cal
           mode="single"
