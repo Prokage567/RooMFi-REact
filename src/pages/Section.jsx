@@ -6,13 +6,13 @@ import Add from "../assets/images/add.svg"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input} from "../components/ui/input"
 import {Label} from "../components/ui/label"
+import {Checkbox} from "../components/ui/checkbox"
+import { Button } from "../components/ui/button"
+// import {PopUpCalendar as PopUp} from "../components/popUpCalendar"
 
 
 
@@ -21,6 +21,8 @@ export default function section(){
 
   return(
     <>
+    {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
+    solution that might help remove this file and merge it*/}
         <div  className="justify-end border ml-[160px] line mr-[30px]">
         <Cal
           mode="single"
@@ -30,88 +32,68 @@ export default function section(){
         />
         </div>
 
-        <Dialog className="rounded-full" >
+        <Dialog className="rounded-full w-[500px]" >
           <DialogTrigger>
             <img src={Add} className="w-[50px] h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" /> 
           </DialogTrigger>
 
           <DialogContent className="bg-slate-900 border-none text-[#fff]">
-            <DialogHeader>
-              <DialogTitle className=" font-thin font-[NiramitReg]">Add an Event</DialogTitle>
-            </DialogHeader>
 
             <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
-              <Label htmlFor="email">Room NO.</Label>
+              <Label className="text-[20px]">Room NO.</Label>
               <Input  autofocus e={false} 
-                      className="focus:outline-double" 
+                      className="focus:outline-double h-10 placeholder:text-[18px] text-[20px] " 
                       type="number" 
                       id="room.no" 
                       placeholder="Input Room Number" />
 
-              <Label htmlFor="email">Teacher Name</Label>
+              <Label className="text-[20px]">Teacher Name</Label>
               <Input autofocus e={false} 
                      id="teacher_name"
+                     className="h-10 placeholder:text-[18px] text-[20px]"
                      placeholder="Type or Select a Teacher" />
 
-              <Label htmlFor="email">Subject</Label>
+              <Label className="text-[20px]">Subject</Label>
               <Input autofocus e={false}  
+                     className="h-10 placeholder:text-[18px] text-[20px]"
                      id="subject" 
                      placeholder="Input Subject" />
+              
+              {/* <PopUp  /> */}
+
+              <div className="grid grid-flow-col w-[450px] mt-[15px] h-[150px] gap-2 ">
+
+                <div className=" w-[150px] row-span-3" >
+                  <Label className="ml-10 text-[20px]">Time</Label><br/>
+                  <Label className="text-[18px]" >From:</Label>
+                  <Input className="border-none focus:outline-white"  type="time"/>
+                  <Label className="text-[18px]">To:</Label>
+                  <Input className="border-none " type="time"/>
+                </div>
+
+                <div className="col-span-2 w-[270px]  h-[110px]  mt-2 ">
+                  <div className="items-top flex space-x-2">
+                    <Checkbox id="application" />
+                    <div className="grid gap-1.5 leading-none">
+                      <label
+                        htmlFor="application"
+                        className="font-medium leading-none peer-disabled:cursor-not-allowed text-[16px] peer-disabled:opacity-70">
+                        Apply to all week days? (monday)
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="col-span-2 row-span-2 ml-[210px]">
+                  <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
+                </div>
+
+              </div>
+                      
             </div>
-
-            
-
           </DialogContent>
         </Dialog>
-
-    </> 
-  )
+      </>
+    )
 }
 
-
-// export default function section() {
-//   // const [date, setDate] = React.useState<Date | undefined>(new Date())
-
-
-//   return (
-//     <>
-
-//     </>
-//   )
-// }
-
-
-//  import { Box } from '@mui/material'
-// import React from 'react'
-// import "./App.css"
-// import head from "../assets/images/head.svg"
-
-
-// const nav_bar= {
-//    backgroundColor: "#242F5B", 
-//     width: "286px",
-//     height: "100vh",
-//     top:"90px",
-//     left:"0px",
-//     boxShadow: "10px -1px 20px rgba(36, 47, 91, 0.5)"
-// }
-// export default function section() {
-
- 
-//     return (
-//         <>
-//             <Box sx= {{
-//                  overflow: "hidden",
-//                  height: "90px",
-//             }}>
-//                 <img src= {head} width="1536px"></img>
-//             </Box>
-
-//             <Box sx= {nav_bar}>
-//                 hello!!
-//             </Box>
-//         </>
-
-
-//   )
-// }

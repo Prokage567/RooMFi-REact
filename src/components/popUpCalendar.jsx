@@ -1,21 +1,23 @@
 import React from 'react'
 import { format } from "date-fns"
-import { Calendar } from '../components/ui/calendar'
-import {Button} from "../components/ui/button" 
+import { Calendar } from './ui/calendar'
+import {Button} from "./ui/button" 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import './index.css'
+import '../pages/index.css'
 import { CalendarIcon } from 'lucide-react'
+import dayjs from 'dayjs'
+import {cn} from "@/lib/utils"
 
 export default function popUpCalendar({
     className,
   }) {
     const [date, setDate] = React.useState({
-      from: new Date(2022, 0, 20),
-      to: addDays(new Date(2022, 0, 20), 20),
+      from: dayjs("2022-01-20").toDate(),
+      to: dayjs("2022-01-20").add(20, "days").toDate(),
     })
    
     return (

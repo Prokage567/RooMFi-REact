@@ -20,7 +20,7 @@ export default function Room(){
           <CarouselContent>
             <CarouselItem className="basis-1/4">
               <Card className="shadow-lg">
-                <CardContent className="p-2">
+                <CardContent className="p-2"> 
                   <img src={Room317} alt="317" className="w-full h-48 object-cover rounded-lg" />
                 </CardContent>
               </Card>
