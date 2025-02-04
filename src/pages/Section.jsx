@@ -38,7 +38,7 @@ export default function section({
       })
 
   return(
-    <>
+    <>h
     {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
         
