@@ -22,9 +22,9 @@ function Teacher() {
     
     return (
         <>
-            <div className='justify-center flex ml-10 gap-12'>
+            <div className='justify-center  ml-5 gap-5 border line flex flex-wrap'>
                 <div className='justify-center flex'>
-                    <div className="flex">
+                    <div className=" flex flex-wrap">
                         <Card className="mt-7 w-[300px] h-[250px]">
                             
                             <CardContent style={{ maxHeight: '175px' }} className="border-[#BFAC88] border-2 w-100 bg-[#ffffff] rounded-b-lg overflow-y-scroll no-scrollbar">
