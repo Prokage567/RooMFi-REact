@@ -3,11 +3,12 @@ import { React, useState } from "react"
 import { Calendar as Cal } from "../components/ui/calendar"
 import { Cal as Kal } from "../components/ui/popCalendar"
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "../components/ui/accordion"
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 import './index.css'
 import Add from "../assets/images/add.svg" 
@@ -78,17 +79,42 @@ export default function section({
                      id="teacher_name"
                      className="h-10 placeholder:text-[18px] md:text-[20px]"
                      placeholder="Type or Select a Teacher" /> */}
-              
-              <Accordion className="" type="single" collapsible>
+         
+
+         <div className="mt-2 z-10 ">
+          <div className="font-[NiramitReg] text-[20px] mb-1">Teacher</div>
+          <Select className="font-[NiramitReg]">
+              <SelectTrigger className="h-10 w-[450px] text-[18px] ">
+                <SelectValue placeholder="Type or Select a Teacher" />
+              </SelectTrigger>
+              <SelectContent className="h-[300px] font-[NiramitReg]" >
+                <SelectItem className="text-[18px]" value="Others">Others</SelectItem>
+                <SelectItem className="text-[18px]" value="dark">Ruffa Mae Santos</SelectItem>
+                <SelectItem className="text-[18px]" value="2">Aladin P. Silvestre</SelectItem>
+                <SelectItem className="text-[18px]" value="3">Mariel Nichole Almazan</SelectItem>
+                <SelectItem className="text-[18px]" value="5">Hillary Mira</SelectItem>
+                <SelectItem className="text-[18px]" value="wow">Chelzie Tano</SelectItem>
+                <SelectItem className="text-[18px]" value="34">Miles Delfino</SelectItem>
+                <SelectItem className="text-[18px]" value="90">Justin Nalog</SelectItem>
+              </SelectContent>
+            </Select>
+              {/* <Accordion className=" bg-slate-950" type="single" collapsible >
                 <AccordionItem value="item1" collapsible>
                 <AccordionTrigger>Type or Select a Teacher</AccordionTrigger>
-                <AccordionContent> yuhs </AccordionContent>
-                <AccordionContent> yuhs </AccordionContent>
-                <AccordionContent> yuhs </AccordionContent>
+                <AccordionContent> Others </AccordionContent>
+                <AccordionContent> Aladin P. Silvestre </AccordionContent>
+                <AccordionContent> Ruffa Mae Santos </AccordionContent>
+                <AccordionContent> Aladin P. Silvestre </AccordionContent>
+                <AccordionContent> Ruffa Mae Santos </AccordionContent>
+                <AccordionContent> Aladin P. Silvestre </AccordionContent>
+                <AccordionContent> Ruffa Mae Santos </AccordionContent>
                 </AccordionItem>   
-              </Accordion>
+              </Accordion> */}
 
-              <Label className="text-[20px]">Subject</Label>
+         </div>
+             
+
+              <Label className="mt-2 text-[20px]">Subject</Label>
               <Input autofocus e={false}  
                      className="h-10 placeholder:text-[18px]  md:text-[20px] bg-white text-[30px] text-[#0F172A]"
                      id="subject" 
