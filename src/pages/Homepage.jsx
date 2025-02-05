@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { Box } from '@mui/material';
-import withAuth from '../highOrdeerComponent/withAuth'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import img from "@/assets/images/image.svg"
@@ -10,7 +8,7 @@ import foot from "@/assets/images/footer.svg"
 function Homepage() {
     return (
         <>
-            <div className="h-full max-w-screen-2xl">
+            <div className="max-w-screen-2xl">
                 <div className=' items-center justify-center pl-[365px]pr-[365px] flex sticky top-9 flex-row'>
                     <Input symbol={true} type="text" placeholder="Search room..."
                         className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1] " />
@@ -55,4 +53,4 @@ function Homepage() {
     )
 }
 
-export default withAuth(Homepage)
+export default Homepage

@@ -7,9 +7,8 @@ import icon from '../assets/images/homeIcon.svg'
 import icon2 from '../assets/images/icon2.svg'
 import icon3 from '../assets/images/icon3.svg'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import withAuth from '../highOrdeerComponent/withAuth';
 
-function MainLayout() {
+export default function MainLayout() {
 
     const [search, setSearch] = useState();
 
@@ -21,11 +20,7 @@ function MainLayout() {
     const { user, logout } = useContext(AuthContext)
     return (
         <>
-        <div onClick={logout} className="rounded-md hover:bg-zinc-900 p-3 cursor-pointer">
-        Logout
-    </div>
-
-            <div className='flex min-h-screen flex-col '>
+            <div className='flex min-h-screen flex-col'>
                 <nav>
                     <div className='bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat shadow-[0_7px_5px_rgba(0,0,0,0.25)]'>
                         <div className="md:[200px] flex flex-row p-3">
@@ -105,5 +100,4 @@ function MainLayout() {
             </div>
             </>
     )
-} 
-export default withAuth(MainLayout)
+}
