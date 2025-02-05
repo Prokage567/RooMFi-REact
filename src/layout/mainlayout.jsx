@@ -20,7 +20,7 @@ export default function MainLayout() {
     const { user, logout } = useContext(AuthContext)
     return (
         <>
-            <div className='flex min-h-screen flex-col'>
+            <div className='flex h-screen flex-col'>
                 <nav>
                     <div className='bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat shadow-[0_7px_5px_rgba(0,0,0,0.25)]'>
                         <div className="md:[200px] flex flex-row p-3">
@@ -31,6 +31,7 @@ export default function MainLayout() {
                         </div>
                     </div>
                 </nav>
+
                 <div className='flex-1 flex text-white font-[NiramitReg]'>
                     <nav className="bg-[#242F5B] shadow-[5px_0_10px_rgba(0,0,0,0.35)]">
                         <div className=''>
@@ -41,8 +42,7 @@ export default function MainLayout() {
                                 </p>
                             </Link>
                         </div>
-
-                        <div className="overflow-scroll no-scrollbar h-[80vh]" >
+                        <div className="overflow-scroll no-scrollbar h-[40vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]" >
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
                                     <Link to="/room" className="flex flex-col ">
@@ -93,7 +93,7 @@ export default function MainLayout() {
                             </Accordion>
                         </div>
                     </nav>
-                    <main className='text-slate-900 h-screen overflow-scroll no-scrollbar flex flex-col justify-center items-center w-screen flex-wrap'>
+                    <main className='text-slate-900 h-[89vh] overflow-scroll no-scrollbar flex flex-col justify-center items-center w-screen flex-wrap'>
                         <Outlet />
                     </main>
                 </div>

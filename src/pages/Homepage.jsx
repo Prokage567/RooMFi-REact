@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import img from "@/assets/images/image.svg"
@@ -6,15 +6,18 @@ import img2 from "@/assets/images/image2.svg"
 import foot from "@/assets/images/footer.svg"
 
 function Homepage() {
+    useEffect(()=>{
+           document.body.style.background = 'white'
+    },[])
     return (
         <>
-            <div className="max-w-screen-2xl">
+            <div className="max-h-screen h-auto max-w-screen-2xl lg:max-h-screen">
                 <div className=' items-center justify-center pl-[365px]pr-[365px] flex sticky top-9 flex-row'>
                     <Input symbol={true} type="text" placeholder="Search room..."
                         className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1] " />
                     <Button type="submit">Search</Button>
                 </div>
-                <div className='flex pt-[50px] flex-row md:pl-[100px] pb-12 lg:pl-[100px] pr-[50px] w-fit'>
+                <div className='flex pt-[50px] flex-row md:pl-[100px] pb-12 lg:pl-[100px] lg:pt-[125px] pr-[50px]'>
                     <div className='pt-[100px]'>
                         <p className='font-[NiramitReg] text-[17px]'>MFI’s Room Management System: Room Scheduling and Individual Tracking
                         </p>
