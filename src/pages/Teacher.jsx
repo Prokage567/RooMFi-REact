@@ -29,11 +29,11 @@ function Teacher() {
 
     return (
         <>
-            <div className='justify-center flex ml-5 gap-5'>
+            <div className='justify-center flex flex-wrap ml-5 mt-[-100px] gap-5 '>
                             {ie.map(i => (
-                <div className='justify-center flex'>
+                <div className='justify-center flex '>
                     <div className=" flex flex-wrap">
-                        <Card className="mt-7 w-[300px] h-[250px]">
+                        <Card className="mt-2 w-[300px] ">
                                 <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 bg-[#BFAC88]">
                                     <CardTitle style={{ margin: 0 }} className="font-normal mt-0 text-[18px] font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
                                     <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">I.T Teacher</CardDescription>
