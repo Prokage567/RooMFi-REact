@@ -35,19 +35,19 @@ function Teacher() {
     }, [])
 
     return (
-        <>
-            <div className='justify-center flex flex-wrap ml-5 mt-[-100px] gap-5 '>
+        <> 
+            <div className='justify-center flex flex-wrap ml-5 mt-[-100px] md:scale-[25px]  lg:scale-150 gap-5 '>
                             {ie.map(i => (
                 <div className='justify-center flex '>
                     <div className=" flex flex-wrap">
-                        <Card className="mt-2 w-[300px] ">
-                                <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 bg-[#BFAC88]">
-                                    <CardTitle style={{ margin: 0 }} className="font-normal mt-0 text-[18px] font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
+                        <Card className="mt-2 w-[350px]  ">
+                                <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[70px] bg-[#BFAC88]">
+                                    <CardTitle style={{ margin: 0 }} className="font-normal text-[22px] mt-[30px]  font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
                                     <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">helloo hih</CardDescription>
                                 </CardHeader>
                         
                             <CardContent style={{ maxHeight: '175px' }} className="border-[#BFAC88] border-2 w-100 bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
-                            <Table className="text-[12px] w-[280px] font-[NiramitReg]"> 
+                            <Table className="text-[12px] w-[300px] font-[NiramitReg] text-[#11172E]"> 
                                     <TableHeader>
                                         <TableRow>
                                         <TableHead className=" font-semibold text-[15px]">Monday</TableHead>
@@ -56,225 +56,170 @@ function Teacher() {
                                         </TableRow>
                                     </TableHeader>
 
-                                    <TableBody >
+                                    <TableBody>
                                         <TableRow>
                                         <TableCell className="w-[20px]">Physical Education</TableCell>
                                         <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                                      
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell>Oracle</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                        <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                           
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell>PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                
+                                        <TableCell className="w-[20px]">Oral Communication</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">P.E</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                    
+                                        <TableCell className="w-[20px]">21st Century</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
+
                                     </TableBody>
 
                                     <TableHeader>
                                         <TableRow>
-                                        <TableHead className="w-[100px]">Tuesday</TableHead>
+                                        <TableHead className=" font-semibold text-[15px]">Tuesday</TableHead>
+                                        <TableHead className="w-[200px] "></TableHead>
+                                        <TableHead className="w-[160px]  "></TableHead>
                                         </TableRow>
                                     </TableHeader>
 
                                     <TableBody>
                                         <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                        <TableCell className="w-[20px]">Physical Education</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                                      
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">Oracle</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                        <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                           
                                         </TableRow>
+                                        
                                         <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                
+                                        <TableCell className="w-[20px]">Oral Communication</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">P.E</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                    
+                                        <TableCell className="w-[20px]">21st Century</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
                                     </TableBody>
 
                                     <TableHeader>
                                         <TableRow>
-                                        <TableHead className="w-[100px]">Wednesday</TableHead>
+                                        <TableHead className="w-[100px]"><TableHead className=" font-semibold text-[15px]">Wednesday</TableHead>
+                                        <TableHead className="w-[200px] "></TableHead>
+                                        <TableHead className="w-[160px]  "></TableHead></TableHead>
                                         </TableRow>
                                     </TableHeader>
 
                                     <TableBody>
-                                        <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                    <TableRow>
+                                        <TableCell className="w-[20px]">Physical Education</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                                      
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">Oracle</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                        <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                           
                                         </TableRow>
+                                        
                                         <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                
+                                        <TableCell className="w-[20px]">Oral Communication</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">P.E</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                    
+                                        <TableCell className="w-[20px]">21st Century</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
                                     </TableBody>
 
                                     <TableHeader>
                                         <TableRow>
-                                        <TableHead className="w-[100px]">Thursday</TableHead>
+                                        <TableHead className=" font-semibold text-[15px]">Thursday</TableHead>
+                                        <TableHead className="w-[200px] "></TableHead>
+                                        <TableHead className="w-[160px]  "></TableHead>
                                         </TableRow>
                                     </TableHeader>
 
                                     <TableBody>
-                                        <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                    <TableRow>
+                                        <TableCell className="w-[20px]">Physical Education</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                                      
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">Oracle</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                        <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                           
                                         </TableRow>
+                                        
                                         <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                
+                                        <TableCell className="w-[20px]">Oral Communication</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">P.E</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                    
+                                        <TableCell className="w-[20px]">21st Century</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
                                     </TableBody>
 
                                     <TableHeader>
                                         <TableRow>
-                                        <TableHead className="w-[100px]">Friday</TableHead>
+                                        <TableHead className=" font-semibold text-[15px]">Friday</TableHead>
+                                        <TableHead className="w-[200px] "></TableHead>
+                                        <TableHead className="w-[160px]  "></TableHead>
                                         </TableRow>
                                     </TableHeader>
 
                                     <TableBody>
-                                        <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                    <TableRow>
+                                        <TableCell className="w-[20px]">Physical Education</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                                      
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">Oracle</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
+                                        <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                         <TableCell>CPROG</TableCell>
-                           
                                         </TableRow>
+                                        
                                         <TableRow>
-                                        <TableCell className="font-medium">PHP</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                
+                                        <TableCell className="w-[20px]">Oral Communication</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
+
                                         <TableRow>
-                                        <TableCell className="font-medium">P.E</TableCell>
-                                        <TableCell>7:00am - 11:00pm</TableCell>
-                                        <TableCell>CPROG</TableCell>
-                                    
+                                        <TableCell className="w-[20px]">21st Century</TableCell>
+                                        <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                        <TableCell>STEM</TableCell>
                                         </TableRow>
                                     </TableBody>
-
-
-                        
-
                                     
                                 </Table>
-
-                                {/* <div className='mt-1 mb-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Monday</div>
-                                <hr className="border-t border-black my-2 mt-1 mb-1" />
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Oracle</div>
-                                    <div className='ml-4 text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>CPROG</div>
-                                </div>
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>PHP</div>
-                                    <div className='ml-[1.90rem] text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>1H1</div>
-                                </div>
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Java</div>
-                                    <div className='ml-7 text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>NSSA</div>
-                                </div>
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>PHP</div>
-                                    <div className='ml-[1.90rem] text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>1H!</div>
-                                </div>
-                                <div className='flex'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Java</div>
-                                    <div className='ml-7 text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>NSSA</div>
-                                </div>
-                                <div className='mt-1 mb-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Tuesday</div>
-                                <hr className="border-t border-black my-2 mt-1 mb-1" />
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Oracle</div>
-                                    <div className='ml-4 text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>CPROG</div>
-                                </div>
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>PHP</div>
-                                    <div className='ml-[1.90rem] text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>1H1</div>
-                                </div>
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Java</div>
-                                    <div className='ml-7 text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>NSSA</div>
-                                </div>
-                                <div className='flex mb-1'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>PHP</div>
-                                    <div className='ml-[1.90rem] text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>1H!</div>
-                                </div>
-                                <div className='flex'>
-                                    <div className='ml-3 mt-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Java</div>
-                                    <div className='ml-7 text-[12px] font-[NiramitReg] text-[#0F1A42]'>7:00 am - 11:00 am</div>
-                                    <div className='ml-5 text-[12px] font-[NiramitReg] text-[#0F1A42]'>NSSA</div>
-                                </div> */}
                             </CardContent>
                         </Card>
                     </div>
