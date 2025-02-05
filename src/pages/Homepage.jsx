@@ -10,7 +10,6 @@ import foot from "@/assets/images/footer.svg"
 function Homepage() {
     return (
         <>
-            {/* ignore this yet */}
             <div className="h-full max-w-screen-2xl">
                 <div className=' items-center justify-center pl-[365px]pr-[365px] flex sticky top-9 flex-row'>
                     <Input symbol={true} type="text" placeholder="Search room..."

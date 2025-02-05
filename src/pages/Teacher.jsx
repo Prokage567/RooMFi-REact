@@ -1,5 +1,5 @@
 
-import {React, useEffect, useState} from 'react'
+import { React, useEffect, useState } from 'react'
 import {
     Card,
     CardContent,
@@ -9,24 +9,36 @@ import {
     CardTitle,
 } from "../components/ui/card.jsx"
 
-import { getSched } from '../api/auth';
+import { getSched } from '../api/sched';
+import withAuth from '../highOrdeerComponent/withAuth.jsx'
+import { useCookies } from 'react-cookie'
+
 function Teacher() {
+    const [cookies, setCookie, removeCookie] = useCookies()
+    const token = cookies.token
     const [ie, setTeachers] = useState([])
     useEffect(() => {
-        getSched().then(res => {
-            setTeachers(res.data)
-            console.log(res)
+        console.log(token)
+        getSched(token).then(res => {
+            if (res?.ok) {
+                setTeachers(res.data)
+            }
         }
-    )
-    })
-    
+        )
+    }, [])
+
     return (
         <>
-            <div className='justify-center  ml-5 gap-5 border line flex flex-wrap'>
+            <div className='justify-center flex ml-5 gap-5'>
+                            {ie.map(i => (
                 <div className='justify-center flex'>
                     <div className=" flex flex-wrap">
                         <Card className="mt-7 w-[300px] h-[250px]">
-                            
+                                <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 bg-[#BFAC88]">
+                                    <CardTitle style={{ margin: 0 }} className="font-normal mt-0 text-[18px] font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
+                                    <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">I.T Teacher</CardDescription>
+                                </CardHeader>
+                        
                             <CardContent style={{ maxHeight: '175px' }} className="border-[#BFAC88] border-2 w-100 bg-[#ffffff] rounded-b-lg overflow-y-scroll no-scrollbar">
                                 <div className='mt-1 mb-0 text-[13px] font-semibold font-[NiramitReg] text-[#0F1A42]'>Monday</div>
                                 <hr className="border-t border-black my-2 mt-1 mb-1" />
@@ -86,6 +98,7 @@ function Teacher() {
                         </Card>
                     </div>
                 </div>
+            ))}
                 <div className='justify-center flex'>
                     <div className="flex">
                         <Card className="mt-7 w-[300px] h-[250px]">
@@ -222,4 +235,4 @@ function Teacher() {
         </>
     )
 }
-export default Teacher
+export default withAuth(Teacher)
