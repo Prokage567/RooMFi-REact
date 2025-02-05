@@ -98,19 +98,6 @@ export default function section({
                 <SelectItem className="text-[18px]" value="90">Justin Nalog</SelectItem>
               </SelectContent>
             </Select>
-              {/* <Accordion className=" bg-slate-950" type="single" collapsible >
-                <AccordionItem value="item1" collapsible>
-                <AccordionTrigger>Type or Select a Teacher</AccordionTrigger>
-                <AccordionContent> Others </AccordionContent>
-                <AccordionContent> Aladin P. Silvestre </AccordionContent>
-                <AccordionContent> Ruffa Mae Santos </AccordionContent>
-                <AccordionContent> Aladin P. Silvestre </AccordionContent>
-                <AccordionContent> Ruffa Mae Santos </AccordionContent>
-                <AccordionContent> Aladin P. Silvestre </AccordionContent>
-                <AccordionContent> Ruffa Mae Santos </AccordionContent>
-                </AccordionItem>   
-              </Accordion> */}
-
          </div>
              
 
