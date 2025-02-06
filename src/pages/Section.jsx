@@ -39,9 +39,12 @@ export default function section({
 }) {
   // const [date, setDate] = useState(new Date())
 
+
   const [date, setDate] = useState({
-    from: dayjs("2022-01-20").toDate(),
-    to: dayjs("2022-01-20").add(20, "days").toDate(),
+    from: dayjs("2025-01-20").toDate(),
+    to: dayjs("2025-01-20").add(20, "days").toDate(),
+
+
   })
 
   return (
@@ -49,13 +52,15 @@ export default function section({
       {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
 
-      <div className="flex  col">
-        <div className="justify-end border ml-[100px] line">
+
+      <div className="flex h-[80vh] ">
+        <div className="justify-end h-auto max-h-screen ml-[100px]">
           <Cal
             mode="single"
             selected={date}
             onSelect={setDate}
-            className="rounded-md font-[NiramitReg] text-[#242F5B] -pl-[500px] mt-[10px] border-none"
+            className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
+
           />
         </div>
 
@@ -69,22 +74,15 @@ export default function section({
             <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
               <Label className="text-[20px]">Room NO.</Label>
               <Input autofocus e={false}
-                className="focus:outline-double h-10 placeholder:text- md:text-[20px] [18px] text-[20px] "
+                className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] text-[20px] "
                 type="number"
                 id="room.no"
                 placeholder="Input Room Number" />
-              {/* 
-              <Label className="text-[20px]">Teacher Name</Label>
-              <Input autofocus e={false} 
-                     id="teacher_name"
-                     className="h-10 placeholder:text-[18px] md:text-[20px]"
-                     placeholder="Type or Select a Teacher" /> */}
-
 
               <div className="mt-2 z-10 ">
                 <div className="font-[NiramitReg] text-[20px] mb-1">Teacher</div>
                 <Select className="font-[NiramitReg]">
-                  <SelectTrigger className="h-10 w-[450px] text-[18px] ">
+                  <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
                     <SelectValue placeholder="Type or Select a Teacher" />
                   </SelectTrigger>
                   <SelectContent className="h-[300px] font-[NiramitReg]" >
@@ -98,18 +96,6 @@ export default function section({
                     <SelectItem className="text-[18px]" value="90">Justin Nalog</SelectItem>
                   </SelectContent>
                 </Select>
-                {/* <Accordion className=" bg-slate-950" type="single" collapsible >
-                <AccordionItem value="item1" collapsible>
-                <AccordionTrigger>Type or Select a Teacher</AccordionTrigger>
-                <AccordionContent> Others </AccordionContent>
-                <AccordionContent> Aladin P. Silvestre </AccordionContent>
-                <AccordionContent> Ruffa Mae Santos </AccordionContent>
-                <AccordionContent> Aladin P. Silvestre </AccordionContent>
-                <AccordionContent> Ruffa Mae Santos </AccordionContent>
-                <AccordionContent> Aladin P. Silvestre </AccordionContent>
-                <AccordionContent> Ruffa Mae Santos </AccordionContent>
-                </AccordionItem>   
-              </Accordion> */}
 
               </div>
 
@@ -121,21 +107,23 @@ export default function section({
                 placeholder="Input Subject" />
 
               <div className={cn("grid gap-2 mt-3", className)}>
-                <Popover>
+                <Popover className="">
                   <PopoverTrigger asChild>
                     <Button
                       id="date"
                       variant={"outline"}
                       className={cn(
-                        "w-[300px] justify-start text-left text-[18px] font-normal hover:border-white hover:border hover:line bg-transparent",
+                        "w-[300px] justify-start text-left  text-[18px] font-normal hover:border-white hover:border hover:line bg-transparent",
                         !date && "text-muted-foreground"
                       )}
                     >
                       <CalendarIcon />
                       {date?.from ? (
                         date.to ? (
-                          <> {setDate( format(date.from, "LLL dd, y") -" ",
-                            format(date.to, "LLL dd, y"))}
+                          <>
+                            {setDate(format(date.from, "LLL dd, y") - " ",
+                              format(date.to, "LLL dd, y"))}
+                              {console.log(date)}
                           </>
                         ) : (
                           format(date.from, "LLL dd, y")
@@ -145,14 +133,14 @@ export default function section({
                       )}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[600px] h-[350px]" align="start">
+                  <PopoverContent className="w-[300px] h-[320px]" align="start">
                     <Kal
                       initialFocus
                       mode="range"
                       defaultMonth={date?.from}
                       selected={date}
                       onSelect={setDate}
-                      numberOfMonths={2}
+                      numberOfMonths={1}
                     />
                   </PopoverContent>
                 </Popover>
@@ -166,7 +154,7 @@ export default function section({
                   <Label className="text-[18px]" >From:</Label>
                   <Input className="border-none focus:outline-white" type="time" />
                   <Label className="text-[18px]">To:</Label>
-                  <Input className="border-none " type="time" />
+                  <Input className="border-none text-slate-50" type="time" />
                 </div>
 
                 <div className="col-span-2 w-[270px]  h-[110px]  mt-2 ">
