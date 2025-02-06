@@ -11,7 +11,7 @@ function Homepage() {
     },[])
     return (
         <>
-            <div className="max-h-screen h-auto max-w-screen-2xl lg:max-h-screen">
+          <div className="max-h-screen h-[120vh] max-w-screen-2xl" >
                 <div className=' items-center justify-center pl-[365px]pr-[365px] flex sticky top-9 flex-row'>
                     <Input symbol={true} type="text" placeholder="Search room..."
                         className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1] " />
@@ -19,15 +19,15 @@ function Homepage() {
                 </div>
                 <div className='flex pt-[50px] flex-row md:pl-[100px] pb-12 lg:pl-[100px] lg:pt-[125px] pr-[50px]'>
                     <div className='pt-[100px]'>
-                        <p className='font-[NiramitReg] text-[17px]'>MFI’s Room Management System: Room Scheduling and Individual Tracking
+                        <p className='font-[NiramitReg] lg:text-[20px] text-[17px]'>MFI’s Room Management System: Room Scheduling and Individual Tracking
                         </p>
-                        <h4 className='font-[KronaOne] text-[40px] pt-6'>
+                        <h4 className='font-[KronaOne] lg:text-[60px] text-[40px] pt-6'>
                             RooMFI
-                        </h4><p className='font-[NiramitReg] text-[25px] -leading-1 pr-5 w-[560px]'>
+                        </h4><p className='font-[NiramitReg] lg:text-[25px] text-[25px] -leading-1 pr-5 w-[560px]'>
                             A Smooth and organized system where MFIers can efficiently manage or view room schedules, along with a tracker providing information on the sections and teachers assigned to each room.
                         </p>
                     </div>
-                    <img src={img} alt="" width='520px' className='pt-[20px] mr-[70px]' />
+                    <img src={img} alt="" width='520px' className='lg:w-[720px] pt-[20px] mr-[70px]' />
                 </div>
                 <div className='flex flex-col '>
                     <img src={img2} alt="" className='pt-[7vh] -z-10' />
@@ -49,7 +49,7 @@ function Homepage() {
                             </ul>
                         </div>
                     </div>
-                    <img src={foot} alt="" />
+                    <img src={foot} alt=""className='lg:pb-[25px] 2xl:pb-[0]' />
                 </div>
             </div>
         </>

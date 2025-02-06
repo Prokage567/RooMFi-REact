@@ -93,7 +93,7 @@ export default function MainLayout() {
                             </Accordion>
                         </div>
                     </nav>
-                    <main className='text-slate-900 h-[89vh] overflow-scroll no-scrollbar flex flex-col justify-center items-center w-screen flex-wrap'>
+                    <main className='text-slate-900 h-[80vh] lg:h-[95vh] overflow-scroll no-scrollbar flex flex-col justify-center items-center w-screen flex-wrap'>
                         <Outlet />
                     </main>
                 </div>

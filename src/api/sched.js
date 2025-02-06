@@ -1,7 +1,7 @@
 import { URL } from "./config";
 
 export const getSched = async (inputs) => {
-    const res = await fetch(`${URL}/teacher/`, {
+    const res = await fetch(`${URL}/schedule/`, {
         method: "GET",
         headers: {
             Accept: 'application/json',

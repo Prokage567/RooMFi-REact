@@ -42,7 +42,7 @@ function Teacher() {
                     <div className=" flex flex-wrap">
                         <Card className="mt-2 md:w-[350px] nm:w-[350px] lg:w-[550px] ">
                                 <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[70px] bg-[#BFAC88]">
-                                    <CardTitle style={{ margin: 0 }} className="font-normal text-[22px] mt-[30px]  font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
+                                    <CardTitle style={{ margin: 0 }} className="font-normal text-[22px] mt-[30px]  font-[NiramitReg] text-[#0F1A42] text-center">{i.teacher_id}</CardTitle>
                                     <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">helloo hih</CardDescription>
                                 </CardHeader>
                         
