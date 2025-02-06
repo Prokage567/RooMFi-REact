@@ -65,11 +65,13 @@ const others = [
   { src: Room212, title: "Room 212 - Library", description: "Available" },
 ];
 
+
+
 function RoomCarousel({ units, title }) {
   return (
     <div className="mb-8 w-full flex flex-col items-start">
       <h1 className="md:text-[45px] font-[NiramitReg] font-bold text-[#0F1A42]">{title}</h1>
-      <div className="w-full max-w-7xl mx-auto overflow-x-auto scroll-smooth snap-x snap-mandatory">
+      <Carousel className="w-full max-w-7xl mx-auto flex overflow-x-auto snap-x snap-mandatory scroll-smooth">
         <CarouselContent className="flex gap-6">
           {units.map((unit, index) => (
             <CarouselItem key={index} className="basis-1/2 md:basis-1/3 p-4 flex-shrink-0 relative group overflow-hidden snap-center">
@@ -87,7 +89,21 @@ function RoomCarousel({ units, title }) {
         </CarouselContent>
         <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80" />
         <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80" />
-      </div>
+      </Carousel>
+    </div>
+  );
+}
+
+export default function Room() {
+  return (
+    <div className="snap-x snap snap-always min-h-screen p-8 flex flex-col items-center">
+      <RoomCarousel units={lecture} title="Lecture Rooms" />
+      <RoomCarousel units={science} title="Science Rooms" />
+      <RoomCarousel units={computer} title="Computer Laboratories" />
+      <RoomCarousel units={electronic} title="Electronic Laboratories" />
+      <RoomCarousel units={electrical} title="Electrical Laboratories" />
+      <RoomCarousel units={autoMecha} title="Automations and Mechatronics" />
+      <RoomCarousel units={others} title="Other Rooms" />
     </div>
   );
 }
