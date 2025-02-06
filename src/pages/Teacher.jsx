@@ -15,10 +15,9 @@ import {
     TableHeader,
     TableRow,
   } from "../components/ui/table.jsx"
-  
-import { getSched } from '../api/sched';
 import withAuth from '../highOrdeerComponent/withAuth.jsx'
 import { useCookies } from 'react-cookie'
+import { getTeacher } from '../api/teacher.js';
 
 function Teacher() {
     const [cookies, setCookie, removeCookie] = useCookies()
@@ -26,7 +25,7 @@ function Teacher() {
     const [ie, setTeachers] = useState([])
     useEffect(() => {
         console.log(token)
-        getSched(token).then(res => {
+        getTeacher(token).then(res => {
             if (res?.ok) {
                 setTeachers(res.data)
             }
@@ -35,22 +34,21 @@ function Teacher() {
     }, [])
 
     return (
-        <> 
-            <div className='justify-center flex flex-wrap ml-5 mt-[-100px] gap-5 '>
+            <div className='justify-center h-[80vh] max-w-screen flex flex-wrap gap-5'>
                             {ie.map(i => (
-                <div className='justify-center flex '>
-                    <div className=" flex flex-wrap">
-                        <Card className="mt-2 md:w-[350px] nm:w-[350px] lg:w-[550px] ">
+                <div className='justify-center items-center flex '>
+                    <div>
+                        <Card className="h-[100px] md:w-[350px]">
                                 <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[70px] bg-[#BFAC88]">
-                                    <CardTitle style={{ margin: 0 }} className="font-normal text-[22px] mt-[30px]  font-[NiramitReg] text-[#0F1A42] text-center">{i.teacher_id}</CardTitle>
-                                    <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">helloo hih</CardDescription>
+                                    <CardTitle style={{ margin: 0 }} className="font-normal text-[22px] mt-[30px] font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
+                                    <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">{i.technology_course}</CardDescription>
                                 </CardHeader>
-                        
+
                             <CardContent style={{ maxHeight: '175px' }} className="border-[#BFAC88] border-2 w-100 bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
                                 <Table className="text-[12px] w-[300px] font-[NiramitReg] text-[#11172E]"> 
                                         <TableHeader>
                                             <TableRow>
-                                            <TableHead className=" font-semibold text-[15px]">{i.day}</TableHead>
+                                            <TableHead className=" font-semibold text-[15px]"></TableHead>
                                             <TableHead className="w-[200px]"></TableHead>
                                             <TableHead className="w-[160px]"></TableHead>
                                             </TableRow>
@@ -226,7 +224,6 @@ function Teacher() {
             ))}
               
             </div>
-        </>
     )
 }
 export default withAuth(Teacher)
