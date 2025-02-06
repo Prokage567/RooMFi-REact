@@ -16,17 +16,17 @@ function Cal({
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row gap-[45px] space-y-4 sm:space-x-4 sm:space-y-0",
+        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-[#242F5B] text-[25px] mr-[40px]  font-bold",
+        caption_label: "text-[#242F5B] indent-6 text-[25px] mr-[40px]  font-bold",
         nav: "space-x-1 flex items-center",
-        nav_button: cn(
+        nav_button: cn( 
           buttonVariants({ variant: "outline" }),
           "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100"
         ),
-        nav_button_previous: "absolute left-[1px]",
-        nav_button_next: "absolute right-[730px]",
+        nav_button_previous: "absolute left-[-15px]",
+        nav_button_next: "absolute right-[0px]",
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell:
@@ -35,8 +35,8 @@ function Cal({
         cell: cn(
           "hover:bg-[#8CD7F4]/80 h-[35px] w-[35px] border-[#242F5B] border-opacity-50 border-[1px] relative p-0 text-end text-[20px] focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
           props.mode === "range"
-            ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
-            : "[&:has([aria-selected])]:rounded-md"
+            ? "[&:has(>.day-range-end)] [&:has(>.day-range-start)] first:[&:has([aria-selected])] last:[&:has([aria-selected])]"
+            : "[&:has([aria-selected])]"
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
@@ -46,7 +46,7 @@ function Cal({
         day_range_end: "day-range-end",
         day_selected:
           "bg-[#90E0FF] text-[#242F5B] focus:bg-[#90E0FF]  focus:text-[#242F5B]",
-        day_today: " font-bold text-accent-foreground",
+        day_today: " font-[700] bg-[#D9F4FF]",
         day_outside:
           "day-outside text-muted-foreground aria-selected:bg-accent/50  aria-selected:text-muted-foreground",
         day_disabled: "opacity-50 ",
