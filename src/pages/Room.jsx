@@ -8,14 +8,14 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { 
-  AlertDialog, 
-  AlertDialogTrigger, 
-  AlertDialogContent, 
-  AlertDialogHeader, 
-  AlertDialogTitle, 
-  AlertDialogDescription, 
-  AlertDialogFooter 
-} from "@/components/ui/alert-dialog";
+  Dialog, 
+  DialogTrigger, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription, 
+  DialogFooter 
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -51,15 +51,15 @@ function RoomCarousel({ units, title }) {
                 alt={unit.title} 
                 className="w-full aspect-[16/9] object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-110"
                 />
-              <div className="absolute bottom-0 left-0 right-0 text-center bg-[#0F1A42] bg-opacity-75 text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity ease-in-out rounded-b-lg">
-                <h3 className="text-xl font-bold">{unit.title}</h3>
-                <p className="text-lg">{unit.description}</p>
+              <div className="absolute bottom-0 left-0 right-0 text-center bg-[#0F1A42] bg-opacity-75 font-[NiramitReg] text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity ease-in-out rounded-b-lg">
+                <h3 className="text-[22px] font-bold">{unit.title}</h3>
+                <p className="text-[18px] font-thin">{unit.description}</p>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80" />
-        <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80" />
+        <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 font-[NiramitReg] text-white p-3 rounded-full hover:bg-opacity-80" />
+        <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 font-[NiramitReg] text-white p-3 rounded-full hover:bg-opacity-80" />
       </Carousel>
     </div>
   );
@@ -89,23 +89,23 @@ export default function Room() {
     </div>
 
     <div className="bg-">
-      <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
-        <AlertDialogTrigger asChild>
-          <Button className="fixed bottom-10 right-12 p-6 bg-[#0F1A42] text-white rounded-lg shadow-lg hover:bg-[#3F9DC1] hover:text-[#0F1A42] flex items-center justify-center">
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger asChild>
+          <Button className="fixed bottom-10 right-12 font-bold p-8 bg-[#0F1A42] font-[NiramitReg] text-[20px] text-white rounded-lg shadow-lg hover:bg-[#3F9DC1] hover:text-[#0F1A42] flex items-center justify-center">
             Request Room
           </Button>
-        </AlertDialogTrigger>
-        <AlertDialogContent className="bg-slate-900 border-none text-[#fff]">
-          <AlertDialogHeader>
-            <AlertDialogTitle>Request a Room</AlertDialogTitle>
-            <AlertDialogDescription>
+        </DialogTrigger>
+        <DialogContent className="bg-slate-900 border-none font-[NiramitReg] text-[#fff]">
+          <DialogHeader>
+            <DialogTitle className="text-[25px]">Request a Room</DialogTitle>
+            <DialogDescription className="text-[15px]">
               Please select a room and provide a reason for your request.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
+            </DialogDescription>
+          </DialogHeader>
           <div className="flex flex-col gap-4">
-            <Label htmlFor="room">Select Room</Label>
+            <Label className="text-[20px]" htmlFor="room">Select Room</Label>
             <Select>
-              <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px]">
+              <SelectTrigger className="h-10 text-[#11124f] bg-white text-[18px]">
                 <SelectValue placeholder="Choose a room" />
               </SelectTrigger>
               <SelectContent>
@@ -114,15 +114,15 @@ export default function Room() {
                 ))}
               </SelectContent>
             </Select>
-            <Label htmlFor="reason">Reason</Label>
-            <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
+            <Label className="text-[20px]" htmlFor="reason">Reason</Label>
+            <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
           </div>
-          <AlertDialogFooter className="flex justify-between">
+          <DialogFooter className="flex justify-between">
             <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={() => setIsOpen(false)}>Cancel</Button>
             <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
     </>
   );
