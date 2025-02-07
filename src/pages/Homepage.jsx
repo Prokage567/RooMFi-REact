@@ -12,7 +12,7 @@ function Homepage() {
     return (
         <>
           <div className=" max-w-screen-2xl">
-                <div className=' items-center justify-center flex -z-10 sticky mt-9 top-9 flex-row'>
+                <div className=' items-center justify-center flex z-0 sticky mt-9 top-9 flex-row'>
                     <Input symbol={true} type="text" placeholder="Search room..."
                         className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1] " />
                     <Button type="submit">Search</Button>
