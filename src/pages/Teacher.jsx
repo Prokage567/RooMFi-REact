@@ -34,7 +34,7 @@ function Teacher() {
     }, [])
 
     return (
-        <div className='justify-center items-center flex flex-wrap gap-5'>
+        <div className='justify-center items-center flex flex-1 flex-wrap gap-5 py-20 '>
             {ie.map(i => (
                     <div>
                         <Card key={i.id}  className=''>
