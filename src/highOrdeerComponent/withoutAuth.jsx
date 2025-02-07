@@ -7,7 +7,7 @@ const withoutAuth = (WrappedComponent) => {
     const [cookies, setCookie, removeCookie] = useCookies()
 
     if (cookies?.token) {
-      return <Navigate to="/" />;
+      return <Navigate to="/homepage" />;
     }
 
     return <WrappedComponent {...props} />;

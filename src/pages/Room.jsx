@@ -1,28 +1,129 @@
-import * as React from "react"
- 
-import { AspectRatio } from "@/components/ui/aspect-ratio"
+import * as React from "react";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
+import { 
+  AlertDialog, 
+  AlertDialogTrigger, 
+  AlertDialogContent, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogDescription, 
+  AlertDialogFooter 
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useCookies } from 'react-cookie'
+import { getRoom } from "../api/room";
+import { lecture, science, computer, electronic,electrical, autoMecha, others }from "./rooms/rooms"
 
-function Room(){
 
-    return(
-        <>  
-        
-        <div className="justify-center flex">
-            <div className="pl-10 pt-5 text-[45px] text-[#0F1A42]">
-                Lecture Rooms
-            </div>
-            <div>
-                <AspectRatio ratio={16/9} className="bg-muted">
-                    <img 
-                        src="" 
-                        alt="" 
-                        className=""
-                    />
-                </AspectRatio>
-            </div>
+const rooms = [
+  "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
+  "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
+  "Room 324", "Room 335", "Room 336"
+];
 
-        </div>
-        </>
-    )
+function RoomCarousel({ units, title }) {
+  return (
+    <div className="mb-8 w-full flex flex-col items-start">
+      <h1 className="md:text-[45px] font-[NiramitReg] font-bold text-[#0F1A42]">{title}</h1>
+      <Carousel className="w-full max-w-7xl mx-auto flex overflow-x-auto snap-x snap-mandatory scroll-smooth">
+        <CarouselContent className="ml-1 mr-1 flex">
+          {units.map((unit, index) => (
+            <CarouselItem key={index} className="basis-1/2 md:basis-1/3 p-4 flex-shrink-0 relative group overflow-hidden snap-center">
+              <img
+                src={unit.src} 
+                alt={unit.title} 
+                className="w-full aspect-[16/9] object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-110"
+                />
+              <div className="absolute bottom-0 left-0 right-0 text-center bg-[#0F1A42] bg-opacity-75 text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity ease-in-out rounded-b-lg">
+                <h3 className="text-xl font-bold">{unit.title}</h3>
+                <p className="text-lg">{unit.description}</p>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80" />
+        <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-80" />
+      </Carousel>
+    </div>
+  );
 }
-export default Room
+
+export default function Room() {
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies()
+  const token = cookies.token
+  
+  const buttonSubmit = () => {
+    setIsOpen(false);
+    getRoom([token],"POST")
+  };
+
+  return (
+    <>
+    <div className="snap-x snap snap-always min-h-screen p-8 flex flex-col items-center">
+      <RoomCarousel units={lecture} title="Lecture Rooms" />
+      <RoomCarousel units={science} title="Science Rooms" />
+      <RoomCarousel units={computer} title="Computer Laboratories" />
+      <RoomCarousel units={electronic} title="Electronic Laboratories" />
+      <RoomCarousel units={electrical} title="Electrical Laboratories" />
+      <RoomCarousel units={autoMecha} title="Automations and Mechatronics" />
+      <RoomCarousel units={others} title="Other Rooms" />
+    </div>
+
+    <div className="bg-">
+      <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+        <AlertDialogTrigger asChild>
+          <Button className="fixed bottom-10 right-12 p-6 bg-[#0F1A42] text-white rounded-lg shadow-lg hover:bg-[#3F9DC1] hover:text-[#0F1A42] flex items-center justify-center">
+            Request Room
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className="bg-slate-900 border-none text-[#fff]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Request a Room</AlertDialogTitle>
+            <AlertDialogDescription>
+              Please select a room and provide a reason for your request.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex flex-col gap-4">
+            <Label htmlFor="room">Select Room</Label>
+            <Select>
+              <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px]">
+                <SelectValue placeholder="Choose a room" />
+              </SelectTrigger>
+              <SelectContent>
+                {rooms.map((room, index) => (
+                  <SelectItem key={index} value={room}>{room}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Label htmlFor="reason">Reason</Label>
+            <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
+          </div>
+          <AlertDialogFooter className="flex justify-between">
+            <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+    </>
+  );
+}

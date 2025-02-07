@@ -24,7 +24,7 @@ export const AuthLogin = async (inputs) => {
     return await res.json()
 }
 
-export const checkToken = async () => {
+export const checkToken = async (inputs) => {
     const res = await fetch(`${URL}/checktoken`, {
         method: "GET",
         headers: {
@@ -34,15 +34,13 @@ export const checkToken = async () => {
         }
     })
     return await res.json()
-
 }
-export const logout = async (inputs) => {
+export const logout = async () => {
     const res = await fetch(`${URL}/logout`, {
         method: "POST",
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${inputs}`
+            'Content-Type': 'application/json'
         }
     })
     return await res.json()

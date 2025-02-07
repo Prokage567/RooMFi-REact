@@ -2,8 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Homepage from "../pages/Homepage";
-import Room from "../pages/room";
-import Section from "../pages/section";
+import Room from "../pages/Room";
+import Section from "../pages/Section";
 import MainLayout from "../layout/mainlayout";
 import Teacher from "../pages/Teacher";
 

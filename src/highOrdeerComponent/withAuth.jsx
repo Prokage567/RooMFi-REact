@@ -15,7 +15,7 @@ const withAuth = (WrappedComponent) => {
         const token = cookies.token
 
         if (!token) {
-            return <Navigate to="/login" />
+            return <Navigate to="/homepage" />
         }
         else {
             if (!user)
@@ -26,7 +26,7 @@ const withAuth = (WrappedComponent) => {
                     else {
                         removeCookie(token)
                         logout()
-                        navigate("/login")
+                        navigate("/homepage")
                     }
                 })
         }

@@ -6,7 +6,7 @@ import { Search } from "lucide-react";
 const Input = React.forwardRef(({symbol,className, type, ...props }, ref) => {
   return (
     (<>
-      <div className="relative flex flex-col space-y-4">
+      <div>
         <div className="relative">
           {symbol?
     <Search className="text-slate-900 absolute left-4 top-1/2 transform -translate-y-1/2" />: ""}
