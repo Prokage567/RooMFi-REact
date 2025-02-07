@@ -1,8 +1,8 @@
 import { URL } from "./config";
 
-export const getSched = async (inputs,type) => {
-    const res = await fetch(`${URL}/schedule/`, {
-        method: {type},
+export const getRoom = async (inputs) => {
+    const res = await fetch(`${URL}/room/`, {
+        method: type,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
