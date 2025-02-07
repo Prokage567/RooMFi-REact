@@ -19,7 +19,7 @@ function Cal({
         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
         caption: "flex justify-center pt-1 relative items-center",
-        caption_label: "text-[#242F5B] indent-6 text-[25px] mr-[40px]  font-bold",
+        caption_label: "text-[#fff] indent-6 text-[25px] mr-[40px]  font-bold",
         nav: "space-x-1 flex items-center",
         nav_button: cn( 
           buttonVariants({ variant: "outline" }),
@@ -30,12 +30,12 @@ function Cal({
         table: "w-full border-collapse space-y-1",
         head_row: "flex",
         head_cell:
-          " rounded-md  w-[34px] text-[#242F5B] text-[15px] ",
+          " rounded-md  w-[34px] font-bold text-[#fff] text-[15px] ",
         row: "flex w-[30px]",
         cell: cn(
-          "hover:bg-[#8CD7F4]/80 h-[35px] w-[35px] border-[#242F5B] border-opacity-50 border-[1px] relative p-0 text-end text-[20px] focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+          "hover:bg-[#AE9360]/80 h-[35px] w-[38px]  border-[#6E5320] border-opacity-50 border-[1px] relative p-0 text-end text-[20px] focus-within:relative focus-within:z-20  [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]",
           props.mode === "range"
-            ? "[&:has(>.day-range-end)] [&:has(>.day-range-start)] first:[&:has([aria-selected])] last:[&:has([aria-selected])]"
+            ? "[&:has(>.day-range-end)] [&:has(>.day-range-start)] "
             : "[&:has([aria-selected])]"
         ),
         day: cn(
@@ -45,14 +45,14 @@ function Cal({
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
         day_selected:
-          "bg-[#90E0FF] text-[#242F5B] focus:bg-[#90E0FF]  focus:text-[#242F5B]",
-        day_today: " font-[700] bg-[#D9F4FF]",
+          "bg-[#AE9360] text-[#242F5B] focus:bg-[#AE9360]  focus:text-[#fff]",
+        day_today: " border-[0.3px] line border-white ",
         day_outside:
-          "day-outside text-muted-foreground aria-selected:bg-accent/50  aria-selected:text-muted-foreground",
+          "day-outside   text-[#fff]/50",
         day_disabled: "opacity-50 ",
         //bg range idk what color 
         day_range_middle:
-          "aria-selected:bg-[#8CD7F4] aria-selected:text-accent-foreground",
+          "aria-selected:bg-[#AE9360] text-[#fff] ",
         day_hidden: "invisible",
         ...classNames,
       }}

@@ -1,21 +1,23 @@
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
-
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
 function Calendar({
   className,
   classNames,
+  hello,
   showOutsideDays = true,
   ...props
 }) {
   return (
     (
       <DayPicker
+      
+
       showOutsideDays={showOutsideDays}
-      className={cn("p-3", className)}
+      className={cn("p-3", className)} 
       classNames={{
         months: "flex flex-col sm:flex-row gap-[45px] space-y-4 sm:space-x-4 sm:space-y-0",
         month: "space-y-4",
@@ -47,7 +49,7 @@ function Calendar({
         day_range_end: "day-range-end",
         //where makikita naselect in range
         day_selected:
-          " text-[#242F5B] focus:bg-[#90E0FF]  focus:text-[#242F5B]",
+          " text-[#242F5B] bg-[#242F5B] focus:bg-[#90E0FF]  focus:text-[#242F5B]",
         day_today: "font-extrabold",
         day_outside:
           "day-outside text-muted-foreground aria-selected:bg-accent/50  aria-selected:text-muted-foreground",
@@ -64,7 +66,13 @@ function Calendar({
         IconRight: ({ className, ...props }) => (
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
+        RenderDay: ({ className, ...props }) => (
+          <>
+          <div>{hello}</div>
+           </>
+        ),
       }}
+  
       {...props} />
     )
   );
