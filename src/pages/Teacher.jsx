@@ -14,7 +14,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-  } from "../components/ui/table.jsx"
+} from "../components/ui/table.jsx"
 import withAuth from '../highOrdeerComponent/withAuth.jsx'
 import { useCookies } from 'react-cookie'
 import { getTeacher } from '../api/teacher.js';
@@ -25,7 +25,7 @@ function Teacher() {
     const [ie, setTeachers] = useState([])
     useEffect(() => {
         console.log(token)
-        getTeacher(token).then(res => {
+        getTeacher([token], "GET").then(res => {
             if (res?.ok) {
                 setTeachers(res.data)
             }
@@ -34,196 +34,193 @@ function Teacher() {
     }, [])
 
     return (
-            <div className='justify-center h-[80vh] max-w-screen flex flex-wrap gap-5'>
-                            {ie.map(i => (
-                <div className='justify-center items-center flex '>
+        <div className='justify-center items-center flex flex-wrap gap-5'>
+            {ie.map(i => (
                     <div>
-                        <Card className="h-[100px] md:w-[350px]">
-                                <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[70px] bg-[#BFAC88]">
-                                    <CardTitle style={{ margin: 0 }} className="font-normal text-[22px] mt-[30px] font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
-                                    <CardDescription style={{ margin: 0 }} className="font-[NiramitReg] text-center text-[#0F1A42]">{i.technology_course}</CardDescription>
-                                </CardHeader>
+                        <Card key={i.id}  className=''>
+                            <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[70px] bg-[#BFAC88]">
+                                <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#0F1A42] text-center">{i.name}</CardTitle>
+                                <CardDescription className="font-[NiramitReg] text-center text-[#0F1A42]">{i.technology_course}</CardDescription>
+                            </CardHeader>
 
-                            <CardContent style={{ maxHeight: '175px' }} className="border-[#BFAC88] border-2 w-100 bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
-                                <Table className="text-[12px] w-[300px] font-[NiramitReg] text-[#11172E]"> 
-                                        <TableHeader>
-                                            <TableRow>
+                            <CardContent style={{ maxHeight: '175px' }} className="border-[#BFAC88] border-2 w-90 bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
+                                <Table className="text-[12px] w-[300px] font-[NiramitReg] text-[#11172E]">
+                                    <TableHeader>
+                                        <TableRow>
                                             <TableHead className=" font-semibold text-[15px]"></TableHead>
                                             <TableHead className="w-[200px]"></TableHead>
                                             <TableHead className="w-[160px]"></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
+                                        </TableRow>
+                                    </TableHeader>
 
-                                        <TableBody>
-                                            <TableRow>
+                                    <TableBody>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Physical Education</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Oral Communication</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">21st Century</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                        </TableBody>
+                                    </TableBody>
 
-                                        <TableHeader>
-                                            <TableRow>
+                                    <TableHeader>
+                                        <TableRow>
                                             <TableHead className=" font-semibold text-[15px]">Tuesday</TableHead>
                                             <TableHead className="w-[200px] "></TableHead>
                                             <TableHead className="w-[160px]  "></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
+                                        </TableRow>
+                                    </TableHeader>
 
-                                        <TableBody>
-                                            <TableRow>
-                                            <TableCell className="w-[20px]">Physical Education</TableCell>
-                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
-                                            <TableCell>CPROG</TableCell>
-                                            </TableRow>
-
-                                            <TableRow>
-                                            <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
-                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
-                                            <TableCell>CPROG</TableCell>
-                                            </TableRow>
-                                            
-                                            <TableRow>
-                                            <TableCell className="w-[20px]">Oral Communication</TableCell>
-                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
-                                            <TableCell>STEM</TableCell>
-                                            </TableRow>
-
-                                            <TableRow>
-                                            <TableCell className="w-[20px]">21st Century</TableCell>
-                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
-                                            <TableCell>STEM</TableCell>
-                                            </TableRow>
-                                        </TableBody>
-
-                                        <TableHeader>
-                                            <TableRow>
-                                            <TableHead className="w-[100px]"><TableHead className=" font-semibold text-[15px]">Wednesday</TableHead>
-                                            <TableHead className="w-[200px] "></TableHead>
-                                            <TableHead className="w-[160px]  "></TableHead></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-
-                                        <TableBody>
+                                    <TableBody>
                                         <TableRow>
                                             <TableCell className="w-[20px]">Physical Education</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
-                                            
-                                            <TableRow>
+                                        </TableRow>
+
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Oral Communication</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">21st Century</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
-                                        </TableBody>
+                                        </TableRow>
+                                    </TableBody>
 
-                                        <TableHeader>
-                                            <TableRow>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead className="w-[100px]"><TableHead className=" font-semibold text-[15px]">Wednesday</TableHead>
+                                                <TableHead className="w-[200px] "></TableHead>
+                                                <TableHead className="w-[160px]  "></TableHead></TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell className="w-[20px]">Physical Education</TableCell>
+                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                            <TableCell>CPROG</TableCell>
+                                        </TableRow>
+
+                                        <TableRow>
+                                            <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
+                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                            <TableCell>CPROG</TableCell>
+                                        </TableRow>
+
+                                        <TableRow>
+                                            <TableCell className="w-[20px]">Oral Communication</TableCell>
+                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                            <TableCell>STEM</TableCell>
+                                        </TableRow>
+
+                                        <TableRow>
+                                            <TableCell className="w-[20px]">21st Century</TableCell>
+                                            <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
+                                            <TableCell>STEM</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+
+                                    <TableHeader>
+                                        <TableRow>
                                             <TableHead className=" font-semibold text-[15px]">Thursday</TableHead>
                                             <TableHead className="w-[200px] "></TableHead>
                                             <TableHead className="w-[160px]  "></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
+                                        </TableRow>
+                                    </TableHeader>
 
-                                        <TableBody>
+                                    <TableBody>
                                         <TableRow>
                                             <TableCell className="w-[20px]">Physical Education</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
-                                            
-                                            <TableRow>
+                                        </TableRow>
+
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Oral Communication</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">21st Century</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
-                                        </TableBody>
+                                        </TableRow>
+                                    </TableBody>
 
-                                        <TableHeader>
-                                            <TableRow>
+                                    <TableHeader>
+                                        <TableRow>
                                             <TableHead className=" font-semibold text-[15px]">Friday</TableHead>
                                             <TableHead className="w-[200px] "></TableHead>
                                             <TableHead className="w-[160px]  "></TableHead>
-                                            </TableRow>
-                                        </TableHeader>
+                                        </TableRow>
+                                    </TableHeader>
 
-                                        <TableBody>
+                                    <TableBody>
                                         <TableRow>
                                             <TableCell className="w-[20px]">Physical Education</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Araling Panlipunan</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>CPROG</TableCell>
-                                            </TableRow>
-                                            
-                                            <TableRow>
+                                        </TableRow>
+
+                                        <TableRow>
                                             <TableCell className="w-[20px]">Oral Communication</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
+                                        </TableRow>
 
-                                            <TableRow>
+                                        <TableRow>
                                             <TableCell className="w-[20px]">21st Century</TableCell>
                                             <TableCell className="w-[300px]">7:00am - 11:00pm</TableCell>
                                             <TableCell>STEM</TableCell>
-                                            </TableRow>
-                                        </TableBody>
+                                        </TableRow>
+                                    </TableBody>
                                 </Table>
                             </CardContent>
                         </Card>
                     </div>
+                        ))}
                 </div>
-            ))}
-              
-            </div>
     )
 }
 export default withAuth(Teacher)

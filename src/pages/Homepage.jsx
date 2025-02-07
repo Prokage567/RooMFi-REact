@@ -31,8 +31,8 @@ function Homepage() {
                 </div>
                 <div className='flex flex-col justify-center items-center flex-wrap pt-[100px]'>
                     <img src={img2} alt="" className='-z-10' />
-                    <div className='relative left-[320px] -z-10 -top-[450px] -mb-[450px]'>
-                        <div className='h-[525px] w-[470px] bg-cyan-500 text-zinc-100 p-12'>
+                    <div className='relative left-[320px] md:-mb-[400px] md:-top-[415px] -z-10 lg:-top-[450px] lg:-mb-[450px]  2xl:-top-[525px]'>
+                        <div className='md:h-[475px] h-[525px] w-[470px] bg-cyan-500 text-zinc-100 p-12'>
                             <h2 className='font-[KronaOne] pb-6 text-[20px]'>
                                 Room Management & Individual Tracks
                             </h2>

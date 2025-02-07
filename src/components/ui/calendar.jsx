@@ -7,6 +7,7 @@ import { buttonVariants } from "@/components/ui/button"
 function Calendar({
   className,
   classNames,
+  input,
   showOutsideDays = true,
   ...props
 }) 
@@ -64,8 +65,10 @@ function Calendar({
         IconRight: ({ className, ...props }) => (
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
-        day: ({ className, ...props }) => (
-         {k}
+        Day: ({ className, ...props }) => (
+         <div className={cn("", className)} {...props}>
+          {input}
+         </div>
         )
       }}
       {...props} />
