@@ -38,6 +38,8 @@ const rooms = [
   "Room 324", "Room 335", "Room 336"
 ];
 
+
+
 function RoomCarousel({ units, title }) {
   return (
     <div className="mb-8 w-full flex flex-col items-start">
@@ -73,7 +75,10 @@ export default function Room() {
   
   const buttonSubmit = () => {
     setIsOpen(false);
-    getRoom([token],"POST")
+    const roomNumber = $("#roomNum")
+    getRoom([token],"POST").then(res=>(
+    console.log(res)   
+    ))
   };
 
   return (
@@ -106,11 +111,11 @@ export default function Room() {
             <Label className="text-[20px]" htmlFor="room">Select Room</Label>
             <Select>
               <SelectTrigger className="h-10 text-[#11124f] bg-white text-[18px]">
-                <SelectValue placeholder="Choose a room" />
+                <SelectValue id="roomNumber" placeholder="Choose a room" />
               </SelectTrigger>
               <SelectContent>
                 {rooms.map((room, index) => (
-                  <SelectItem key={index} value={room}>{room}</SelectItem>
+                  <SelectItem key={index} id="roomNum" value={room}>{room}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
