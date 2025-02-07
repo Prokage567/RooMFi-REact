@@ -20,7 +20,7 @@ export default function MainLayout() {
     const { user, logout } = useContext(AuthContext)
     return (
         <>
-            <div className='flex h-screen flex-col'>
+            <div className='flex min-h-screen flex-col '>
                 <nav>
                     <div className='bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat shadow-[0_7px_5px_rgba(0,0,0,0.25)]'>
                         <div className="md:[200px] flex flex-row p-3">
@@ -32,17 +32,16 @@ export default function MainLayout() {
                     </div>
                 </nav>
 
-                <div className='flex-1 flex text-white font-[NiramitReg]'>
-                    <nav className="bg-[#242F5B] shadow-[5px_0_10px_rgba(0,0,0,0.35)]">
-                        <div className=''>
+                <div className=' flex-1 flex text-white font-[NiramitReg] sticky top-0 min-h-full'>
+                    <nav className="bg-[#242F5B] shadow-[5px_0_10px_rgba(0,0,0,0.35)] sticky top-0">
+                        <div className='sticky top-0'>
                             <Link to='/homepage' className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-cyan-700 lg:hover:bg-cyan-700 hover:rounded-[10px] font-[NiramitBold] sticky top-0 transition-all ">
                                 <img src={icon} className=' lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-cyan-700 hover:rounded-[10px]'/>
                                 <p className='hidden lg:block md:block transition-all relative top-3'>
                                     Home
                                 </p>
                             </Link>
-                        </div>
-                        <div className="overflow-scroll no-scrollbar h-[40vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]" >
+                   
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
                                     <Link to="/room" className="flex flex-col ">
@@ -93,7 +92,7 @@ export default function MainLayout() {
                             </Accordion>
                         </div>
                     </nav>
-                    <main className='text-slate-900 h-[80vh] lg:h-[92vh] overflow-scroll no-scrollbar flex justify-center items-center w-screen flex-wrap'>
+                    <main className='text-slate-900 flex justify-center items-center w-screen flex-wrap'>
                         <Outlet />
                     </main>
                 </div>

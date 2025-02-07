@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import img from "@/assets/images/image.svg"
@@ -11,8 +11,8 @@ function Homepage() {
     },[])
     return (
         <>
-          <div className="max-h-screen h-[120vh] max-w-screen-2xl" >
-                <div className=' items-center justify-center flex sticky top-9 flex-row'>
+          <div className=" max-w-screen-2xl">
+                <div className=' items-center justify-center flex -z-10 sticky mt-9 top-9 flex-row'>
                     <Input symbol={true} type="text" placeholder="Search room..."
                         className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1] " />
                     <Button type="submit">Search</Button>
@@ -30,8 +30,8 @@ function Homepage() {
                     <img src={img} alt="" width='520px'/>
                 </div>
                 <div className='flex flex-col justify-center items-center flex-wrap pt-[100px]'>
-                    <img src={img2} alt="" className='-z-10' />
-                    <div className='relative left-[320px] md:-mb-[400px] md:-top-[415px] -z-10 lg:-top-[450px] lg:-mb-[450px]  2xl:-top-[525px]'>
+                    <img src={img2} alt="" className='-z-20' />
+                    <div className='relative left-[320px] md:-mb-[400px] md:-top-[415px] -z-20 lg:-top-[450px] lg:-mb-[450px]  2xl:-top-[525px]'>
                         <div className='md:h-[475px] h-[525px] w-[470px] bg-cyan-500 text-zinc-100 p-12'>
                             <h2 className='font-[KronaOne] pb-6 text-[20px]'>
                                 Room Management & Individual Tracks
@@ -49,7 +49,7 @@ function Homepage() {
                             </ul>
                         </div>
                     </div>
-                    <img src={foot} alt=""className='lg:pb-[25px] 2xl:pb-0' />
+                    <img src={foot} alt="" />
                 </div>
             </div>
         </>
