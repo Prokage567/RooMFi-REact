@@ -40,16 +40,16 @@ const rooms = [
 
 function RoomCarousel({ units, title }) {
   return (
-    <div className="mb-8 w-full flex flex-col items-start">
+    <div className="max-w-full flex flex-col items-start p-5">
       <h1 className="md:text-[45px] font-[NiramitReg] font-bold text-[#0F1A42]">{title}</h1>
-      <Carousel className="w-full max-w-7xl mx-auto flex overflow-x-auto snap-x snap-mandatory scroll-smooth">
+      <Carousel className="w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth">
         <CarouselContent className="ml-1 mr-1 flex">
           {units.map((unit, index) => (
             <CarouselItem key={index} className="basis-1/2 md:basis-1/3 p-4 flex-shrink-0 relative group overflow-hidden snap-center">
               <img
                 src={unit.src} 
                 alt={unit.title} 
-                className="w-full aspect-[16/9] object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-110"
+                className="w-full aspect-[16/9] object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-110 hover:rounded-lg"
                 />
               <div className="absolute bottom-0 left-0 right-0 text-center bg-[#0F1A42] bg-opacity-75 font-[NiramitReg] text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity ease-in-out rounded-b-lg">
                 <h3 className="text-[22px] font-bold">{unit.title}</h3>
@@ -58,8 +58,8 @@ function RoomCarousel({ units, title }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 font-[NiramitReg] text-white p-3 rounded-full hover:bg-opacity-80" />
-        <CarouselNext className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 font-[NiramitReg] text-white p-3 rounded-full hover:bg-opacity-80" />
+        <CarouselPrevious className="absolute left-0 top-1/2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-80" />
+        <CarouselNext className="absolute right-0 top-1/2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-80" />
       </Carousel>
     </div>
   );
@@ -88,10 +88,10 @@ export default function Room() {
       <RoomCarousel units={others} title="Other Rooms" />
     </div>
 
-    <div className="bg-">
+    <div className="flex">
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
-          <Button className="fixed bottom-10 right-12 font-bold p-8 bg-[#0F1A42] font-[NiramitReg] text-[20px] text-white rounded-lg shadow-lg hover:bg-[#3F9DC1] hover:text-[#0F1A42] flex items-center justify-center">
+          <Button className="fixed bottom-10 right-12 font-bold p-7 bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#3F9DC1] hover:text-[#0F1A42] flex items-center justify-center">
             Request Room
           </Button>
         </DialogTrigger>
