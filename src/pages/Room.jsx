@@ -6,81 +6,52 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { 
+  AlertDialog, 
+  AlertDialogTrigger, 
+  AlertDialogContent, 
+  AlertDialogHeader, 
+  AlertDialogTitle, 
+  AlertDialogDescription, 
+  AlertDialogFooter 
+} from "@/components/ui/alert-dialog";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { useCookies } from 'react-cookie'
+import { getRoom } from "../api/room";
+import { lecture, science, computer, electronic,electrical, autoMecha, others }from "./rooms/rooms"
 
 
-import Room111 from "../assets/images/rooms/111.jpg";
-import Room112 from "../assets/images/rooms/112.jpg";
-import Room143 from "../assets/images/rooms/143.jpg";
-import Room145 from "../assets/images/rooms/145.jpg";
-import Room147 from "../assets/images/rooms/147.jpg";
-import Room201 from "../assets/images/rooms/201.jpg";
-import Room202 from "../assets/images/rooms/202.jpg";
-import Room206 from "../assets/images/rooms/206.jpg";
-import Room207 from "../assets/images/rooms/207.jpg";
-import Room209 from "../assets/images/rooms/209.jpg";
-import Room212 from "../assets/images/rooms/212.jpg";
-import Room315 from "../assets/images/rooms/315.jpg";
-import Room317 from "../assets/images/rooms/317.jpg";
-import Room323 from "../assets/images/rooms/323.jpg";
-import Room324 from "../assets/images/rooms/324.jpg";
-import Room335 from "../assets/images/rooms/335.jpg";
-import Room336 from "../assets/images/rooms/336.jpg";
-
-const lecture = [
-  { src: Room111, title: "Room 111", description: "Unavailable" },
-  { src: Room143, title: "Room 143", description: "Available" },
-  { src: Room201, title: "Room 201", description: "Unavailable" },
-  { src: Room202, title: "Room 202", description: "Available" },
-  { src: Room317, title: "Room 317", description: "Available" },
-  { src: Room324, title: "Room 324", description: "Available" },
+const rooms = [
+  "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
+  "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
+  "Room 324", "Room 335", "Room 336"
 ];
-
-const science = [
-  { src: Room209, title: "Room 209 - Biology Lab", description: "Available" },
-  { src: Room206, title: "Room 206 - Chemistry Lab", description: "Available" },
-];
-
-const computer = [
-  { src: Room147, title: "Room 147", description: "Available" },
-  { src: Room335, title: "Room 335", description: "Available" },
-  { src: Room336, title: "Room 336", description: "Available" },
-];
-
-const electronic = [
-  { src: Room323, title: "Room 323", description: "Available" },
-];
-
-const electrical = [
-  { src: Room315, title: "Room 315", description: "Available" },
-];
-
-const autoMecha = [
-  { src: Room145, title: "Room 145", description: "Unavailable" },
-];
-
-const others = [
-  { src: Room112, title: "Room 112 - Audio Visual Room", description: "Available" },
-  { src: Room207, title: "Room 207 - Drawing Room", description: "Available" },
-  { src: Room212, title: "Room 212 - Library", description: "Available" },
-];
-
-
 
 function RoomCarousel({ units, title }) {
   return (
     <div className="mb-8 w-full flex flex-col items-start">
       <h1 className="md:text-[45px] font-[NiramitReg] font-bold text-[#0F1A42]">{title}</h1>
       <Carousel className="w-full max-w-7xl mx-auto flex overflow-x-auto snap-x snap-mandatory scroll-smooth">
-        <CarouselContent className="flex gap-6">
+        <CarouselContent className="ml-1 mr-1 flex">
           {units.map((unit, index) => (
             <CarouselItem key={index} className="basis-1/2 md:basis-1/3 p-4 flex-shrink-0 relative group overflow-hidden snap-center">
-              <img 
+              <img
                 src={unit.src} 
                 alt={unit.title} 
                 className="w-full aspect-[16/9] object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-110"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-[#0F1A42] bg-opacity-75 text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity ease-in-out rounded-b-lg">
+                />
+              <div className="absolute bottom-0 left-0 right-0 text-center bg-[#0F1A42] bg-opacity-75 text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity ease-in-out rounded-b-lg">
                 <h3 className="text-xl font-bold">{unit.title}</h3>
                 <p className="text-lg">{unit.description}</p>
               </div>
@@ -95,7 +66,18 @@ function RoomCarousel({ units, title }) {
 }
 
 export default function Room() {
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies()
+  const token = cookies.token
+  
+  const buttonSubmit = () => {
+    setIsOpen(false);
+    getRoom([token],"POST")
+  };
+
   return (
+    <>
     <div className="snap-x snap snap-always min-h-screen p-8 flex flex-col items-center">
       <RoomCarousel units={lecture} title="Lecture Rooms" />
       <RoomCarousel units={science} title="Science Rooms" />
@@ -105,5 +87,43 @@ export default function Room() {
       <RoomCarousel units={autoMecha} title="Automations and Mechatronics" />
       <RoomCarousel units={others} title="Other Rooms" />
     </div>
+
+    <div className="bg-">
+      <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+        <AlertDialogTrigger asChild>
+          <Button className="fixed bottom-10 right-12 p-6 bg-[#0F1A42] text-white rounded-lg shadow-lg hover:bg-[#3F9DC1] hover:text-[#0F1A42] flex items-center justify-center">
+            Request Room
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className="bg-slate-900 border-none text-[#fff]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Request a Room</AlertDialogTitle>
+            <AlertDialogDescription>
+              Please select a room and provide a reason for your request.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="flex flex-col gap-4">
+            <Label htmlFor="room">Select Room</Label>
+            <Select>
+              <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px]">
+                <SelectValue placeholder="Choose a room" />
+              </SelectTrigger>
+              <SelectContent>
+                {rooms.map((room, index) => (
+                  <SelectItem key={index} value={room}>{room}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Label htmlFor="reason">Reason</Label>
+            <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
+          </div>
+          <AlertDialogFooter className="flex justify-between">
+            <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={() => setIsOpen(false)}>Cancel</Button>
+            <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+    </>
   );
 }
