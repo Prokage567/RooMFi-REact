@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { AuthContext } from '../context/context'
 import '../pages/index.css'
@@ -6,17 +6,28 @@ import logo from '../assets/images/logo.svg'
 import icon from '../assets/images/homeIcon.svg'
 import icon2 from '../assets/images/icon2.svg'
 import icon3 from '../assets/images/icon3.svg'
+import { useCookies } from 'react-cookie'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { getSection } from '../api/section'
 
 export default function MainLayout() {
 
     const [search, setSearch] = useState();
-
+    const [Section, setSection] = useState([])
+    const [cookies, setCookie, removeCookie] = useCookies()
+    const token = cookies.token
     const searchRoom = (s) => {
         setSearch(e.target.value);
         console.log("Searching for: ", e.target.value);
     };
-
+    useEffect(() => {
+        getSection([token],"GET").then(res => {
+            if (res?.ok) {
+                setSection(res.data)
+            }
+        }
+      )   
+    }, [])
     const { user, logout } = useContext(AuthContext)
     return (
         <>
@@ -45,7 +56,7 @@ export default function MainLayout() {
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
                                     <Link to="/room" className="flex flex-col ">
-                                        <AccordionTrigger img={icon2} className="lg:ml-1 md:ml-[4px] ml-0 whitespace-pre">Room    </AccordionTrigger>
+                                        <AccordionTrigger input={true} img={icon2} className="lg:ml-1 md:ml-[4px] ml-0 whitespace-pre">Room    </AccordionTrigger>
                                     </Link>
                                     <AccordionContent>Lecture Rooms</AccordionContent>
                                     <AccordionContent>Science Laboratories</AccordionContent>
@@ -60,34 +71,22 @@ export default function MainLayout() {
                             </Accordion>
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-2">
-                                    <Link to="/section" className="flex flex-col ">
-                                        <AccordionTrigger img={icon2} >Section</AccordionTrigger>
-                                    </Link>
-                                    <AccordionContent>CPROG/AUTO</AccordionContent>
-                                    <AccordionContent>STEM</AccordionContent>
-                                    <AccordionContent>1H1</AccordionContent>
-                                    <AccordionContent>1H2</AccordionContent>
-                                    <AccordionContent>1H3</AccordionContent>
-                                    <AccordionContent>IET</AccordionContent>
-                                    <AccordionContent>IAMT</AccordionContent>
-                                    <AccordionContent>DAD</AccordionContent>
-                                    <AccordionContent>DENSO</AccordionContent>
+                                        <AccordionTrigger input={true} img={icon2}>Section</AccordionTrigger>
+                                    {Section.map(s=>( 
+                                        //here we throw thr section's id from the section and uses it to go from one data to another
+                                        <Link key={s.id} to={`/section/${s.id}`} className="flex flex-col ">
+                                            <AccordionContent>{s.name}</AccordionContent>
+                                        </Link>
+                                    ))
+                                    }
+                                        
                                 </AccordionItem>
                             </Accordion>
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-3">
-                                    <Link to="/teacher" className="flex flex-col ">
-                                        <AccordionTrigger img={icon3}>Teacher</AccordionTrigger>
+                                    <Link to="/teacher" className="flex flex-col">
+                                        <AccordionTrigger img={icon3} >Teacher</AccordionTrigger>
                                     </Link>
-                                    <AccordionContent>Lecture Rooms</AccordionContent>
-                                    <AccordionContent>Science Laboratories</AccordionContent>
-                                    <AccordionContent>Computer Laboratories</AccordionContent>
-                                    <AccordionContent>Electronics Laboratories</AccordionContent>
-                                    <AccordionContent>Electrical Laboratories</AccordionContent>
-                                    <AccordionContent>Automations & Mechatronics</AccordionContent>
-                                    <AccordionContent>Instrumentations</AccordionContent>
-                                    <AccordionContent>Fiber Optic Laboratory</AccordionContent>
-                                    <AccordionContent>Other Rooms</AccordionContent>
                                 </AccordionItem>
                             </Accordion>
                         </div>

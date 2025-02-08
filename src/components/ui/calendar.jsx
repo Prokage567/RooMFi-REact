@@ -3,11 +3,12 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import dayjs from "dayjs"
 
 function Calendar({
   className,
   classNames,
-  input,
+  schedules, //data comes from the Section in section.jsx
   showOutsideDays = true,
   ...props
 }) 
@@ -65,11 +66,23 @@ function Calendar({
         IconRight: ({ className, ...props }) => (
           <ChevronRight className={cn("h-4 w-4", className)} {...props} />
         ),
-        Day: ({ className, ...props }) => (
-         <div className={cn("", className)} {...props}>
-          {input}
-         </div>
-        )
+        Day: ({ className, displayMonth, ...props }) => {
+         return(<div className={cn("", className)} displaymonth={displayMonth} {...props}>
+          {
+            //filters out the data coming from the schedules in line 11
+            schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
+              <div className="bg-blue-600 text-secondary flex gap-1 text-xs">
+                <div>
+                {x.subject}
+                </div>
+                <div>
+                  {x.teacher.name}
+                </div>
+              </div>
+            ))
+          }
+         </div>)
+        }
       }}
       {...props} />
     )

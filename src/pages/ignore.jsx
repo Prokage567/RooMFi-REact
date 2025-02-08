@@ -32,35 +32,21 @@ import { Calendar, CalendarIcon } from 'lucide-react'
 import dayjs from 'dayjs'
 import { cn } from "@/lib/utils"
 import { getSched } from "../api/sched"
-import { useParams } from "react-router-dom"
-import { useEffect } from "react"
-import { getSection, getSectionId } from "../api/section"
-import { useCookies } from "react-cookie"
 
 
 
 export default function section({
   className,
 }) {
-  const [Section, setSection] = useState([])
-  const [cookies, setCookie, removeCookie] = useCookies()
-  const token = cookies.token 
-  const { id } = useParams() // this id comes from the mainlayout where it indicates the id of the section 
+  // const [date, setDate] = useState(new Date())
+
+
   const [date, setDate] = useState({
     from: dayjs("2025-01-20").toDate(),
     to: dayjs("2025-01-20").add(20, "days").toDate(),
+  
   })
-  useEffect(() => {
-    //the id then will be thrown to the backend so that we can differentiate what it sched it has
-    getSectionId(id,[token]).then(res => {
-      console.log(res)
-      if (res?.ok) {
-        setSection(res.data)
-      }
-    }
-    )
-    //solution for the delayed data's getting thorugh is by making a function where once the page loaded it gets the data
-  }, [])
+ 
   return (
     <>
       {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
@@ -74,7 +60,7 @@ export default function section({
             selected={date}
             onSelect={setDate}
             className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
-            schedules={Section?.schedules}
+
           />
         </div>
 
@@ -137,7 +123,7 @@ export default function section({
                           <>
                             {setDate(format(date.from, "LLL dd, y") - " ",
                               format(date.to, "LLL dd, y"))}
-                            {console.log(date)}
+                              {console.log(date)}
                           </>
                         ) : (
                           format(date.from, "LLL dd, y")
