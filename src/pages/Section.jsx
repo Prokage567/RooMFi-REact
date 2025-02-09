@@ -45,19 +45,31 @@ export default function section({
     to: dayjs().add(20, "days").toDate(),
   })
 
+  const [value, setValue] =useState(new Date())
+
   return (
     
     <>
       {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
 
-      <div className="flex h-[80vh] mb-24 mr-[300px] ">
-        <div className="justify-end h-auto max-h-screen ml-[100px]">
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-efd5a1d4-de48-498d-b1a9-2c77f46ecc1a" data-elfsight-app-lazy></div>
+
+      <div className="flex mt-[20px] ">
+        <div className="justify-end h-auto max-h-screen">
           <Cal
             mode="single"
             selected={date}
             onSelect={setDate}
-            className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none" />
+            className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none" 
+            onChange={setValue}
+            value={value}
+            tileContent={({date, view}) => view === "month" && date.getDate() === new Date().getDate() ? (
+              <div className="text-red-700 font-normal"> hahaha</div>
+            ):null
+          }
+            />
         </div>
 
         <Dialog className="rounded-full w-[500px]" >

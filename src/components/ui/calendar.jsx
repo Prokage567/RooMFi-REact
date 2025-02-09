@@ -9,6 +9,7 @@ function Calendar({
   classNames,
   input,
   showOutsideDays = true,
+  hihi,
   ...props
 }) 
 {
@@ -50,11 +51,11 @@ function Calendar({
         day_range_end: "day-range-end",
         //where makikita naselect in range
         day_selected:
-          " text-[#242F5B] bg-[#242F5B] focus:bg-[#90E0FF]  focus:text-[#242F5B]",
+          " text-[#242F5B]  focus:bg-[#90E0FF]  focus:text-[#242F5B]",
         day_today: "font-extrabold",
         day_outside:
-          "day-outside text-muted-foreground aria-selected:bg-accent/50  aria-selected:text-muted-foreground",
-        day_disabled: "text-muted-foreground opacity-50 ",
+          "day-outside   text-[#D9D9D9]/100  hover:text-[#fff]",
+        day_disabled: "text-muted-foreground opacity-80 ",
         day_range_middle:
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
