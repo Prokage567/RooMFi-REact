@@ -29,7 +29,7 @@ const router = createBrowserRouter([
             element: <Room />
         },
         {
-            path: "/section",
+            path: "/section/:id",
             element: <Section />
         },
         {

@@ -31,55 +31,36 @@ import '../pages/index.css'
 import { Calendar, CalendarIcon } from 'lucide-react'
 import dayjs from 'dayjs'
 import { cn } from "@/lib/utils"
-import { DialogTitle } from "@radix-ui/react-dialog"
-
 import { getSched } from "../api/sched"
-import { useParams } from "react-router-dom"
-import { useEffect } from "react"
-import { getSection, getSectionId } from "../api/section"
-import { useCookies } from "react-cookie"
 
 
 
 export default function section({
   className,
 }) {
-  const [Section, setSection] = useState([])
-  const [cookies, setCookie, removeCookie] = useCookies()
-  const token = cookies.token 
-  const { id } = useParams() // this id comes from the mainlayout where it indicates the id of the section 
+  // const [date, setDate] = useState(new Date())
+
+
   const [date, setDate] = useState({
     from: dayjs("2025-01-20").toDate(),
     to: dayjs("2025-01-20").add(20, "days").toDate(),
+  
   })
-  useEffect(() => {
-    //the id then will be thrown to the backend so that we can differentiate what it sched it has
-    getSectionId(id,[token]).then(res => {
-      console.log(res)
-      if (res?.ok) {
-        setSection(res.data)
-      }
-    }
-    )
-    //solution for the delayed data's getting thorugh is by making a function where once the page loaded it gets the data
-  }, [])
+ 
   return (
-    
     <>
       {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
 
-<script src="https://static.elfsight.com/platform/platform.js" async></script>
-<div class="elfsight-app-efd5a1d4-de48-498d-b1a9-2c77f46ecc1a" data-elfsight-app-lazy></div>
 
-      <div className="flex mt-[20px] ">
-        <div className="justify-end h-auto max-h-screen">
+      <div className="flex h-[80vh] ">
+        <div className="justify-end h-auto max-h-screen ml-[100px]">
           <Cal
             mode="single"
             selected={date}
             onSelect={setDate}
             className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
-            schedules={Section?.schedules}
+
           />
         </div>
 
@@ -93,50 +74,35 @@ export default function section({
             <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
               <Label className="text-[20px]">Room NO.</Label>
               <Input autofocus e={false}
-                className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white text-[#0d1254] text-[18px] "
+                className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] text-[20px] "
                 type="number"
-                id="room.no"
-                placeholder="Input Room Number" />
-
-              <div className="justify-between flex">
-              <div>
-              <Label className="text-[20px]">Add a Teacher</Label>
-              </div>
-
-              <div className=" mt-[15px] h-[14px] w-[160px]">
-              <div className="  font-extralight text-[13px]">This field is not required</div>
-              </div>
-
-              </div>
-              <Input autofocus e={false}
-                className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white  text-[#0d1254]
-                ] text-[20px] "
                 id="room.no"
                 placeholder="Input Room Number" />
 
               <div className="mt-2 z-10 ">
                 <div className="font-[NiramitReg] text-[20px] mb-1">Teacher</div>
-
-                <Select  className="font-[NiramitReg]">
+                <Select className="font-[NiramitReg]">
                   <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
-                    <SelectValue placeholder="Select a Teacher" />
+                    <SelectValue placeholder="Type or Select a Teacher" />
                   </SelectTrigger>
                   <SelectContent className="h-[300px] font-[NiramitReg]" >
-                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="dark">Ruffa Mae Santos</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="2">Aladin P. Silvestre</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="3">Mariel Nichole Almazan</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="5">Hillary Mira</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="wow">Chelzie Tano</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="34">Miles Delfino</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="90">Justin Nalog</SelectItem>
+                    <SelectItem className="text-[18px]" value="Others">Others</SelectItem>
+                    <SelectItem className="text-[18px]" value="dark">Ruffa Mae Santos</SelectItem>
+                    <SelectItem className="text-[18px]" value="2">Aladin P. Silvestre</SelectItem>
+                    <SelectItem className="text-[18px]" value="3">Mariel Nichole Almazan</SelectItem>
+                    <SelectItem className="text-[18px]" value="5">Hillary Mira</SelectItem>
+                    <SelectItem className="text-[18px]" value="wow">Chelzie Tano</SelectItem>
+                    <SelectItem className="text-[18px]" value="34">Miles Delfino</SelectItem>
+                    <SelectItem className="text-[18px]" value="90">Justin Nalog</SelectItem>
                   </SelectContent>
                 </Select>
+
               </div>
 
 
               <Label className="mt-2 text-[20px]">Subject</Label>
               <Input autofocus e={false}
-                className="h-10 placeholder:text-[20px]  md:text-[20px] bg-white text-[18px] text-[#0F172A]"
+                className="h-10 placeholder:text-[18px]  md:text-[20px] bg-white text-[30px] text-[#0F172A]"
                 id="subject"
                 placeholder="Input Subject" />
 
@@ -147,7 +113,7 @@ export default function section({
                       id="date"
                       variant={"outline"}
                       className={cn(
-                        "w-[450px] justify-center text-center  text-[18px] font-normal hover:border-white hover:border hover:line bg-transparent",
+                        "w-[300px] justify-start text-left  text-[18px] font-normal hover:border-white hover:border hover:line bg-transparent",
                         !date && "text-muted-foreground"
                       )}
                     >
@@ -157,17 +123,17 @@ export default function section({
                           <>
                             {setDate(format(date.from, "LLL dd, y") - " ",
                               format(date.to, "LLL dd, y"))}
-                            {console.log(date)}
+                              {console.log(date)}
                           </>
                         ) : (
                           format(date.from, "LLL dd, y")
                         )
                       ) : (
                         <span>Pick a date</span>
-                      )}{console.log(date)}
+                      )}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[315px] h-[335px] border-[3px] line border-white bg-[#BFAC88] " align="start">
+                  <PopoverContent className="w-[300px] h-[320px]" align="start">
                     <Kal
                       initialFocus
                       mode="range"
@@ -175,11 +141,11 @@ export default function section({
                       selected={date}
                       onSelect={setDate}
                       numberOfMonths={1}
-                      className="text-[#fff]  font-[NiramitReg]"
                     />
                   </PopoverContent>
                 </Popover>
               </div>
+
 
               <div className="grid grid-flow-col w-[450px] mt-[10px] h-[150px] gap-2 ">
 
