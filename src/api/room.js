@@ -1,6 +1,6 @@
 import { URL } from "./config";
 
-export const getRoom = async (inputs) => {
+export const getRoom = async (inputs,type) => {
     const res = await fetch(`${URL}/room/`, {
         method: type,
         headers: {

@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import './index.css'
 import Add from "../assets/images/add.svg"
 import {
@@ -31,46 +30,86 @@ import '../pages/index.css'
 import { Calendar, CalendarIcon } from 'lucide-react'
 import dayjs from 'dayjs'
 import { cn } from "@/lib/utils"
-import { DialogTitle } from "@radix-ui/react-dialog"
-
-import { getSched } from "../api/sched"
 import { useParams } from "react-router-dom"
 import { useEffect } from "react"
 import { getSection, getSectionId } from "../api/section"
 import { useCookies } from "react-cookie"
-
+import $ from "jquery"
+import { getTeacher } from "../api/teacher"
+import { getRoom } from "../api/room"
+import { getSched } from "../api/sched"
 
 
 export default function section({
   className,
 }) {
   const [Section, setSection] = useState([])
+  const [Teachers, setTeachers] = useState([])
+  const [Rooms, setRooms] = useState([])
+  const [Subjects, setSubjects] = useState([])
   const [cookies, setCookie, removeCookie] = useCookies()
-  const token = cookies.token 
+  const token = cookies.token
   const { id } = useParams() // this id comes from the mainlayout where it indicates the id of the section 
+
+
   const [date, setDate] = useState({
     from: dayjs("2025-01-20").toDate(),
     to: dayjs("2025-01-20").add(20, "days").toDate(),
   })
+  
+  const schedule = () => { 
+    const teacher = $("#teacher").val()
+    const room = $("#room").val()
+    const subject = $("#subject").val()
+    const day = $("#day").val()
+    const endTime = $("#endTime").val()
+    const startTime = $("#strTime").val()
+    const endDate = $("#endDate").val()
+    const startDate = $("#strDate").val()
+    console.log(day)
+    console.log(room)
+    console.log(startTime)
+    console.log(teacher)
+    console.log(endTime)
+    console.log(subject)
+    getSched("POST",token, [day,endTime,startTime,room,startDate,endDate,subject,teacher]).then(res => {
+    console.log(res)
+    if (res?.ok) {
+      toast.success("Event added!")
+    }
+  })
+}
   useEffect(() => {
     //the id then will be thrown to the backend so that we can differentiate what it sched it has
-    getSectionId(id,[token]).then(res => {
-      console.log(res)
+    getSectionId(id, "GET", [token]).then(res => {
       if (res?.ok) {
         setSection(res.data)
       }
-    }
-    )
+    })
+
+   
+    getTeacher([token], "GET").then(res => {
+      if (res?.ok) {
+        setTeachers(res.data)
+      }
+    })
+
+    getRoom([token], "GET").then(res => {
+      if (res?.ok) {
+        setRooms(res.data)
+      }
+    })
+
     //solution for the delayed data's getting thorugh is by making a function where once the page loaded it gets the data
   }, [])
   return (
-    
+
     <>
       {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
 
-<script src="https://static.elfsight.com/platform/platform.js" async></script>
-<div class="elfsight-app-efd5a1d4-de48-498d-b1a9-2c77f46ecc1a" data-elfsight-app-lazy></div>
+      <script src="https://static.elfsight.com/platform/platform.js" async></script>
+      <div class="elfsight-app-efd5a1d4-de48-498d-b1a9-2c77f46ecc1a" data-elfsight-app-lazy></div>
 
       <div className="flex mt-[20px] ">
         <div className="justify-end h-auto max-h-screen">
@@ -89,46 +128,52 @@ export default function section({
           </DialogTrigger>
 
           <DialogContent className="bg-slate-900 border-none text-[#fff]">
+            <div className="mt-2 z-10 ">
+              <div className="font-[NiramitReg] text-[20px] mb-1">Room No.</div>
 
-            <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
-              <Label className="text-[20px]">Room NO.</Label>
-              <Input autofocus e={false}
-                className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white text-[#0d1254] text-[18px] "
-                type="number"
-                id="room.no"
-                placeholder="Input Room Number" />
+              <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
+                <Select className="font-[NiramitReg]">
+                  <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
+                    <SelectValue placeholder="Select a Room" />
+                  </SelectTrigger>
+                  <SelectContent id="room" className=" font-[NiramitReg]" >
+                    {Rooms.map(room =>
+                      <SelectItem  className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {room.name} - {room.type}</SelectItem>
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
 
-              <div className="justify-between flex">
+              {/* <div className="justify-between flex">
               <div>
-              <Label className="text-[20px]">Add a Teacher</Label>
+                <Label className="text-[20px]">Add a Teacher</Label>
               </div>
 
               <div className=" mt-[15px] h-[14px] w-[160px]">
-              <div className="  font-extralight text-[13px]">This field is not required</div>
+                <div className="  font-extralight text-[13px]">This field is not required</div>
               </div>
 
-              </div>
-              <Input autofocus e={false}
-                className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white  text-[#0d1254]
-                ] text-[20px] "
-                id="room.no"
-                placeholder="Input Room Number" />
+            </div> */}
+
+              {/* <Input autofocus e={false}
+              className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white  text-[#0d1254] text-[20px] "
+              id="room.no"
+              placeholder="Input Room Number" /> */}
 
               <div className="mt-2 z-10 ">
                 <div className="font-[NiramitReg] text-[20px] mb-1">Teacher</div>
 
-                <Select  className="font-[NiramitReg]">
+                <Select className="font-[NiramitReg]">
                   <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
                     <SelectValue placeholder="Select a Teacher" />
                   </SelectTrigger>
-                  <SelectContent className="h-[300px] font-[NiramitReg]" >
-                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="dark">Ruffa Mae Santos</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="2">Aladin P. Silvestre</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="3">Mariel Nichole Almazan</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="5">Hillary Mira</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="wow">Chelzie Tano</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="34">Miles Delfino</SelectItem>
-                    <SelectItem className="text-[18px]  text-[#242F5B] hover:bg-[#bce9fc]" value="90">Justin Nalog</SelectItem>
+                  <SelectContent id="teacher" className=" font-[NiramitReg]" >
+                    {Teachers.map(teacher =>
+                    <div id="teacher">
+                      <input type="hidden" id="teacher" value={teacher.id} ></input>
+                      <SelectItem id="teacher" className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={teacher.id} >{teacher.name} - {teacher.technology_course}</SelectItem>
+                    </div> 
+                    )}
                   </SelectContent>
                 </Select>
               </div>
@@ -140,11 +185,32 @@ export default function section({
                 id="subject"
                 placeholder="Input Subject" />
 
+              <div className="mt-2 z-10 ">
+                <div className="font-[NiramitReg] text-[20px] mb-1">Select Weekday</div>
+
+                <Select className="font-[NiramitReg]">
+                  <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
+                    <SelectValue placeholder="Select a Teacher" />
+                  </SelectTrigger>
+                  <SelectContent id="day" className=" font-[NiramitReg]" >
+
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="1">Monday</SelectItem>
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="2">Tuesday</SelectItem>
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="3">Wednesday</SelectItem>
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="4">Thursday</SelectItem>
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="5">Friday</SelectItem>
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="6">Saturday</SelectItem>
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="7">Sunday</SelectItem>
+
+               </SelectContent>
+               </Select>
+              </div>
+
               <div className={cn("grid gap-2 mt-3", className)}>
                 <Popover className="">
                   <PopoverTrigger asChild>
                     <Button
-                      id="date"
+                      id=""
                       variant={"outline"}
                       className={cn(
                         "w-[450px] justify-center text-center  text-[18px] font-normal hover:border-white hover:border hover:line bg-transparent",
@@ -155,16 +221,20 @@ export default function section({
                       {date?.from ? (
                         date.to ? (
                           <>
-                            {setDate(format(date.from, "LLL dd, y") - " ",
-                              format(date.to, "LLL dd, y"))}
-                            {console.log(date)}
+                            <div id="strDate">
+                              {format(date.from, "LLL dd, y")}
+                            </div>
+                            - {" "}
+                            <div id="endDate">
+                              {format(date.to, "LLL dd, y")}
+                            </div>
                           </>
                         ) : (
                           format(date.from, "LLL dd, y")
                         )
                       ) : (
                         <span>Pick a date</span>
-                      )}{console.log(date)}
+                      )}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-[315px] h-[335px] border-[3px] line border-white bg-[#BFAC88] " align="start">
@@ -186,9 +256,9 @@ export default function section({
                 <div className=" w-[150px] row-span-3" >
                   <Label className="ml-10 text-[20px]">Time</Label><br />
                   <Label className="text-[18px]" >From:</Label>
-                  <Input className="border-none focus:outline-white" type="time" />
+                  <Input id="strTime" className="border-none focus:outline-white" type="time" />
                   <Label className="text-[18px]">To:</Label>
-                  <Input className="border-none text-slate-50" type="time" />
+                  <Input id="endTime" className="border-none text-slate-50" type="time" />
                 </div>
 
                 <div className="col-span-2 w-[270px]  h-[110px]  mt-2 ">
@@ -205,7 +275,7 @@ export default function section({
                 </div>
 
                 <div className="col-span-2 row-span-2 ml-[210px]">
-                  <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
+                  <Button  onClick={()=>schedule()} className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
                 </div>
 
               </div>
