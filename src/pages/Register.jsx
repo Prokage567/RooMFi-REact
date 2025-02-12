@@ -3,25 +3,25 @@ import {
     Button,
     FormControl,
     Input
-} from '@mui/material'
+} from "@mui/material"
 import {
     Visibility
     , VisibilityOff
-} from '@mui/icons-material'
-import * as React from 'react'
-import { useEffect, useState } from 'react'
-import InputAdornment from '@mui/material/InputAdornment'
-import Typography from '@mui/material/Typography'
-import { Link, useNavigate } from 'react-router-dom'
-import { ThemeProvider } from '@emotion/react'
-import theme from '../../theme'
-import logo from '../assets/images/logo.svg'
-import './index.css'
-import { AuthRegister } from '../api/auth'
-import $ from 'jquery'
-import Theme from '../components/CustomComponents'
-import { toast } from 'react-toastify'
-import withoutAuth from '../highOrdeerComponent/withoutAuth'
+} from "@mui/icons-material"
+import * as React from "react"
+import { useEffect, useState } from "react"
+import InputAdornment from "@mui/material/InputAdornment"
+import Typography from "@mui/material/Typography"
+import { Link, useNavigate } from "react-router-dom"
+import { ThemeProvider } from "@emotion/react"
+import theme from "../../theme"
+import logo from "../assets/images/logo.svg"
+import "./index.css"
+import { AuthRegister } from "../api/auth"
+import $ from "jquery"
+import Theme from "../components/CustomComponents"
+import { toast } from "react-toastify"
+import withoutAuth from "../highOrdeerComponent/withoutAuth"
 
 
 const customStyle = {
@@ -56,7 +56,7 @@ function Register() {
             AuthRegister({ name, email, first_name, last_name, password, password_confirmation }).then(response => {
                 if (response?.created) {
                     toast.success("success")
-                    navigate('../login')
+                    navigate("../login")
                 }
                 setwarn(response.errors)
             }).finally(() =>
@@ -177,7 +177,7 @@ function Register() {
                                 <FormControl sx={
                                     customStyle
                                 } variant="filled">
-                                    <Input id="password" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={
+                                    <Input id="password" type={showPassword ? "text" : "password"} sx={{ paddingLeft: "10px" }} endAdornment={
                                         <InputAdornment position="end">
                                             <Button onClick={handleClickShowPassword}>
                                                 {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -195,7 +195,7 @@ function Register() {
                                 <FormControl sx={
                                     customStyle
                                 } variant="filled">
-                                    <Input id="PassConfirm" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={
+                                    <Input id="PassConfirm" type={showPassword ? "text" : "password"} sx={{ paddingLeft: "10px" }} endAdornment={
                                         <InputAdornment position="end">
                                             <Button onClick={handleClickShowPassword}>
                                                 {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -205,7 +205,7 @@ function Register() {
 
                                     </FormControl>
                                     {warn?.password_confirmation && (<div styles={{fontSize:"15px", color:"500"}}>{warn.password_confirmation}</div>)}                                
-                                <Typography color='#D9D9D9' style={{
+                                <Typography color="#D9D9D9" style={{
                                     textAlign: "center",
                                     fontSize: "15px",
                                     fontFamily: "NiramitReg",
