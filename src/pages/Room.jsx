@@ -1,20 +1,12 @@
-import * as React from "react";
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import { 
-  Dialog, 
-  DialogTrigger, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogDescription, 
-  DialogFooter 
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -25,11 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useCookies } from 'react-cookie'
-import { getRoom } from "../api/room";
-import { lecture, science, computer, electronic,electrical, autoMecha, others }from "./rooms/rooms"
+import { useCookies } from "react-cookie"
+import { useParams } from "react-router-dom";
+import { getCategory, getCategoryId } from "../api/category";
+import { useEffect, useMemo } from "react";
+import { useState } from "react";
 
 
 const rooms = [
@@ -40,61 +32,80 @@ const rooms = [
 
 
 
-function RoomCarousel({ units, title }) {
-  return (
-    <div className="max-w-full flex flex-col items-start p-5">
-      <h1 className="md:text-[45px] font-[NiramitReg] font-bold text-[#0F1A42]">{title}</h1>
-      <Carousel className="w-full flex overflow-x-auto snap-x snap-mandatory scroll-smooth">
-        <CarouselContent className="ml-1 mr-1 flex">
-          {units.map((unit, index) => (
-            <CarouselItem key={index} className="basis-1/2 md:basis-1/3 p-4 flex-shrink-0 relative group overflow-hidden snap-center">
-              <img
-                src={unit.src} 
-                alt={unit.title} 
-                className="w-full aspect-[16/9] object-cover rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-110 hover:rounded-lg"
-                />
-              <div className="absolute bottom-0 left-0 right-0 text-center bg-[#0F1A42] bg-opacity-75 font-[NiramitReg] text-white p-4 opacity-0 group-hover:opacity-100 transition-opacity ease-in-out rounded-b-lg">
-                <h3 className="text-[22px] font-bold">{unit.title}</h3>
-                <p className="text-[18px] font-thin">{unit.description}</p>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="absolute left-0 top-1/2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-80" />
-        <CarouselNext className="absolute right-0 top-1/2 bg-black bg-opacity-50 text-white rounded-full hover:bg-opacity-80" />
-      </Carousel>
-    </div>
-  );
-}
+
 
 export default function Room() {
-
-  const [isOpen, setIsOpen] = React.useState(false);
+  useEffect(() => {
+    refreshCategory()
+    refreshCategoryById()
+  }, [])
+  const [isOpen, setIsOpen] = useState(false);
+  const [category, setCategory] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
-  
+  const { id } = useParams();
+
+  const cat = useMemo(() => {
+    if (categories.length != 0) {
+      if (id) {
+        return category.filter(x => x.room.map(x => x.category_id === id))
+      } else {
+        return categories
+      }
+    }
+    else {
+      return categories
+    }
+  }, [categories, category])
+
   const buttonSubmit = () => {
     setIsOpen(false);
     const roomNumber = $("#roomNum")
-    getRoom([token],"POST").then(res=>(
-    console.log(res)   
-    ))
-  };
+  }
+  const refreshCategoryById = () => {
+    if (id) {
+      getCategoryId(id, "GET").then(res => {
+        if (res?.ok) {
+          setCategory([res.data])
+        }
+      })
+    }
+  }
+
+  const refreshCategory = () => {
+    getCategory().then(res => {
+      if (res?.ok) {
+        setCategories(res.data)
+      }
+    })
+  }
 
   return (
     <>
-    <div className="snap-x snap snap-always min-h-screen p-8 flex flex-col items-center">
-      <RoomCarousel units={lecture} title="Lecture Rooms" />
-      <RoomCarousel units={science} title="Science Rooms" />
-      <RoomCarousel units={computer} title="Computer Laboratories" />
-      <RoomCarousel units={electronic} title="Electronic Laboratories" />
-      <RoomCarousel units={electrical} title="Electrical Laboratories" />
-      <RoomCarousel units={autoMecha} title="Automations and Mechatronics" />
-      <RoomCarousel units={others} title="Other Rooms" />
-    </div>
+      <div className="min-h-screen flex justify-center items-center flex-wrap">
+        <div className="ml-3 mr-3 sm:ml-2 sm:mr-0">
+          {cat.map(r =>
+            <div dir="ltr" className="mb-7  sm:mb-3">
+              <p className="text-[50px]">{r.category}</p>
+              <div className="scroll-ms-6 flex gap-2 flex-wrap">
+                {r.room.map(r => (
+                  <div className="border-slate-700/25 border-[3px] rounded-[20px] hover:border-slate-700">
+                    <div className="w-[250px]">
+                      {r.name}
+                      <img src={`../src/assets/images/rooms/${r.name}.jpg`} className="" alt="" />
+                    </div>
+                  </div>
+                )
+                )}
+              </div>
+            </div>
+          )}
+        </div>
 
-    <div className="flex">
-      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      </div>
+      <div className="flex">
+        {/* <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           <Button className="fixed bottom-10 right-12 font-bold p-7 bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#3F9DC1] hover:text-[#0F1A42] flex items-center justify-center">
             Request Room
@@ -127,8 +138,9 @@ export default function Room() {
             <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
-    </div>
+      </Dialog> */}
+      </div>
+      {/* </div> */}
     </>
   );
 }

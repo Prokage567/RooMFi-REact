@@ -29,6 +29,10 @@ const router = createBrowserRouter([
             element: <Room />
         },
         {
+            path: "/room/:id",
+            element: <Room />
+        },
+        {
             path: "/section/:id",
             element: <Section />
         },
@@ -36,7 +40,8 @@ const router = createBrowserRouter([
             path: "/teacher",
             element: <Teacher />
         }
-    ]
+    ],
+    
     
   }
 ])

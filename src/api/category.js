@@ -1,7 +1,7 @@
 import { URL } from "./config";
 
-export const getTeacher = async () => {
-    const res = await fetch(`${URL}/teacher/`, {
+export const getCategory = async () => {
+    const res = await fetch(`${URL}/category/`, {
         method: "GET",
         headers: {
             Accept: 'application/json',
@@ -10,8 +10,8 @@ export const getTeacher = async () => {
     })
     return await res.json()
 }
-export const getTeacherById = async (inputs,type) => {
-    const res = await fetch(`${URL}/teacher/`, {
+export const getCategoryId = async (id,inputs,type) => {
+    const res = await fetch(`${URL}/category/${id}`, {
         method: type,
         headers: {
             Accept: 'application/json',

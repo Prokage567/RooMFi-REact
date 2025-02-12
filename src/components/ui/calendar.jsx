@@ -77,7 +77,6 @@ function Calendar({
             //filters out the data coming from the schedules in line 11
             schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
               <div className="bg-blue-600 text-secondary flex gap-1 text-xs">
-
                 <div>
                 {x.subject}
                 </div>

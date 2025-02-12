@@ -46,7 +46,6 @@ export default function section({
   const [Section, setSection] = useState([])
   const [Teachers, setTeachers] = useState([])
   const [Rooms, setRooms] = useState([])
-  const [Subjects, setSubjects] = useState([])
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
   const { id } = useParams() // this id comes from the mainlayout where it indicates the id of the section 
@@ -91,20 +90,20 @@ export default function section({
   }
   useEffect(() => {
     //the id then will be thrown to the backend so that we can differentiate what it sched it has
-    getSectionId(id, "GET", [token]).then(res => {
+    getSectionId(id, "GET").then(res => {
       if (res?.ok) {
         setSection(res.data)
       }
-    })
+    },[])
 
-
-    getTeacher([token], "GET").then(res => {
+   
+    getTeacher().then(res => {
       if (res?.ok) {
         setTeachers(res.data)
       }
     })
 
-    getRoom([token], "GET").then(res => {
+    getRoom().then(res => {
       if (res?.ok) {
         setRooms(res.data)
       }
