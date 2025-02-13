@@ -49,7 +49,7 @@ function Teacher() {
                                         <TableHeader>
                                             <TableRow>
                                                 <TableHead className=" font-semibold text-[12px]">{days[q.day-1]}</TableHead>
-                                                <TableHead className="font-semibold text-[12px] w-[180px]">Time</TableHead>
+                                                <TableHead className="font-semibold text-[12px] w-[180px]"></TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">{q.date}</TableHead>
                                             </TableRow>
                                         </TableHeader>

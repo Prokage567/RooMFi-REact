@@ -1,9 +1,6 @@
-import {
-    backdropClasses,
-    Box, Button, FormControl, FormHelperText, Input, InputLabel, TextField
+import {Box, Button, FormControl,Input
 } from "@mui/material";
 import {
-    AccountCircle,
     Visibility
     , VisibilityOff
 } from "@mui/icons-material";
@@ -51,6 +48,7 @@ function Login() {
             const name = $("#nameEmail").val()
             const password = $("#current-password").val()
             AuthLogin({ name, password }).then(response => {
+                console.log(response)
                 if (response?.Authenticated) {
                     toast.success("successfully logged in!")
                     setCookie("token", response?.token)

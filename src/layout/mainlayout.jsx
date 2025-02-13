@@ -32,9 +32,9 @@ export default function MainLayout() {
     return (
         <>
             <div className="flex min-h-screen flex-col">
-                <nav className="fixed min-w-full z-20">
-                    <div className="bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
-                        <div className="md:[200px] flex flex-row p-3">
+                <nav className="fixed min-w-full z-30">
+                    <div className="bg-[url(src/assets/images/head.svg)] bg-cover bg-local bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
+                        <div className="flex flex-row p-3">
                             <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]" />
                             <p className="font-[KronaOne] text-orange-500 md:text-[50px] lg:text-[40px] text-[55px] relative lg:top-[14px] md:top-[16px] top-[18px] lg:block md:block sm:block hidden transition-all">
                                 RooMFI
@@ -43,22 +43,21 @@ export default function MainLayout() {
                     </div>
                 </nav>
 
-                <div className=" flex-1 flex text-white font-[NiramitReg] min-h-full">
-                <p className="fixed w-56 bg-[#242F5B] -z-20 min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]"/>
-                    <nav className=" sticky top-20 mt-[88px]">
-                        <div>
-                            <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-cyan-700 lg:hover:bg-cyan-700 hover:rounded-[10px] font-[NiramitBold] transition-all ">
+                <div className="flex text-white font-[NiramitReg] min-h-full">
+                    <nav >
+                    <p className="fixed lg:w-56 md:w-[156px] w-16 -z-10 bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]"/>
+                    <div className="bg-[#242F5B] z-20 lg:w-[224px] md:w-[157px] w-[65px] sticky lg:top-[90px] overflow-scroll no-scrollbar lg:h-[90vh] md:h-[85vh] md:top-[87px] top-[95px] ">
+                            <Link to="/homepage" className="bg-[#242F5B] z-10 sticky top-1 no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-cyan-700 lg:hover:bg-cyan-700 hover:rounded-[10px] font-[NiramitBold] transition-all ">
                                 <img src={icon} className=" lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-cyan-700 hover:rounded-[10px]" />
-                                <p className="hidden lg:block md:block transition-all relative top-3">
+                                <p className="hidden  lg:block md:block transition-all relative top-3">
                                     Home
                                 </p>
                             </Link>
-
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
-                                    <AccordionTrigger input={true} img={icon2} className="lg:ml-1 md:ml-[4px] ml-0 whitespace-pre">Room   </AccordionTrigger>
+                                    <AccordionTrigger input={true} img={icon2} className="lg:ml-1 ml-0 whitespace-pre">Room   </AccordionTrigger>
 
-                                    <Link to="/room" className="">
+                                    <Link to="/room">
                                         <AccordionContent className="ml-0 md:ml-3 lg:ml-9">All</AccordionContent>
                                     </Link>
                                     {roomTypes.map(r => (
@@ -79,7 +78,7 @@ export default function MainLayout() {
                                             <AccordionContent className="ml-0 md:ml-3 lg:ml-9">{s.name}</AccordionContent>
                                         </Link>
                                     ))
-                                    }
+                                }
 
                                 </AccordionItem>
                             </Accordion>
@@ -90,9 +89,10 @@ export default function MainLayout() {
                                     </Link>
                                 </AccordionItem>
                             </Accordion>
-                        </div>
+                    </div>
+                            
                     </nav>
-                    <main className="text-slate-900 w-screen mt-20">
+                    <main  className="text-slate-900 w-screen mt-20">
                         <Outlet />
                     </main>
                 </div>
