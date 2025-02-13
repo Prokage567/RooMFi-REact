@@ -16,6 +16,7 @@ export const postSched = async (token,inputs) => {
     const res = await fetch(`${URL}/schedule`, {
         method: "POST",
         headers: {
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(inputs)
