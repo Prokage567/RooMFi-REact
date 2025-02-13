@@ -84,7 +84,7 @@ function Calendar({
                   {x.teacher.name}
                 </div>
                 <div>
-                  {x.time}
+                  {x.end_time}
                   </div>
               </div>
             ))

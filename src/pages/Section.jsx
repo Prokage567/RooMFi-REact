@@ -37,7 +37,7 @@ import { useCookies } from "react-cookie"
 import $ from "jquery"
 import { getTeacher } from "../api/teacher"
 import { getRoom } from "../api/room"
-import { getSched } from "../api/sched"
+import { getSched, postSched } from "../api/sched"
 
 
 export default function section({
@@ -45,53 +45,72 @@ export default function section({
 }) {
   const [Section, setSection] = useState([])
   const [Teachers, setTeachers] = useState([])
+ const weekdays = [
+  {"1":"monday"}
+]
   const [Rooms, setRooms] = useState([])
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
   const { id } = useParams() // this id comes from the mainlayout where it indicates the id of the section 
+  const [days, setDays] = useState("")
+  const [room, setRoom] = useState("")
+  const [teacher, setTeacher] = useState("")
 
 
   const [date, setDate] = useState({
     from: dayjs("2025-01-20").toDate(),
     to: dayjs("2025-01-20").add(20, "days").toDate(),
   })
-  
-  const schedule = () => { 
-    const teacher = $("#teacher").val()
-    const room = $("#room").val()
+
+
+
+  const schedule = () => {
+
+    const teacher1 = teacher.toString()
+    const room1 = room.toString()
     const subject = $("#subject").val()
-    const day = $("#day").val()
-    const endTime = $("#endTime").text()
+    const day = days.toString()
+    const endTime = $("#endTime").val()
     const startTime = $("#strTime").val()
     const endDate = $("#endDate").val()
     const startDate = $("#strDate").val()
+    const section = "1"
     console.log(day)
-    console.log(room)
+    console.log(room1)
+    console.log(startDate)
     console.log(startTime)
-    console.log(teacher)
+    console.log(teacher1)
     console.log(endTime)
+    console.log(endDate)
     console.log(subject)
-    getSched("POST",token, {day,endTime,startTime,room,startDate,endDate,subject,teacher}).then(res => {
-    console.log(res)
-    if (res?.ok) {
-      toast.success("Event added!")
-    }
-  })
-}
+
+    postSched(token, { day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section, room_id: room1 }).then(res => {
+      console.log(res)
+      if (res?.ok) {
+        toast.success("Event added!")
+      }
+    })
+  }
   useEffect(() => {
     //the id then will be thrown to the backend so that we can differentiate what it sched it has
     getSectionId(id, "GET").then(res => {
       if (res?.ok) {
         setSection(res.data)
       }
-    },[])
+    }, [])
 
-   
+
     getTeacher().then(res => {
       if (res?.ok) {
         setTeachers(res.data)
       }
     })
+
+    // getWeekdays().then(res => {
+    //   if (res?.ok) {
+    //     setWeekdays(res.data)
+    //   }
+    // })
 
     getRoom().then(res => {
       if (res?.ok) {
@@ -127,51 +146,37 @@ export default function section({
           </DialogTrigger>
 
           <DialogContent className="bg-slate-900 border-none text-[#fff]">
+
             <div className="mt-2 z-10 ">
               <div className="font-[NiramitReg] text-[20px] mb-1">Room No.</div>
 
-              <div className="grid  max-w-sm items-center gap-1.5 ml-3 w-[390px] font-[NiramitReg]">
-                <Select className="font-[NiramitReg]">
-                  <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
+              <div className="grid ml-0 max-w-sm items-center gap-1.5 w-[400px] font-[NiramitReg]">
+                <Select onValueChange={setRoom} id="room" className="font-[NiramitReg]">
+                  <SelectTrigger className="h-10  text-[#11124f] bg-white text-[18px] ">
                     <SelectValue placeholder="Select a Room" />
                   </SelectTrigger>
-                  <SelectContent className=" font-[NiramitReg]" >
+                  <SelectContent id="room" className=" font-[NiramitReg]" >
                     {Rooms.map(room =>
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {room.id} {room.name} - {room.type}</SelectItem>
+                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {room.name} - {room.type}</SelectItem>
                     )}
                   </SelectContent>
                 </Select>
               </div>
 
-              {/* <div className="justify-between flex">
-              <div>
-                <Label className="text-[20px]">Add a Teacher</Label>
-              </div>
-
-              <div className=" mt-[15px] h-[14px] w-[160px]">
-                <div className="  font-extralight text-[13px]">This field is not required</div>
-              </div>
-
-            </div> */}
-
-              {/* <Input autofocus e={false}
-              className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white  text-[#0d1254] text-[20px] "
-              id="room.no"
-              placeholder="Input Room Number" /> */}
 
               <div className="mt-2 z-10 ">
                 <div className="font-[NiramitReg] text-[20px] mb-1">Teacher</div>
 
-                <Select className="font-[NiramitReg]">
+                <Select onValueChange={setTeacher} className="font-[NiramitReg]">
                   <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
                     <SelectValue placeholder="Select a Teacher" />
                   </SelectTrigger>
                   <SelectContent id="teacher" className=" font-[NiramitReg]" >
                     {Teachers.map(teacher =>
-                    <div id="teacher">
-                      <input type="hidden" id="teacher" value={teacher.id} ></input>
-                      <SelectItem id="teacher" className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={teacher.id} >{teacher.name} - {teacher.technology_course}</SelectItem>
-                    </div> 
+                      <div id="teacher">
+                        <input type="hidden" id="teacher" value={teacher.id} ></input>
+                        <SelectItem id="teacher" className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={teacher.id} >{teacher.name} - {teacher.technology_course}</SelectItem>
+                      </div>
                     )}
                   </SelectContent>
                 </Select>
@@ -187,21 +192,21 @@ export default function section({
               <div className="mt-2 z-10 ">
                 <div className="font-[NiramitReg] text-[20px] mb-1">Select Weekday</div>
 
-                <Select className="font-[NiramitReg]">
+                <Select onValueChange={setDays} className="font-[NiramitReg]">
                   <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
                     <SelectValue placeholder="Select a Teacher" />
                   </SelectTrigger>
-                  <SelectContent id="day" className=" font-[NiramitReg]" >
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="1">Monday</SelectItem>
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="2">Tuesday</SelectItem>
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="3">Wednesday</SelectItem>
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="4">Thursday</SelectItem>
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="5">Friday</SelectItem>
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="6">Saturday</SelectItem>
-                      <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="7">Sunday</SelectItem>
+                  <SelectContent className=" font-[NiramitReg]" >
+                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="1">Monday</SelectItem>
+                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="2">Tuesday</SelectItem>
+                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="3">Wednesday</SelectItem>
+                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="4">Thursday</SelectItem>
+                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="5">Friday</SelectItem>
+                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="6">Saturday</SelectItem>
+                    <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="7">Sunday</SelectItem>
+                  </SelectContent>
+                </Select>
 
-               </SelectContent>
-               </Select>
               </div>
 
               <div className={cn("grid gap-2 mt-3", className)}>
@@ -219,13 +224,8 @@ export default function section({
                       {date?.from ? (
                         date.to ? (
                           <>
-                            <div id="strDate">
-                              {format(date.from, "LLL dd, y")}
-                            </div>
-                            - {" "}
-                            <div id="endDate">
-                              {format(date.to, "LLL dd, y")}
-                            </div>
+                            {format(date.from, "LLL dd, y")}- {" "}
+                            {format(date.to, "LLL dd, y")}
                           </>
                         ) : (
                           format(date.from, "LLL dd, y")
@@ -249,6 +249,11 @@ export default function section({
                 </Popover>
               </div>
 
+              <Input id="strDate" type="hidden" value={format(date.from, "yyyy-MM-dd")}></Input>
+              <Input id="endDate" type="hidden" value={format(date.to, "yyyy-MM-dd")}></Input>
+
+
+
               <div className="grid grid-flow-col w-[450px] mt-[10px] h-[150px] gap-2 ">
 
                 <div className=" w-[150px] row-span-3" >
@@ -256,33 +261,40 @@ export default function section({
                   <Label className="text-[18px]" >From:</Label>
                   <Input id="strTime" className="border-none focus:outline-white" type="time" />
                   <Label className="text-[18px]">To:</Label>
-                  <Input id="endTime" className="border-none svg:text-slate-50" type="time" />
+                  <Input id="endTime" className="border-none text-slate-50" type="time" />
                 </div>
 
                 <div className="col-span-2 w-[270px]  h-[110px]  mt-2 ">
                   <div className="items-top flex space-x-2">
                     <Checkbox id="application" className="border-white hover:bg-slate-500/80" />
                     <div className="grid gap-1.5 leading-none">
+
+
                       <label
                         htmlFor="application"
                         className="font-medium leading-none peer-disabled:cursor-not-allowed text-[16px] peer-disabled:opacity-70">
-                        Apply to all week days? (monday)
+                        Don't apply to all weekdays? ({Object.entries(weekdays)})
                       </label>
                     </div>
                   </div>
                 </div>
 
                 <div className="col-span-2 row-span-2 ml-[210px]">
-                  <Button  onClick={()=>schedule()} className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
+                  <Button onClick={() => schedule()} className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
                 </div>
 
               </div>
 
             </div>
+
           </DialogContent>
         </Dialog>
       </div>
     </>
   )
+}
+
+function newFunction() {
+  try { } finally { }
 }
 
