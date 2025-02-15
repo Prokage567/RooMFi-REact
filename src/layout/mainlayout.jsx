@@ -8,6 +8,8 @@ import icon3 from "../assets/images/icon3.svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { getSection } from "../api/section"
 import { getCategory } from "../api/category"
+import { Button } from "@/components/ui/button"
+import { User, UserRoundPlus } from "lucide-react"
 
 export default function MainLayout() {
 
@@ -35,6 +37,16 @@ export default function MainLayout() {
             <div className="flex min-h-screen flex-col">
                 <nav className="fixed min-w-full z-20">
                     <div className="bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
+                        <div className="flex float-right mr-[410px] mt-[30px]">
+                            <Button className="absolute font-[NiramitReg] text-[18px] pr-[40px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
+                                <User strokeWidth={3}/>Log in
+                            </Button>
+                        </div>
+                        <div className="flex float-right mr-[-180px] mt-[30px]">
+                            <Button className="absolute font-[NiramitReg] text-[18px] pr-[40px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
+                                <UserRoundPlus strokeWidth={3}/>Register
+                            </Button>
+                        </div>
                         <div className="md:[200px] flex flex-row p-3">
                             <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]" />
                             <p className="font-[KronaOne] text-orange-500 md:text-[50px] lg:text-[40px] text-[55px] relative lg:top-[14px] md:top-[16px] top-[18px] lg:block md:block sm:block hidden transition-all">
