@@ -26,7 +26,6 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "../components/ui/input";
 
 
-
 const rooms = [
   "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
   "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
@@ -38,17 +37,25 @@ const rooms = [
 
 
 export default function Room() {
+  const { id } = useParams();
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [])
+  }, [id])
   const [isOpen, setIsOpen] = useState(false);
   const [category, setCategory] = useState([]);
   const [categories, setCategories] = useState([]);
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
-  const { id } = useParams();
-
+  const refreshCategoryById = () => {
+    if (id) {
+      getCategoryId(id, "GET").then(res => {
+        if (res?.ok) {
+          setCategory([res.data])
+        }
+      })
+    }
+  }
   const cat = useMemo(() => {
     if (categories.length != 0) {
       if (id) {
@@ -60,20 +67,11 @@ export default function Room() {
     else {
       return categories
     }
-  }, [categories, category])
-
+  },[categories,category])
+  
   const buttonSubmit = () => {
     setIsOpen(false);
     const roomNumber = $("#roomNum")
-  }
-  const refreshCategoryById = () => {
-    if (id) {
-      getCategoryId(id, "GET").then(res => {
-        if (res?.ok) {
-          setCategory([res.data])
-        }
-      })
-    }
   }
 
   const refreshCategory = () => {
@@ -87,25 +85,23 @@ export default function Room() {
   return (
     <>
       <div className="mt-[10px] ml-[15px] min-w-screen ">
-        <div className="ml-3 mr-3 sm:ml-2 sm:mr-0">
-
+        <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
           {cat.map(r =>
-            <div dir="ltr" className="mb-7 sm:mb-3">
+            <div className="mb-7 sm:mb-3">
               <p className="text-[40px] font-[100] mt-[40px] mb-4">{r.category}</p>
                 <div className=" mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] border-r-[2px] border-l-[2px] border-gray-600/20 ">
                 {r.room.map(r => (
                     <div className=" relative hover:scale-95 rounded-[20px]">
-                      
-                      <div className="z-10 absolute  justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
+                      <div className="z-10 absolute justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
                         <div className=" mt-1 ">
                         {r.name} 
                         </div>
                         <div className="mb-2">
-                         {r.schedules ? "Available" : "Unavailable"}
+                         { r.schedules? r.schedules == ""? "Available" :"Unavailable": "Unavailable"}
                         </div>
                       </div>
                       <div className="z-0">
-                      <img src={`../src/assets/images/rooms/${r.name}.jpg`} className=" w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] " alt="" />
+                      <img src={`../src/assets/images/rooms/${r.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] " alt="" />
                       </div>
                     </div>
                 )

@@ -48,7 +48,6 @@ function Login() {
             const name = $("#nameEmail").val()
             const password = $("#current-password").val()
             AuthLogin({ name, password }).then(response => {
-                console.log(response)
                 if (response?.Authenticated) {
                     toast.success("successfully logged in!")
                     setCookie("token", response?.token)

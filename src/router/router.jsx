@@ -8,42 +8,54 @@ import MainLayout from "../layout/mainlayout";
 import Teacher from "../pages/Teacher";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <MainLayout/>,
-    children:[
-        {
-            path: "/login",
-            element: <Login />
-        },
-        {
-            path: "/register",
-            element: <Register />
-        },
-        {
-            path: "/homepage",
-            element: <Homepage />
-        },
-        {
-            path: "/room",
-            element: <Room />
-        },
-        {
-            path: "/room/:id",
-            element: <Room />
-        },
-        {
-            path: "/section/:id",
-            element: <Section />
-        },
-        {
-            path: "/teacher",
-            element: <Teacher />
-        }
-    ],
-    
-    
-  }
+    {
+        path: "/",
+        element: <MainLayout />,
+        children: [
+            {
+                path: "/login",
+                element: <Login />
+            },
+            {
+                path: "/register",
+                element: <Register />
+            },
+            {
+                path: "/homepage",
+                element: <Homepage />,
+                children: [
+                    {
+                        path: "/homepage/:id",
+                        element: <Homepage />
+                    }
+                ]
+            },
+            {
+                path: "/room",
+                element: <Room />,
+                children: [
+                    {
+                        path: "/room/:id",
+                        element: <Room />
+                    }
+                ]
+            },
+            {
+                path: "/homepage/search/:id",
+                element: <Room />
+            },
+            {
+                path: "/section/:id",
+                element: <Section />
+            },
+            {
+                path: "/teacher",
+                element: <Teacher />
+            }
+        ],
+
+
+    }
 ])
 
 

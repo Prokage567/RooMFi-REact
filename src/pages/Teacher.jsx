@@ -17,11 +17,16 @@ import {
 } from "../components/ui/table.jsx"
 import { useCookies } from "react-cookie"
 import { getTeacher } from "../api/teacher.js";
+import  dayjs_plugin_localizedFormat  from "dayjs/plugin/localizedFormat"
+import  dayjs_plugin_customParseFormat  from 'dayjs/plugin/customParseFormat'
+import dayjs from "dayjs";
+import { format, formatDate } from "date-fns";
 
 function Teacher() {
+
     const [cookies, setCookie, removeCookie] = useCookies()
     const token = cookies.token
-    const days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     const [ie, setTeachers] = useState([])
     useEffect(() => {
         getTeacher([token]).then(res => {
@@ -32,8 +37,11 @@ function Teacher() {
         )
     }, [])
 
+    dayjs.extend(dayjs_plugin_localizedFormat);
+    dayjs.extend(dayjs_plugin_customParseFormat)
     return (
-        <div className="justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
+
+        <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
             {ie.map(i => (
                 <div>
                     <Card key={i.id}>
@@ -48,7 +56,7 @@ function Teacher() {
                                     <>
                                         <TableHeader>
                                             <TableRow>
-                                                <TableHead className=" font-semibold text-[12px]">{days[q.day-1]}</TableHead>
+                                                <TableHead className=" font-semibold text-[12px]">{days[q.day - 1]}</TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]"></TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">{q.date}</TableHead>
                                             </TableRow>
@@ -56,7 +64,7 @@ function Teacher() {
                                         <TableBody key={q.id}>
                                             <TableRow>
                                                 <TableCell className="w-[20px]">{q.subject}</TableCell>
-                                                <TableCell className="w-[300px]">{q.start_time}-{q.end_time}</TableCell>
+                                                <TableCell className="w-[300px]">{console.log(dayjs(q.start_time).format('hh:mm A'))}-{q.end_time}</TableCell>
                                                 <TableCell>{q.section.name}</TableCell>
                                             </TableRow>
                                         </TableBody>

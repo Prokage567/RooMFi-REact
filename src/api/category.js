@@ -1,7 +1,7 @@
 import { URL } from "./config";
 
 export const getCategory = async () => {
-    const res = await fetch(`${URL}/category/`, {
+    const res = await fetch(`${URL}/category`, {
         method: "GET",
         headers: {
             Accept: 'application/json',

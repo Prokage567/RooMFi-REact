@@ -1,22 +1,94 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import img from "@/assets/images/image.svg"
 import img2 from "@/assets/images/image2.svg"
 import foot from "@/assets/images/footer.svg"
+import $ from 'jquery'
+import { Search } from "../api/room"
+import { Link } from "react-router-dom"
+import { Popover, PopoverAnchor } from "@radix-ui/react-popover"
+import { getCategory } from "../api/category"
+
 
 function Homepage() {
     useEffect(() => {
+        getCategory().then(res => {
+            if (res?.ok) {
+                setRoomsuggestion(res.data)
+            }
+        })
         document.body.style.background = "white"
     }, [])
+    const [Pop, setPop] = useState(0)
+    const [SearchInfo, setSearchInfo] = useState([])
+    const [roomSuggestion, setRoomsuggestion] = useState([])
+    const keyword = $('#input').val()
+    const onHandleClick = () => {
+        const keyword = $('#input').val()
+        if (keyword == "") {
+            setPop(0)
+        } else (
+            setPop(1)
+        )
+        Search(keyword).then(res => {
+            setSearchInfo(res.data)
+        }
+        ), [Pop, SearchInfo]
+    }
+    const suggestion = (input) => {
+        return (
+            input.map(room => (room.room.map(room => (
+                <div>
+                    <Link to={`../room/${room.id}`}>
+                        <div key={room.id} className="flex justify-between rounded p-1 hover:bg-[#3F9DC1]/10">
+                        <p className="pt-1">Room: {room.name}</p>
+                            {room.schedules == "" ? room.schedules ?
+                                <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white  bg-green-500">Available</p>
+                                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unvailable</p>
+                                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unvailable</p>}
+                        </div>
+                    </Link>
+                </div>
+            ))))
+        )
+    }
     return (
         <>
-        <div className="items-center flex-col justify-center flex">
-            <div className="max-w-screen-2xl">
-                <div className=" items-center justify-center flex sticky mt-9 top-9 flex-row">
-                    <Input symbol={true} type="text" placeholder="Search room..."
-                        className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1] " />
+            <div className="items-center flex-col justify-center flex">
+                <div className=" items-center justify-center flex sticky mt-9 h-auto top-24 -mb-14 flex-row">
+                    <Input id="input" symbol={true} type="text" placeholder="Search room by number... eg.203,209,111"
+                        className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1]" onChange={() => onHandleClick()} />
                     <Button type="submit">Search</Button>
+
+                </div>
+                <div className="sticky top-[86px] ">
+                    <Popover>
+                        <PopoverAnchor className="flex justify-center items-center flex-col">
+                            <div className={`absolute w-96 min-h-auto -ml-14 top-[56px] ${Pop == 1 ? "bg-white z-20 border-gray-800/30 border" : ""} -mb-14 p-2 transition-all`}>
+                                {Pop == 1 ? <div>
+                                    {SearchInfo ? SearchInfo.map(p => (
+                                        <Link to={`../room/${p.category_id}`}>
+                                            <div key={p.id} className="my-1 rounded p-1  hover:bg-[#3F9DC1]/10">Room: {p.name}</div>
+                                        </Link>
+                                    )
+                                    ) : ""}
+                                    <div>
+                                        {/* {SearchInfo != "" ? keyword != null && !SearchInfo ? <p className="text-gray-500/40">
+                                            loading...</p> : "" : <div className="text-gray-500/40">
+                                            no result...</div>} */}
+                                        {SearchInfo != "" ? keyword != null && !SearchInfo ? <p className="text-gray-500/40">
+                                            Loading...</p> : SearchInfo ? <div>
+                                                <p className="text-gray-500/40">Suggestion... </p>
+                                                {suggestion(roomSuggestion)}
+                                            </div> : "" :
+                                            <p className="text-gray-500/40">No result... </p>
+                                        }
+                                    </div>
+                                </div> : ""}
+                            </div>
+                        </PopoverAnchor>
+                    </Popover>
                 </div>
                 <div className="flex flex-row items-center justify-center flex-wrap pt-[100px]">
                     <div>
@@ -53,7 +125,6 @@ function Homepage() {
                     <img src={foot} />
                 </div>
             </div>
-        </div>
         </>
     )
 }

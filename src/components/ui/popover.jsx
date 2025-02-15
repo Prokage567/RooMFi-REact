@@ -7,7 +7,8 @@ const Popover = PopoverPrimitive.Root
 
 const PopoverTrigger = PopoverPrimitive.Trigger
 
-const PopoverAnchor = PopoverPrimitive.Anchor
+const PopoverAncho = PopoverPrimitive.Anchor
+export const PopoverAnchor = PopoverPrimitive.PopoverAnchor;
 
 const PopoverContent = React.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
   <PopoverPrimitive.Portal>
@@ -24,4 +25,4 @@ const PopoverContent = React.forwardRef(({ className, align = "center", sideOffs
 ))
 PopoverContent.displayName = PopoverPrimitive.Content.displayName
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }
+export { Popover, PopoverTrigger, PopoverContent, PopoverAncho }

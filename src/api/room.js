@@ -10,6 +10,16 @@ export const getRoom = async () => {
     })
     return await res.json()
 }
+export const Search = async (input) => {
+    const res = await fetch(`${URL}/room/search/${input}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    return await res.json()
+}
 export const getRoomId = async (id,inputs,type) => {
     const res = await fetch(`${URL}/room/${id}`, {
         method: type,

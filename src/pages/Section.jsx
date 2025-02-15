@@ -45,9 +45,6 @@ export default function section({
 }) {
   const [Section, setSection] = useState([])
   const [Teachers, setTeachers] = useState([])
- const weekdays = [
-  {"1":"monday"}
-]
   const [Rooms, setRooms] = useState([])
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
@@ -56,6 +53,7 @@ export default function section({
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
 
+  const weekdays= ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   const [date, setDate] = useState({
     from: dayjs("2025-01-20").toDate(),
@@ -65,7 +63,6 @@ export default function section({
 
 
   const schedule = () => {
-
     const teacher1 = teacher.toString()
     const room1 = room.toString()
     const subject = $("#subject").val()
@@ -272,8 +269,8 @@ export default function section({
 
                       <label
                         htmlFor="application"
-                        className="font-medium leading-none peer-disabled:cursor-not-allowed text-[16px] peer-disabled:opacity-70">
-                        Don't apply to all weekdays? ({Object.entries(weekdays)})
+                        className="font-medium leading-none peer-disabled:cursor-not-allowed text-[16px] peer-disabled:opacity-70 ">
+                        Don't apply to all weekdays? ({weekdays[days-1]})
                       </label>
                     </div>
                   </div>
