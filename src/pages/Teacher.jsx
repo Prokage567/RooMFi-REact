@@ -17,10 +17,7 @@ import {
 } from "../components/ui/table.jsx"
 import { useCookies } from "react-cookie"
 import { getTeacher } from "../api/teacher.js";
-import  dayjs_plugin_localizedFormat  from "dayjs/plugin/localizedFormat"
-import  dayjs_plugin_customParseFormat  from 'dayjs/plugin/customParseFormat'
 import dayjs from "dayjs";
-import { format, formatDate } from "date-fns";
 
 function Teacher() {
 
@@ -37,8 +34,6 @@ function Teacher() {
         )
     }, [])
 
-    dayjs.extend(dayjs_plugin_localizedFormat);
-    dayjs.extend(dayjs_plugin_customParseFormat)
     return (
 
         <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">

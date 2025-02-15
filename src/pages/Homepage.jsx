@@ -38,13 +38,13 @@ function Homepage() {
     }
     const suggestion = (input) => {
         return (
-            input.map(room => (room.room.map(room => (
+            input.map(rooms => (rooms.room.map(room => (
                 <div>
-                    <Link to={`../room/${room.id}`}>
+                    <Link to={`../room/${room.category_id}`}>
                         <div key={room.id} className="flex justify-between rounded p-1 hover:bg-[#3F9DC1]/10">
-                        <p className="pt-1">Room: {room.name}</p>
-                            {room.schedules == "" ? room.schedules ?
-                                <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white  bg-green-500">Available</p>
+                            <p className="pt-1">Room: {room.name}</p>
+                            {room.schedules == "" ? room.schedules
+                                ? <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white  bg-green-500">Available</p>
                                 : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unvailable</p>
                                 : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unvailable</p>}
                         </div>
@@ -74,15 +74,16 @@ function Homepage() {
                                     )
                                     ) : ""}
                                     <div>
-                                        {/* {SearchInfo != "" ? keyword != null && !SearchInfo ? <p className="text-gray-500/40">
-                                            loading...</p> : "" : <div className="text-gray-500/40">
-                                            no result...</div>} */}
-                                        {SearchInfo != "" ? keyword != null && !SearchInfo ? <p className="text-gray-500/40">
-                                            Loading...</p> : SearchInfo ? <div>
-                                                <p className="text-gray-500/40">Suggestion... </p>
-                                                {suggestion(roomSuggestion)}
-                                            </div> : "" :
-                                            <p className="text-gray-500/40">No result... </p>
+                                        {SearchInfo != ""
+                                            ? keyword != null && !SearchInfo
+                                                ? <p className="text-gray-500/40">Loading...</p>
+                                                : SearchInfo
+                                                    ? <div className=" h-40 overflow-scroll no-scrollbar">
+                                                        <p className="sticky top-0 bg-white text-gray-500/40">Suggestion... </p>
+                                                        {suggestion(roomSuggestion)}
+                                                    </div>
+                                                    : ""
+                                            : <p className="text-gray-500/40">No result... </p>
                                         }
                                     </div>
                                 </div> : ""}
@@ -111,7 +112,7 @@ function Homepage() {
                             </h2>
                             <ul className="list-disc list-outside flex md:text-[14px] lg:text-[20px] flex-col flex-wrap gap-12 justify-center items-center ">
                                 <li>
-                                    Improving the schedoling process, reducing the disagreement over assigned rooms, and providing an access platform for monitoring individuals" whereabouts or theirulcations where they can be found.
+                                    Improving the scheduling process, reducing the disagreement over assigned rooms, and providing an access platform for monitoring individuals" whereabouts or theirulcations where they can be found.
                                 </li>
                                 <li>
                                     Determining whether any available spaces enable them to ask permission to reserve it.

@@ -7,27 +7,23 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); 
   const [cookies, setCookie, removeCookie] = useCookies()
-
-
   const login = (userData) => {
-    setUser(userData); 
+    setUser(userData);
   };
 
   const logout = () => {
     lg(cookies.token).then(
         res=>{
-            if(res?.ok){
-                toast.success(res?.message??"successfully Logout!")
-            }
-        }
+            toast.success(res?.message??"successfully Logout!")
+          }
     )
-    setCookie('token')
-    setUser(null);
-  };
+    removeCookie('token')
+    setUser(null)
+  }
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
-  );
-};
+  )
+}

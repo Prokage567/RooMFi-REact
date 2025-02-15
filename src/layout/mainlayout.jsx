@@ -8,17 +8,19 @@ import icon3 from "../assets/images/icon3.svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { getSection } from "../api/section"
 import { getCategory } from "../api/category"
-import { Button } from "@/components/ui/button"
 import { User, UserRoundPlus } from "lucide-react"
+import { checkToken } from "../api/auth"
+import { useCookies } from "react-cookie"
 
 export default function MainLayout() {
 
+    const { user,login, logout } = useContext(AuthContext)
+    const [cookies] = useCookies()
+    const token = cookies.token
     const [Sections, setSection] = useState([])
     const [roomTypes, setRoomTypes] = useState([])
-    const { user, login, logout } = useContext(AuthContext)
 
     useEffect(() => {
-      
         getSection().then(res => {
             if (res?.ok) {
                 setSection(res.data)
@@ -31,22 +33,37 @@ export default function MainLayout() {
             }
         }
         )
+        checkToken(token).then(res => {
+            if (res?.ok) {
+                login([res.data])
+            }
+        }
+        )
     }, [])
     return (
         <>
             <div className="flex min-h-screen flex-col">
                 <nav className="fixed min-w-full z-20">
                     <div className="bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
-                        <div className="flex float-right mr-[410px] mt-[30px]">
-                            <Button className="absolute font-[NiramitReg] text-[18px] pr-[40px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
-                                <User strokeWidth={3}/>Log in
-                            </Button>
-                        </div>
-                        <div className="flex float-right mr-[-180px] mt-[30px]">
-                            <Button className="absolute font-[NiramitReg] text-[18px] pr-[40px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
-                                <UserRoundPlus strokeWidth={3}/>Register
-                            </Button>
-                        </div>
+                        {!user ?
+                            <div>
+                                <div>
+                                    <Link to="../login"  className="absolute w-32 top-7 text-white right-60 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
+                                        <User strokeWidth={3} />Log in
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link to="../register" className="absolute w-32 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
+                                        <UserRoundPlus strokeWidth={3} />Register
+                                    </Link>
+                                </div>
+                            </div> :
+                            <div>
+                                <div onClick={logout} className="absolute w-32 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
+                                    <User strokeWidth={3} />Log out
+                                </div>
+                            </div>
+                        }
                         <div className="md:[200px] flex flex-row p-3">
                             <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]" />
                             <p className="font-[KronaOne] text-orange-500 md:text-[50px] lg:text-[40px] text-[55px] relative lg:top-[14px] md:top-[16px] top-[18px] lg:block md:block sm:block hidden transition-all">
@@ -57,12 +74,12 @@ export default function MainLayout() {
                 </nav>
 
                 <div className=" flex-1 flex text-white font-[NiramitReg] min-h-full">
-                <p className="fixed lg:w-[225.9px] md:w-[156px] w-16 bg-[#242F5B] -z-20 min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]"/>
+                    <p className="fixed lg:w-[225.9px] md:w-[156px] w-16 bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
                     <nav className=" lg:w-[268px] md:w-[187px] w-[70px]">
                         <div className="overflow-scroll no-scrollbar sticky top-24 mt-[88px] h-[90vh]">
                             <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 hover:rounded-[10px] font-[NiramitBold] transition-all ">
                                 <img src={icon} className=" lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-[#3F9DC1]/70 hover:rounded-[10px]" />
-                                <p className="hidden lg:block md:block transition-all relative  top-3">
+                                <p className="hidden lg:block md:block transition-all relative top-3">
                                     Home
                                 </p>
                             </Link>
@@ -111,4 +128,5 @@ export default function MainLayout() {
                 </div>
             </div>
         </>
-    )}
+    )
+}

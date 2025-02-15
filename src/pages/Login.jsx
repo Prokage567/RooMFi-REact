@@ -1,11 +1,12 @@
-import {Box, Button, FormControl,Input
+import {
+    Box, Button, FormControl, Input
 } from "@mui/material";
 import {
     Visibility
     , VisibilityOff
 } from "@mui/icons-material";
 import * as React from "react";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,11 +16,12 @@ import logo from "../assets/images/logo.svg"
 import "./index.css"
 import Theme from "../components/CustomComponents";
 import "./App.css"
-import {useCookies} from "react-cookie"
+import { useCookies } from "react-cookie"
 import { AuthLogin } from "../api/auth";
 import $ from "jquery"
 import { toast } from "react-toastify"
 import withoutAuth from "../highOrdeerComponent/withoutAuth";
+import { AuthContext } from "../context/context";
 
 const customStyle = {
     background: "#D9D9D9",
@@ -34,15 +36,16 @@ const customFonts = {
 }
 
 function Login() {
-    
+
+    const { login } = React.useContext(AuthContext)
     const [cookies, setCookie, removeCookie] = useCookies()
     useEffect(() => {
         Theme()
     }, [])
+    const navigate = useNavigate()
     const [warn, setwarn] = useState({})
     const [load, setload] = useState(false)
-    const navigate = useNavigate()
-    const login = () => {
+    const login1 = () => {
         if (!load) {
             setload(true)
             const name = $("#nameEmail").val()
@@ -51,8 +54,9 @@ function Login() {
                 if (response?.Authenticated) {
                     toast.success("successfully logged in!")
                     setCookie("token", response?.token)
+                    login([response.data])
                     navigate("./homepage")
-                } 
+                }
                 setwarn(response.errors)
             }).finally(() =>
                 setload(false))
@@ -116,7 +120,7 @@ function Login() {
                                         paddingLeft: "10px"
                                     }}></Input>
                                 </FormControl>
-                                     {warn?.name && (<div style={{fontSize:"15px", color:"red"}}>{warn.name}</div>)}
+                                {warn?.name && (<div style={{ fontSize: "15px", color: "red" }}>{warn.name}</div>)}
 
                                 <Typography variat="overline" sx={customFonts}>
                                     Password:
@@ -131,7 +135,7 @@ function Login() {
                                         </InputAdornment>
                                     }></Input>
                                 </FormControl>
-                                    {warn?.password && (<div style={{fontSize:"15px",color:"red"}}>{warn.password}</div>)}
+                                {warn?.password && (<div style={{ fontSize: "15px", color: "red" }}>{warn.password}</div>)}
 
 
                                 <Typography color="#D9D9D9" style={{
@@ -152,7 +156,7 @@ function Login() {
                                     flexDirection: "column"
                                 }}>
 
-                                    <Button onClick={login} disabled={load} sx={{
+                                    <Button onClick={login1} disabled={load} sx={{
                                         borderRadius: "10px 10px 10px 10px",
                                         background: "#000C3D",
                                         color: "white",
