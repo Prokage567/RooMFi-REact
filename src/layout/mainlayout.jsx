@@ -37,12 +37,12 @@ export default function MainLayout() {
                 <nav>
                     <div className='bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat shadow-[0_7px_5px_rgba(0,0,0,0.25)]'>
                         <div className="flex float-right mr-[410px] mt-[30px]">
-                            <Button className="absolute font-[NiramitReg] text-[20px] pr-[45px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
+                            <Button className="absolute font-[NiramitReg] text-[18px] pr-[40px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
                                 <User strokeWidth={3}/>Log in
                             </Button>
                         </div>
                         <div className="flex float-right mr-[-180px] mt-[30px]">
-                            <Button className="absolute font-[NiramitReg] text-[20px] pr-[45px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
+                            <Button className="absolute font-[NiramitReg] text-[18px] pr-[40px] pl-[40px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1]">
                                 <UserRoundPlus strokeWidth={3}/>Register
                             </Button>
                         </div>
