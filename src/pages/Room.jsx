@@ -113,8 +113,8 @@ export default function Room() {
                 {r.room.map(r => (
                     <div className=" border relative hover:scale-95 rounded-[20px]">
                       
-                       <div className="z-20 absolute left-2 top-2 bg-white/70 rounded-[50%]  h-[30px]  w-[30px] ">
-                         <X className="text-[#0F172A] ml-[3px] mt-[3px] "/>
+                       <div className="z-20  hover:rounded-md  absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%]  h-[30px]  w-[30px] ">
+                         <X className="text-[#ffffff] ml-[3px] mt-[3px] "/>
                        </div>
 
                       {Role.map(r =>
@@ -125,8 +125,8 @@ export default function Room() {
                         <div className="z-10 absolute right-2 top-2">
                           
                           <Dialog>
-                            <DialogTrigger className=" hover:h-[35px] hover:w-[60px] hover:rounded-md bg-white/70 h-[30px] w-[30px] rounded-[50%]">
-                              <Pencil className="ml-1 h-[18px] text-[#161357]"/>
+                            <DialogTrigger className=" hover:rounded-md bg-[#0F172A]/70 h-[30px] w-[30px] rounded-[50%]">
+                              <Pencil className="ml-[6px] h-[18px] w-[18px] text-[#ffffff]"/>
                             </DialogTrigger>
 
                             <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
