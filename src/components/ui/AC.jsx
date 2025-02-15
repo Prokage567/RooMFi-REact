@@ -20,7 +20,7 @@ const AT = React.forwardRef(({img, input,className, children, ...props}, ref) =>
         className
       )}
       {...props}>
-      <div className="hidden lg:block md:block md:-indent-[8px] lg:indent-[30px]">
+      <div className=" sm:block lg:block md:block md:-indent-[8px] lg:indent-[30px]">
         {children}
       </div>
       

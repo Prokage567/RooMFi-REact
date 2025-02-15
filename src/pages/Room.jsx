@@ -32,7 +32,7 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "../components/ui/input";
 import { checkToken } from "../api/auth.js"
 import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover.jsx";
-import { Pencil, SquareCheck, SquareLibrary, SquareX } from 'lucide-react';
+import { Pencil, SquareCheck, SquareLibrary, SquareX, X } from 'lucide-react';
 
 const rooms = [
   "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
@@ -113,9 +113,15 @@ export default function Room() {
                 {r.room.map(r => (
                     <div className=" border relative hover:scale-95 rounded-[20px]">
                       
+                       <div className="z-20 absolute left-2 top-2 bg-white/70 rounded-[50%]  h-[30px]  w-[30px] ">
+                         <X className="text-[#0F172A] ml-[3px] mt-[3px] "/>
+                       </div>
+
                       {Role.map(r =>
                       <div> 
                         {r.role_id == "admin" ? 
+
+
                         <div className="z-10 absolute right-2 top-2">
                           
                           <Dialog>
@@ -238,10 +244,11 @@ export default function Room() {
                   <div className="overflow-auto no-scrollbar  h-[450px] ">
 
                   <AI value="item-1">
-                    <AT className="border-b-[1px]   border-[#fff]/30">
-                        <div>
-                          Joshua Garcial Villar Remundo Tacos
+                    <AT className="border-b-[1px]  border-[#fff]/30">
+                        <div className="">
+                          testing
                         </div>
+        
                     </AT>
                     <ACC className="h-[90px] overflow-auto no-scrollbar">      
                         <div className="mr-[30px] border-b-[1px] border-[#fff]/30 w-[70px]">
