@@ -1,28 +1,25 @@
+import {Box, Button, FormControl,Input
+} from "@mui/material";
 import {
-    backdropClasses,
-    Box, Button, FormControl, FormHelperText, Input, InputLabel, TextField
-} from '@mui/material';
-import {
-    AccountCircle,
     Visibility
     , VisibilityOff
-} from '@mui/icons-material';
-import * as React from 'react';
-import { useEffect,useState } from 'react';
-import InputAdornment from '@mui/material/InputAdornment';
-import Typography from '@mui/material/Typography';
-import { Link, useNavigate } from 'react-router-dom';
-import { ThemeProvider } from '@emotion/react';
-import theme from '../../theme';
-import logo from '../assets/images/logo.svg'
-import './index.css'
-import Theme from '../components/CustomComponents';
-import './App.css'
-import {useCookies} from 'react-cookie'
-import { AuthLogin } from '../api/auth';
-import $ from 'jquery'
-import { toast } from 'react-toastify'
-import withoutAuth from '../highOrdeerComponent/withoutAuth';
+} from "@mui/icons-material";
+import * as React from "react";
+import { useEffect,useState } from "react";
+import InputAdornment from "@mui/material/InputAdornment";
+import Typography from "@mui/material/Typography";
+import { Link, useNavigate } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import theme from "../../theme";
+import logo from "../assets/images/logo.svg"
+import "./index.css"
+import Theme from "../components/CustomComponents";
+import "./App.css"
+import {useCookies} from "react-cookie"
+import { AuthLogin } from "../api/auth";
+import $ from "jquery"
+import { toast } from "react-toastify"
+import withoutAuth from "../highOrdeerComponent/withoutAuth";
 
 const customStyle = {
     background: "#D9D9D9",
@@ -51,10 +48,11 @@ function Login() {
             const name = $("#nameEmail").val()
             const password = $("#current-password").val()
             AuthLogin({ name, password }).then(response => {
+                console.log(response)
                 if (response?.Authenticated) {
                     toast.success("successfully logged in!")
                     setCookie("token", response?.token)
-                    navigate('./homepage')
+                    navigate("./homepage")
                 } 
                 setwarn(response.errors)
             }).finally(() =>
@@ -126,7 +124,7 @@ function Login() {
                                 </Typography>
 
                                 <FormControl sx={customStyle} variant="filled">
-                                    <Input autoComplete="off" id="current-password" type={showPassword ? 'text' : 'password'} sx={{ paddingLeft: "10px" }} endAdornment={
+                                    <Input autoComplete="off" id="current-password" type={showPassword ? "text" : "password"} sx={{ paddingLeft: "10px" }} endAdornment={
                                         <InputAdornment position="end">
                                             <Button onClick={handleClickShowPassword}>
                                                 {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -137,14 +135,14 @@ function Login() {
                                     {warn?.password && (<div style={{fontSize:"15px",color:"red"}}>{warn.password}</div>)}
 
 
-                                <Typography color='#D9D9D9' style={{
+                                <Typography color="#D9D9D9" style={{
                                     textAlign: "center",
                                     fontSize: "10px",
                                     fontFamily: "kronaOne",
                                     paddingBottom: "25px",
                                     paddingTop: "25px"
                                 }}>
-                                    Don't have an account yet?<Link to="../Register" style={{
+                                    Don"t have an account yet?<Link to="../Register" style={{
                                         textDecoration: "none",
                                         color: "#D9D9D9"
                                     }}> Register</Link>

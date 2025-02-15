@@ -17,6 +17,8 @@ import Room324 from "../../assets/images/rooms/324.jpg";
 import Room335 from "../../assets/images/rooms/335.jpg";
 import Room336 from "../../assets/images/rooms/336.jpg";
 
+
+
 export const lecture = [
   { src: Room111, title: "Room 111", description: "Unavailable" },
   { src: Room143, title: "Room 143", description: "Available" },

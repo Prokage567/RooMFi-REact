@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { DayPicker } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
-import dayjs, { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 
 function Calendar({
   className,
@@ -77,7 +77,6 @@ function Calendar({
             //filters out the data coming from the schedules in line 11
             schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
               <div className="bg-blue-600 text-secondary flex gap-1 text-xs">
-
                 <div>
                 {x.subject}
                 </div>
@@ -85,7 +84,7 @@ function Calendar({
                   {x.teacher.name}
                 </div>
                 <div>
-                  {x.time}
+                  {x.end_time}
                   </div>
               </div>
             ))
