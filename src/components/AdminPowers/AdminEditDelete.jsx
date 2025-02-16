@@ -8,7 +8,9 @@ import {
   } from "@/components/ui/dialog";
   import { Label } from "@radix-ui/react-label";
   import { Input } from "../ui/input";
-import { Button } from '@mui/material';
+import { Button } from '../ui/button';
+
+
 
 export const AdminPowers = (input,Del) => {
     return (
@@ -23,19 +25,18 @@ export const AdminPowers = (input,Del) => {
                     </DialogTrigger>
 
                     <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
-                        <DialogTitle className="font-thin">Input new Image</DialogTitle>
+                        <DialogTitle className="font-thin">Edit Room Name</DialogTitle>
+                        
                         <DialogDescription>
-                            Replace the current image ({input.name})
+                            Replace the room name: {input.name}
                         </DialogDescription>
+
                         <div className="grid w-full max-w-sm items-center gap-1.5">
-                            <Label htmlFor="picture">Image</Label>
-                            <Input id="picture" type="file" className="bg-white text-[#000]" />
+                            <Label htmlFor="picture">Replace Room Name</Label>
+                            <Input id="picture" type="text" className="bg-white text-[#000] placeholder:hello " maxlength={4} />
                         </div>
-                        <div>Preview</div>
-                        <div className="w-[300px] h-[200px] border rounded-[20px]">
-                            <img src={`../src/assets/images/rooms/${input.name}.jpg`} className=" w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] "></img>
-                        </div>
-                        <Button className="border border-white bg-transparent hover:bg-transparent hover:font-bold"> Save</Button>
+                    
+                        <Button className="border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Save</Button>
                     </DialogContent>
                 </Dialog>
             </div>
