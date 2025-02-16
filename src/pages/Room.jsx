@@ -69,9 +69,9 @@ export default function Room() {
               <div className=" mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] border-r-[2px] border-l-[2px] border-gray-600/20 ">
                 {r.room.map(r => (
                   <div className=" border relative hover:scale-95 rounded-[20px]">
-                    {user?.map(r =>
+                    {user?.map(user =>
                       <div>
-                        {r.role_id == "admin" ?
+                        {user.role_id == "admin" ?
                           AdminPowers(r)
                           : ""
                         }
