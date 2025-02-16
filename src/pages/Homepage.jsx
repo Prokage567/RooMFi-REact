@@ -5,7 +5,7 @@ import img from "@/assets/images/image.svg"
 import img2 from "@/assets/images/image2.svg"
 import foot from "@/assets/images/footer.svg"
 import $ from 'jquery'
-import { Search } from "../api/room"
+import { getRoomId, Search } from "../api/room"
 import { Link } from "react-router-dom"
 import { Popover, PopoverAnchor } from "@radix-ui/react-popover"
 import { getCategory } from "../api/category"
@@ -52,6 +52,11 @@ function Homepage() {
                 </div>
             ))))
         )
+    }
+    const DelRoomById =(id)=>{
+        getRoomId(id).then(res=>{
+            
+        })
     }
     return (
         <>

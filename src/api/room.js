@@ -31,3 +31,14 @@ export const getRoomId = async (id,inputs,type) => {
     })
     return await res.json()
 }
+export const RoomId = async (id,inputs,type) => {
+    const res = await fetch(`${URL}/room/${id}`, {
+        method: type,
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${inputs}`
+        }
+    })
+    return await res.json()
+}
