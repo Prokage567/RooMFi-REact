@@ -77,7 +77,7 @@ function Homepage() {
                                             ? keyword != null && !SearchInfo
                                                 ? <p className="text-gray-500/40">Loading...</p>
                                                 : SearchInfo
-                                                    ? <div className=" h-40 overflow-scroll no-scrollbar">
+                                                    ? <div className=" h-auto overflow-scroll no-scrollbar">
                                                         <p className="sticky top-0 bg-white text-gray-500/40">Suggestion... </p>
                                                         {suggestion(roomSuggestion)}
                                                     </div>

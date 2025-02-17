@@ -12,21 +12,21 @@ import { useCookies } from "react-cookie"
 
 export default function Room() {
   const rooms = [
-  "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
-  "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
-  "Room 324", "Room 335", "Room 336"
+    "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
+    "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
+    "Room 324", "Room 335", "Room 336"
   ]
   const [cookies] = useCookies()
   const token = cookies.token
   const { id } = useParams()
   const { user } = useContext(AuthContext)
   const [categories, setCategories] = useState([])
+  const [category, setCategory] = useState([])
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [id,categories])
+  }, [id, categories,category])
   const [isOpen, setIsOpen] = useState(false)
-  const [category, setCategory] = useState([])
   const refreshCategoryById = () => {
     if (id) {
       getCategoryId(id, "GET").then(res => {
@@ -75,7 +75,7 @@ export default function Room() {
                     {user?.map(user =>
                       <div>
                         {user.role_id == "admin" ?
-                          AdminPowers(r,token)
+                          AdminPowers(r, token)
                           : ""
                         }
                       </div>
@@ -90,9 +90,8 @@ export default function Room() {
                       </div >
                     </div >
 
-
                     <div className="z-0">
-                      <img src={`../src/assets/images/rooms/${r.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
+                      {r.name ? <img src={`../src/assets/images/rooms/${r.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" /> : <p className="text-7xl text-gray-500">No Rooms Yet</p>}
                     </div>
                   </div >
                 ))}

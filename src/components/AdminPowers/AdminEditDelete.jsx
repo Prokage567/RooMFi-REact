@@ -16,14 +16,16 @@ import { useState } from 'react';
 
 
 export const AdminPowers = (input, admin) => {
-    
+
     const DelRoomById = () => {
         const id = input.id
+        return(
         getRoomId(id, admin, "DELETE").then(res => {
             if (res?.ok) {
                 toast.success(res.message)
             }
         })
+        )
     }
     const UpdRoomById = () => {
         const id = input.id
@@ -38,10 +40,17 @@ export const AdminPowers = (input, admin) => {
     return (
         <div>
             <div className="z-10  hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%]  h-[30px]  w-auto ">
-                <X onClick={() => DelRoomById()} className="text-[#ffffff] ml-[3px] mt-[3px] " />
+                <Dialog>
+                    <DialogTrigger>
+                        <X className="text-[#ffffff] ml-[3px] mt-[3px] " />
+                    </DialogTrigger>
+                    <DialogContent className="bg-[#11172E]" fn={()=>DelRoomById()} div_prop={"relative top-10 grid w-full grid-flow-col max-w-sm items-center gap-1.5"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"} show="true" >
+                        <DialogTitle>Are you sure you want to delete this room: ({input.name})</DialogTitle>
+                    </DialogContent>
+                </Dialog>
             </div>
-            <Dialog  onOpenChange={() => UpdRoomById()}>
-                <DialogTrigger className=" z-10  right-2  top-2 absolute hover:rounded-md bg-[#0F172A]/70 h-[30px] w-[30px] rounded-[50%]">
+            <Dialog onOpenChange={() => UpdRoomById()}>
+                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-[#0F172A]/70 h-[30px] w-[30px] rounded-[50%]">
                     <Pencil className="ml-[6px] h-[18px] w-[18px] text-[#ffffff] " />
                 </DialogTrigger>
 

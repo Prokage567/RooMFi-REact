@@ -8,13 +8,13 @@ import icon3 from "../assets/images/icon3.svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { getSection } from "../api/section"
 import { getCategory } from "../api/category"
-import { User, UserRoundPlus } from "lucide-react"
+import { LogOut, User, UserRoundPlus } from "lucide-react"
 import { checkToken } from "../api/auth"
 import { useCookies } from "react-cookie"
 
 export default function MainLayout() {
 
-    const { user,login, logout } = useContext(AuthContext)
+    const { user, login, logout } = useContext(AuthContext)
     const [cookies] = useCookies()
     const token = cookies.token
     const [Sections, setSection] = useState([])
@@ -48,19 +48,19 @@ export default function MainLayout() {
                         {!user ?
                             <div>
                                 <div>
-                                    <Link to="../login"  className="absolute w-32 top-7 text-white right-60 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
-                                        <User strokeWidth={3} />Log in
+                                    <Link to="../login" className="absolute w-32 top-7 text-white right-60 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] pr-5 pl-5 hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
+                                        <User strokeWidth={2} className=" h-4" />Log in
                                     </Link>
                                 </div>
                                 <div>
-                                    <Link to="../register" className="absolute w-32 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
-                                        <UserRoundPlus strokeWidth={3} />Register
+                                    <Link to="../register" className="absolute w-32 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] pr-5 pl-5 hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
+                                        <UserRoundPlus strokeWidth={2} className=" h-4" />Register
                                     </Link>
                                 </div>
                             </div> :
                             <div>
-                                <div onClick={logout} className="absolute w-32 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
-                                    <User strokeWidth={3} />Log out
+                                <div onClick={logout} className="absolute w-32 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] pr-5 pl-5 hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
+                                    <LogOut strokeWidth={2} className=" h-4" />Log out
                                 </div>
                             </div>
                         }
