@@ -1,4 +1,4 @@
-import { Pencil, X } from 'lucide-react'
+import { Pencil, Trash2, X } from 'lucide-react'
 import {
     Dialog,
     DialogTrigger,
@@ -42,7 +42,7 @@ export const AdminPowers = (input, admin) => {
             <div className="z-10  hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%]  h-[30px]  w-auto ">
                 <Dialog>
                     <DialogTrigger>
-                        <X className="text-[#ffffff] ml-[3px] mt-[3px] " />
+                        <Trash2 className="text-[#ffffff] ml-[3px] mt-[3px] " />
                     </DialogTrigger>
                     <DialogContent className="bg-[#11172E]" fn={()=>DelRoomById()} div_prop={"relative top-10 grid w-full grid-flow-col max-w-sm items-center gap-1.5"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"} show="true" >
                         <DialogTitle>Are you sure you want to delete this room: ({input.name})</DialogTitle>

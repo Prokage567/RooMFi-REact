@@ -25,7 +25,7 @@ export default function Room() {
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [id, categories,category])
+  }, [id, categories, category])
   const [isOpen, setIsOpen] = useState(false)
   const refreshCategoryById = () => {
     if (id) {
@@ -69,8 +69,9 @@ export default function Room() {
           {cat.map(r =>
             <div className="mb-7 sm:mb-3">
               <p className="text-[40px] font-[100] mt-[40px] mb-4">{r.category}</p>
-              <div className=" mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] border-r-[2px] border-l-[2px] border-gray-600/20 ">
-                {r.room.map(r => (
+              <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room !=""? "border-r-[2px] border-l-[2px] border-gray-600/20 ":""}`}>
+                {r.room ? r.room !=""? <>
+                {r.room.map(room => (
                   <div className=" border relative hover:scale-95 rounded-[20px]">
                     {user?.map(user =>
                       <div>
@@ -79,22 +80,22 @@ export default function Room() {
                           : ""
                         }
                       </div>
+
                     )}
 
                     <div className="z-10 absolute  justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
                       <div className=" mt-1 ">
-                        {r.name}
+                        {room.name}
                       </div>
                       <div className="mb-2">
-                        {r.schedules ? r.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}
+                        {room.schedules ? room.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}
                       </div >
                     </div >
-
                     <div className="z-0">
-                      {r.name ? <img src={`../src/assets/images/rooms/${r.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" /> : <p className="text-7xl text-gray-500">No Rooms Yet</p>}
+                      <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                     </div>
                   </div >
-                ))}
+                ))}</>: <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
               </div >
             </div >
           )}
@@ -116,7 +117,10 @@ export default function Room() {
 
           <div className="">
             {r.role_id == "admin" ?
-              request()
+              <>
+                {request("", r)}
+
+              </>
               : ""
             }
           </div>
