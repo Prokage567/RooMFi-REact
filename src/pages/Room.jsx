@@ -7,6 +7,21 @@ import { AuthContext } from "../context/context"
 import { AdminPowers } from "../components/AdminPowers/AdminEditDelete.jsx";
 import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx";
 import { request } from "../components/TeacherPowers/Requests.jsx";
+import Add from "../assets/images/add.svg"
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter
+} from "@/components/ui/dialog";
+import { Label } from "@radix-ui/react-label";
+import { Input } from "../components/ui/input.jsx";
+import { Button } from "../components/ui/button.jsx";
+
+
 
 const rooms = [
   "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
@@ -22,6 +37,7 @@ export default function Room() {
     refreshCategoryById()
   }, [id])
   const [isOpen, setIsOpen] = useState(false);
+  const [pop, setPop] = useState(0);
   const [category, setCategory] = useState([]);
   const [categories, setCategories] = useState([]);
   const refreshCategoryById = () => {
@@ -76,6 +92,7 @@ export default function Room() {
                           : ""
                         }
                       </div>
+
                     )}
 
                     <div className="z-10 absolute  justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
@@ -114,7 +131,10 @@ export default function Room() {
 
           <div className="">
             {r.role_id == "admin" ?
-              request()
+              <>
+                {request(pop,r,setPop)}
+                
+              </>
               : ""
             }
           </div>

@@ -1,5 +1,5 @@
 
-import { React, useEffect, useState } from "react"
+import { React, useContext, useEffect, useState } from "react"
 import {
     Card,
     CardContent,
@@ -18,8 +18,23 @@ import {
 import { useCookies } from "react-cookie"
 import { getTeacher } from "../api/teacher.js";
 import dayjs from "dayjs";
+import { AuthContext } from "../context/context.jsx";
+import {
+    Dialog,
+    DialogContent,
+    DialogTrigger,
+    DialogDescription,
+  } from "@/components/ui/dialog"
+  import Add from "../assets/images/add.svg"
+import { Label } from "@radix-ui/react-label";
+import { Input } from "../components/ui/input.jsx";
+import { DialogTitle } from "@mui/material";
+import { Button } from '../components/ui/button.jsx'
+
+
 
 function Teacher() {
+  const { user } = useContext(AuthContext) 
 
     const [cookies, setCookie, removeCookie] = useCookies()
     const token = cookies.token
@@ -51,6 +66,7 @@ function Teacher() {
                                     <>
                                         <TableHeader>
                                             <TableRow>
+               
                                                 <TableHead className=" font-semibold text-[12px]">{days[q.day - 1]}</TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]"></TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">{q.date}</TableHead>
@@ -71,6 +87,32 @@ function Teacher() {
                     </Card>
                 </div>
             ))}
+
+            <div>
+                 <Dialog className="rounded-full w-[500px]" >
+                    <DialogTrigger>
+                        <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
+                    </DialogTrigger>
+
+                    <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
+                    <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
+                        
+                        <DialogDescription>
+                            Add or replace a schedule
+                        </DialogDescription>
+
+                    <div className="grid w-full max-w-sm items-center gap-1.5">
+                        <Label htmlFor="picture">Add a Teacher</Label>
+                        <Input id="picture" type="text" className="bg-white text-[#000] placeholder:hello " />
+                    </div>  
+
+                    <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
+                    <Button className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Save</Button>
+                    <Button className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Schedule</Button>
+                    </div>
+                    </DialogContent>
+                </Dialog>
+            </div>
         </div>
     )
 }
