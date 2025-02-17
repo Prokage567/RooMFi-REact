@@ -1,29 +1,32 @@
 
-import { useParams } from "react-router-dom";
-import { getCategory, getCategoryId } from "../api/category";
-import { useContext, useEffect, useMemo } from "react";
-import { useState } from "react";
+import { useParams } from "react-router-dom"
+import { getCategory, getCategoryId } from "../api/category"
+import { useContext, useEffect, useMemo } from "react"
+import { useState } from "react"
 import { AuthContext } from "../context/context"
-import { AdminPowers } from "../components/AdminPowers/AdminEditDelete.jsx";
-import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx";
-import { request } from "../components/TeacherPowers/Requests.jsx";
+import { AdminPowers } from "../components/AdminPowers/AdminEditDelete.jsx"
+import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
+import { request } from "../components/TeacherPowers/Requests.jsx"
+import { useCookies } from "react-cookie"
 
-const rooms = [
+
+export default function Room() {
+  const rooms = [
   "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
   "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
   "Room 324", "Room 335", "Room 336"
-];
-
-export default function Room() {
-  const { id } = useParams();
+  ]
+  const [cookies] = useCookies()
+  const token = cookies.token
+  const { id } = useParams()
   const { user } = useContext(AuthContext)
+  const [categories, setCategories] = useState([])
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [id])
-  const [isOpen, setIsOpen] = useState(false);
-  const [category, setCategory] = useState([]);
-  const [categories, setCategories] = useState([]);
+  }, [id,categories])
+  const [isOpen, setIsOpen] = useState(false)
+  const [category, setCategory] = useState([])
   const refreshCategoryById = () => {
     if (id) {
       getCategoryId(id, "GET").then(res => {
@@ -34,7 +37,7 @@ export default function Room() {
     }
   }
   const buttonSubmit = () => {
-    setIsOpen(false);
+    setIsOpen(false)
     const roomNumber = $("#roomNum")
   }
   const cat = useMemo(() => {
@@ -72,7 +75,7 @@ export default function Room() {
                     {user?.map(user =>
                       <div>
                         {user.role_id == "admin" ?
-                          AdminPowers(r)
+                          AdminPowers(r,token)
                           : ""
                         }
                       </div>
@@ -89,7 +92,7 @@ export default function Room() {
 
 
                     <div className="z-0">
-                      <img src={`../src/assets/images/rooms/${r.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] " alt="" />
+                      <img src={`../src/assets/images/rooms/${r.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                     </div>
                   </div >
                 ))}
@@ -123,5 +126,5 @@ export default function Room() {
 
 
     </>
-  );
+  )
 }
