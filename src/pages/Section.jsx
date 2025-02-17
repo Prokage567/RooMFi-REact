@@ -54,7 +54,7 @@ export default function section({
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
 
-  const weekdays= ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+  const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
   const [date, setDate] = useState({
     from: dayjs("2025-01-20").toDate(),
@@ -127,8 +127,8 @@ export default function section({
       <script src="https://static.elfsight.com/platform/platform.js" async></script>
       <div class="elfsight-app-efd5a1d4-de48-498d-b1a9-2c77f46ecc1a" data-elfsight-app-lazy></div>
 
-      <div className="flex mt-[20px] ">
-        <div className="justify-end h-auto max-h-screen">
+      <div className="justify-center flex mt-[20px]">
+        <div className=" max-h-screen">
           <Cal
             mode="single"
             selected={date}
@@ -271,7 +271,7 @@ export default function section({
                       <label
                         htmlFor="application"
                         className="font-medium leading-none peer-disabled:cursor-not-allowed text-[16px] peer-disabled:opacity-70 ">
-                        Don't apply to all weekdays? ({weekdays[days-1]})
+                        Don't apply to all weekdays? ({weekdays[days - 1]})
                       </label>
                     </div>
                   </div>

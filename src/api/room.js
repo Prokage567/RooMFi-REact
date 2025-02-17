@@ -20,25 +20,15 @@ export const Search = async (input) => {
     })
     return await res.json()
 }
-export const getRoomId = async (id,inputs,type) => {
+export const getRoomId = async (id, toke, type, inputs) => {
     const res = await fetch(`${URL}/room/${id}`, {
         method: type,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${inputs}`
-        }
-    })
-    return await res.json()
-}
-export const RoomId = async (id,inputs,type) => {
-    const res = await fetch(`${URL}/room/${id}`, {
-        method: type,
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${inputs}`
-        }
+            Authorization: `Bearer ${toke}`
+        },
+        body: JSON.stringify(inputs)
     })
     return await res.json()
 }
