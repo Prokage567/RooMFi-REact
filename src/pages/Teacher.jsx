@@ -95,9 +95,9 @@ function Teacher() {
                     </DialogTrigger>
 
                     <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
-                    <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
+                    <DialogTitle className="">Create Teacher's Schedule</DialogTitle>
                         
-                        <DialogDescription>
+                        <DialogDescription className="text-[20px]">
                             Add or replace a schedule
                         </DialogDescription>
 
