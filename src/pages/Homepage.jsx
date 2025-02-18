@@ -21,7 +21,7 @@ function Homepage() {
         document.body.style.background = "white"
     }, [])
     const [Pop, setPop] = useState(0)
-    const [SearchInfo, setSearchInfo] = useState([])
+    const [searchInfo, setSearchInfo] = useState([])
     const [roomSuggestion, setRoomsuggestion] = useState([])
     const keyword = $('#input').val()
     const onHandleClick = () => {
@@ -33,8 +33,9 @@ function Homepage() {
         )
         Search(keyword).then(res => {
             setSearchInfo(res.data)
+            console.log(searchInfo)
         }
-        ), [Pop, SearchInfo]
+        ), [Pop, searchInfo]
     }
     const suggestion = (input) => {
         return (
@@ -65,27 +66,28 @@ function Homepage() {
                     <Popover>
                         <PopoverAnchor className="flex justify-center items-center flex-col">
                             <div className={`absolute w-96 min-h-auto -ml-14 top-[56px] ${Pop == 1 ? "bg-white z-20 border-gray-800/30 border" : ""} -mb-14 p-2 transition-all`}>
-                                {Pop == 1 ? <div>
-                                    {SearchInfo ? SearchInfo.map(p => (
-                                        <Link to={`../room/${p.category_id}`}>
-                                            <div key={p.id} className="my-1 rounded p-1  hover:bg-[#3F9DC1]/10">Room: {p.name}</div>
-                                        </Link>
-                                    )
-                                    ) : ""}
+                                {Pop == 1 ?
                                     <div>
-                                        {SearchInfo != ""
-                                            ? keyword != null && !SearchInfo
-                                                ? <p className="text-gray-500/40">Loading...</p>
-                                                : SearchInfo
-                                                    ? <div className=" h-auto overflow-scroll no-scrollbar">
-                                                        <p className="sticky top-0 bg-white text-gray-500/40">Suggestion... </p>
-                                                        {suggestion(roomSuggestion)}
-                                                    </div>
-                                                    : ""
-                                            : <p className="text-gray-500/40">No result... </p>
-                                        }
-                                    </div>
-                                </div> : ""}
+                                        {searchInfo?.map(p => (
+                                            <Link key={p.id} to={`../room/${p.category_id}`}>
+                                                <div key={p.id} className="my-1 rounded p-1  hover:bg-[#3F9DC1]/10">Room: {p.name}</div>
+                                            </Link>
+                                        )
+                                        )}
+                                        <div>
+                                            {searchInfo != ""
+                                                ? keyword != null && !searchInfo
+                                                    ? <p className="text-gray-500/40">Loading...</p>
+                                                    : searchInfo
+                                                        ? <div className=" h-auto overflow-scroll no-scrollbar">
+                                                            <p className="sticky top-0 bg-white text-gray-500/40">Suggestion... </p>
+                                                            {suggestion(roomSuggestion)}
+                                                        </div>
+                                                        : <p className="text-gray-500/40">Loading...</p>
+                                                : <p className="text-gray-500/40">No result... </p>
+                                            }
+                                        </div>
+                                    </div> : ""}
                             </div>
                         </PopoverAnchor>
                     </Popover>

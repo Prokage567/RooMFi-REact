@@ -28,17 +28,17 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import '../pages/index.css'
-import { Calendar, CalendarIcon } from 'lucide-react'
+import { CalendarIcon } from 'lucide-react'
 import dayjs from 'dayjs'
 import { cn } from "@/lib/utils"
 import { useParams } from "react-router-dom"
 import { useEffect } from "react"
-import { getSection, getSectionId } from "../api/section"
+import { getSectionId } from "../api/section"
 import { useCookies } from "react-cookie"
 import $ from "jquery"
 import { getTeacher } from "../api/teacher"
 import { getRoom } from "../api/room"
-import { getSched, postSched } from "../api/sched"
+import { postSched } from "../api/sched"
 
 
 export default function section({
@@ -49,7 +49,7 @@ export default function section({
   const [Rooms, setRooms] = useState([])
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
-  const { id } = useParams() // this id comes from the mainlayout where it indicates the id of the section 
+  const { id } = useParams() 
   const [days, setDays] = useState("")
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
@@ -73,14 +73,6 @@ export default function section({
     const endDate = $("#endDate").val()
     const startDate = $("#strDate").val()
     const section = "1"
-    console.log(day)
-    console.log(room1)
-    console.log(startDate)
-    console.log(startTime)
-    console.log(teacher1)
-    console.log(endTime)
-    console.log(endDate)
-    console.log(subject)
 
     postSched(token, { day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section, room_id: room1 }).then(res => {
       console.log(res)

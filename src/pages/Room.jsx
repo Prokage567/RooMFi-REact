@@ -4,7 +4,7 @@ import { getCategory, getCategoryId } from "../api/category"
 import { useContext, useEffect, useMemo } from "react"
 import { useState } from "react"
 import { AuthContext } from "../context/context"
-import { AdminPowers } from "../components/AdminPowers/AdminEditDelete.jsx"
+import  AdminPowers  from "../components/AdminPowers/AdminEditDelete.jsx"
 import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
 import { request } from "../components/TeacherPowers/Requests.jsx"
 import { useCookies } from "react-cookie"
@@ -16,16 +16,26 @@ export default function Room() {
     "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
     "Room 324", "Room 335", "Room 336"
   ]
+  const [Rooms, setRooms] = useState([])
+  const [Room, setRoom] = useState()
   const [cookies] = useCookies()
   const token = cookies.token
   const { id } = useParams()
   const { user } = useContext(AuthContext)
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState([])
+  const getRoom = () => {
+    getRoom().then(res => {
+      console.log(res)
+      if (res?.ok) {
+      setRooms(res.data) 
+      }
+    })
+  }
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [id, categories, category])
+  }, [id])
   const [isOpen, setIsOpen] = useState(false)
   const refreshCategoryById = () => {
     if (id) {
@@ -41,9 +51,11 @@ export default function Room() {
     const roomNumber = $("#roomNum")
   }
   const cat = useMemo(() => {
+
     if (categories.length != 0) {
       if (id) {
         return category.filter(x => x.room.map(x => x.category_id === id))
+
       } else {
         return categories
       }
@@ -51,6 +63,7 @@ export default function Room() {
     else {
       return categories
     }
+
   }, [categories, category])
 
   const refreshCategory = () => {
@@ -58,6 +71,7 @@ export default function Room() {
       console.log(res)
       if (res?.ok) {
         setCategories(res.data)
+        
       }
     })
   }
@@ -69,33 +83,31 @@ export default function Room() {
           {cat.map(r =>
             <div className="mb-7 sm:mb-3">
               <p className="text-[40px] font-[100] mt-[40px] mb-4">{r.category}</p>
-              <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room !=""? "border-r-[2px] border-l-[2px] border-gray-600/20 ":""}`}>
-                {r.room ? r.room !=""? <>
-                {r.room.map(room => (
-                  <div className=" border relative hover:scale-95 rounded-[20px]">
-                    {user?.map(user =>
-                      <div>
-                        {user.role_id == "admin" ?
-                          AdminPowers(r, token)
-                          : ""
-                        }
-                      </div>
-
-                    )}
-
-                    <div className="z-10 absolute  justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
-                      <div className=" mt-1 ">
-                        {room.name}
-                      </div>
-                      <div className="mb-2">
-                        {room.schedules ? room.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}
+              <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room != "" ? "border-r-[2px] border-l-[2px] border-gray-600/20 " : ""}`}>
+                {r.room ? r.room != "" ? <>
+                  {r.room.map(room => (
+                    <div className=" border relative hover:scale-95 rounded-[20px]">
+                      {user?.map(user =>
+                        <div>
+                          {user.role_id == "admin" ?
+                            <AdminPowers input={room} admin={token} room={room} category={r.category}/>
+                            : ""
+                          }
+                        </div>
+                      )}
+                      <div className="z-10 absolute  justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
+                        <div className=" mt-1 ">
+                          {room.name}
+                        </div>
+                        <div className="mb-2">
+                          {room.schedules ? room.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}
+                        </div >
                       </div >
+                      <div className="z-0">
+                        <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
+                      </div>
                     </div >
-                    <div className="z-0">
-                      <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
-                    </div>
-                  </div >
-                ))}</>: <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
+                  ))}</> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
               </div >
             </div >
           )}
@@ -103,7 +115,6 @@ export default function Room() {
       </div >
       {
         user?.map(r =>
-
           <div className="flex">
             {r.role_id == "teacher" ?
               teacherReq(isOpen, setIsOpen, rooms, buttonSubmit)
@@ -114,20 +125,16 @@ export default function Room() {
       }
       {
         user?.map(r =>
-
           <div className="">
             {r.role_id == "admin" ?
               <>
                 {request("", r)}
-
               </>
               : ""
             }
           </div>
         )
       }
-
-
     </>
   )
 }
