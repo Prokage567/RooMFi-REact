@@ -8,6 +8,28 @@ import  AdminPowers  from "../components/AdminPowers/AdminEditDeleteRooms.jsx"
 import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
 import { request } from "../components/TeacherPowers/Requests.jsx"
 import { useCookies } from "react-cookie"
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+ } from "@/components/ui/dialog"
+ import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { ChartBarStacked, DoorOpen, Plus } from 'lucide-react'
 
 
 export default function Room() {
@@ -35,7 +57,7 @@ export default function Room() {
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [id])
+  }, [id, categories, category])
   const [isOpen, setIsOpen] = useState(false)
   const refreshCategoryById = () => {
     if (id) {
@@ -78,6 +100,76 @@ export default function Room() {
 
   return (
     <>
+    <Dialog>
+      <DialogTrigger>
+    <Button className="fixed top-[75vh] right-[2.5vh] font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+      <DoorOpen className="text-white w-[30px] h-[30px] z-0"/>
+    </Button>
+      </DialogTrigger>
+      <DialogContent className="w-auto bg-[#11172E] text-white">
+        <DialogHeader>
+          <DialogTitle className="text-white">Add Room</DialogTitle>
+          <DialogDescription>
+            Add room and select what categories you inputed. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader> 
+        <div className="grid gap-4 text-white">
+          <div className="grid items-center gap-4">
+              <Label>
+              Add room number
+            </Label>
+            <Input className="bg-white text-[#11172E]" value="Type here!"/>
+            <Label>
+              Select room category
+            </Label>
+            <Select>
+              <SelectTrigger className="w-auto bg-white text-[#11172E]">
+                <SelectValue placeholder="Select room category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup className="text-[#11172E]">
+                  <SelectItem value="lecture room">Lecture Rooms</SelectItem>
+                  <SelectItem value="science room">Science Rooms</SelectItem>
+                  <SelectItem value="computer laboratories">Computer Laboratories</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="cancel">Cancel</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+
+    <Dialog>
+      <DialogTrigger>
+    <Button className="fixed top-[63.8vh] right-[2.5vh] font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+      <ChartBarStacked className="text-white w-[30px] h-[30px] z-0"/>
+    </Button>
+      </DialogTrigger>
+      <DialogContent className="w-auto bg-[#11172E] text-white">
+        <DialogHeader>
+          <DialogTitle>Add Room Category</DialogTitle>
+          <DialogDescription>
+            Add room category for each room number. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4">
+          <div className="grid items-center gap-4">
+            <Input  className="bg-white text-[#11172E]" value="Type here!"/>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="cancel">Cancel</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+
       <div className="mt-[10px] ml-[15px] min-w-screen ">
         <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
           {cat.map(r =>
