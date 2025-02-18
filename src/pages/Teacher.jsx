@@ -65,17 +65,17 @@ function Teacher() {
                                 {i?.schedules?.map(q => (
                                     <>
                                         <TableHeader>
+                                                <TableHead className=" font-semibold text-[12px]">{q.day}</TableHead>
                                             <TableRow>
-               
-                                                <TableHead className=" font-semibold text-[12px]">{days[q.day - 1]}</TableHead>
-                                                <TableHead className="font-semibold text-[12px] w-[180px]"></TableHead>
+                                                <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">{q.date}</TableHead>
+                                                <TableHead className="font-semibold text-[12px] w-[180px]">Section</TableHead>
                                             </TableRow>
                                         </TableHeader>
                                         <TableBody key={q.id}>
                                             <TableRow>
                                                 <TableCell className="w-[20px]">{q.subject}</TableCell>
-                                                <TableCell className="w-[300px]">{console.log(dayjs(q.start_time).format('hh:mm A'))}-{q.end_time}</TableCell>
+                                                <TableCell className="w-[300px]">{q.start_time}-{q.end_time}</TableCell>
                                                 <TableCell>{q.section.name}</TableCell>
                                             </TableRow>
                                         </TableBody>
