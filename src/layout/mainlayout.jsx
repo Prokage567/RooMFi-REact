@@ -44,7 +44,7 @@ export default function MainLayout() {
         <>
             <div className="flex min-h-screen flex-col">
                 <nav className="fixed min-w-full z-20">
-                    <div className="bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
+                    <div className="bg-[url(../assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
                         {!user ?
                             <div>
                                 <div>

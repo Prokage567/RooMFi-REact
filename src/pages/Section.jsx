@@ -1,7 +1,6 @@
 
 import { React, useState } from "react"
 import { Calendar as Cal } from "../components/ui/calendar"
-import { Cal as Kal } from "../components/ui/popCalendar"
 import {
   Select,
   SelectContent,
@@ -9,8 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import './index.css'
-
 import Add from "../assets/images/add.svg"
 import {
   Dialog,
@@ -27,8 +24,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import '../pages/index.css'
-import { CalendarIcon } from 'lucide-react'
 import dayjs from 'dayjs'
 import { cn } from "@/lib/utils"
 import { useParams } from "react-router-dom"
@@ -39,87 +34,79 @@ import $ from "jquery"
 import { getTeacher } from "../api/teacher"
 import { getRoom } from "../api/room"
 import { postSched } from "../api/sched"
+import PopUpCalendar from "../components/popUpCalendar"
 
-
-export default function section({
-  className,
-}) {
+export default function section() {
+  const { id } = useParams() 
+  useEffect(() => {
+    getSectionId(id, "GET").then(res => {
+      if (res?.ok) {
+        setSection(res.data)
+      }
+    })
+    getTeacher().then(res => {
+      if (res?.ok) {
+        setTeachers(res.data)
+      }
+    })
+    getRoom().then(res => {
+      if (res?.ok) {
+        setRooms(res.data)
+      }
+    })
+  }, [])
   const [Section, setSection] = useState([])
   const [Teachers, setTeachers] = useState([])
   const [Rooms, setRooms] = useState([])
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
-  const { id } = useParams() 
   const [days, setDays] = useState("")
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
 
   const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-  const [date, setDate] = useState({
-    from: dayjs("2025-01-20").toDate(),
-    to: dayjs("2025-01-20").add(20, "days").toDate(),
-  })
-
-
+  const [date, setDate] = useState({})
 
   const schedule = () => {
-    const teacher1 = teacher.toString()
-    const room1 = room.toString()
+    const teacher_id = teacher.toString()
+    const room_id = room.toString()
     const subject = $("#subject").val()
     const day = days.toString()
-    const endTime = $("#endTime").val()
-    const startTime = $("#strTime").val()
+    const end_time = $("#endTime").val()
+    const start_time = $("#strTime").val()
     const endDate = $("#endDate").val()
     const startDate = $("#strDate").val()
-    const section = "1"
+    const section_id = "1"
 
-    postSched(token, { day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section, room_id: room1 }).then(res => {
+    postSched(token, { 
+      day: day, 
+      subject: subject, 
+      start_time: start_time, 
+      end_time: end_time, 
+      start_date: startDate,
+      end_date: endDate, 
+      teacher_id: teacher_id, 
+      section_id: section_id, 
+      room_id: room_id 
+    }).then(res => {
       console.log(res)
       if (res?.ok) {
-        toast.success("Event added!")
+        toast.success("Schedule Added!")
       }
     })
   }
-  useEffect(() => {
-    //the id then will be thrown to the backend so that we can differentiate what it sched it has
-    getSectionId(id, "GET").then(res => {
-      if (res?.ok) {
-        setSection(res.data)
-      }
-    }, [])
-
-
-    getTeacher().then(res => {
-      if (res?.ok) {
-        setTeachers(res.data)
-      }
-    })
-
-    // getWeekdays().then(res => {
-    //   if (res?.ok) {
-    //     setWeekdays(res.data)
-    //   }
-    // })
-
-    getRoom().then(res => {
-      if (res?.ok) {
-        setRooms(res.data)
-      }
-    })
-
-    //solution for the delayed data's getting thorugh is by making a function where once the page loaded it gets the data
-  }, [])
+  
   return (
 
     <>
       {/* NOTE: bbugs out and makes the page cut it's header as it closes, 
     solution that might help remove this file and merge it*/}
 
-      <script src="https://static.elfsight.com/platform/platform.js" async></script>
-      <div class="elfsight-app-efd5a1d4-de48-498d-b1a9-2c77f46ecc1a" data-elfsight-app-lazy></div>
+      {/* <script src="https://static.elfsight.com/platform/platform.js" async></script>
+      <div class="elfsight-app-efd5a1d4-de48-498d-b1a9-2c77f46ecc1a" data-elfsight-app-lazy></div> */}
 
-      <div className="justify-center flex mt-[20px]">
+       <div className="justify-center flex">
         <div className=" max-h-screen">
           <Cal
             mode="single"
@@ -129,17 +116,13 @@ export default function section({
             schedules={Section?.schedules}
           />
         </div>
-
-        <Dialog className="rounded-full w-[500px]" >
-          <DialogTrigger>
-            <img src={Add} className="w-[50px] h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
+       <Dialog className="rounded-full w-[500px]" >
+          <DialogTrigger className="flex flex-col-reverse">
+            <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
           </DialogTrigger>
-
           <DialogContent className="bg-slate-900 border-none text-[#fff]">
-
-            <div className="mt-2 z-10 ">
+             {/*<div className="mt-2 z-10 ">
               <div className="font-[NiramitReg] text-[20px] mb-1">Room No.</div>
-
               <div className="grid ml-0 max-w-sm items-center gap-1.5 w-[400px] font-[NiramitReg]">
                 <Select onValueChange={setRoom} id="room" className="font-[NiramitReg]">
                   <SelectTrigger className="h-10  text-[#11124f] bg-white text-[18px] ">
@@ -152,11 +135,8 @@ export default function section({
                   </SelectContent>
                 </Select>
               </div>
-
-
               <div className="mt-2 z-10 ">
                 <div className="font-[NiramitReg] text-[20px] mb-1">Teacher</div>
-
                 <Select onValueChange={setTeacher} className="font-[NiramitReg]">
                   <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
                     <SelectValue placeholder="Select a Teacher" />
@@ -171,8 +151,6 @@ export default function section({
                   </SelectContent>
                 </Select>
               </div>
-
-
               <Label className="mt-2 text-[20px]">Subject</Label>
               <Input autofocus e={false}
                 className="h-10 placeholder:text-[20px]  md:text-[20px] bg-white text-[18px] text-[#0F172A]"
@@ -181,12 +159,11 @@ export default function section({
 
               <div className="mt-2 z-10 ">
                 <div className="font-[NiramitReg] text-[20px] mb-1">Select Weekday</div>
-
                 <Select onValueChange={setDays} className="font-[NiramitReg]">
                   <SelectTrigger className="h-10 w-[450px] text-[#11124f] bg-white text-[18px] ">
                     <SelectValue placeholder="Select a Teacher" />
                   </SelectTrigger>
-                  <SelectContent className=" font-[NiramitReg]" >
+                  <SelectContent className="font-[NiramitReg]" >
                     <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="1">Monday</SelectItem>
                     <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="2">Tuesday</SelectItem>
                     <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="3">Wednesday</SelectItem>
@@ -196,14 +173,11 @@ export default function section({
                     <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value="7">Sunday</SelectItem>
                   </SelectContent>
                 </Select>
-
-              </div>
-
-              <div className={cn("grid gap-2 mt-3", className)}>
+              </div> */}
+              {/* <div className={cn("grid gap-2 mt-3", className)}>
                 <Popover className="">
                   <PopoverTrigger asChild>
                     <Button
-                      id=""
                       variant={"outline"}
                       className={cn(
                         "w-[450px] justify-center text-center  text-[18px] font-normal hover:border-white hover:border hover:line bg-transparent",
@@ -237,15 +211,11 @@ export default function section({
                     />
                   </PopoverContent>
                 </Popover>
-              </div>
-
-              <Input id="strDate" type="hidden" value={format(date.from, "yyyy-MM-dd")}></Input>
+              </div> */}
+              <PopUpCalendar />
+               {/*<Input id="strDate" type="hidden" value={format(date.from, "yyyy-MM-dd")}></Input>
               <Input id="endDate" type="hidden" value={format(date.to, "yyyy-MM-dd")}></Input>
-
-
-
               <div className="grid grid-flow-col w-[450px] mt-[10px] h-[150px] gap-2 ">
-
                 <div className=" w-[150px] row-span-3" >
                   <Label className="ml-10 text-[20px]">Time</Label><br />
                   <Label className="text-[18px]" >From:</Label>
@@ -272,19 +242,13 @@ export default function section({
                 <div className="col-span-2 row-span-2 ml-[210px]">
                   <Button onClick={() => schedule()} className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
                 </div>
-
               </div>
-
-            </div>
-
+            </div>*/}
           </DialogContent>
         </Dialog>
-      </div>
+      </div> 
     </>
   )
 }
 
-function newFunction() {
-  try { } finally { }
-}
 
