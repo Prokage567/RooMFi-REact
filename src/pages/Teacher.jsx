@@ -122,7 +122,7 @@ function Teacher() {
                                         <TableBody key={q.id}>
                                             <TableRow>
                                                 <TableCell className="w-[20px]">{q.subject}</TableCell>
-                                                <TableCell className="w-[300px]">{q.start_time}-{q.end_time}</TableCell>
+                                                <TableCell className="w-[300px] text-[11px]">{q.start_time}-{q.end_time}</TableCell>
                                                 <TableCell>{q.section.name}</TableCell>
                                             </TableRow>
                                         </TableBody>

@@ -30,7 +30,7 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
             })
         )
     }
-    const UpdRoomById = () => {
+    const UpdTeacherById = () => {
         const id = teacher
         const name = $("#name").val()
         const category = categoryById.toString()
@@ -51,9 +51,10 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                     <DialogTrigger>
                         <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px]" />
                     </DialogTrigger>
-                    <DialogContent className="bg-[#11172E]" div_prop={"flex justify-end"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold bg-red-500"} show="true" >
+                    <DialogContent className="bg-[#11172E] h-[150px]">
                         <DialogTitle className="text-white">Are you sure you want to delete this Teacher ID: ({Teacher.name})</DialogTitle>
-                        <Button onClick={() => DelTeacherById()} className={"relative -mt-10 top-14 left-36 w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Yes</Button>
+                        <Button onClick={() => setSave(false)} className={"relative top-1 left-[20vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
+                        <Button onClick={() => DelTeacherById()} className={"relative bottom-12 -mb-32 left-[9vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
                     </DialogContent>
                 </Dialog>
             </div>
@@ -62,7 +63,7 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                     <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] " />
                 </DialogTrigger>
 
-                <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px]">
+                <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[240px]">
                     <DialogTitle className="font-thin">Edit Room Name</DialogTitle>
                     <DialogDescription>
                         Replace the Teacher name: {Teacher.name}
@@ -71,16 +72,9 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                     <div className="grid w-full max-w-sm items-center gap-1.5">
                         <Label>Replace Teacher Name</Label>
                         <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Update Room's name" />
-                        {/* <Select onValueChange={setCategoryById} className="font-[NiramitReg]">
-                            <SelectTrigger className="h-10  text-[#11124f] bg-white text-[18px] ">
-                                <SelectValue placeholder="Select a Category" />
-                            </SelectTrigger>
-                            <SelectContent className="font-[NiramitReg]" >
-                                <SelectItem key={room.id} className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={`${room.category_id}`}>{category}</SelectItem>
-                            </SelectContent>
-                        </Select> */}
                     </div>
-                    <Button onClick={() => UpdRoomById()} type="submit" className={"text-white w-[10vw] border font-[NiramitReg] z-20 hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"}>Save</Button>
+                    <Button onClick={() => setClose(false)} className={"relative top-1 left-[15vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
+                    <Button onClick={() => UpdTeacherById()} className={"relative bottom-12 -mb-24 left-[4vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
                 </DialogContent>
             </Dialog>
         </div>

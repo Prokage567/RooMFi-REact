@@ -80,12 +80,12 @@ function Calendar({
               {
                 schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
                   <div className="bg-[#a74848] text-secondary justify-items-start text-[9px] font-[NiramitReg] h-[50px] overflow-scroll no-scrollbar w-full pb-1">
-                  <div className="w-5">{x.room.name}</div>
-                 <div className="flex flex-wrap">
-                 <div className=""> {x.teacher.name}</div>
-                  <div>{x.end_time} - {x.start_time}</div>
-                  <div className="w-12">{x.subject}</div>
-                 </div>
+                    <div className="w-5">{x.room.name}</div>
+                    <div className="flex flex-wrap">
+                      <div> {x.teacher.name}</div>
+                      <div>{x.end_time} - {x.start_time}</div>
+                      <div className="w-12">{x.subject}</div>
+                    </div>
                   </div>
                 ))
               }

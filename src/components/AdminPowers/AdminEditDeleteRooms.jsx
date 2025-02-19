@@ -68,11 +68,11 @@ export default function AdminPowers({ input, admin, room, category }) {
                     <DialogTrigger>
                         <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px]" />
                     </DialogTrigger>
-                    <DialogContent className="bg-[#11172E]" div_prop={"flex justify-end"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold bg-red-500"} >
+                    <DialogContent className="bg-[#11172E] h-[150px]">
                         <DialogDescription></DialogDescription>
                         <DialogTitle className="text-white">Are you sure you want to delete this room: ({input.name})</DialogTitle>
-                        <Button onClick={() => DelRoomById()} className={"relative -mt-10 top-14 left-[34vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Yes</Button>
-                        <Button onClick={() => handleClick()} className={"relative top left-[45vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
+                        <Button onClick={() => DelRoomById()} className={"relative -mt-10 top-14 left-[9vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Yes</Button>
+                        <Button onClick={() => handleClick()} className={"relative top left-[20vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
                     </DialogContent>
                 </Dialog>
             </div>
@@ -81,7 +81,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                     <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] " />
                 </DialogTrigger>
 
-                <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px]">
+                <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[280px]">
                     <DialogTitle className="font-thin">Edit Room Name</DialogTitle>
                     <DialogDescription>
                         Replace the room name: {input.name}
@@ -99,8 +99,8 @@ export default function AdminPowers({ input, admin, room, category }) {
                             </SelectContent>
                         </Select>
                     </div>
-                    <Button onClick={() => handleClickDialogue()} className={"relative top-1 left-[35vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
-                    <Button onClick={() => UpdRoomById()} className={"relative bottom-12 -mb-24 left-[24vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
+                    <Button onClick={() => handleClickDialogue()} className={"relative top-1 left-[15vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
+                    <Button onClick={() => UpdRoomById()} className={"relative bottom-12 -mb-24 left-[4vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
                 </DialogContent>
             </Dialog>
         </div>
