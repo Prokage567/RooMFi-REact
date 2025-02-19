@@ -26,6 +26,16 @@ export default function AdminPowers({ input, admin, room, category }) {
     const [categoryById, setCategoryById] = useState("")
     const [close, setClose] = useState(false)
     const [save, setSave] = useState(false)
+    const handleClick = () => {
+        return (
+            setSave(false)
+        )
+    }
+    const handleClickDialogue = () => {
+        return (
+            setClose(false)
+        )
+    }
     const DelRoomById = () => {
         const id = input.id
         return (
@@ -54,13 +64,15 @@ export default function AdminPowers({ input, admin, room, category }) {
     return (
         <div>
             <div className="z-10  hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%] size-8">
-                <Dialog oen={save} onOpenChange={setSave}>
+                <Dialog open={save} onOpenChange={setSave}>
                     <DialogTrigger>
                         <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px]" />
                     </DialogTrigger>
-                    <DialogContent className="bg-[#11172E]" div_prop={"flex justify-end"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold bg-red-500"} show="true" >
+                    <DialogContent className="bg-[#11172E]" div_prop={"flex justify-end"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold bg-red-500"} >
+                        <DialogDescription></DialogDescription>
                         <DialogTitle className="text-white">Are you sure you want to delete this room: ({input.name})</DialogTitle>
-                        <Button onClick={() => DelRoomById()} className={"relative -mt-10 top-14 left-36 w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
+                        <Button onClick={() => DelRoomById()} className={"relative -mt-10 top-14 left-[34vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Yes</Button>
+                        <Button onClick={() => handleClick()} className={"relative top left-[45vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
                     </DialogContent>
                 </Dialog>
             </div>
@@ -87,7 +99,8 @@ export default function AdminPowers({ input, admin, room, category }) {
                             </SelectContent>
                         </Select>
                     </div>
-                    <Button onClick={() => UpdRoomById()} type="submit" className={"text-white w-[10vw] border font-[NiramitReg] z-20 hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"}>Save</Button>
+                    <Button onClick={() => handleClickDialogue()} className={"relative top-1 left-[35vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
+                    <Button onClick={() => UpdRoomById()} className={"relative bottom-12 -mb-24 left-[24vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
                 </DialogContent>
             </Dialog>
         </div>
