@@ -100,9 +100,6 @@ export default function Room() {
 
   return (
     <>
-
-
-
       <div className="mt-[10px] ml-[15px] min-w-screen ">
         <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
           {cat.map(r =>
