@@ -1,19 +1,19 @@
 @font-face {
   font-family: "kronaOne";
   src: local("Krona-One"),
-    url('./src/assets/fonts/krona/KronaOne-Regular.ttf')
+    url('../assets/fonts/krona/KronaOne-Regular.ttf')
 }
 
 @font-face {
   font-family: "NiramitBold";
   src: local("Niramit-Bold"),
-    url('./src/assets/fonts/niramit/Niramit-Bold.ttf')
+    url('../assets/fonts/niramit/Niramit-Bold.ttf')
 }
 
 @font-face {
   font-family: "NiramitReg";
   src: local("Niramit-Regular"),
-    url('./src/assets/fonts/niramit/Niramit-Regular.ttf')
+    url('../assets/fonts/niramit/Niramit-Regular.ttf')
 }
 
 body {
@@ -92,7 +92,6 @@ body {
       scrollbar-width: none; 
 }
 }
-
-/*
-https://dev.to/derick1530/how-to-create-scrollable-element-in-tailwind-without-a-scrollbar-4mbd
-*/
+input[type="time"]::-webkit-calendar-picker-indicator{
+  filter: invert(100%) 
+}

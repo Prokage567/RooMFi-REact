@@ -4,7 +4,7 @@ import { getCategory, getCategoryId } from "../api/category"
 import { useContext, useEffect, useMemo } from "react"
 import { useState } from "react"
 import { AuthContext } from "../context/context"
-import  AdminPowers  from "../components/AdminPowers/AdminEditDelete.jsx"
+import  AdminPowers  from "../components/AdminPowers/AdminEditDeleteRooms.jsx"
 import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
 import { request } from "../components/TeacherPowers/Requests.jsx"
 import { useCookies } from "react-cookie"
@@ -277,6 +277,74 @@ export default function Room() {
           </div>
         )
       }
+
+<Dialog>
+      <DialogTrigger className="">
+    {/* <Button className="fixed bottom-20 right-1  font-extralight h-[100px] w-[100px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"> */}
+    <div >
+      <DoorOpen className= " text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"/>
+    </div>
+    {/* </Button> */}
+      </DialogTrigger>
+      <DialogContent className="w-auto bg-[#11172E] text-white">
+        <DialogHeader>
+          <DialogTitle className="text-white">Add Room</DialogTitle>
+          <DialogDescription>
+            Add room and select what categories you inputed. 
+          </DialogDescription>
+        </DialogHeader> 
+   
+              <Label>
+              Add room number
+            </Label>
+            <Input className="bg-white text-[#11172E]" value="Type here!"/>
+            <Label>
+              Select room category
+            </Label>
+            <Select>
+              <SelectTrigger className="w-auto bg-white text-[#11172E]">
+                <SelectValue placeholder="Select room category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup className="text-[#11172E]">
+                  <SelectItem value="lecture room">Lecture Rooms</SelectItem>
+                  <SelectItem value="science room">Science Rooms</SelectItem>
+                  <SelectItem value="computer laboratories">Computer Laboratories</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+          <div className="border-t-[1px] h-[20px]">
+          <Button className=" fixed right-3 bottom-3 text-[18px]  bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
+          </div>
+
+      </DialogContent>
+    </Dialog>
+
+
+    <Dialog>
+      <DialogTrigger>
+    {/* <Button className="fixed bottom-3 right-1 font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] "> */}
+      <ChartBarStacked className=" text-[#ffffff] fixed bottom-2 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"/>
+    {/* </Button> */}
+      </DialogTrigger>
+      <DialogContent className="w-auto bg-[#11172E] text-white">
+        <DialogHeader>
+          <DialogTitle>Add Room Category</DialogTitle>
+          <DialogDescription>
+            Add room category for each room number. 
+          </DialogDescription>
+        </DialogHeader>
+            <Label>Room NO.</Label>
+            <Input  className="bg-white text-[#11172E] w-[350px] text-[20px]" placeholder="Type here!"/>
+         
+          <div className="border-t-[1px] h-[20px]">
+          <Button className="fixed bottom-3 right-2 text-[18px] bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
+         
+          </div>
+
+      </DialogContent>
+    </Dialog>
     </>
   )
 }

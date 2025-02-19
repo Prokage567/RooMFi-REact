@@ -1,63 +1,61 @@
 import React from 'react'
 import { format } from "date-fns"
-import { Calendar } from './ui/calendar'
-import {Button} from "./ui/button" 
+import { Button } from "./ui/button"
 import {
   Popover,
-  PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
 import '../pages/index.css'
+import { Calendar } from "./ui/popCalendar"
 import { CalendarIcon } from 'lucide-react'
+import { cn } from "@/lib/utils"
+import { PopoverAnchor } from './ui/popover'
+import { PopoverContent } from '@radix-ui/react-popover'
+import { Input } from './ui/input'
 import dayjs from 'dayjs'
-import {cn} from "@/lib/utils"
 
-export default function popUpCalendar({
-    className,
-  }) {
-    const [date, setDate] = React.useState({
-      from: dayjs("2022-01-20").toDate(),
-      to: dayjs("2022-01-20").add(20, "days").toDate(),
-    })
-   
-    return (
-      <div className={cn("grid gap-2", className)}>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              id="date"
-              variant={"outline"}
-              className={cn(
-                "w-[300px] justify-start text-left font-normal",
-                !date && "text-muted-foreground"
-              )}
-            >
-              <CalendarIcon />
-              {date?.from ? (
-                date.to ? (
-                  <>
-                    {format(date.from, "LLL dd, y")} -{" "}
-                    {format(date.to, "LLL dd, y")}
-                  </>
-                ) : (
-                  format(date.from, "LLL dd, y")
-                )
+export default function PopUpCalendar({
+  className,
+}) {
+  const [date, setDate] = React.useState({})
+  return (
+    <div className={cn("grid gap-2", className)}>
+      <Popover >
+        <PopoverTrigger asChild>
+          <Button 
+            variant={"outline"}
+            className={cn(
+              "bg-transparent w-auto justify-center font-[NiramitReg]",
+              !date && "text-muted-foreground"
+            )}
+          >
+            <CalendarIcon />
+            {date?.from ? (
+              date.to ? (
+                <>
+                  {format(date.from, "LLL dd, y")} -{" "}
+                  {format(date.to, "LLL dd, y")}
+                </>
               ) : (
-                <span>Pick a date</span>
-              )}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              initialFocus
-              mode="range"
-              defaultMonth={date?.from}
-              selected={date}
-              onSelect={setDate}
-              numberOfMonths={2}
-            />
-          </PopoverContent>
-        </Popover>
-      </div>
-    )
-  }
+                format(date.from, "LLL dd, y")
+              )
+            ) : (
+              <span>Pick a date</span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        <Input id="strDate" type="hidden" value={dayjs(date.from).format("YYYY-MM-DD")}></Input>
+        <Input id="endDate" type="hidden" value={dayjs(date.to).format("YYYY-MM-DD")}></Input>
+        <PopoverContent className="p-[10px] w-[315px] rounded-[15px] border-[3px] line border-white bg-[#BFAC88]">
+        <Calendar 
+            mode="range"
+            selected={date}
+            onSelect={setDate}
+            numberOfMonths={1}
+            className="font-[NiramitReg]"
+          />
+        </PopoverContent>
+      </Popover>
+    </div>
+  )
+}

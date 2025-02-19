@@ -10,14 +10,27 @@ export const getTeacher = async () => {
     })
     return await res.json()
 }
-export const getTeacherById = async (inputs,type) => {
-    const res = await fetch(`${URL}/teacher/`, {
+export const getTeacherById = async (token,type,inputs) => {
+    const res = await fetch(`${URL}/teacher`, {
         method: type,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${inputs}`
-        }
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(inputs)
+    })
+    return await res.json()
+}
+export const DelPatchTeacherById = async (id,token,type,inputs) => {
+    const res = await fetch(`${URL}/teacher/${id}`, {
+        method: type,
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(inputs)
     })
     return await res.json()
 }

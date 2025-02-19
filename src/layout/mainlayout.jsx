@@ -44,7 +44,7 @@ export default function MainLayout() {
         <>
             <div className="flex min-h-screen flex-col">
                 <nav className="fixed min-w-full z-20">
-                    <div className="bg-[url(src/assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
+                    <div className="bg-[url(../assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
                         {!user ?
                             <div>
                                 <div>
@@ -73,7 +73,7 @@ export default function MainLayout() {
                     </div>
                 </nav>
 
-                <div className=" flex-1 flex text-white font-[NiramitReg] min-h-full">
+                <div className="flex text-white font-[NiramitReg] min-h-full">
                     <p className="fixed lg:w-[225.9px] md:w-[156px] w-16 bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
                     <nav className=" lg:w-[268px] md:w-[187px] w-[70px]">
                         <div className="overflow-scroll no-scrollbar sticky top-24 mt-[88px] h-[90vh]">
