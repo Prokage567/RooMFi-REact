@@ -46,37 +46,39 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
     }
     return (
         <div>
-            <div className="z-50 hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%] size-8">
-                <Dialog open={save} onOpenChange={setSave}>
+            <div className="z-50 hover:rounded-md absolute left-2 top-2 bg-transparent rounded-[50%] size-8 ">
+                <Dialog open={save} onOpenChange={setSave} className="font-[NiramitReg] text-[#fff]">
                     <DialogTrigger>
-                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px]" />
+                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] hover:w-[30px] hover:h-[30px] " />
                     </DialogTrigger>
-                    <DialogContent className="bg-[#11172E] h-[150px]">
-                        <DialogTitle className="text-white">Are you sure you want to delete this Teacher ID: ({Teacher.name})</DialogTitle>
-                        <Button onClick={() => setSave(false)} className={"relative top-1 left-[20vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
-                        <Button onClick={() => DelTeacherById()} className={"relative bottom-12 -mb-32 left-[9vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
+                    <DialogContent className="bg-[#11172E] h-[200px]">
+                        <DialogTitle className="text-white">Delete</DialogTitle>
+                        <DialogDescription>Teacher Name: ({Teacher.name})</DialogDescription>
+                        <p className="text-[#fff] font-[NiramitReg] ">Are you sure you want to delete this Teacher</p>
+                        <div className="border-t-[1px] p-2">
+                            <Button onClick={() => setSave(false)} className={"fixed bottom-4 left-12 w-[50px] border font-[NiramitReg] text-[18px] border-none border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Canccel</Button>
+                            <Button onClick={() => DelTeacherById()} className={" fixed bottom-4 right-8 w-[50px] border font-[NiramitReg] text-[18px] border-none hover:bg-transparent text-white hover:font-bold bg-transparent "}>Yes</Button>
+                        </div>
                     </DialogContent>
                 </Dialog>
             </div>
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-[#0F172A]/70 size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] " />
+                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-transparent size-8 rounded-[50%]">
+                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] hover:w-[28px] hover:h-[28px] " />
                 </DialogTrigger>
 
-                <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[240px]">
-                    <DialogTitle className="font-thin">Edit Room Name</DialogTitle>
+                <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[220px]">
+                    <DialogTitle className="font-thin">Edit Teacher's Name</DialogTitle>
                     <DialogDescription>
                         Replace the Teacher name: {Teacher.name}
                     </DialogDescription>
-
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label>Replace Teacher Name</Label>
-                        <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Update Room's name" />
+                    <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Teacher Name" />
+                    <div className='border-t-[1px] h-[20px]'>
+                        <Button onClick={() => UpdTeacherById()} className={"fixed right-8 bottom-4 text-[18px] text-white w-[50px] font-[NiramitReg] border-white bg-transparent hover:bg-transparent hover:font-bold"}>Save</Button>
+                        <Button onClick={() => setClose(false)} className={"fixed bottom-4 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
                     </div>
-                    <Button onClick={() => setClose(false)} className={"relative top-1 left-[15vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
-                    <Button onClick={() => UpdTeacherById()} className={"relative bottom-12 -mb-24 left-[4vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
                 </DialogContent>
             </Dialog>
-        </div>
+        </div >
     )
 }

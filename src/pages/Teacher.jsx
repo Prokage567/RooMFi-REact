@@ -102,9 +102,9 @@ function Teacher() {
                         <div className="relative top-0">
                             <AdminPowers teacher={t.id} admin={token} Teacher={t} />
                         </div>
-                        <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[70px] bg-[#BFAC88]">
+                        <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[80px] bg-[#BFAC88]">
                             <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#0F1A42] text-center">{t.name}</CardTitle>
-                            <CardDescription className="font-[NiramitReg] text-center text-[#0F1A42]">{t.technology_course}</CardDescription>
+                            <CardDescription className="font-[NiramitReg]  text-center text-[#0F1A42]">{t.technology_course}</CardDescription>
                         </CardHeader>
 
                         <CardContent style={{ maxHeight: "175px" }} className="border-[#BFAC88] border-2 w-90 bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">

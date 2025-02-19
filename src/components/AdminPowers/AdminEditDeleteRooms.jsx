@@ -66,7 +66,7 @@ export default function AdminPowers({ input, admin, room, category }) {
             <div className="z-10  hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%] size-8">
                 <Dialog open={save} onOpenChange={setSave}>
                     <DialogTrigger>
-                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px]" />
+                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] " />
                     </DialogTrigger>
                     <DialogContent className="bg-[#11172E] h-[150px]">
                         <DialogDescription></DialogDescription>
@@ -77,8 +77,8 @@ export default function AdminPowers({ input, admin, room, category }) {
                 </Dialog>
             </div>
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-[#0F172A]/70 size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] " />
+                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-transparent size-8 rounded-[50%]">
+                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] hover:w-[28px] hover:h-[28px]" />
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[280px]">
@@ -88,7 +88,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                     </DialogDescription>
 
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label>Replace Room Name</Label>
+                        <Label>Replace Teacher Name</Label>
                         <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Update Room's name" />
                         <Select onValueChange={setCategoryById} className="font-[NiramitReg]">
                             <SelectTrigger className="h-10  text-[#11124f] bg-white text-[18px] ">
