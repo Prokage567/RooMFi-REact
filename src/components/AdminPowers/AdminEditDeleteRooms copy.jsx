@@ -46,20 +46,25 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
     }
     return (
         <div>
-            <div className="z-50 hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%] size-8">
-                <Dialog open={save} onOpenChange={setSave}>
+            <div className="z-50 hover:rounded-md absolute left-2 top-2 bg-transparent rounded-[50%] size-8 ">
+                <Dialog open={save} onOpenChange={setSave} className="font-[NiramitReg] text-[#fff]">
                     <DialogTrigger>
-                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px]" />
+                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] hover:w-[30px] hover:h-[30px] " />
                     </DialogTrigger>
                     <DialogContent className="bg-[#11172E]" div_prop={"flex justify-end"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold bg-red-500"} show="true" >
-                        <DialogTitle className="text-white">Are you sure you want to delete this Teacher ID: ({Teacher.name})</DialogTitle>
-                        <Button onClick={() => DelTeacherById()} className={"relative -mt-10 top-14 left-36 w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Yes</Button>
+                        <DialogTitle className="text-white">Delete</DialogTitle>
+                        <DialogDescription>Teacher Name: ({Teacher.name})</DialogDescription>
+                        <p className="text-[#fff] font-[NiramitReg] ">Are you sure you want to delete this Teacher <br/>
+                         </p>
+                         <div className="border-t-[1px] p-2">
+                        <Button onClick={() => DelTeacherById()} className={" fixed bottom-2 right-6 w-[50px] border font-[NiramitReg] text-[18px] border-none hover:bg-transparent text-white hover:font-bold bg-transparent "}>Yes</Button>
+                         </div>
                     </DialogContent>
                 </Dialog>
             </div>
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-[#0F172A]/70 size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] " />
+                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-transparent size-8 rounded-[50%]">
+                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] hover:w-[28px] hover:h-[28px] " />
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px]">
@@ -68,9 +73,9 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                         Replace the Teacher name: {Teacher.name}
                     </DialogDescription>
 
-                    <div className="grid w-full max-w-sm items-center gap-1.5">
+ 
                         <Label>Replace Teacher Name</Label>
-                        <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Update Room's name" />
+                        <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Teacher Name" />
                         {/* <Select onValueChange={setCategoryById} className="font-[NiramitReg]">
                             <SelectTrigger className="h-10  text-[#11124f] bg-white text-[18px] ">
                                 <SelectValue placeholder="Select a Category" />
@@ -79,8 +84,10 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                                 <SelectItem key={room.id} className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={`${room.category_id}`}>{category}</SelectItem>
                             </SelectContent>
                         </Select> */}
+
+                    <div className='border-t-[1px] h-[20px]'>
+                    <Button onClick={() => UpdRoomById()} type="submit" className={"fixed left-[360px] bottom-4   text-[18px] text-white w-[50px]  font-[NiramitReg] z-20  border-white bg-transparent hover:bg-transparent hover:font-bold"}>Save</Button>
                     </div>
-                    <Button onClick={() => UpdRoomById()} type="submit" className={"text-white w-[10vw] border font-[NiramitReg] z-20 hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"}>Save</Button>
                 </DialogContent>
             </Dialog>
         </div>

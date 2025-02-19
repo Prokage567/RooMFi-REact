@@ -56,17 +56,18 @@ export default function AdminPowers({ input, admin, room, category }) {
             <div className="z-10  hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%] size-8">
                 <Dialog oen={save} onOpenChange={setSave}>
                     <DialogTrigger>
-                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px]" />
+                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] " />
                     </DialogTrigger>
                     <DialogContent className="bg-[#11172E]" div_prop={"flex justify-end"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold bg-red-500"} show="true" >
                         <DialogTitle className="text-white">Are you sure you want to delete this room: ({input.name})</DialogTitle>
                         <Button onClick={() => DelRoomById()} className={"relative -mt-10 top-14 left-36 w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
+                        <Button onClick={() => setSave(false)} className={"relative -mt-10 top-14 left-36 w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
                     </DialogContent>
                 </Dialog>
             </div>
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-[#0F172A]/70 size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] " />
+                <DialogTrigger className=" z-10  right-2 top-2 absolute hover:rounded-md bg-transparent size-8 rounded-[50%]">
+                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] hover:w-[28px] hover:h-[28px]" />
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px]">
@@ -76,7 +77,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                     </DialogDescription>
 
                     <div className="grid w-full max-w-sm items-center gap-1.5">
-                        <Label>Replace Room Name</Label>
+                        <Label>Replace Teacher Name</Label>
                         <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Update Room's name" />
                         <Select onValueChange={setCategoryById} className="font-[NiramitReg]">
                             <SelectTrigger className="h-10  text-[#11124f] bg-white text-[18px] ">
