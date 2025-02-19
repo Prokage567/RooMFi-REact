@@ -39,17 +39,17 @@ export const request = (pop, room) => {
 
 
 
-      <Popover className="h-[300px]">
-        <div className=" fixed bottom-[60px] text-[14px] right-3 z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
+      <Popover className="h-[350px]">
+        <div className=" fixed bottom-[195px] text-[14px] right-[2px] z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
           <div className="mt-[2px]">20</div>
         </div>
          <PopoverTrigger className="fixed bottom-[153px] right-1 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
             <SquareLibrary className="w-[30px] h-[30px] z-0" />
           </PopoverTrigger>
-        <PopoverContent className=" border-[2px] border-[#ffffff] bg-[#0F1A42] shadow-none mr-8 mb-3 h-[480px] rounded-[20px]">
+        <PopoverContent className=" border-[2px] border-[#ffffff] bg-[#0F1A42] shadow-none mr-8 mb-3 h-[350px] rounded-[20px]">
 
           <AC type="single" collapsible className="w-[250px] text-[14px]  font-[NiramitReg] bg-[#0F1A42] border-b-[1px] border-[#fff]/90 text-[#fff]">
-            <div className="overflow-auto no-scrollbar  h-[450px] ">
+            <div className="overflow-auto no-scrollbar  h-[300px] ">
 
               <AI value="item-1">
                 <AT className="border-b-[1px]  border-[#fff]/30">
