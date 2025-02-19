@@ -27,6 +27,8 @@ import { getRoom } from "../api/room"
 import { postSched } from "../api/sched"
 import PopUpCalendar from "../components/popUpCalendar"
 import { toast } from "react-toastify"
+import { DialogHeader } from "../components/ui/dialog"
+import { DialogDescription } from "@radix-ui/react-dialog"
 
 export default function section() {
   const { id } = useParams()
@@ -100,15 +102,15 @@ export default function section() {
 
   const hehe = (label, inputs, setvalue, input) => {
     return (<>
-      <div className="font-[NiramitReg] text-[20px] pb-1">{label}</div>
-      <div className="grid ml-0 max-w-sm items-center gap-1.5 w-[400px] font-[NiramitReg]"></div>
-      <Select onValueChange={setvalue} id="room" className="font-[NiramitReg]">
-        <SelectTrigger className="h-10  text-[#11124f] bg-white text-[18px] ">
+      <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
+
+      <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
+        <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
           <SelectValue placeholder={`Select a ${input}`} />
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg]" >
           {inputs.map(room =>
-            <SelectItem className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room.day : room.id}> {inputs == weekdays ? room.day : inputs == Teachers ? `${room.name} - ${room.technology_course} ` : `${room.name} - ${room.category?.category}`} </SelectItem>
+            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room.day : room.id}> {inputs == weekdays ? room.day : inputs == Teachers ? `${room.name} - ${room.technology_course} ` : `${room.name} - ${room.category?.category}`} </SelectItem>
           )}
         </SelectContent>
       </Select>
@@ -128,33 +130,44 @@ export default function section() {
             schedules={Section?.schedules}
           />
         </div>
-        <Dialog className="rounded-full w-[500px] h-auto" >
+        <Dialog className="rounded-full w-[500px] h-auto text-sm" >
           <DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
           </DialogTrigger>
           <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
-            <div>
+            <DialogHeader className="text-[20px]">Add Event</DialogHeader>
+            <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
+            <div >
               {hehe("Room No.", Rooms, setRoom, "Room")}
               {hehe("Teacher", Teachers, setTeacher, "Teacher")}
               {hehe("Day", weekdays, setDays, "Weekdays")}
-              <Label className="mt-2 text-[20px]">Subject</Label>
+              <div className="pt-3 ">
+              <Label>Subject</Label>
               <Input autofocus e={false}
-                className="h-10 placeholder:text-[20px]  md:text-[20px] bg-white text-[18px] text-[#0F172A]"
+                className="   bg-white  text-[#0F172A]"
                 id="subject"
                 placeholder="Input Subject" />
+              </div>
               <PopUpCalendar className="pt-3" />
-              <div className="flex flex-row w-[450px] h-[80px]">
+              <div className="flex flex-row w-[450px] ">
                 <div>
-                  <Label className="text-[20px]">Time</Label>
-                  <div className="flex">
-                    <Label className="text-[18px]" >From:</Label>
+                  <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
+                  <Label className="text-[17px] ">Time</Label>
+                  </div>
+                  <div className="flex justify-around">
+                    <div className="pt-2">
+                    <Label className="" >From:</Label>
                     <Input id="strTime" className="border-none focus:outline-white " type="time" />
-                    <Label className="text-[18px]">To:</Label>
+                    </div>
+                      
+                    <div  className="pt-2">
+                    <Label className="]">To:</Label>
                     <Input id="endTime" className="border-none text-slate-50" type="time" />
+                    </div>
                   </div>
                 </div>
               </div>
-                  <Button onClick={() => schedule()} className="justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
+                  <Button onClick={() => schedule()} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
             </div>
           </DialogContent>
         </Dialog>
