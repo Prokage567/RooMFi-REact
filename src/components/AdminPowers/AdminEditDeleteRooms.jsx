@@ -26,16 +26,6 @@ export default function AdminPowers({ input, admin, room, category }) {
     const [categoryById, setCategoryById] = useState("")
     const [close, setClose] = useState(false)
     const [save, setSave] = useState(false)
-    const handleClick = () => {
-        return (
-            setSave(false)
-        )
-    }
-    const handleClickDialogue = () => {
-        return (
-            setClose(false)
-        )
-    }
     const DelRoomById = () => {
         const id = input.id
         return (
@@ -74,7 +64,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                         <DialogDescription>Room: {input.name}</DialogDescription>
                         <p className='text-[#fff]'>Are you sure you want to delete this room?</p>
                         <div className="border-t-[1px] h-[30px]">
-                            <Button onClick={() => handleClick()} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
+                            <Button onClick={() => setSave(false)} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
                             <Button onClick={() => DelRoomById()} className={"fixed bottom-2 right-12 text-[18px] w-[40px] hover:font-bold font-[NiramitReg]  border-white bg-transparent hover:bg-transparent text-white  "}>Yes</Button>
                         </div>
                     </DialogContent>
@@ -102,8 +92,8 @@ export default function AdminPowers({ input, admin, room, category }) {
                     </Select>
 
                     <div className="border-t-[1px]">
-                        <Button onClick={() => handleClick()} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
-                        <Button onClick={() => DelRoomById()} className={"fixed bottom-2 right-12 text-[18px] w-[40px] hover:font-bold font-[NiramitReg]  border-white bg-transparent hover:bg-transparent text-white  "}>Yes</Button>
+                        <Button onClick={() => setClose(false)} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
+                        <Button onClick={() => UpdRoomById()} className={"fixed bottom-2 right-12 text-[18px] w-[40px] hover:font-bold font-[NiramitReg]  border-white bg-transparent hover:bg-transparent text-white  "}>Yes</Button>
                     </div>
                 </DialogContent>
             </Dialog>
