@@ -71,13 +71,8 @@ export default function AdminPowers({ input, admin, room, category }) {
                     <DialogContent className="bg-[#11172E]" div_prop={"flex justify-end"} prop={"text-white w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold bg-red-500"} >
                         <DialogDescription></DialogDescription>
                         <DialogTitle className="text-white">Are you sure you want to delete this room: ({input.name})</DialogTitle>
-<<<<<<< HEAD
                         <Button onClick={() => DelRoomById()} className={"relative -mt-10 top-14 left-36 w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
                         <Button onClick={() => setSave(false)} className={"relative -mt-10 top-14 left-36 w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Save</Button>
-=======
-                        <Button onClick={() => DelRoomById()} className={"relative -mt-10 top-14 left-[34vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-green-500 "}>Yes</Button>
-                        <Button onClick={() => handleClick()} className={"relative top left-[45vw] w-[10vw] border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold bg-red-500 "}>Canccel</Button>
->>>>>>> e90b610f32a536eafb7320d93bb6b8dfbb875b6e
                     </DialogContent>
                 </Dialog>
             </div>

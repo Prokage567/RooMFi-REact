@@ -14,16 +14,10 @@ import { Button } from "../ui/button.jsx";
 export const request = (pop, room) => {
   return (
     <div className="overflow-auto no-scrollbar">
-      <Popover className="h-[300px]">
-        <div className=" fixed bottom-[60px] text-[14px] right-3 z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
-          <div className="mt-[2px]"> 20</div>
-        </div>
-        {pop ? pop == 1 ? <PopoverTrigger className="fixed bottom-5 right-5 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
-          <SquareLibrary className="w-[30px] h-[30px] z-0" />
-        </PopoverTrigger> : <Dialog>
+         <Dialog>
           <DialogTrigger>
-            <img src={Add} className="w-[50px] h-[50px] mr-[10px] mb-[10px]  bottom-0 right-1" />
-          </DialogTrigger>``
+            {/* <img src={Add} className="w-[50px] h-[50px] mr-[10px] mb-[10px]  bottom-0 right-1" /> */}
+          </DialogTrigger>
 
           <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
             <DialogTitle className="font-thin">Edit Room Name</DialogTitle>
@@ -40,9 +34,18 @@ export const request = (pop, room) => {
             <Button className="border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Save</Button>
           </DialogContent>
         </Dialog>
-          : <PopoverTrigger className="fixed bottom-5 right-5 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+
+
+
+
+
+      <Popover className="h-[300px]">
+        <div className=" fixed bottom-[60px] text-[14px] right-3 z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
+          <div className="mt-[2px]">20</div>
+        </div>
+         <PopoverTrigger className="fixed bottom-[153px] right-1 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
             <SquareLibrary className="w-[30px] h-[30px] z-0" />
-          </PopoverTrigger>}
+          </PopoverTrigger>
         <PopoverContent className=" border-[2px] border-[#ffffff] bg-[#0F1A42] shadow-none mr-8 mb-3 h-[480px] rounded-[20px]">
 
           <AC type="single" collapsible className="w-[250px] text-[14px]  font-[NiramitReg] bg-[#0F1A42] border-b-[1px] border-[#fff]/90 text-[#fff]">

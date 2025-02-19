@@ -29,7 +29,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { ChartBarStacked, DoorOpen } from 'lucide-react'
+import { ChartBarStacked, DoorOpen, Plus } from 'lucide-react'
 
 
 export default function Room() {
@@ -57,7 +57,7 @@ export default function Room() {
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [id])
+  }, [id, categories, category])
   const [isOpen, setIsOpen] = useState(false)
   const refreshCategoryById = () => {
     if (id) {
@@ -165,7 +165,7 @@ export default function Room() {
       <DialogTrigger className="">
     {/* <Button className="fixed bottom-20 right-1  font-extralight h-[100px] w-[100px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"> */}
     <div >
-      <DoorOpen className= " text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"/>
+      <DoorOpen className= " text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"/>
     </div>
     {/* </Button> */}
       </DialogTrigger>
@@ -173,7 +173,7 @@ export default function Room() {
         <DialogHeader>
           <DialogTitle className="text-white">Add Room</DialogTitle>
           <DialogDescription>
-            Add room and select what categories you inputed. Click save when you're done.
+            Add room and select what categories you inputed. 
           </DialogDescription>
         </DialogHeader> 
    
@@ -208,7 +208,7 @@ export default function Room() {
     <Dialog>
       <DialogTrigger>
     {/* <Button className="fixed bottom-3 right-1 font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] "> */}
-      <ChartBarStacked className=" text-[#ffffff] fixed bottom-2 right-1 p-4 font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"/>
+      <ChartBarStacked className=" text-[#ffffff] fixed bottom-2 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"/>
     {/* </Button> */}
       </DialogTrigger>
       <DialogContent className="w-auto bg-[#11172E] text-white">
