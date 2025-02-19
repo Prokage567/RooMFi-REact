@@ -54,7 +54,7 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                     <DialogContent className="bg-[#11172E] h-[200px]">
                         <DialogTitle className="text-white">Delete</DialogTitle>
                         <DialogDescription>Teacher Name: ({Teacher.name})</DialogDescription>
-                        <p className="text-[#fff] font-[NiramitReg] ">Are you sure you want to delete this Teacher</p>
+                        <p className="text-[#fff] font-[NiramitReg] ">Are you sure you want to delete this Teacher?</p>
                         <div className="border-t-[1px] p-2">
                             <Button onClick={() => setSave(false)} className={"fixed bottom-4 left-12 w-[50px] border font-[NiramitReg] text-[18px] border-none border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Canccel</Button>
                             <Button onClick={() => DelTeacherById()} className={" fixed bottom-4 right-8 w-[50px] border font-[NiramitReg] text-[18px] border-none hover:bg-transparent text-white hover:font-bold bg-transparent "}>Yes</Button>
@@ -68,7 +68,7 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[220px]">
-                    <DialogTitle className="font-thin">Edit Teacher's Name</DialogTitle>
+                    <DialogTitle className="font-thin">Edit Teacher</DialogTitle>
                     <DialogDescription>
                         Replace the Teacher name: {Teacher.name}
                     </DialogDescription>

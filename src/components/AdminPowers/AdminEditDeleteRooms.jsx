@@ -73,7 +73,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                         <DialogTitle className="text-white">Delete</DialogTitle>
                         <DialogDescription>Room: {input.name}</DialogDescription>
                         <p className='text-[#fff]'>Are you sure you want to delete this room?</p>
-                        <div className="border-t-[1px]">
+                        <div className="border-t-[1px] h-[30px]">
                             <Button onClick={() => handleClick()} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
                             <Button onClick={() => DelRoomById()} className={"fixed bottom-2 right-12 text-[18px] w-[40px] hover:font-bold font-[NiramitReg]  border-white bg-transparent hover:bg-transparent text-white  "}>Yes</Button>
                         </div>
@@ -86,7 +86,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[300px]">
-                    <DialogTitle className="font-thin">Edit Room Name</DialogTitle>
+                    <DialogTitle className="font-thin">Edit Room</DialogTitle>
                     <DialogDescription>
                         Room Number: {input.name}
                     </DialogDescription>
@@ -101,7 +101,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                         </SelectContent>
                     </Select>
 
-                    <div className="border-t-[1px] ">
+                    <div className="border-t-[1px]">
                         <Button onClick={() => handleClick()} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
                         <Button onClick={() => DelRoomById()} className={"fixed bottom-2 right-12 text-[18px] w-[40px] hover:font-bold font-[NiramitReg]  border-white bg-transparent hover:bg-transparent text-white  "}>Yes</Button>
                     </div>
