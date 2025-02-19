@@ -3,32 +3,29 @@ import { format } from "date-fns"
 import { Button } from "./ui/button"
 import {
   Popover,
-  PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
 import '../pages/index.css'
 import { Calendar } from "./ui/popCalendar"
 import { CalendarIcon } from 'lucide-react'
-import dayjs from 'dayjs'
 import { cn } from "@/lib/utils"
+import { PopoverAnchor } from './ui/popover'
+import { PopoverContent } from '@radix-ui/react-popover'
+import { Input } from './ui/input'
+import dayjs from 'dayjs'
 
 export default function PopUpCalendar({
   className,
 }) {
-  const [date, setDate] = React.useState({
-    from: dayjs("2022-01-20").toDate(),
-    to: dayjs("2022-01-20").add(20, "days").toDate(),
-  })
-
+  const [date, setDate] = React.useState({})
   return (
     <div className={cn("grid gap-2", className)}>
-      <Popover>
+      <Popover >
         <PopoverTrigger asChild>
-          <Button
-            id="date"
+          <Button 
             variant={"outline"}
             className={cn(
-              "w-[300px] justify-start text-left font-normal",
+              "bg-transparent w-auto justify-center font-[NiramitReg]",
               !date && "text-muted-foreground"
             )}
           >
@@ -47,10 +44,11 @@ export default function PopUpCalendar({
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[315px] h-[335px] border-[3px] z-50 line border-white bg-[#BFAC88]" align="start">
-          <Calendar
+        <Input id="strDate" type="hidden" value={dayjs(date.from).format("YYYY-MM-DD")}></Input>
+        <Input id="endDate" type="hidden" value={dayjs(date.to).format("YYYY-MM-DD")}></Input>
+        <PopoverContent className="p-[10px] w-[315px] rounded-[15px] border-[3px] line border-white bg-[#BFAC88]">
+        <Calendar 
             mode="range"
-            defaultMonth={date?.from}
             selected={date}
             onSelect={setDate}
             numberOfMonths={1}

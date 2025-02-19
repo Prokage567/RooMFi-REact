@@ -92,3 +92,6 @@ body {
       scrollbar-width: none; 
 }
 }
+input[type="time"]::-webkit-calendar-picker-indicator{
+  filter: invert(100%) 
+}

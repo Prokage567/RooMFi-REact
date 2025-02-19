@@ -29,7 +29,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { ChartBarStacked, DoorOpen, Plus } from 'lucide-react'
+import { ChartBarStacked, DoorOpen } from 'lucide-react'
 
 
 export default function Room() {
@@ -57,7 +57,7 @@ export default function Room() {
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
-  }, [id, categories, category])
+  }, [id])
   const [isOpen, setIsOpen] = useState(false)
   const refreshCategoryById = () => {
     if (id) {
