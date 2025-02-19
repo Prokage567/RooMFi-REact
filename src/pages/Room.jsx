@@ -29,7 +29,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { ChartBarStacked, DoorOpen, Plus } from 'lucide-react'
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { ChartBarStacked, DoorOpen, SquareChartGantt, Plus } from 'lucide-react'
 
 
 export default function Room() {
@@ -38,6 +39,12 @@ export default function Room() {
     "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
     "Room 324", "Room 335", "Room 336"
   ]
+
+  const overview = [
+    { tName: "Ms. Ruffa Mae Santos", section: "12-STEM", subject: "Math", schedule: "8:00 AM - 12:00 PM", room: "201" },
+    { tName: "Mr. Aladin P. Silvestre", section: "12-CPROG/AUTO", subject: "English", schedule: "8:00 AM - 12:00 PM", room: "202" },
+  ];
+  
   const [Rooms, setRooms] = useState([])
   const [Room, setRoom] = useState()
   const [cookies] = useCookies()
@@ -50,7 +57,7 @@ export default function Room() {
     getRoom().then(res => {
       console.log(res)
       if (res?.ok) {
-      setRooms(res.data) 
+        setRooms(res.data) 
       }
     })
   }
@@ -73,11 +80,11 @@ export default function Room() {
     const roomNumber = $("#roomNum")
   }
   const cat = useMemo(() => {
-
+    
     if (categories.length != 0) {
       if (id) {
         return category.filter(x => x.room.map(x => x.category_id === id))
-
+        
       } else {
         return categories
       }
@@ -85,9 +92,9 @@ export default function Room() {
     else {
       return categories
     }
-
+    
   }, [categories, category])
-
+  
   const refreshCategory = () => {
     getCategory().then(res => {
       console.log(res)
@@ -97,9 +104,122 @@ export default function Room() {
       }
     })
   }
+  
+  const [open, setOpen] = useState(false)
 
   return (
     <>
+    <div className="flex justify-end">
+      <Popover open={open} onOpenChange={setOpen} >
+        <PopoverTrigger asChild>
+          <Button className="fixed top-[13.8vh] right-[2.5vh] font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+          <SquareChartGantt className="text-white w-[30px] h-[30px] z-0"/>
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent 
+          side="left" 
+          align="start" 
+          className="w-[1000px] h-[500px] p-6 rounded-2xl shadow-lg overflow-auto bg-[#11172E] text-white"
+        >
+          <h2 className="text-2xl font-semibold mb-6">Schedule Overview</h2>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="bg-[#0F1A42]">
+                  <th className="border px-4 py-3 text-left">Teacher's Name</th>
+                  <th className="border px-4 py-3 text-left">Section</th>
+                  <th className="border px-4 py-3 text-left">Subject</th>
+                  <th className="border px-4 py-3 text-left">Time Schedule</th>
+                  <th className="border px-4 py-3 text-left">Room</th>
+                </tr>
+              </thead>
+              <tbody>
+                {overview.map((view, index) => (
+                  <tr key={index} className="even:bg-[#11172E]">
+                    <td className="border px-4 py-2">{view.tName}</td>
+                    <td className="border px-4 py-2">{view.section}</td>
+                    <td className="border px-4 py-2">{view.subject}</td>
+                    <td className="border px-4 py-2">{view.schedule}</td>
+                    <td className="border px-4 py-2">{view.room}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+
+    <Dialog>
+      <DialogTrigger>
+    <Button className="fixed top-[75vh] right-[2.5vh] font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+      <DoorOpen className="text-white w-[30px] h-[30px] z-0"/>
+    </Button>
+      </DialogTrigger>
+      <DialogContent className="w-auto bg-[#11172E] text-white">
+        <DialogHeader>
+          <DialogTitle className="text-white">Add Room</DialogTitle>
+          <DialogDescription>
+            Add room and select what categories you inputed. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader> 
+        <div className="grid gap-4 text-white">
+          <div className="grid items-center gap-4">
+              <Label>
+              Add room number
+            </Label>
+            <Input className="bg-white text-[#11172E]" value="Type here!"/>
+            <Label>
+              Select room category
+            </Label>
+            <Select>
+              <SelectTrigger className="w-auto bg-white text-[#11172E]">
+                <SelectValue placeholder="Select room category" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup className="text-[#11172E]">
+                  <SelectItem value="lecture room">Lecture Rooms</SelectItem>
+                  <SelectItem value="science room">Science Rooms</SelectItem>
+                  <SelectItem value="computer laboratories">Computer Laboratories</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="cancel">Cancel</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+
+    <Dialog>
+      <DialogTrigger>
+    <Button className="fixed top-[63.8vh] right-[2.5vh] font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+      <ChartBarStacked className="text-white w-[30px] h-[30px] z-0"/>
+    </Button>
+      </DialogTrigger>
+      <DialogContent className="w-auto bg-[#11172E] text-white">
+        <DialogHeader>
+          <DialogTitle>Add Room Category</DialogTitle>
+          <DialogDescription>
+            Add room category for each room number. Click save when you're done.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4">
+          <div className="grid items-center gap-4">
+            <Input  className="bg-white text-[#11172E]" value="Type here!"/>
+          </div>
+        </div>
+        <DialogFooter>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
+          <Button className="bg-transparent border-none hover:bg-transparent hover:font-bold" type="cancel">Cancel</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+
+
       <div className="mt-[10px] ml-[15px] min-w-screen ">
         <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
           {cat.map(r =>
