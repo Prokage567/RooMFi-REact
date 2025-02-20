@@ -131,13 +131,13 @@ export default function section() {
             schedules={Section?.schedules}
           />
         </div>
-        <Dialog className="rounded-full w-[500px] h-auto text-sm" >
+        <Dialog className="rounded-full w-[450px] h-[600px] text-sm" >
           <DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
           </DialogTrigger>
           <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
             <DialogHeader className="text-[20px]">Add Event</DialogHeader>
-            <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
+            <DialogDescription className="text-[#fff]/80  -mb-6 -mt-4 ">Add an event for the sections schedule</DialogDescription>
             <div >
               {selectForAll("Room No.", Rooms, setRoom, "Room")}
               {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
@@ -153,7 +153,7 @@ export default function section() {
               <PopUpCalendar className="pt-3" />
               <div className="flex flex-row w-[450px] ">
                 <div>
-                  <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
+                  <div className=" w-[465px] border-b-[1px] -mt-3 border-[#fff]/50 pb-2">
                     <Label className="text-[17px] ">Time</Label>
                   </div>
                   <div className="flex justify-around">
