@@ -121,10 +121,10 @@ export default function Room() {
         <SquareChartGantt className=" text-white size-80" />
       </Button>
       {open ? <>
-        <div className="flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky top-20 bg-[#11172E] text-white">
+        <div className="flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
           <h2 className="text-2xl font-semibold">Schedule Overview</h2>
         </div>
-        <Table className="text-[12px] w-full font-[NiramitReg] text-[#11172E] ">
+        <Table className="text-[12px] w-full font-[NiramitReg] text-[#11172E]">
           <TableHeader>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Room</TableHead>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Day</TableHead>

@@ -100,7 +100,6 @@ export default function section() {
       }
     })
   }
-
   const selectForAll = (label, inputs, setvalue, input) => {
     return (<>
       <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
@@ -118,6 +117,7 @@ export default function section() {
     </>
     )
   }
+
   return (
 
     <>
