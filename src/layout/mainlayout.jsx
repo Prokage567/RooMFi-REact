@@ -86,7 +86,7 @@ export default function MainLayout() {
 
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
-                                    <AccordionTrigger input={true} img={icon2} className="lg:ml-1 md:ml-[4px] ml-0 whitespace-pre">Room</AccordionTrigger>
+                                    <AccordionTrigger input={true} img={icon2} className="whitespace-pre">Room    </AccordionTrigger>
 
                                     <Link to="/room" className="">
                                         <AccordionContent className="ml-0 md:ml-3 lg:ml-9">All</AccordionContent>

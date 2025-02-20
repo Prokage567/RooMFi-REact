@@ -1,4 +1,3 @@
-
 import { useParams } from "react-router-dom"
 import { getCategory, getCategoryId } from "../api/category"
 import { useContext, useEffect, useMemo } from "react"
@@ -12,7 +11,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -22,15 +20,23 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { ChartBarStacked, DoorOpen, SquareChartGantt, Plus } from 'lucide-react'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../components/ui/table.jsx"
+import { ChartBarStacked, DoorOpen, SquareChartGantt } from 'lucide-react'
+import { getTeacher } from "../api/teacher.js"
+import { getSection } from "../api/section.js"
 
 export default function Room() {
   const rooms = [
@@ -38,7 +44,8 @@ export default function Room() {
     "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
     "Room 324", "Room 335", "Room 336"
   ]
-  const [Rooms, setRooms] = useState([])
+  const [Sections, setSections] = useState([])
+  const [Teachers, setTeachers] = useState([])
   const [open, setOpen] = useState(false)
   const [Room, setRoom] = useState()
   const [cookies] = useCookies()
@@ -47,18 +54,29 @@ export default function Room() {
   const { user } = useContext(AuthContext)
   const [categories, setCategories] = useState([])
   const [category, setCategory] = useState([])
-  const getRoom = () => {
-    getRoom().then(res => {
-      console.log(res)
-      if (res?.ok) {
-        setRooms(res.data)
-      }
-    })
-  }
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
+    getSections()
+    getTeachers()
+    document.body.style.background = "white"
   }, [id, categories, category])
+
+  const getTeachers = () => {
+    getTeacher().then(res => {
+      if (res?.ok) {
+        setTeachers(res.data)
+        console.log(Teachers)
+      }
+    })
+  }
+  const getSections = () => {
+    getSection().then(res => {
+      if (res?.ok) {
+        setSections(res.data)
+      }
+    })
+  }
   const [isOpen, setIsOpen] = useState(false)
   const refreshCategoryById = () => {
     if (id) {
@@ -86,12 +104,10 @@ export default function Room() {
     else {
       return categories
     }
-
   }, [categories, category])
 
   const refreshCategory = () => {
     getCategory().then(res => {
-      console.log(res)
       if (res?.ok) {
         setCategories(res.data)
 
@@ -101,39 +117,46 @@ export default function Room() {
 
   return (
     <>
-      <Button onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className="fixed top-[13.8vh] right-[2.5vh] font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
-        <SquareChartGantt className="text-white w-[30px] h-[30px] z-0" />
+      <Button onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className="fixed z-20 top-[90px] right-2 font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+        <SquareChartGantt className=" text-white size-80" />
       </Button>
-      {open ? <div className="flex justify-end">
-        {/* <PopoverContent 
-          side="left" 
-          align="start" 
-          className="w-[1000px] h-[500px] p-6 rounded-2xl shadow-lg overflow-auto bg-[#11172E] text-white" 
-        > */}
-        <h2 className="text-2xl font-semibold mb-6">Schedule Overview</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-sm">
-            <thead>
-              <tr className="bg-[#0F1A42]">
-                <th className="border px-4 py-3 text-left">Teacher's Name</th>
-                <th className="border px-4 py-3 text-left">Section</th>
-                <th className="border px-4 py-3 text-left">Subject</th>
-                <th className="border px-4 py-3 text-left">Time Schedule</th>
-                <th className="border px-4 py-3 text-left">Room</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Rooms.map(r => (
-                <tr key={r.id} className="even:bg-[#11172E]">
-                  <td className="border px-4 py-2">{r.name}</td>
-                  <td className="border px-4 py-2">{r.category_id}</td>
-                  <td className="border px-4 py-2">{r.category.category}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {open ? <>
+        <div className="flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky top-20 bg-[#11172E] text-white">
+          <h2 className="text-2xl font-semibold">Schedule Overview</h2>
         </div>
-      </div>
+        <Table className="text-[12px] w-full font-[NiramitReg] text-[#11172E] ">
+          <TableHeader>
+            <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Room</TableHead>
+            <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Day</TableHead>
+            <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Teacher</TableHead>
+            <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Time</TableHead>
+            <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Section</TableHead>
+            <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Subject</TableHead>
+            <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Date</TableHead>
+          </TableHeader>
+          <TableBody >
+            {categories?.map(q => (
+              q.room.map(r =>
+                r.schedules.map(sc =>
+                  <>
+                    <TableRow className="" key={r.id}>
+                      <TableCell className="w-[20px] pr-5 pl-5">{r.name}</TableCell>
+                      <TableCell className="w-[20px] pr-5 pl-5">{sc.day}</TableCell>
+                      {Teachers.filter(x => x.id === sc.teacher_id).map(t =>
+                        <TableCell className="w-[20px] pr-5 pl-5">{t.name}</TableCell>
+                      )}
+                      <TableCell className="w-[20px] pr-5 pl-5">{sc.start_time}-{sc.end_time}</TableCell>
+                      {Sections.filter(x => x.id === sc.section_id).map(s =>
+                        <TableCell className="w-[20px] pr-5 pl-5">{s.name}</TableCell>
+                      )}
+                      <TableCell className="w-[20px] pr-5 pl-5">{sc.subject}</TableCell>
+                      <TableCell className="w-[20px] pr-5 pl-5">{sc.date}</TableCell>
+                    </TableRow>
+                  </>
+                ))))}
+          </TableBody>
+        </Table>
+      </>
         : <>
           <div className="mt-[10px] ml-[15px] min-w-screen ">
             <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
@@ -170,38 +193,34 @@ export default function Room() {
               )}
             </div >
           </div >
-            </>}
-          {
-            user?.map(r =>
-              <div className="flex">
-                {r.role_id == "teacher" ?
-                  teacherReq(isOpen, setIsOpen, rooms, buttonSubmit)
-                  : ""
-                }
-              </div>
-            )
-          }
-          {
-            user?.map(r =>
-              <div className="">
-                {r.role_id == "admin" ?
-                  <>
-                    {request("", r)}
-                  </>
-                  : ""
-                }
-              </div>
-            )
-          }
+        </>}
+      {
+        user?.map(r =>
+          <div className="flex">
+            {r.role_id == "teacher" ?
+              teacherReq(isOpen, setIsOpen, rooms, buttonSubmit)
+              : ""
+            }
+          </div>
+        )
+      }
+      {
+        user?.map(r =>
+          <div className="">
+            {r.role_id == "admin" ?
+              <>
+                {request("", r)}
+              </>
+              : ""
+            }
+          </div>
+        )
+      }
 
-      
+
       <Dialog>
         <DialogTrigger className="">
-          {/* <Button className="fixed bottom-20 right-1  font-extralight h-[100px] w-[100px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]"> */}
-          <div >
             <DoorOpen className=" text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
-          </div>
-          {/* </Button> */}
         </DialogTrigger>
         <DialogContent className="w-auto bg-[#11172E] text-white">
           <DialogHeader>
@@ -210,7 +229,6 @@ export default function Room() {
               Add room and select what categories you inputed.
             </DialogDescription>
           </DialogHeader>
-
           <Label>
             Add room number
           </Label>
@@ -230,20 +248,16 @@ export default function Room() {
               </SelectGroup>
             </SelectContent>
           </Select>
-
           <div className="border-t-[1px] h-[20px]">
             <Button className=" fixed right-3 bottom-3 text-[18px]  bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
           </div>
-
         </DialogContent>
       </Dialog>
 
 
       <Dialog>
         <DialogTrigger>
-          {/* <Button className="fixed bottom-3 right-1 font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] "> */}
           <ChartBarStacked className=" text-[#ffffff] fixed bottom-2 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
-          {/* </Button> */}
         </DialogTrigger>
         <DialogContent className="w-auto bg-[#11172E] text-white">
           <DialogHeader>
@@ -254,12 +268,9 @@ export default function Room() {
           </DialogHeader>
           <Label>Room NO.</Label>
           <Input className="bg-white text-[#11172E] w-[350px] text-[20px]" placeholder="Type here!" />
-
           <div className="border-t-[1px] h-[20px]">
             <Button className="fixed bottom-3 right-2 text-[18px] bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
-
           </div>
-
         </DialogContent>
       </Dialog>
     </>

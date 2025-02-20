@@ -90,7 +90,7 @@ function Teacher() {
             }
         }
         )
-
+document.body.style.background = "white"
     }, [])
 
     return (
