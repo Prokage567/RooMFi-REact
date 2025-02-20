@@ -6,7 +6,6 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog"
-import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { toast } from 'react-toastify';
 import $ from "jquery"
@@ -55,7 +54,7 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                         <DialogTitle className="text-white">Delete</DialogTitle>
                         <DialogDescription>Teacher Name: ({Teacher.name})</DialogDescription>
                         <p className="text-[#fff] font-[NiramitReg] ">Are you sure you want to delete this Teacher?</p>
-                        <div className="border-t-[1px] p-2">
+                        <div className="border-t-[1px] h-[30px]">
                             <Button onClick={() => setSave(false)} className={"fixed bottom-4 left-12 w-[50px] border font-[NiramitReg] text-[18px] border-none border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
                             <Button onClick={() => DelTeacherById()} className={" fixed bottom-4 right-8 w-[50px] border font-[NiramitReg] text-[18px] border-none hover:bg-transparent text-white hover:font-bold bg-transparent "}>Yes</Button>
                         </div>
@@ -73,7 +72,7 @@ export default function AdminPowers({ teacher, admin, Teacher }) {
                         Replace the Teacher name: {Teacher.name}
                     </DialogDescription>
                     <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Teacher Name" />
-                    <div className='border-t-[1px] h-[20px]'>
+                    <div className='border-t-[1px] h-[30px]'>
                         <Button onClick={() => UpdTeacherById()} className={"fixed right-8 bottom-4 text-[18px] text-white w-[50px] font-[NiramitReg] border-white bg-transparent hover:bg-transparent hover:font-bold"}>Save</Button>
                         <Button onClick={() => setClose(false)} className={"fixed bottom-4 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
                     </div>

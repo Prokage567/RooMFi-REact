@@ -13,7 +13,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import theme from "../../theme";
 import logo from "../assets/images/logo.svg"
-import "./index.css"
 import Theme from "../components/CustomComponents";
 import "./App.css"
 import { useCookies } from "react-cookie"

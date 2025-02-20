@@ -72,7 +72,7 @@ export default function MainLayout() {
                 </nav>
 
                 <div className="flex text-white font-[NiramitReg] min-h-full">
-                    <p className="fixed lg:w-[225.9px] md:w-[156px] w-16 bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
+                    <p className="fixed lg:w-[220px] md:w-[153px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
                     <nav className=" lg:w-[268px] md:w-[187px] w-[70px]">
                         <div className="overflow-scroll no-scrollbar sticky top-24 mt-[88px] h-[90vh]">
                             <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 hover:rounded-[10px] font-[NiramitBold] transition-all ">
@@ -84,7 +84,7 @@ export default function MainLayout() {
 
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1">
-                                    <AccordionTrigger input={true} img={icon2} className="lg:ml-1 md:ml-[4px] ml-0 whitespace-pre">Room</AccordionTrigger>
+                                    <AccordionTrigger input={true} img={icon2} className="whitespace-pre">Room    </AccordionTrigger>
 
                                     <Link to="/room" className="">
                                         <AccordionContent className="ml-0 md:ml-3 lg:ml-9">All</AccordionContent>

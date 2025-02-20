@@ -8,6 +8,13 @@ import {
     CardTitle,
 } from "../components/ui/card.jsx"
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+  } from "@/components/ui/select"
+import {
     Table,
     TableBody,
     TableCell,
@@ -61,7 +68,7 @@ function Teacher() {
     }
     const replaceSchedule = () => {
         const id = $("#id").val()
-        const teacher1 = teacher.toString()
+        const teacher1 = teacher
         const room1 = room.toString()
         const subject = $("#subject").val()
         const day = days.toString()
@@ -90,9 +97,25 @@ function Teacher() {
             }
         }
         )
-
+document.body.style.background = "white"
     }, [])
+const selectForAll = (label, inputs, setvalue, input) => {
+    return (<>
+      <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
 
+      <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
+        <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
+          <SelectValue placeholder={`Select a ${input}`} />
+        </SelectTrigger>
+        <SelectContent id="room" className=" font-[NiramitReg]" >
+          {inputs.map(room =>
+            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room.day : room.id}> {inputs == weekdays ? room.day : inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name :`${room.name} - ${room.category?.category}`  } </SelectItem>
+          )}
+        </SelectContent>
+      </Select>
+    </>
+    )
+  }
     return (
 
         <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
@@ -107,7 +130,7 @@ function Teacher() {
                             <CardDescription className="font-[NiramitReg]  text-center text-[#0F1A42]">{t.technology_course}</CardDescription>
                         </CardHeader>
 
-                        <CardContent style={{ maxHeight: "175px" }} className="border-[#BFAC88] border-2 w-90 bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
+                        <CardContent style={{ maxHeight: "175px" }} className="border-[#BFAC88] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
                             <Table className="text-[12px] w-[300px] font-[NiramitReg] text-[#11172E]">
                                 {t?.schedules?.map(q => (
                                     <>
@@ -141,6 +164,7 @@ function Teacher() {
                         {u.role_id == "admin" ? <>
                             <div>
                                 <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
+                                    
                                     <DialogTrigger>
                                         <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
                                     </DialogTrigger>
@@ -153,6 +177,7 @@ function Teacher() {
                                             </DialogDescription>
 
                                             <div className="grid w-full max-w-sm items-center gap-1.5">
+                                                {selectForAll()}
                                                 <Label htmlFor="picture">Update a Teacher's Schedule:</Label>
                                                 <Input id="picture" type="text" className="bg-white text-[#000] placeholder:hello " />
                                             </div>

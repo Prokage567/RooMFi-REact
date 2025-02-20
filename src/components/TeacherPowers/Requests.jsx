@@ -34,11 +34,6 @@ export const request = (pop, room) => {
             <Button className="border font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Save</Button>
           </DialogContent>
         </Dialog>
-
-
-
-
-
       <Popover className="h-[350px]">
         <div className=" fixed bottom-[195px] text-[14px] right-[2px] z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
           <div className="mt-[2px]">20</div>
