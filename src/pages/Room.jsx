@@ -121,10 +121,10 @@ export default function Room() {
         <SquareChartGantt className=" text-white size-80" />
       </Button>
       {open ? <>
-        <div className="flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
+        <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
           <h2 className="text-2xl font-semibold">Schedule Overview</h2>
         </div>
-        <Table className="text-[12px] w-full font-[NiramitReg] text-[#11172E]">
+        <Table className="ml-2 overflow-auto text-[12px] w-full font-[NiramitReg] text-[#11172E] ">
           <TableHeader>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Room</TableHead>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Day</TableHead>
@@ -134,12 +134,12 @@ export default function Room() {
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Subject</TableHead>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Date</TableHead>
           </TableHeader>
-          <TableBody >
+          <TableBody>
             {categories?.map(q => (
               q.room.map(r =>
                 r.schedules.map(sc =>
                   <>
-                    <TableRow className="" key={r.id}>
+                    <TableRow className=" no-scrollbar" key={r.id}>
                       <TableCell className="w-[20px] pr-5 pl-5">{r.name}</TableCell>
                       <TableCell className="w-[20px] pr-5 pl-5">{sc.day}</TableCell>
                       {Teachers.filter(x => x.id === sc.teacher_id).map(t =>
@@ -210,14 +210,6 @@ export default function Room() {
             {r.role_id == "admin" ?
               <>
                 {request("", r)}
-              </>
-              : ""
-            }
-          </div>
-        )
-      }
-
-
       <Dialog>
         <DialogTrigger className="">
             <DoorOpen className=" text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
@@ -272,7 +264,12 @@ export default function Room() {
             <Button className="fixed bottom-3 right-2 text-[18px] bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
           </div>
         </DialogContent>
-      </Dialog>
+      </Dialog>  </>
+              : ""
+            }
+          </div>
+        )
+      }
     </>
   )
 }

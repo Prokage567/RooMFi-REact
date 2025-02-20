@@ -13,7 +13,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"
+} from "@/components/ui/select"
 import {
     Table,
     TableBody,
@@ -41,18 +41,35 @@ import { DialogTitle } from "@mui/material";
 import { Button } from '../components/ui/button.jsx'
 import { toast } from 'react-toastify';
 import $ from "jquery"
+import { getSection } from "../api/section.js"
+import { getRoom } from "../api/room.js"
+import { postSched } from "../api/sched.js"
 
 
 function Teacher() {
+    const weekdays =
+        [
+            { day: "Monday" },
+            { day: "Tuesday" },
+            { day: "Wednesday" },
+            { day: "Thursday" },
+            { day: "Friday" },
+            { day: "Saturday" },
+            { day: "Sunday" },
+        ]
     const { user } = useContext(AuthContext)
     const [cookies] = useCookies()
     const token = cookies.token
     const [teachers, setTeachers] = useState([])
+    const [rooms, setRooms] = useState([])
     const [teacherSched, setTeacherSched] = useState([])
     const [show, setshow] = useState(false)
     const [open, setopen] = useState(false)
+    const [sections, setSections] = useState([])
     const [days, setDays] = useState("")
     const [room, setRoom] = useState("")
+    const [section, setSection] = useState("")
+    const [teacher, setTeacher] = useState("")
 
     const addTeacher = () => {
         const name = $("#name").val().toUpperCase()
@@ -71,51 +88,56 @@ function Teacher() {
         const teacher1 = teacher
         const room1 = room.toString()
         const subject = $("#subject").val()
-        const day = days.toString()
+        const day = days
         const endTime = $("#endTime").val()
         const startTime = $("#strTime").val()
         const endDate = $("#endDate").val()
         const startDate = $("#strDate").val()
-        const section = $("#section")
+        const section1 = section
 
-        postSched(id, token, { day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section, room_id: room1 }, "PATCH").then(res => {
+        postSched(token, id,{ day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section1, room_id: room1 }, "PATCH").then(res => {
             console.log(res)
             if (res?.ok) {
                 toast.success("Schedule has been changed!")
             }
         })
     }
-    const [date, setDate] = useState({
-        from: dayjs("2025-01-20").toDate(),
-        to: dayjs("2025-01-20").add(20, "days").toDate(),
-    })
 
     useEffect(() => {
-        getTeacher([token]).then(res => {
+        getTeacher().then(res => {
             if (res?.ok) {
                 setTeachers(res.data)
             }
-        }
-        )
-document.body.style.background = "white"
+        })
+        getSection().then(res => {
+            if (res?.ok) {
+                setSections(res.data)
+            }
+        })
+        getRoom().then(res => {
+            if (res?.ok) {
+                setRooms([res.data])
+            }
+        })
+        document.body.style.background = "white"
     }, [])
-const selectForAll = (label, inputs, setvalue, input) => {
-    return (<>
-      <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
+    const selectForAll = (label, inputs, setvalue, input) => {
+        return (<>
+            <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
 
-      <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
-        <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
-          <SelectValue placeholder={`Select a ${input}`} />
-        </SelectTrigger>
-        <SelectContent id="room" className=" font-[NiramitReg]" >
-          {inputs.map(room =>
-            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room.day : room.id}> {inputs == weekdays ? room.day : inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name :`${room.name} - ${room.category?.category}`  } </SelectItem>
-          )}
-        </SelectContent>
-      </Select>
-    </>
-    )
-  }
+            <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
+                <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
+                    <SelectValue placeholder={`Select a ${input}`} />
+                </SelectTrigger>
+                <SelectContent id="room" className=" font-[NiramitReg]" >
+                    {inputs.map(room =>
+                        <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room.day : room.id}> {inputs == weekdays ? room.day : inputs == teachers ? `${room.name} - ${room.technology_course} ` : inputs == sections ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
+                    )}
+                </SelectContent>
+            </Select>
+        </>
+        )
+    }
     return (
 
         <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
@@ -164,7 +186,7 @@ const selectForAll = (label, inputs, setvalue, input) => {
                         {u.role_id == "admin" ? <>
                             <div>
                                 <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
-                                    
+
                                     <DialogTrigger>
                                         <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
                                     </DialogTrigger>
@@ -177,11 +199,32 @@ const selectForAll = (label, inputs, setvalue, input) => {
                                             </DialogDescription>
 
                                             <div className="grid w-full max-w-sm items-center gap-1.5">
-                                                {selectForAll()}
+                                                {selectForAll("teacher", teachers, setTeacher, "Teacher")}
+                                                {selectForAll("section", sections, setSection, "Section")}
+                                                {selectForAll("weekday", weekdays, setDays, "day")}
+                                                {selectForAll("room", rooms, setRoom, "room")}
                                                 <Label htmlFor="picture">Update a Teacher's Schedule:</Label>
                                                 <Input id="picture" type="text" className="bg-white text-[#000] placeholder:hello " />
                                             </div>
                                             <PopUpCalendar />
+                                             <div className="flex flex-row w-[450px] -mt-14">
+                                                            <div>
+                                                              <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
+                                                                <Label className="text-[17px] ">Time</Label>
+                                                              </div>
+                                                              <div className="flex justify-around">
+                                                                <div className="pt-2">
+                                                                  <Label className="" >From:</Label>
+                                                                  <Input id="strTime" className="border-none focus:outline-white " type="time" />
+                                                                </div>
+                                            
+                                                                <div className="pt-2">
+                                                                  <Label className="]">To:</Label>
+                                                                  <Input id="endTime" className="border-none text-slate-50" type="time" />
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
                                         </>
                                             : <>
                                                 <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
@@ -198,7 +241,7 @@ const selectForAll = (label, inputs, setvalue, input) => {
                                             </>}
 
                                         <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
-                                            <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Save</Button>
+                                            <Button onClick={show == 0?() => addTeacher():()=>replaceSchedule()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Save</Button>
                                             {show ? <Button onClick={() => setshow(0)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Schedule</Button> : <Button onClick={() => setshow(1)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>}
                                         </div>
                                     </DialogContent>

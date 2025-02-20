@@ -58,7 +58,6 @@ export default function section() {
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
   const [section, setSection] = useState("")
-  const index = [0, 1, 2, 3, 4, 5, 6]
   const weekdays =
     [
       { day: "Monday" },
