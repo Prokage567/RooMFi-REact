@@ -102,7 +102,7 @@ export default function section() {
       <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
 
       <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
-        <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
+        <SelectTrigger className="h-9  text-[#11124f] bg-white text-sm ">
           <SelectValue placeholder={`Select a ${input}`} />
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg]" >
@@ -131,13 +131,14 @@ export default function section() {
           {user?user.map(u=>u.role_id=="admin"?<DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
           </DialogTrigger>:""):""}
-          <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
+          <DialogContent className="bg-slate-900 border-none h-[680px] text-[#fff] pb-2">
             <DialogHeader className="text-[20px]">Add Event</DialogHeader>
             <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
             <div >
               {selectForAll("Room No.", Rooms, setRoom, "Room")}
               {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
               {selectForAll("Section", Section, setSection, "Sections")}
+            
               <div className="pt-3 ">
                 <Label>Subject</Label>
                 <Input autofocus e={false}
@@ -145,6 +146,7 @@ export default function section() {
                   id="subject"
                   placeholder="Input Subject" />
               </div>
+              
               <PopUpCalendar className="pt-3" />
               <div className="flex flex-row w-[450px] ">
                 <div>
@@ -166,9 +168,12 @@ export default function section() {
               </div>
               <Button onClick={() => schedule()} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
             </div>
+
           </DialogContent>
         </Dialog>
-      </div>
+      
+       </div>
+    
     </>
   )
 }
