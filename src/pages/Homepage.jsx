@@ -56,7 +56,7 @@ function Homepage() {
 
     return (
         <>
-            <div className="items-center flex-col justify-center flex">
+            <div className="items-center h-auto flex-col justify-center flex">
                 <div className="flex sticky mt-9 h-auto top-24 -mb-14 flex-row">
                     <Input id="input" symbol={true} type="text" placeholder="Search room by number... eg.203,209,111"
                         className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1]" onChange={() => onHandleClick()} />
