@@ -1,4 +1,3 @@
-
 import { React, useContext, useEffect, useState } from "react"
 import {
     Card,
@@ -13,7 +12,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"
+} from "@/components/ui/select"
 import {
     Table,
     TableBody,
@@ -41,18 +40,42 @@ import { DialogTitle } from "@mui/material";
 import { Button } from '../components/ui/button.jsx'
 import { toast } from 'react-toastify';
 import $ from "jquery"
+import { getSection } from "../api/section.js"
+import { getRoom } from "../api/room.js"
+import { UpdSched } from "../api/sched.js"
 
 
 function Teacher() {
+    const weekdays =
+        [
+            { day: "Monday" },
+            { day: "Tuesday" },
+            { day: "Wednesday" },
+            { day: "Thursday" },
+            { day: "Friday" },
+            { day: "Saturday" },
+            { day: "Sunday" },
+        ]
     const { user } = useContext(AuthContext)
     const [cookies] = useCookies()
     const token = cookies.token
     const [teachers, setTeachers] = useState([])
+    const [rooms, setRooms] = useState([])
     const [teacherSched, setTeacherSched] = useState([])
     const [show, setshow] = useState(false)
     const [open, setopen] = useState(false)
+    const [sections, setSections] = useState([])
     const [days, setDays] = useState("")
     const [room, setRoom] = useState("")
+    const [section, setSection] = useState("")
+    const [teacher, setTeacher] = useState("")
+    const reload = () => {
+        getTeacher().then(res => {
+            if (res?.ok) {
+                setTeachers(res.data)
+            }
+        })
+    }
 
     const addTeacher = () => {
         const name = $("#name").val().toUpperCase()
@@ -62,6 +85,7 @@ function Teacher() {
                 setTeacherSched(res.data)
                 toast.success("Added a Teacher!")
                 setopen(false)
+                reload()
             }
         }
         )
@@ -69,62 +93,67 @@ function Teacher() {
     const replaceSchedule = () => {
         const id = $("#id").val()
         const teacher1 = teacher
-        const room1 = room.toString()
+        const room1 = room
         const subject = $("#subject").val()
-        const day = days.toString()
+        const day = days
         const endTime = $("#endTime").val()
         const startTime = $("#strTime").val()
         const endDate = $("#endDate").val()
         const startDate = $("#strDate").val()
-        const section = $("#section")
+        const section1 = section
 
-        postSched(id, token, { day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section, room_id: room1 }, "PATCH").then(res => {
-            console.log(res)
+        UpdSched(token, id, { day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section1, room_id: room1 }).then(res => {
             if (res?.ok) {
                 toast.success("Schedule has been changed!")
+                reload()
             }
         })
     }
-    const [date, setDate] = useState({
-        from: dayjs("2025-01-20").toDate(),
-        to: dayjs("2025-01-20").add(20, "days").toDate(),
-    })
 
     useEffect(() => {
-        getTeacher([token]).then(res => {
+        reload()
+        getSection().then(res => {
             if (res?.ok) {
-                setTeachers(res.data)
+                setSections(res.data)
             }
-        }
-        )
-document.body.style.background = "white"
+        })
+        getRoom().then(res => {
+            if (res?.ok) {
+                setRooms([res.data])
+            }
+        })
+        document.body.style.background = "white"
     }, [])
-const selectForAll = (label, inputs, setvalue, input) => {
-    return (<>
-      <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
+    const selectForAll = (label, inputs, setvalue, input) => {
+        return (<>
+            <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
 
-      <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
-        <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
-          <SelectValue placeholder={`Select a ${input}`} />
-        </SelectTrigger>
-        <SelectContent id="room" className=" font-[NiramitReg]" >
-          {inputs.map(room =>
-            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room.day : room.id}> {inputs == weekdays ? room.day : inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name :`${room.name} - ${room.category?.category}`  } </SelectItem>
-          )}
-        </SelectContent>
-      </Select>
-    </>
-    )
-  }
+            <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
+                <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
+                    <SelectValue placeholder={`Select a ${input}`} />
+                </SelectTrigger>
+                <SelectContent id="room" className=" font-[NiramitReg]" >
+                    {inputs.map(room =>
+                        <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room?.day : room.id}> {inputs == weekdays ? room.day : inputs == teachers ? `${room.name} - ${room.technology_course} ` : inputs == sections ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
+                    )}
+                </SelectContent>
+            </Select>
+        </>
+        )
+    }
     return (
 
         <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
             {teachers.map(t => (
                 <div>
                     <Card key={t.id}>
-                        <div className="relative top-0">
-                            <AdminPowers teacher={t.id} admin={token} Teacher={t} />
-                        </div>
+                        {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
+                            <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={replaceSchedule} setShow={setshow} 
+                            SelectForSections={selectForAll("",sections,setTeachers,"")}
+                            SelectForWeekdays={selectForAll("",weekdays,setTeachers,"")} 
+                            SelectForRooms={selectForAll("",rooms,setTeachers,"")}
+                            setTeacher={setTeacher}/>
+                        </div> : "")}
                         <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[80px] bg-[#BFAC88]">
                             <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#0F1A42] text-center">{t.name}</CardTitle>
                             <CardDescription className="font-[NiramitReg]  text-center text-[#0F1A42]">{t.technology_course}</CardDescription>
@@ -135,7 +164,8 @@ const selectForAll = (label, inputs, setvalue, input) => {
                                 {t?.schedules?.map(q => (
                                     <>
                                         <TableHeader>
-                                            <TableHead className=" font-semibold text-[12px]">{q.day}</TableHead>
+                                            {q.day ? t.schedules.filter(x => x.day === t.schedules.indexOf(q.day)).map(u =>
+                                                <TableHead className=" font-semibold text-[12px]">{u.day}</TableHead>) : ""}
                                             <TableRow>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">{q.date}</TableHead>
@@ -155,58 +185,71 @@ const selectForAll = (label, inputs, setvalue, input) => {
                             </Table>
                         </CardContent>
                     </Card>
+                    <input type="hidden" value={t.schedules.id} id="id" />
                 </div>
             ))}
 
-            {user != null ? <>
-                {user.map(u =>
-                    <>
-                        {u.role_id == "admin" ? <>
-                            <div>
-                                <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
-                                    
-                                    <DialogTrigger>
-                                        <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
-                                    </DialogTrigger>
+            {user ? user.map(u => u.role_id == "admin" ?
+                <div>
+                    <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
+                        <DialogTrigger>
+                            <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
+                        </DialogTrigger>
+                        <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
+                            {/* <DialogTitle className="font-thin p-0 h-[40px] w-[300px]  ml-[30px]">Edit Schedule</DialogTitle>
+                                <DialogDescription>
+                                    Replace a Schedule
+                                </DialogDescription>
 
-                                    <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
-                                        {show == 1 ? <>
-                                            <DialogTitle className="font-thin p-0 h-[40px] w-[300px]  ml-[30px]">Edit Schedule</DialogTitle>
-                                            <DialogDescription>
-                                                Replace a Schedule
-                                            </DialogDescription>
-
-                                            <div className="grid w-full max-w-sm items-center gap-1.5">
-                                                {selectForAll()}
-                                                <Label htmlFor="picture">Update a Teacher's Schedule:</Label>
-                                                <Input id="picture" type="text" className="bg-white text-[#000] placeholder:hello " />
-                                            </div>
-                                            <PopUpCalendar />
-                                        </>
-                                            : <>
-                                                <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
-                                                <DialogDescription>
-                                                    Add a Teacher
-                                                </DialogDescription>
-
-                                                <div className="grid w-full max-w-sm items-center gap-1.5">
-                                                    <Label>Add a Teacher by Name:</Label>
-                                                    <Input type="text" id="name" className="bg-white text-[#000]" />
-                                                    <Label>Add their Courses/Major:</Label>
-                                                    <Input type="text" id="techCourse" className="bg-white text-[#000]" />
-                                                </div>
-                                            </>}
-
-                                        <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
-                                            <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Save</Button>
-                                            {show ? <Button onClick={() => setshow(0)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Schedule</Button> : <Button onClick={() => setshow(1)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>}
+                                <div className="grid w-full max-w-sm items-center gap-1.5">
+                                    {selectForAll("teacher", teachers, setTeacher, "Teacher")}
+                                    {selectForAll("section", sections, setSection, "Section")}
+                                    {selectForAll("weekday", weekdays, setDays, "day")}
+                                    {selectForAll("room", rooms, setRoom, "room")}
+                                    <Label htmlFor="picture">Update a Teacher's Schedule:</Label>
+                                    <Input id="picture" type="text" className="bg-white text-[#000] placeholder:hello " />
+                                </div>
+                                <PopUpCalendar />
+                                <div className="flex flex-row w-[450px] -mt-14">
+                                    <div>
+                                        <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
+                                            <Label className="text-[17px] ">Time</Label>
                                         </div>
-                                    </DialogContent>
-                                </Dialog>
+                                        <div className="flex justify-around">
+                                            <div className="pt-2">
+                                                <Label className="" >From:</Label>
+                                                <Input id="strTime" className="border-none focus:outline-white " type="time" />
+                                            </div>
+
+                                            <div className="pt-2">
+                                                <Label className="]">To:</Label>
+                                                <Input id="endTime" className="border-none text-slate-50" type="time" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </> */}
+
+                            <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
+                            <DialogDescription>
+                                Add a Teacher
+                            </DialogDescription>
+
+                            <div className="grid w-full max-w-sm items-center gap-1.5">
+                                <Label>Add a Teacher by Name:</Label>
+                                <Input type="text" id="name" className="bg-white text-[#000]" />
+                                <Label>Add their Courses/Major:</Label>
+                                <Input type="text" id="techCourse" className="bg-white text-[#000]" />
                             </div>
-                        </> : ""}
-                    </>
-                )}</> : ""}
+
+                            <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
+                                <Button onClick={()=>setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
+                                <Button onClick={() => addTeacher()}  className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+                : "") : ""}
         </div>
     )
 }

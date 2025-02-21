@@ -33,7 +33,6 @@ function Homepage() {
         )
         Search(keyword).then(res => {
             setSearchInfo(res.data)
-            console.log(searchInfo)
         }
         ), [Pop, searchInfo]
     }
@@ -46,8 +45,8 @@ function Homepage() {
                             <p className="pt-1">Room: {room.name}</p>
                             {room.schedules == "" ? room.schedules
                                 ? <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white  bg-green-500">Available</p>
-                                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unvailable</p>
-                                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unvailable</p>}
+                                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unavailable</p>
+                                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unavailable</p>}
                         </div>
                     </Link>
                 </div>
@@ -58,14 +57,14 @@ function Homepage() {
     return (
         <>
             <div className="items-center flex-col justify-center flex">
-                <div className=" items-center justify-center flex sticky mt-9 h-auto top-24 -mb-14 flex-row">
+                <div className="flex sticky mt-9 h-auto top-24 -mb-14 flex-row">
                     <Input id="input" symbol={true} type="text" placeholder="Search room by number... eg.203,209,111"
                         className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1]" onChange={() => onHandleClick()} />
                 </div>
                 <div className="sticky top-[86px] ">
                     <Popover>
                         <PopoverAnchor className="flex justify-center items-center flex-col">
-                            <div className={`absolute w-96 min-h-auto -ml-14 top-[56px] ${Pop == 1 ? "bg-white z-20 border-gray-800/30 border" : ""} -mb-14 p-2 transition-all`}>
+                            <div className={`absolute w-96 min-h-auto top-[56px] ${Pop == 1 ? "bg-white z-20 border-gray-800/30 border" : ""} -mb-14 p-2 transition-all`}>
                                 {Pop == 1 ?
                                     <div>
                                         {searchInfo?.map(p => (
@@ -92,13 +91,13 @@ function Homepage() {
                         </PopoverAnchor>
                     </Popover>
                 </div>
-                <div className="flex flex-row items-center justify-center flex-wrap pt-[100px]">
+                <div className="justify-center flex flex-wrap pt-[100px]">
                     <div>
                         <p className="font-[NiramitReg] lg:text-[20px] text-[17px]">MFI’s Room Management System: Room Scheduling and Individual Tracking
                         </p>
                         <h4 className="font-[KronaOne] lg:text-[60px] text-[40px] pt-6">
                             RooMFI
-                        </h4><p className="font-[NiramitReg] lg:text-[25px]  pl-1 text-[25px] w-[560px]">
+                        </h4><p className="font-[NiramitReg] lg:text-[25px] pl-1 text-[25px] w-[560px]">
                             A Smooth and organized system where MFIers can efficiently manage or view room schedules, along with a tracker providing information on the sections and teachers assigned to each room.
                         </p>
                     </div>

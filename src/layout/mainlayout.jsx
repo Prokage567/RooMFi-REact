@@ -8,9 +8,11 @@ import icon3 from "../assets/images/icon3.svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { getSection } from "../api/section"
 import { getCategory } from "../api/category"
-import { LogOut, User, UserRoundPlus } from "lucide-react"
+import { LogOut, User, UserRoundPlus, CircleUserRound, ChevronUp } from "lucide-react"
 import { checkToken } from "../api/auth"
 import { useCookies } from "react-cookie"
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
 
 export default function MainLayout() {
 
@@ -57,12 +59,8 @@ export default function MainLayout() {
                                         <UserRoundPlus strokeWidth={2} className=" h-4" />Register
                                     </Link>
                                 </div>
-                            </div> :
-                            <div>
-                                <div onClick={logout} className="absolute w-32 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] pr-5 pl-5 hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
-                                    <LogOut strokeWidth={2} className=" h-4" />Log out
-                                </div>
-                            </div>
+                            </div> : ""
+
                         }
                         <div className="md:[200px] flex flex-row p-3">
                             <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]" />
@@ -74,7 +72,7 @@ export default function MainLayout() {
                 </nav>
 
                 <div className="flex text-white font-[NiramitReg] min-h-full">
-                    <p className="fixed lg:w-[220px] md:w-[153px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
+                    <p className="fixed lg:w-[225px] md:w-[155px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
                     <nav className=" lg:w-[268px] md:w-[187px] w-[70px]">
                         <div className="overflow-scroll no-scrollbar sticky top-24 mt-[88px] h-[90vh]">
                             <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 hover:rounded-[10px] font-[NiramitBold] transition-all ">
@@ -121,6 +119,31 @@ export default function MainLayout() {
                                 </AccordionItem>
                             </Accordion>
                         </div>
+                                {/* {user ?
+                                
+                                        <Popover className="z-50">
+                                            <PopoverTrigger className="relative top-56 z-50" asChild>
+                                                <Button className="absolute mt-[150px] ml-[7px] px-[85px] bg-[#242F5B] hover:bg-[#3F9DC1]">
+                                                    <CircleUserRound /> <ChevronUp />
+                                                </Button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-[210px] z-50 bg-[#0F1A42] border-[#0F1A42] p-3"
+
+                                                align="start">
+                                                <h1 className="text-white font-[NiramitReg] text-[20px]">Justin Nalog</h1>
+                                                <h3 className="text-slate-400 font-[NiramitReg] text-[15px]">Admin</h3>
+
+                                                <div className="flex items-center justify-center mt-2">
+                                                    <div onClick={logout} className="w-52 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-sm bg-slate-900 bg-opacity-75 pr-5 pl-5 hover:bg-slate-900 h-9 flex justify-center items-center flex-row content-center">
+                                                        <LogOut strokeWidth={2} className=" h-4" />Log out
+                                                    </div>
+                                                </div>
+
+                                            </PopoverContent>
+                                        </Popover>
+                                    : ""
+
+                                } */}
                     </nav>
                     <main className="text-slate-900 w-screen mt-20">
                         <Outlet />

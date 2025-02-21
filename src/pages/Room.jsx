@@ -60,13 +60,12 @@ export default function Room() {
     getSections()
     getTeachers()
     document.body.style.background = "white"
-  }, [id, categories, category])
+  }, [id])
 
   const getTeachers = () => {
     getTeacher().then(res => {
       if (res?.ok) {
         setTeachers(res.data)
-        console.log(Teachers)
       }
     })
   }
@@ -117,14 +116,14 @@ export default function Room() {
 
   return (
     <>
-      <Button onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className="fixed z-20 top-[90px] right-2 font-extralight h-[65px] w-[65px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
-        <SquareChartGantt className=" text-white size-80" />
-      </Button>
+      {/* <div  className="fixed z-20 top-[90px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#ff4c4c] rounded-[5px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center"> */}
+        <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[90px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff]   hover:text-[#5bc8ff]/70 flex items-center justify-center" />
+    
       {open ? <>
-        <div className="flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
+        <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
           <h2 className="text-2xl font-semibold">Schedule Overview</h2>
         </div>
-        <Table className="text-[12px] w-full font-[NiramitReg] text-[#11172E]">
+        <Table className="ml-2 overflow-auto text-[12px] w-full font-[NiramitReg] text-[#11172E] ">
           <TableHeader>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Room</TableHead>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Day</TableHead>
@@ -134,12 +133,12 @@ export default function Room() {
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Subject</TableHead>
             <TableHead className="font-semibold text-[12px] w-[180px] pr-5 pl-5">Date</TableHead>
           </TableHeader>
-          <TableBody >
+          <TableBody>
             {categories?.map(q => (
               q.room.map(r =>
                 r.schedules.map(sc =>
                   <>
-                    <TableRow className="" key={r.id}>
+                    <TableRow className=" no-scrollbar" key={r.id}>
                       <TableCell className="w-[20px] pr-5 pl-5">{r.name}</TableCell>
                       <TableCell className="w-[20px] pr-5 pl-5">{sc.day}</TableCell>
                       {Teachers.filter(x => x.id === sc.teacher_id).map(t =>
@@ -210,14 +209,6 @@ export default function Room() {
             {r.role_id == "admin" ?
               <>
                 {request("", r)}
-              </>
-              : ""
-            }
-          </div>
-        )
-      }
-
-
       <Dialog>
         <DialogTrigger className="">
             <DoorOpen className=" text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
@@ -242,9 +233,9 @@ export default function Room() {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup className="text-[#11172E]">
-                <SelectItem value="lecture room">Lecture Rooms</SelectItem>
-                <SelectItem value="science room">Science Rooms</SelectItem>
-                <SelectItem value="computer laboratories">Computer Laboratories</SelectItem>
+                <SelectItem value="lecture room" className="hover:bg-[#d6f3ff]">Lecture Rooms</SelectItem>
+                <SelectItem value="science room" className="hover:bg-[#d6f3ff]">Science Rooms</SelectItem>
+                <SelectItem value="computer laboratories" className="hover:bg-[#d6f3ff]">Computer Laboratories</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -272,7 +263,12 @@ export default function Room() {
             <Button className="fixed bottom-3 right-2 text-[18px] bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
           </div>
         </DialogContent>
-      </Dialog>
+      </Dialog>  </>
+              : ""
+            }
+          </div>
+        )
+      }
     </>
   )
 }
