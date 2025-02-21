@@ -20,11 +20,43 @@ export const Search = async (input) => {
     })
     return await res.json()
 }
-export const getRoomId = async (id, toke, type, inputs) => {
+export const getRoomId = async (id, toke, inputs) => {
     const res = await fetch(`${URL}/room/${id}`, {
-        method: type,
+        method: "GET",
         headers: {
-            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${toke}`
+        },
+        body: JSON.stringify(inputs)
+    })
+    return await res.json()
+}
+export const DelRoomId = async (id, toke, inputs) => {
+    const res = await fetch(`${URL}/room/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${toke}`
+        },
+        body: JSON.stringify(inputs)
+    })
+    return await res.json()
+}
+export const UpdRoomId = async (id, toke, inputs) => {
+    const res = await fetch(`${URL}/room/${id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${toke}`
+        },
+        body: JSON.stringify(inputs)
+    })
+    return await res.json()
+}
+export const StoreRoom = async ( toke, inputs) => {
+    const res = await fetch(`${URL}/room`, {
+        method: "POST",
+        headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${toke}`
         },

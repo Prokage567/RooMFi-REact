@@ -34,9 +34,13 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table.jsx"
-import { ChartBarStacked, DoorOpen, SquareChartGantt } from 'lucide-react'
+import { DoorOpen, SquareChartGantt } from 'lucide-react'
 import { getTeacher } from "../api/teacher.js"
 import { getSection } from "../api/section.js"
+import { StoreRoom } from "../api/room.js"
+import { storeCategory } from "../api/category.js"
+import { toast } from "react-toastify"
+import $ from "jquery"
 
 export default function Room() {
   const rooms = [
@@ -47,13 +51,16 @@ export default function Room() {
   const [Sections, setSections] = useState([])
   const [Teachers, setTeachers] = useState([])
   const [open, setOpen] = useState(false)
-  const [Room, setRoom] = useState()
   const [cookies] = useCookies()
   const token = cookies.token
   const { id } = useParams()
   const { user } = useContext(AuthContext)
   const [categories, setCategories] = useState([])
+  const [show, setShow] = useState(false)
+  const [showAddCategory, setShowAddCategory] = useState(false)
   const [category, setCategory] = useState([])
+  const [roomCategory, setRoomCategory] = useState("")
+  const [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
@@ -69,6 +76,14 @@ export default function Room() {
       }
     })
   }
+  const refreshCategory = () => {
+    getCategory().then(res => {
+      if (res?.ok) {
+        setCategories(res.data)
+
+      }
+    })
+  }
   const getSections = () => {
     getSection().then(res => {
       if (res?.ok) {
@@ -76,7 +91,6 @@ export default function Room() {
       }
     })
   }
-  const [isOpen, setIsOpen] = useState(false)
   const refreshCategoryById = () => {
     if (id) {
       getCategoryId(id, "GET").then(res => {
@@ -86,9 +100,29 @@ export default function Room() {
       })
     }
   }
+  const storeRoom = () => {
+    const name = $("#name").val()
+    const category_id = roomCategory
+    StoreRoom(token, { name, category_id }).then(res => {
+      if (res.ok) {
+        toast.success(res?.message, "room has been added!")
+        refreshCategory()
+        setShow(false)
+      }
+    })
+  }
+  const storeCategories = () => {
+    const category = $("#category").val()
+    storeCategory(token, { category }).then(res => {
+      if (res.ok) {
+        toast.success(res?.message, "room has been added!")
+        refreshCategory()
+        setShow(false)
+      }
+    })
+  }
   const buttonSubmit = () => {
     setIsOpen(false)
-    const roomNumber = $("#roomNum")
   }
   const cat = useMemo(() => {
 
@@ -105,14 +139,6 @@ export default function Room() {
     }
   }, [categories, category])
 
-  const refreshCategory = () => {
-    getCategory().then(res => {
-      if (res?.ok) {
-        setCategories(res.data)
-
-      }
-    })
-  }
 
   return (
     <>
@@ -209,61 +235,53 @@ export default function Room() {
             {r.role_id == "admin" ?
               <>
                 {request("", r)}
-      <Dialog>
-        <DialogTrigger className="">
-            <DoorOpen className=" text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
-        </DialogTrigger>
-        <DialogContent className="w-auto bg-[#11172E] text-white">
-          <DialogHeader>
-            <DialogTitle className="text-white">Add Room</DialogTitle>
-            <DialogDescription>
-              Add room and select what categories you inputed.
-            </DialogDescription>
-          </DialogHeader>
-          <Label>
-            Add room number
-          </Label>
-          <Input className="bg-white text-[#11172E]" value="Type here!" />
-          <Label>
-            Select room category
-          </Label>
-          <Select>
-            <SelectTrigger className="w-auto bg-white text-[#11172E]">
-              <SelectValue placeholder="Select room category" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup className="text-[#11172E]">
-                <SelectItem value="lecture room">Lecture Rooms</SelectItem>
-                <SelectItem value="science room">Science Rooms</SelectItem>
-                <SelectItem value="computer laboratories">Computer Laboratories</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <div className="border-t-[1px] h-[20px]">
-            <Button className=" fixed right-3 bottom-3 text-[18px]  bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-
-      <Dialog>
-        <DialogTrigger>
-          <ChartBarStacked className=" text-[#ffffff] fixed bottom-2 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
-        </DialogTrigger>
-        <DialogContent className="w-auto bg-[#11172E] text-white">
-          <DialogHeader>
-            <DialogTitle>Add Room Category</DialogTitle>
-            <DialogDescription>
-              Add room category for each room number.
-            </DialogDescription>
-          </DialogHeader>
-          <Label>Room NO.</Label>
-          <Input className="bg-white text-[#11172E] w-[350px] text-[20px]" placeholder="Type here!" />
-          <div className="border-t-[1px] h-[20px]">
-            <Button className="fixed bottom-3 right-2 text-[18px] bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
-          </div>
-        </DialogContent>
-      </Dialog>  </>
+                <Dialog open={show} onOpenChange={setShow}>
+                  <DialogTrigger className="">
+                    <DoorOpen className=" text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
+                  </DialogTrigger>
+                  <DialogContent className="w-auto bg-[#11172E] text-white">
+                    <DialogHeader>
+                      <DialogTitle className="text-white">{showAddCategory ? "Add Room and Category" : "Add Category"}</DialogTitle>
+                      <DialogDescription>
+                        Add Room and select a Category.
+                      </DialogDescription>
+                    </DialogHeader>
+                    {showAddCategory ?
+                      <>
+                        <Label>
+                          Add room number
+                        </Label>
+                        <Input id="name" className="bg-white text-[#11172E]" placeholder="Add Room" />
+                        <Label>
+                          Select Room category
+                        </Label>
+                        <Select onValueChange={setRoomCategory}>
+                          <SelectTrigger className="w-[380px] bg-white text-[#11172E]">
+                            <SelectValue placeholder="Select room category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup className="w-[380px] text-[#11172E]">
+                              {categories.map(cr =>
+                                <SelectItem className="hover:bg-cyan-200" value={cr.id}>{cr.category}</SelectItem>
+                              )}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </>
+                      : <>
+                        <Label>Add Category</Label>
+                        <div className="w-[380px]">
+                          <Input id="category" className="bg-white text-[#11172E] w-[380px] text-[20px]" placeholder="Type here!" />
+                        </div>
+                      </>
+                    }
+                    <div className="border-t-[1px] h-[20px]">
+                      <Button onClick={showAddCategory ? () => setShowAddCategory(false) : () => setShowAddCategory(true)} className="text-[18px] w-auto bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">{showAddCategory ? "Add Category" : "Choose A Category"}</Button>
+                      <Button onClick={showAddCategory ? () => storeRoom() : () => storeCategories()} className=" fixed right-3 bottom-3 text-[18px]  bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              </>
               : ""
             }
           </div>

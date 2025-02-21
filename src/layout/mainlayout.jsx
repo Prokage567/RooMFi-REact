@@ -8,7 +8,7 @@ import icon3 from "../assets/images/icon3.svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { getSection } from "../api/section"
 import { getCategory } from "../api/category"
-import { LogOut, User, UserRoundPlus, CircleUserRound, ChevronUp } from "lucide-react"
+import { LogOut, User, UserRoundPlus, CircleUserRound, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react"
 import { checkToken } from "../api/auth"
 import { useCookies } from "react-cookie"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -118,32 +118,38 @@ export default function MainLayout() {
                                     </Link>
                                 </AccordionItem>
                             </Accordion>
-                        </div>
-                                {/* {user ?
-                                
-                                        <Popover className="z-50">
-                                            <PopoverTrigger className="relative top-56 z-50" asChild>
-                                                <Button className="absolute mt-[150px] ml-[7px] px-[85px] bg-[#242F5B] hover:bg-[#3F9DC1]">
-                                                    <CircleUserRound /> <ChevronUp />
-                                                </Button>
-                                            </PopoverTrigger>
-                                            <PopoverContent className="w-[210px] z-50 bg-[#0F1A42] border-[#0F1A42] p-3"
-
-                                                align="start">
-                                                <h1 className="text-white font-[NiramitReg] text-[20px]">Justin Nalog</h1>
-                                                <h3 className="text-slate-400 font-[NiramitReg] text-[15px]">Admin</h3>
-
-                                                <div className="flex items-center justify-center mt-2">
-                                                    <div onClick={logout} className="w-52 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-sm bg-slate-900 bg-opacity-75 pr-5 pl-5 hover:bg-slate-900 h-9 flex justify-center items-center flex-row content-center">
-                                                        <LogOut strokeWidth={2} className=" h-4" />Log out
-                                                    </div>
+                            {user ?
+                                <Popover>
+                                    <PopoverTrigger className="relative" asChild>
+                                        <Button className="sticky ml-[7px] px-[85px] bg-[#242F5B] hover:bg-[#3F9DC1] [&[data-state=closed]>svg]:-rotate-135 [&[data-state=open]>svg]:rotate-90">
+                                            <div>
+                                                <CircleUserRound/>
                                                 </div>
+                                        <ChevronRight/>
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-[210px] bg-[#0F1A42] border-[#0F1A42] p-3"
 
-                                            </PopoverContent>
-                                        </Popover>
-                                    : ""
+                                        align="start">
+                                        {user.map(u => <>
+                                            <h1 className="text-white font-[NiramitReg] text-[20px]">{u.name}</h1>
+                                            <h3 className="text-slate-400 font-[NiramitReg] text-[15px]">{u.role_id}</h3>
+                                        </>
+                                        )}
 
-                                } */}
+                                        <div className="flex items-center justify-center mt-2">
+                                            <div onClick={logout} className="w-52 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-sm bg-slate-900 bg-opacity-75 pr-5 pl-5 hover:bg-slate-900 h-9 flex justify-center items-center flex-row content-center">
+                                                <LogOut strokeWidth={2} className=" h-4" />Log out
+                                            </div>
+                                        </div>
+
+                                    </PopoverContent>
+                                </Popover>
+                                : ""
+
+                            }
+
+                        </div>
                     </nav>
                     <main className="text-slate-900 w-screen mt-20">
                         <Outlet />
