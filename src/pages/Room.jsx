@@ -237,7 +237,7 @@ export default function Room() {
                 {request("", r)}
                 <Dialog open={show} onOpenChange={setShow}>
                   <DialogTrigger className="">
-                    <DoorOpen className=" text-[#ffffff] fixed bottom-20 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
+                    <DoorOpen className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
                   </DialogTrigger>
                   <DialogContent className="w-auto bg-[#11172E] text-white">
                     <DialogHeader>

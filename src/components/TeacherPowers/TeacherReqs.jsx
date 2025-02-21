@@ -23,7 +23,7 @@ export const teacherReq = (Open, IsOpen, rooms, buttonSubmit) => {
     return (
         <Dialog open={Open} onOpenChange={IsOpen}>
             <DialogTrigger asChild>
-                <Button className="z-20 fixed  h-[40px] w-[150px] bottom-10 right-12 font-extralight  bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+                <Button className="z-20 fixed h-[40px] w-[150px] bottom-10 right-12 font-extralight  bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
                     Request Room
                 </Button>
             </DialogTrigger>

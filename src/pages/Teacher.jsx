@@ -21,7 +21,7 @@ import {
     TableHeader,
     TableRow,
 } from "../components/ui/table.jsx"
-import AdminPowers from "../components/AdminPowers/AdminEditDeleteTeacher.jsx"
+import AdminPowers from "../components/AdminPowers/AdminEditDeleteRooms copy.jsx"
 import { useCookies } from "react-cookie"
 import { getTeacher, getTeacherById } from "../api/teacher.js"
 import { AuthContext } from "../context/context.jsx"

@@ -13,7 +13,7 @@ import { Input } from "../ui/input.jsx";
 import { Button } from "../ui/button.jsx";
 export const request = (pop, room) => {
   return (
-    <div className="overflow-auto no-scrollbar">
+    <div className = "overflow-auto no-scrollbar">
          <Dialog>
           <DialogTrigger>
             {/* <img src={Add} className="w-[50px] h-[50px] mr-[10px] mb-[10px]  bottom-0 right-1" /> */}
