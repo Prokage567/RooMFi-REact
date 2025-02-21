@@ -131,11 +131,15 @@ export default function section() {
             schedules={Section?.schedules}
           />
         </div>
-        <Dialog className="rounded-full w-[450px] h-[600px] text-sm" >
+        
+
+        <Dialog className="rounded-full w-[450px] text-sm sm:scale-95 " >
           <DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
           </DialogTrigger>
-          <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
+
+          <DialogContent className="bg-slate-900 border-none  h-[680px] text-[#fff] pb-2">
+
             <DialogHeader className="text-[20px]">Add Event</DialogHeader>
             <DialogDescription className="text-[#fff]/80  -mb-6 -mt-4 ">Add an event for the sections schedule</DialogDescription>
             <div >
@@ -143,6 +147,7 @@ export default function section() {
               {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
               {selectForAll("Day", weekdays, setDays, "Weekdays")}
               {selectForAll("Section", Section, setSection, "Sections")}
+            
               <div className="pt-3 ">
                 <Label>Subject</Label>
                 <Input autofocus e={false}
@@ -150,6 +155,7 @@ export default function section() {
                   id="subject"
                   placeholder="Input Subject" />
               </div>
+              
               <PopUpCalendar className="pt-3" />
               <div className="flex flex-row w-[450px] ">
                 <div>
@@ -171,9 +177,12 @@ export default function section() {
               </div>
               <Button onClick={() => schedule()} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
             </div>
+
           </DialogContent>
         </Dialog>
-      </div>
+      
+       </div>
+    
     </>
   )
 }
