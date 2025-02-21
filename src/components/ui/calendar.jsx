@@ -4,15 +4,6 @@ import { DayPicker } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import dayjs from "dayjs"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "./table.jsx"
-
 function Calendar({
   className,
   classNames,
@@ -80,7 +71,6 @@ function Calendar({
               <div className="w-[3px] absolute top-1 right-[23px]">{dayjs(props.date).date()}</div>
               {
                 schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
-
                     <div className=" ml-1 w-[140px] text-secondary  text-[9px] font-[NiramitReg] h-[30px]  ">
                       <div className="w-[140px] bg-[#90E0FF]  relative">
                         <div className="w-[114px] text-[#0c146e]">

@@ -60,13 +60,12 @@ export default function Room() {
     getSections()
     getTeachers()
     document.body.style.background = "white"
-  }, [id, categories, category])
+  }, [id])
 
   const getTeachers = () => {
     getTeacher().then(res => {
       if (res?.ok) {
         setTeachers(res.data)
-        console.log(Teachers)
       }
     })
   }

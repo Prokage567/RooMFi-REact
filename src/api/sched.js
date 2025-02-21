@@ -23,3 +23,14 @@ export const postSched = async (token,inputs) => {
     })
     return await res.json()
 }
+export const UpdSched = async (token,id,inputs) => {
+    const res = await fetch(`${URL}/schedule/${id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(inputs)
+    })
+    return await res.json()
+}

@@ -1,5 +1,5 @@
 
-import { React, useMemo, useState } from "react"
+import { React, useContext, useState } from "react"
 import { Calendar as Cal } from "../components/ui/calendar"
 import {
   Select,
@@ -19,7 +19,7 @@ import { Label } from "../components/ui/label"
 import { Button } from "../components/ui/button"
 import { useParams } from "react-router-dom"
 import { useEffect } from "react"
-import { getSection} from "../api/section"
+import { getSection, getSectionId } from "../api/section"
 import { useCookies } from "react-cookie"
 import $ from "jquery"
 import { getTeacher } from "../api/teacher"
@@ -29,11 +29,17 @@ import PopUpCalendar from "../components/popUpCalendar"
 import { toast } from "react-toastify"
 import { DialogHeader } from "../components/ui/dialog"
 import { DialogDescription } from "@radix-ui/react-dialog"
+import { AuthContext } from "../context/context"
 
 export default function section() {
   const { id } = useParams()
   useEffect(() => {
-    getSection(id, "GET").then(res => {
+    getSectionId(id, "GET").then(res => {
+      if (res?.ok) {
+        setSectionsById(res.data)
+      }
+    })
+    getSection().then(res => {
       if (res?.ok) {
         setSections(res.data)
       }
@@ -48,12 +54,14 @@ export default function section() {
         setRooms([res.data])
       }
     })
-  }, [])
+  }, [id])
+  const [SectionbyId, setSectionsById] = useState([])
   const [Section, setSections] = useState([])
   const [Teachers, setTeachers] = useState([])
   const [Rooms, setRooms] = useState([])
   const [cookies, setCookie, removeCookie] = useCookies()
   const token = cookies.token
+  const { user } = useContext(AuthContext)
   const [days, setDays] = useState("")
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
@@ -93,12 +101,12 @@ export default function section() {
       section_id: section_id,
       room_id: room_id
     }).then(res => {
-      console.log(res)
       if (res?.ok) {
         toast.success("Schedule Added!")
       }
     })
   }
+
   const selectForAll = (label, inputs, setvalue, input) => {
     return (<>
       <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
@@ -116,7 +124,6 @@ export default function section() {
     </>
     )
   }
-
   return (
 
     <>
@@ -127,13 +134,13 @@ export default function section() {
             selected={date}
             onSelect={setDate}
             className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
-            schedules={Section?.schedules}
+            schedules={SectionbyId?.schedules}
           />
         </div>
         <Dialog className="rounded-full w-[500px] h-auto text-sm" >
-          <DialogTrigger className="flex flex-col-reverse">
+          {user?user.map(u=>u.role_id=="admin"?<DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
-          </DialogTrigger>
+          </DialogTrigger>:""):""}
           <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
             <DialogHeader className="text-[20px]">Add Event</DialogHeader>
             <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
