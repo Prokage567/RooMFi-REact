@@ -33,12 +33,15 @@ import { AuthContext } from "../context/context"
 
 export default function section() {
   const { id } = useParams()
-  useEffect(() => {
+  const reload=()=>{
     getSectionId(id, "GET").then(res => {
       if (res?.ok) {
         setSectionsById(res.data)
       }
     })
+  }
+  useEffect(() => {
+    reload()
     getSection().then(res => {
       if (res?.ok) {
         setSections(res.data)
@@ -59,31 +62,18 @@ export default function section() {
   const [Section, setSections] = useState([])
   const [Teachers, setTeachers] = useState([])
   const [Rooms, setRooms] = useState([])
-  const [cookies, setCookie, removeCookie] = useCookies()
+  const [cookies] = useCookies()
   const token = cookies.token
   const { user } = useContext(AuthContext)
-  const [days, setDays] = useState("")
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
   const [section, setSection] = useState("")
-  const weekdays =
-    [
-      { day: "Monday" },
-      { day: "Tuesday" },
-      { day: "Wednesday" },
-      { day: "Thursday" },
-      { day: "Friday" },
-      { day: "Saturday" },
-      { day: "Sunday" },
-    ]
-
   const [date, setDate] = useState({})
 
   const schedule = () => {
     const teacher_id = teacher
     const room_id = room
     const subject = $("#subject").val()
-    const day = days
     const end_time = $("#endTime").val()
     const start_time = $("#strTime").val()
     const endDate = $("#endDate").val()
@@ -91,7 +81,6 @@ export default function section() {
     const section_id = section
 
     postSched(token, {
-      day: day,
       subject: subject,
       start_time: start_time,
       end_time: end_time,
@@ -103,6 +92,7 @@ export default function section() {
     }).then(res => {
       if (res?.ok) {
         toast.success("Schedule Added!")
+        reload()
       }
     })
   }
@@ -117,7 +107,7 @@ export default function section() {
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg]" >
           {inputs.map(room =>
-            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room.day : room.id}> {inputs == weekdays ? room.day : inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name :`${room.name} - ${room.category?.category}`  } </SelectItem>
+            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name :`${room.name} - ${room.category?.category}`  } </SelectItem>
           )}
         </SelectContent>
       </Select>
@@ -147,7 +137,6 @@ export default function section() {
             <div >
               {selectForAll("Room No.", Rooms, setRoom, "Room")}
               {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
-              {selectForAll("Day", weekdays, setDays, "Weekdays")}
               {selectForAll("Section", Section, setSection, "Sections")}
             
               <div className="pt-3 ">

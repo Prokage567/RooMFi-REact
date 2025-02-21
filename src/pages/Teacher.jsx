@@ -22,11 +22,9 @@ import {
     TableRow,
 } from "../components/ui/table.jsx"
 import AdminPowers from "../components/AdminPowers/AdminEditDeleteRooms copy.jsx"
-import PopUpCalendar from "../components/popUpCalendar.jsx"
 import { useCookies } from "react-cookie"
-import { getTeacher, getTeacherById } from "../api/teacher.js";
-import dayjs from "dayjs";
-import { AuthContext } from "../context/context.jsx";
+import { getTeacher, getTeacherById } from "../api/teacher.js"
+import { AuthContext } from "../context/context.jsx"
 import {
     Dialog,
     DialogContent,
@@ -34,11 +32,11 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog"
 import Add from "../assets/images/add.svg"
-import { Label } from "@radix-ui/react-label";
-import { Input } from "../components/ui/input.jsx";
-import { DialogTitle } from "@mui/material";
+import { Label } from "@radix-ui/react-label"
+import { Input } from "../components/ui/input.jsx"
+import { DialogTitle } from "@mui/material"
 import { Button } from '../components/ui/button.jsx'
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 import $ from "jquery"
 import { getSection } from "../api/section.js"
 import { getRoom } from "../api/room.js"
@@ -46,29 +44,17 @@ import { UpdSched } from "../api/sched.js"
 
 
 function Teacher() {
-    const weekdays =
-        [
-            { day: "Monday" },
-            { day: "Tuesday" },
-            { day: "Wednesday" },
-            { day: "Thursday" },
-            { day: "Friday" },
-            { day: "Saturday" },
-            { day: "Sunday" },
-        ]
     const { user } = useContext(AuthContext)
     const [cookies] = useCookies()
     const token = cookies.token
     const [teachers, setTeachers] = useState([])
     const [rooms, setRooms] = useState([])
-    const [teacherSched, setTeacherSched] = useState([])
     const [show, setshow] = useState(false)
     const [open, setopen] = useState(false)
     const [sections, setSections] = useState([])
-    const [days, setDays] = useState("")
     const [room, setRoom] = useState("")
     const [section, setSection] = useState("")
-    const [teacher, setTeacher] = useState("")
+    const [schedule, setSched] = useState("")
     const reload = () => {
         getTeacher().then(res => {
             if (res?.ok) {
@@ -82,7 +68,6 @@ function Teacher() {
         const tech_Course = $("#techCourse").val().toUpperCase()
         getTeacherById(token, "POST", { name: name, technology_course: tech_Course }).then(res => {
             if (res?.ok) {
-                setTeacherSched(res.data)
                 toast.success("Added a Teacher!")
                 setopen(false)
                 reload()
@@ -91,18 +76,17 @@ function Teacher() {
         )
     }
     const replaceSchedule = () => {
-        const id = $("#id").val()
-        const teacher1 = teacher
+        const id = schedule
+        const teacher = $("#teacher").val()
         const room1 = room
         const subject = $("#subject").val()
-        const day = days
         const endTime = $("#endTime").val()
         const startTime = $("#strTime").val()
         const endDate = $("#endDate").val()
         const startDate = $("#strDate").val()
         const section1 = section
 
-        UpdSched(token, id, { day: day, subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher1, section_id: section1, room_id: room1 }).then(res => {
+        UpdSched(token, id, { subject: subject, start_time: startTime, end_time: endTime, start_date: startDate, end_date: endDate, teacher_id: teacher, section_id: section1, room_id: room1 }).then(res => {
             if (res?.ok) {
                 toast.success("Schedule has been changed!")
                 reload()
@@ -124,7 +108,7 @@ function Teacher() {
         })
         document.body.style.background = "white"
     }, [])
-    const selectForAll = (label, inputs, setvalue, input) => {
+    const selectForAll = (label, inputs, setvalue, input,id) => {
         return (<>
             <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
 
@@ -134,7 +118,7 @@ function Teacher() {
                 </SelectTrigger>
                 <SelectContent id="room" className=" font-[NiramitReg]" >
                     {inputs.map(room =>
-                        <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={inputs == weekdays ? room?.day : room.id}> {inputs == weekdays ? room.day : inputs == teachers ? `${room.name} - ${room.technology_course} ` : inputs == sections ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
+                        <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == sections ? room.name : inputs == rooms ? `${room.name} - ${room.category?.category}` :  `Schedule[${room.id}] - ${room.date}`} </SelectItem>
                     )}
                 </SelectContent>
             </Select>
@@ -147,13 +131,14 @@ function Teacher() {
             {teachers.map(t => (
                 <div>
                     <Card key={t.id}>
+                        {t.schedules.map(tsc => <>
                         {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
-                            <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={replaceSchedule} setShow={setshow} 
-                            SelectForSections={selectForAll("",sections,setTeachers,"")}
-                            SelectForWeekdays={selectForAll("",weekdays,setTeachers,"")} 
-                            SelectForRooms={selectForAll("",rooms,setTeachers,"")}
-                            setTeacher={setTeacher}/>
-                        </div> : "")}
+                            <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={() => replaceSchedule()} setShow={setshow}
+                                SelectForSections={selectForAll("Section:", sections, setSection, "Section")}
+                                SelectForRooms={selectForAll("Room:", rooms, setRoom, "Room")}
+                                SelectForSched={selectForAll("Schedule:", t.schedules, setSched, "Schedule")}
+                            />
+                        </div> : "")}</>)}
                         <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[80px] bg-[#BFAC88]">
                             <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#0F1A42] text-center">{t.name}</CardTitle>
                             <CardDescription className="font-[NiramitReg]  text-center text-[#0F1A42]">{t.technology_course}</CardDescription>
@@ -164,8 +149,7 @@ function Teacher() {
                                 {t?.schedules?.map(q => (
                                     <>
                                         <TableHeader>
-                                            {q.day ? t.schedules.filter(x => x.day === t.schedules.indexOf(q.day)).map(u =>
-                                                <TableHead className=" font-semibold text-[12px]">{u.day}</TableHead>) : ""}
+                                            <TableHead className=" font-semibold text-[12px]">{q.day}</TableHead>
                                             <TableRow>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
                                                 <TableHead className="font-semibold text-[12px] w-[180px]">{q.date}</TableHead>
@@ -179,13 +163,10 @@ function Teacher() {
                                                 <TableCell>{q.section.name}</TableCell>
                                             </TableRow>
                                         </TableBody>
-                                    </>)
-                                )
-                                }
+                                    </>))}
                             </Table>
                         </CardContent>
                     </Card>
-                    <input type="hidden" value={t.schedules.id} id="id" />
                 </div>
             ))}
 
@@ -196,40 +177,6 @@ function Teacher() {
                             <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
                         </DialogTrigger>
                         <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
-                            {/* <DialogTitle className="font-thin p-0 h-[40px] w-[300px]  ml-[30px]">Edit Schedule</DialogTitle>
-                                <DialogDescription>
-                                    Replace a Schedule
-                                </DialogDescription>
-
-                                <div className="grid w-full max-w-sm items-center gap-1.5">
-                                    {selectForAll("teacher", teachers, setTeacher, "Teacher")}
-                                    {selectForAll("section", sections, setSection, "Section")}
-                                    {selectForAll("weekday", weekdays, setDays, "day")}
-                                    {selectForAll("room", rooms, setRoom, "room")}
-                                    <Label htmlFor="picture">Update a Teacher's Schedule:</Label>
-                                    <Input id="picture" type="text" className="bg-white text-[#000] placeholder:hello " />
-                                </div>
-                                <PopUpCalendar />
-                                <div className="flex flex-row w-[450px] -mt-14">
-                                    <div>
-                                        <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
-                                            <Label className="text-[17px] ">Time</Label>
-                                        </div>
-                                        <div className="flex justify-around">
-                                            <div className="pt-2">
-                                                <Label className="" >From:</Label>
-                                                <Input id="strTime" className="border-none focus:outline-white " type="time" />
-                                            </div>
-
-                                            <div className="pt-2">
-                                                <Label className="]">To:</Label>
-                                                <Input id="endTime" className="border-none text-slate-50" type="time" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </> */}
-
                             <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
                             <DialogDescription>
                                 Add a Teacher
@@ -243,8 +190,8 @@ function Teacher() {
                             </div>
 
                             <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
-                                <Button onClick={()=>setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
-                                <Button onClick={() => addTeacher()}  className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
+                                <Button onClick={() => setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
+                                <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
                             </div>
                         </DialogContent>
                     </Dialog>

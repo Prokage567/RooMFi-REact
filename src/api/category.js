@@ -21,3 +21,14 @@ export const getCategoryId = async (id,inputs,type) => {
     })
     return await res.json()
 }
+export const storeCategory = async (id,inputs) => {
+    const res = await fetch(`${URL}/category`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${id}`
+        },
+        body: JSON.stringify(inputs)
+    })
+    return await res.json()
+}

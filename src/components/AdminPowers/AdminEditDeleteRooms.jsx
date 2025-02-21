@@ -72,7 +72,7 @@ export default function AdminPowers({ input, admin, room, category }) {
             </div>
             <Dialog open={close} onOpenChange={setClose}>
                 <DialogTrigger className=" z-10  right-2 top-2 bg-[#0F172A]/70 absolute hover:rounded-md size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff] " />
+                    <Pencil className="ml-[4px] mt-[2px] text-[#ffffff] hover:text-[#fff]/30 " />
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[300px]">
