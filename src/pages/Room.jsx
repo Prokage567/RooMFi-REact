@@ -4,6 +4,7 @@ import { useContext, useEffect, useMemo } from "react"
 import { useState } from "react"
 import { AuthContext } from "../context/context"
 import AdminPowers from "../components/AdminPowers/AdminEditDeleteRooms.jsx"
+import AdminPowers1 from "../components/AdminPowers/AdminEditDeleteCategory.jsx"
 import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
 import { request } from "../components/TeacherPowers/Requests.jsx"
 import { useCookies } from "react-cookie"
@@ -41,8 +42,11 @@ import { StoreRoom } from "../api/room.js"
 import { storeCategory } from "../api/category.js"
 import { toast } from "react-toastify"
 import $ from "jquery"
+import dayjs from "dayjs"
+import weekday from 'dayjs/plugin/weekday'
 
 export default function Room() {
+  dayjs.extend(weekday);
   const rooms = [
     "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
     "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
@@ -93,7 +97,7 @@ export default function Room() {
   }
   const refreshCategoryById = () => {
     if (id) {
-      getCategoryId(id, "GET").then(res => {
+      getCategoryId(id).then(res => {
         if (res?.ok) {
           setCategory([res.data])
         }
@@ -142,9 +146,7 @@ export default function Room() {
 
   return (
     <>
-      {/* <div  className="fixed z-20 top-[90px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#ff4c4c] rounded-[5px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center"> */}
-        <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[90px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff]   hover:text-[#5bc8ff]/70 flex items-center justify-center" />
-    
+      <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[90px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff] hover:text-[#5bc8ff]/70 flex items-center justify-center" />
       {open ? <>
         <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
           <h2 className="text-2xl font-semibold">Schedule Overview</h2>
@@ -163,7 +165,7 @@ export default function Room() {
             {categories?.map(q => (
               q.room.map(r =>
                 r.schedules.map(sc =>
-                  <>
+                  <>{sc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && sc.date <= dayjs().weekday(6).format("YYYY-MM-DD") ? <>
                     <TableRow className=" no-scrollbar" key={r.id}>
                       <TableCell className="w-[20px] pr-5 pl-5">{r.name}</TableCell>
                       <TableCell className="w-[20px] pr-5 pl-5">{sc.day}</TableCell>
@@ -177,6 +179,8 @@ export default function Room() {
                       <TableCell className="w-[20px] pr-5 pl-5">{sc.subject}</TableCell>
                       <TableCell className="w-[20px] pr-5 pl-5">{sc.date}</TableCell>
                     </TableRow>
+                    {console.log(sc.date)}
+                  </> : ""}
                   </>
                 ))))}
           </TableBody>
@@ -187,7 +191,16 @@ export default function Room() {
             <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
               {cat.map(r =>
                 <div className="mb-7 sm:mb-3">
-                  <p className="text-[40px] font-[100] mt-[40px] mb-4">{r.category}</p>
+                  <div>
+                    {user?.map(user=> <div className="relative">
+                      {user.role_id == "admin" ?
+                      <AdminPowers1  input={r.id} admin={token} reload={refreshCategory()}/>
+                      : ""}
+                    </div>
+                    )}
+                    <p className="text-[40px] font-[100] mt-[40px] mb-4">{r.category}</p>
+                  </div>
+
                   <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room != "" ? "border-r-[2px] border-l-[2px] border-gray-600/20 " : ""}`}>
                     {r.room ? r.room != "" ? <>
                       {r.room.map(room => (
@@ -276,7 +289,7 @@ export default function Room() {
                       </>
                     }
                     <div className="border-t-[1px] h-[20px]">
-                      <Button onClick={showAddCategory ? () => setShowAddCategory(false) : () => setShowAddCategory(true)} className="text-[18px] w-auto bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">{showAddCategory ? "Add Category" : "Choose A Category"}</Button>
+                      <Button onClick={showAddCategory ? () => setShowAddCategory(false) : () => setShowAddCategory(true)} className="text-[18px] w-auto bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">{showAddCategory ? "Add Category" : "Add Room"}</Button>
                       <Button onClick={showAddCategory ? () => storeRoom() : () => storeCategories()} className=" fixed right-3 bottom-3 text-[18px]  bg-transparent border-none hover:bg-transparent hover:font-bold" type="submit">Add</Button>
                     </div>
                   </DialogContent>

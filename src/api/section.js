@@ -10,14 +10,35 @@ export const getSection = async () => {
     })
     return await res.json()
 }
-export const getSectionId = async (id,type,inputs) => {
+export const getSectionId = async (id) => {
     const res = await fetch(`${URL}/section/${id}`, {
-        method: type,
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    return await res.json()
+}
+export const setSectionId = async (id,token) => {
+    const res = await fetch(`${URL}/section/${id}`, {
+        method: "PATCH",
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${inputs}`
+            Authorization: `Bearer ${token}`
         }
+    })
+    return await res.json()
+}
+export const AddSection = async(token,inputs) => {
+    const res = await fetch(`${URL}/section`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(inputs)
     })
     return await res.json()
 }

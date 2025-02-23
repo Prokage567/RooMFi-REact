@@ -10,14 +10,37 @@ export const getCategory = async () => {
     })
     return await res.json()
 }
-export const getCategoryId = async (id,inputs,type) => {
+export const getCategoryId = async (id,inputs ) => {
     const res = await fetch(`${URL}/category/${id}`, {
-        method: type,
+        method: "GET",
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${inputs}`
         }
+    })
+    return await res.json()
+}
+export const DelCategoryId = async (id,inputs ) => {
+    const res = await fetch(`${URL}/category/${id}`, {
+        method: "DELETE",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${inputs}`
+        }
+    })
+    return await res.json()
+}
+export const UpdCategoryId = async (id,token,inputs) => {
+    const res = await fetch(`${URL}/category/${id}`, {
+        method: "PATCH",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(inputs)
     })
     return await res.json()
 }

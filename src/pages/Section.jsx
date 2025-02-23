@@ -19,7 +19,7 @@ import { Label } from "../components/ui/label"
 import { Button } from "../components/ui/button"
 import { useParams } from "react-router-dom"
 import { useEffect } from "react"
-import { getSection, getSectionId } from "../api/section"
+import { AddSection, getSection, getSectionId } from "../api/section"
 import { useCookies } from "react-cookie"
 import $ from "jquery"
 import { getTeacher } from "../api/teacher"
@@ -33,20 +33,33 @@ import { AuthContext } from "../context/context"
 
 export default function section() {
   const { id } = useParams()
-  const reload=()=>{
-    getSectionId(id, "GET").then(res => {
+  const reload = () => {
+    getSectionId(id).then(res => {
       if (res?.ok) {
         setSectionsById(res.data)
       }
     })
   }
-  useEffect(() => {
-    reload()
+  const reloadSections = () => {
     getSection().then(res => {
       if (res?.ok) {
         setSections(res.data)
       }
     })
+  }
+  const AddSections = () => {
+    const name = $("#name").val()
+    AddSection(token, { name }).then(res => {
+      if (res?.ok) {
+        toast.success(name + res.message)
+        setOpen(false)
+        reloadSections()
+      }
+    })
+  }
+  useEffect(() => {
+    reload()
+    reloadSections()
     getTeacher().then(res => {
       if (res?.ok) {
         setTeachers(res.data)
@@ -62,14 +75,24 @@ export default function section() {
   const [Section, setSections] = useState([])
   const [Teachers, setTeachers] = useState([])
   const [Rooms, setRooms] = useState([])
+  const [date, setDate] = useState([])
+  const [open, setOpen] = useState(false)
+  const [show, setShow] = useState(0)
   const [cookies] = useCookies()
   const token = cookies.token
   const { user } = useContext(AuthContext)
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
   const [section, setSection] = useState("")
-  const [date, setDate] = useState({})
-
+  const [sectionId, setSectionId] = useState("")
+  const DelSectionById = () => {
+    const id = sectionId
+    AddSection().then(res => {
+      if (res?.ok) {
+        setSectionsById(res.data)
+      }
+    })
+  }
   const schedule = () => {
     const teacher_id = teacher
     const room_id = room
@@ -93,6 +116,7 @@ export default function section() {
       if (res?.ok) {
         toast.success("Schedule Added!")
         reload()
+        setOpen(false)
       }
     })
   }
@@ -107,7 +131,7 @@ export default function section() {
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg]" >
           {inputs.map(room =>
-            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name :`${room.name} - ${room.category?.category}`  } </SelectItem>
+            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
           )}
         </SelectContent>
       </Select>
@@ -127,53 +151,59 @@ export default function section() {
             schedules={SectionbyId?.schedules}
           />
         </div>
-        <Dialog className="rounded-full w-[500px] h-auto text-sm" >
-          {user?user.map(u=>u.role_id=="admin"?<DialogTrigger className="flex flex-col-reverse">
+        <Dialog open={open} onOpenChange={setOpen} className="rounded-full w-[500px] h-auto text-sm" >
+          {user ? user.map(u => u.role_id == "admin" ? <DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
-          </DialogTrigger>:""):""}
-          <DialogContent className="bg-slate-900 border-none h-[680px] text-[#fff] pb-2">
+          </DialogTrigger> : "") : ""}
+          <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
             <DialogHeader className="text-[20px]">Add Event</DialogHeader>
             <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
             <div >
-              {selectForAll("Room No.", Rooms, setRoom, "Room")}
-              {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
-              {selectForAll("Section", Section, setSection, "Sections")}
-            
-              <div className="pt-3 ">
-                <Label>Subject</Label>
-                <Input autofocus e={false}
-                  className="   bg-white  text-[#0F172A]"
-                  id="subject"
-                  placeholder="Input Subject" />
-              </div>
-              
-              <PopUpCalendar className="pt-3" />
-              <div className="flex flex-row w-[450px] ">
-                <div>
-                  <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
-                    <Label className="text-[17px] ">Time</Label>
-                  </div>
-                  <div className="flex justify-around">
-                    <div className="pt-2">
-                      <Label className="" >From:</Label>
-                      <Input id="strTime" className="border-none focus:outline-white " type="time" />
-                    </div>
+              {!show ? <>
+                {selectForAll("Room No.", Rooms, setRoom, "Room")}
+                {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
+                {selectForAll("Section", Section, setSection, "Sections")}
 
-                    <div className="pt-2">
-                      <Label className="]">To:</Label>
-                      <Input id="endTime" className="border-none text-slate-50" type="time" />
+                <div className="pt-3 ">
+                  <Label>Subject</Label>
+                  <Input autofocus e={false}
+                    className="   bg-white  text-[#0F172A]"
+                    id="subject"
+                    placeholder="Input Subject" />
+                </div>
+
+                <PopUpCalendar className="pt-3" />
+                <div className="flex flex-row w-[450px] ">
+                  <div>
+                    <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
+                      <Label className="text-[17px] ">Time</Label>
+                    </div>
+                    <div className="flex justify-around">
+                      <div className="pt-2">
+                        <Label className="" >From:</Label>
+                        <Input id="strTime" className="border-none focus:outline-white " type="time" />
+                      </div>
+
+                      <div className="pt-2">
+                        <Label>To:</Label>
+                        <Input id="endTime" className="border-none text-slate-50" type="time" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <Button onClick={() => schedule()} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
+              </> : <div className="pt-2">
+                <Label>Section's Name:</Label>
+                <Input id="name" className=" bg-white  text-[#0F172A]" type="text" />
+              </div>}
+              <Button onClick={!show ? () => schedule() : () => AddSections()} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
+              <Button onClick={!show ? () => setShow(1) : () => setShow(0)} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]">{show ? "Add Schedule" : "Add a Section"}</Button>
             </div>
 
           </DialogContent>
         </Dialog>
-      
-       </div>
-    
+
+      </div>
+
     </>
   )
 }

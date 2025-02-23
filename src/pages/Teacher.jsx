@@ -108,17 +108,30 @@ function Teacher() {
         })
         document.body.style.background = "white"
     }, [])
-    const selectForAll = (label, inputs, setvalue, input,id) => {
+    const Filter = (id, subject, date, start_time, end_time, section) => {
+        return (
+            <>
+                <TableBody key={id}>
+                    <TableRow>
+                        <TableCell className="w-auto ">{subject}</TableCell>
+                        <TableCell className="w-auto  text-[11px]">{date}</TableCell>
+                        <TableCell className="w-auto  text-[11px]">{start_time}-{end_time}</TableCell>
+                        <TableCell>{section}</TableCell>
+                    </TableRow>
+                </TableBody>
+            </>
+        )
+    }
+    const selectForAll = (label, inputs, setvalue, input) => {
         return (<>
             <div className="font-[NiramitReg] text-sm mt-2">{label}</div>
-
             <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
                 <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
                     <SelectValue placeholder={`Select a ${input}`} />
                 </SelectTrigger>
                 <SelectContent id="room" className=" font-[NiramitReg]" >
                     {inputs.map(room =>
-                        <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == sections ? room.name : inputs == rooms ? `${room.name} - ${room.category?.category}` :  `Schedule[${room.id}] - ${room.date}`} </SelectItem>
+                        <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == sections ? room.name : inputs == rooms ? `${room.name} - ${room.category?.category}` : `Schedule[${room.id}] - ${room.date}`} </SelectItem>
                     )}
                 </SelectContent>
             </Select>
@@ -131,39 +144,33 @@ function Teacher() {
             {teachers.map(t => (
                 <div>
                     <Card key={t.id}>
-                        {t.schedules.map(tsc => <>
                         {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
                             <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={() => replaceSchedule()} setShow={setshow}
                                 SelectForSections={selectForAll("Section:", sections, setSection, "Section")}
                                 SelectForRooms={selectForAll("Room:", rooms, setRoom, "Room")}
                                 SelectForSched={selectForAll("Schedule:", t.schedules, setSched, "Schedule")}
                             />
-                        </div> : "")}</>)}
+                        </div> : "")}
                         <CardHeader className="border-[#BFAC88] border-2 rounded-t-lg w-100 h-[80px] bg-[#BFAC88]">
                             <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#0F1A42] text-center">{t.name}</CardTitle>
                             <CardDescription className="font-[NiramitReg]  text-center text-[#0F1A42]">{t.technology_course}</CardDescription>
                         </CardHeader>
 
                         <CardContent style={{ maxHeight: "175px" }} className="border-[#BFAC88] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
-                            <Table className="text-[12px] w-[300px] font-[NiramitReg] text-[#11172E]">
-                                {t?.schedules?.map(q => (
-                                    <>
-                                        <TableHeader>
-                                            <TableHead className=" font-semibold text-[12px]">{q.day}</TableHead>
-                                            <TableRow>
-                                                <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
-                                                <TableHead className="font-semibold text-[12px] w-[180px]">{q.date}</TableHead>
-                                                <TableHead className="font-semibold text-[12px] w-[180px]">Section</TableHead>
-                                            </TableRow>
-                                        </TableHeader>
-                                        <TableBody key={q.id}>
-                                            <TableRow>
-                                                <TableCell className="w-[20px]">{q.subject}</TableCell>
-                                                <TableCell className="w-[300px] text-[11px]">{q.start_time}-{q.end_time}</TableCell>
-                                                <TableCell>{q.section.name}</TableCell>
-                                            </TableRow>
-                                        </TableBody>
-                                    </>))}
+                            <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
+                                {t?.schedules?.reduce((schedule, { day, id, subject, date, start_time, end_time, section}) => {
+                                    if (day === day) {
+                                        schedule[day] = []
+                                        schedule.push(<>
+                                        {schedule[day].concat(Filter(id, subject, date, start_time, end_time, section.name))}
+                                        </>)
+                                        
+                                        return schedule
+                                    }
+
+                                }, [])
+                                }
+
                             </Table>
                         </CardContent>
                     </Card>

@@ -21,20 +21,28 @@ export default function MainLayout() {
     const token = cookies.token
     const [Sections, setSection] = useState([])
     const [roomTypes, setRoomTypes] = useState([])
-
-    useEffect(() => {
+const  reloadSection = () =>{
+    return(
         getSection().then(res => {
             if (res?.ok) {
                 setSection(res.data)
             }
+        })
+    )
+}
+const  reloadCategory = () =>{
+   return(
+    getCategory().then(res => {
+        if (res?.ok) {
+            setRoomTypes(res.data)
         }
-        )
-        getCategory().then(res => {
-            if (res?.ok) {
-                setRoomTypes(res.data)
-            }
-        }
-        )
+    }
+    )
+   ) 
+}
+    useEffect(() => {  
+        reloadSection()
+        reloadCategory()
         checkToken(token).then(res => {
             if (res?.ok) {
                 login([res.data])
@@ -123,9 +131,9 @@ export default function MainLayout() {
                                     <PopoverTrigger className="relative" asChild>
                                         <Button className="sticky ml-[7px] px-[85px] bg-[#242F5B] hover:bg-[#3F9DC1] [&[data-state=closed]>svg]:-rotate-135 [&[data-state=open]>svg]:rotate-90">
                                             <div>
-                                                <CircleUserRound/>
-                                                </div>
-                                        <ChevronRight/>
+                                                <CircleUserRound />
+                                            </div>
+                                            <ChevronRight />
                                         </Button>
                                     </PopoverTrigger>
                                     <PopoverContent className="w-[210px] bg-[#0F1A42] border-[#0F1A42] p-3"

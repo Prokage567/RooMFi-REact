@@ -43,8 +43,8 @@ export default function PopUpCalendar({
             )}
           </Button>
         </PopoverTrigger>
-        <Input id="strDate" type="hidden" value={dayjs(date.from).format("YYYY-MM-DD")}></Input>
-        <Input id="endDate" type="hidden" value={dayjs(date.to).format("YYYY-MM-DD")}></Input>
+        <Input id="strDate" type="hidden" value={dayjs(date?.from).format("YYYY-MM-DD")}></Input>
+        <Input id="endDate" type="hidden" value={dayjs(date?.to).format("YYYY-MM-DD")}></Input>
         <PopoverContent className="p-[10px] w-[310px] min-h-[300px] rounded-[10px] border-[2px] line border-[#242F5B] text-[#242F5B] mb-[10px] bg-[#ffffff]">
         <Calendar 
             mode="range"
