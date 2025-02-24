@@ -46,7 +46,7 @@ export default function AdminPowers1({ input, admin, reload }) {
     }
     return (
         <div>
-            <div className="z-10  hover:rounded-md absolute left-44 top-4 bg-[#0F172A]/70 rounded-[50%] size-8">
+            <div className="z-10 absolute hover:rounded-md ml-10 m-auto mt-[-30px] bg-[#0F172A]/70 rounded-[50%] size-8">
                 <Dialog open={save} onOpenChange={setSave}>
                     <DialogTrigger>
                         <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] " />
@@ -64,8 +64,8 @@ export default function AdminPowers1({ input, admin, reload }) {
                 </Dialog>
             </div>
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className=" z-10  right-36 top-4 bg-[#0F172A]/70 absolute hover:rounded-md size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] text-[#ffffff] hover:text-[#fff]/30 " />
+                <DialogTrigger className="absolute z-10 m-auto mt-[-30px] bg-[#0F172A]/70 hover:rounded-md size-8 rounded-[50%]">
+                    <Pencil className="ml-[4px] mt-[2px] text-[#ffffff] hover:text-[#fff]/30" />
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[300px]">

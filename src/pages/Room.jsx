@@ -35,7 +35,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table.jsx"
-import { DoorOpen, SquareChartGantt } from 'lucide-react'
+import { CirclePlus, SquareChartGantt } from 'lucide-react'
 import { getTeacher } from "../api/teacher.js"
 import { getSection } from "../api/section.js"
 import { StoreRoom } from "../api/room.js"
@@ -146,9 +146,9 @@ export default function Room() {
 
   return (
     <>
-      <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[90px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff] hover:text-[#5bc8ff]/70 flex items-center justify-center" />
+      <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[100px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff] hover:text-[#5bc8ff]/70 flex items-center justify-center" />
       {open ? <>
-        <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
+        <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-b-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
           <h2 className="text-2xl font-semibold">Schedule Overview</h2>
         </div>
         <Table className="ml-2 overflow-auto text-[12px] w-full font-[NiramitReg] text-[#11172E] ">
@@ -192,7 +192,7 @@ export default function Room() {
               {cat.map(r =>
                 <div className="mb-7 sm:mb-3">
                   <div>
-                    {user?.map(user=> <div className="relative">
+                    {user?.map(user=> <div className="">
                       {user.role_id == "admin" ?
                       <AdminPowers1  input={r.id} admin={token} reload={refreshCategory()}/>
                       : ""}
@@ -250,7 +250,7 @@ export default function Room() {
                 {request("", r)}
                 <Dialog open={show} onOpenChange={setShow}>
                   <DialogTrigger className="">
-                    <DoorOpen className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
+                  <CirclePlus className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
                   </DialogTrigger>
                   <DialogContent className="w-auto bg-[#11172E] text-white">
                     <DialogHeader>
