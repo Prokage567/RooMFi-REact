@@ -35,10 +35,10 @@ export const request = (pop, room) => {
           </DialogContent>
         </Dialog>
       <Popover className="h-[350px]">
-        <div className=" fixed bottom-[195px] text-[14px] right-[2px] z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
+        <div className=" fixed bottom-[132px] text-[14px] right-[2px] z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
           <div className="mt-[2px]">20</div>
         </div>
-         <PopoverTrigger className="fixed bottom-[153px] right-1 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+         <PopoverTrigger className="fixed bottom-[90px] right-1 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
             <SquareLibrary className="w-[30px] h-[30px] z-0" />
           </PopoverTrigger>
         <PopoverContent className=" border-[2px] border-[#ffffff] bg-[#0F1A42] shadow-none mr-8 mb-3 h-[350px] rounded-[20px]">

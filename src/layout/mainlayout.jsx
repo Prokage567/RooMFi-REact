@@ -79,9 +79,9 @@ const  reloadCategory = () =>{
                     </div>
                 </nav>
 
-                <div className="flex text-white font-[NiramitReg] min-h-full">
-                    <p className="fixed lg:w-[225px] md:w-[155px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
-                    <nav className=" lg:w-[268px] md:w-[187px] w-[70px]">
+                <div className="flex text-white font-[NiramitReg]  min-h-full">
+                    <p className="fixed lg:w-[217px] md:w-[155px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
+                    <nav className=" ">
                         <div className="overflow-scroll no-scrollbar sticky top-24 mt-[88px] h-[90vh]">
                             <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 hover:rounded-[10px] font-[NiramitBold] transition-all ">
                                 <img src={icon} className=" lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-[#3F9DC1]/70 hover:rounded-[10px]" />
@@ -91,9 +91,9 @@ const  reloadCategory = () =>{
                             </Link>
 
                             <Accordion type="single" collapsible>
-                                <AccordionItem value="item-1">
+                                <AccordionItem value="item-1" className="lg:w-[217px] md:w-[155px] w-[70px]">  
                                     <AccordionTrigger input={true} img={icon2} className="whitespace-pre">Room    </AccordionTrigger>
-
+                                        
                                     <Link to="/room" className="">
                                         <AccordionContent className="ml-0 md:ml-3 lg:ml-9">All</AccordionContent>
                                     </Link>
@@ -107,7 +107,7 @@ const  reloadCategory = () =>{
                                 </AccordionItem>
                             </Accordion>
                             <Accordion type="single" collapsible>
-                                <AccordionItem value="item-2">
+                                <AccordionItem value="item-2" className="lg:w-[217px] md:w-[155px] w-[70px]">
                                     <AccordionTrigger input={true} img={icon2}>Section</AccordionTrigger>
                                     {Sections.map(s => (
                                         //here we throw thr section"s id from the section and uses it to go from one data to another
@@ -120,16 +120,17 @@ const  reloadCategory = () =>{
                                 </AccordionItem>
                             </Accordion>
                             <Accordion type="single" collapsible>
-                                <AccordionItem value="item-3">
+                                <AccordionItem value="item-3" className="lg:w-[217px] md:w-[155px] w-[70px]">
                                     <Link to="/teacher" className="flex flex-col">
                                         <AccordionTrigger img={icon3}>Teacher</AccordionTrigger>
                                     </Link>
                                 </AccordionItem>
                             </Accordion>
+                            <div className="lg:w-[217px] md:w-[155px] w-[70px]">
                             {user ?
                                 <Popover>
                                     <PopoverTrigger className="relative" asChild>
-                                        <Button className="sticky ml-[7px] px-[85px] bg-[#242F5B] hover:bg-[#3F9DC1] [&[data-state=closed]>svg]:-rotate-135 [&[data-state=open]>svg]:rotate-90">
+                                        <Button className="sticky lg:w-[217px] md:w-[155px] w-[70px] px-[85px] bg-[#242F5B] hover:bg-[#3F9DC1] [&[data-state=closed]>svg]:-rotate-135 [&[data-state=open]>svg]:rotate-90">
                                             <div>
                                                 <CircleUserRound />
                                             </div>
@@ -154,8 +155,8 @@ const  reloadCategory = () =>{
                                     </PopoverContent>
                                 </Popover>
                                 : ""
-
                             }
+                            </div>
 
                         </div>
                     </nav>
