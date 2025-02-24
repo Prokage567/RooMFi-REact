@@ -215,7 +215,7 @@ export default function Room() {
                           )}
                           <div className="z-10 absolute  justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
                             <div className=" mt-1 ">
-                              {room.name}
+                              Room {room.name}
                             </div>
                             <div className="mb-2">
                               {room.schedules ? room.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}

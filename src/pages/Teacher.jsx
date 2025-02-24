@@ -108,18 +108,22 @@ function Teacher() {
         })
         document.body.style.background = "white"
     }, [])
-    const Filter = (id, subject, date, start_time, end_time, section) => {
+    const Filter = (t, input) => {
+
         return (
-            <>
-                <TableBody key={id}>
-                    <TableRow>
-                        <TableCell className="w-auto ">{subject}</TableCell>
-                        <TableCell className="w-auto  text-[11px]">{date}</TableCell>
-                        <TableCell className="w-auto  text-[11px]">{start_time}-{end_time}</TableCell>
-                        <TableCell>{section}</TableCell>
-                    </TableRow>
-                </TableBody>
-            </>
+            t?.schedules?.filter(sc => sc.day === `${input}`).map(sc =>
+                <>
+
+                    <TableBody key={sc.id}>
+                        <TableRow>
+                            <TableCell className="w-auto ">{sc.subject}</TableCell>
+                            <TableCell className="w-auto  text-[11px]">{sc.date}</TableCell>
+                            <TableCell className="w-auto  text-[11px]">{sc.start_time}-{sc.end_time}</TableCell>
+                            <TableCell>{sc.section.name}</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </>
+            )
         )
     }
     const selectForAll = (label, inputs, setvalue, input) => {
@@ -157,23 +161,40 @@ function Teacher() {
                         </CardHeader>
 
                         <CardContent style={{ maxHeight: "175px" }} className="border-[#BFAC88] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
+                               {t.schedules != "" ?
+                               <>
                             <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
-                            
-                                {t?.schedules?.reduce((schedule, { day, id, subject, date, start_time, end_time, section}) => {
-                                    if (day === day) {
-                                        schedule[day] = []
-                                        schedule[day].push(
-                                            <>
-                                            {Filter(id, subject, date, start_time, end_time, section.name)}
-                                            </>
-                                        )
-                                        return (schedule.concat(schedule[day]))
-                                    }
-
-                                }, [])
-                                }
-
+                                <TableRow>
+                                    <TableHead>Monday</TableHead>
+                                </TableRow>
+                                {Filter(t, "Monday")}
+                                <TableRow>
+                                    <TableHead>Tuesday</TableHead>
+                                </TableRow>
+                                {Filter(t, "Tuesday")}
+                                <TableRow>
+                                    <TableHead>Wednesday</TableHead>
+                                </TableRow>
+                                {Filter(t, "Wednesday")}
+                                <TableRow>
+                                    <TableHead>Thursday</TableHead>
+                                </TableRow>
+                                {Filter(t, "Thursday")}
+                                <TableRow>
+                                    <TableHead>Friday</TableHead>
+                                </TableRow>
+                                {Filter(t, "Friday")}
+                                <TableRow>
+                                    <TableHead>Saturday</TableHead>
+                                </TableRow>
+                                {Filter(t, "Saturday")}
                             </Table>
+                                </>:
+                                <div className="w-[400px] h-1 font-[NiramitReg] text-5xl text-[#11172E]/30">
+                                    <p className="flex justify-center items-center pt-12">No Schedule
+                                        </p>
+                                </div>
+                                }
                         </CardContent>
                     </Card>
                 </div>

@@ -95,7 +95,7 @@ const  reloadCategory = () =>{
                                     <AccordionTrigger input={true} img={icon2} className="whitespace-pre">Room    </AccordionTrigger>
 
                                     <Link to="/room" className="">
-                                        <AccordionContent className="ml-0 md:ml-3 lg:ml-9">All</AccordionContent>
+                                        <AccordionContent className="focus:border-blue-600 ml-0 md:ml-3 lg:ml-9">All</AccordionContent>
                                     </Link>
                                     {roomTypes.map(r => (
                                         //here we throw thr section"s id from the section and uses it to go from one data to another
