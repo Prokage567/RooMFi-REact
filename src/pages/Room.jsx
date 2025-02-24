@@ -35,7 +35,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table.jsx"
-import { DoorOpen, SquareChartGantt } from 'lucide-react'
+import { CirclePlus, SquareChartGantt } from 'lucide-react'
 import { getTeacher } from "../api/teacher.js"
 import { getSection } from "../api/section.js"
 import { StoreRoom } from "../api/room.js"
@@ -192,7 +192,7 @@ export default function Room() {
               {cat.map(r =>
                 <div className="mb-7 sm:mb-3">
                   <div>
-                    {user?.map(user=> <div className="relative">
+                    {user?.map(user=> <div className="">
                       {user.role_id == "admin" ?
                       <AdminPowers1  input={r.id} admin={token} reload={refreshCategory()}/>
                       : ""}
@@ -250,7 +250,7 @@ export default function Room() {
                 {request("", r)}
                 <Dialog open={show} onOpenChange={setShow}>
                   <DialogTrigger className="">
-                    <DoorOpen className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
+                  <CirclePlus className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
                   </DialogTrigger>
                   <DialogContent className="w-auto bg-[#11172E] text-white">
                     <DialogHeader>
