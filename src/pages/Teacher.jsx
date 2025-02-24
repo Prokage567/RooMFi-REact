@@ -158,14 +158,16 @@ function Teacher() {
 
                         <CardContent style={{ maxHeight: "175px" }} className="border-[#BFAC88] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
                             <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
+                            
                                 {t?.schedules?.reduce((schedule, { day, id, subject, date, start_time, end_time, section}) => {
                                     if (day === day) {
                                         schedule[day] = []
-                                        schedule.push(<>
-                                        {schedule[day].concat(Filter(id, subject, date, start_time, end_time, section.name))}
-                                        </>)
-                                        
-                                        return schedule
+                                        schedule[day].push(
+                                            <>
+                                            {Filter(id, subject, date, start_time, end_time, section.name)}
+                                            </>
+                                        )
+                                        return (schedule.concat(schedule[day]))
                                     }
 
                                 }, [])
