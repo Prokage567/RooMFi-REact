@@ -146,9 +146,9 @@ export default function Room() {
 
   return (
     <>
-      <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[90px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff] hover:text-[#5bc8ff]/70 flex items-center justify-center" />
+      <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[100px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff] hover:text-[#5bc8ff]/70 flex items-center justify-center" />
       {open ? <>
-        <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
+        <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-b-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
           <h2 className="text-2xl font-semibold">Schedule Overview</h2>
         </div>
         <Table className="ml-2 overflow-auto text-[12px] w-full font-[NiramitReg] text-[#11172E] ">
