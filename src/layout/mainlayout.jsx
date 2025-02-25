@@ -94,7 +94,7 @@ const  reloadCategory = () =>{
                                 <AccordionItem value="item-1" className="lg:w-[217px] md:w-[155px] w-[70px]">  
                                     <AccordionTrigger input={true} img={icon2} className="whitespace-pre">Room    </AccordionTrigger>
                                         
-                                    <Link to="/room" className="">
+                                    <Link to="/room">
                                         <AccordionContent className="focus:border-blue-600 ml-0 md:ml-3 lg:ml-9">All</AccordionContent>
                                     </Link>
                                     {roomTypes.map(r => (
@@ -108,7 +108,9 @@ const  reloadCategory = () =>{
                             </Accordion>
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-2" className="lg:w-[217px] md:w-[155px] w-[70px]">
+                                    <Link to="/section">
                                     <AccordionTrigger input={true} img={icon2}>Section</AccordionTrigger>
+                                    </Link>
                                     {Sections.map(s => (
                                         //here we throw thr section"s id from the section and uses it to go from one data to another
                                         <Link key={s.id} to={`/section/${s.id}`}>

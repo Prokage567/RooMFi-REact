@@ -131,7 +131,7 @@ export default function section() {
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg]" >
           {inputs.map(room =>
-            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.technology_course} ` : inputs == Section ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
+            <SelectItem className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Section ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
           )}
         </SelectContent>
       </Select>

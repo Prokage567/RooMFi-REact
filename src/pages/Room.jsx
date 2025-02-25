@@ -5,7 +5,7 @@ import { useState } from "react"
 import { AuthContext } from "../context/context"
 import AdminPowers from "../components/AdminPowers/AdminEditDeleteRooms.jsx"
 import AdminPowers1 from "../components/AdminPowers/AdminEditDeleteCategory.jsx"
-import { teacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
+import { TeacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
 import { request } from "../components/TeacherPowers/Requests.jsx"
 import { useCookies } from "react-cookie"
 import {
@@ -44,27 +44,23 @@ import { toast } from "react-toastify"
 import $ from "jquery"
 import dayjs from "dayjs"
 import weekday from 'dayjs/plugin/weekday'
+import { StoreRequest } from "../api/TeacherRequests.js"
 
 export default function Room() {
   dayjs.extend(weekday);
-  const rooms = [
-    "Room 111", "Room 112", "Room 143", "Room 145", "Room 147", "Room 201", "Room 202",
-    "Room 206", "Room 207", "Room 209", "Room 212", "Room 315", "Room 317", "Room 323",
-    "Room 324", "Room 335", "Room 336"
-  ]
-  const [Sections, setSections] = useState([])
-  const [Teachers, setTeachers] = useState([])
-  const [open, setOpen] = useState(false)
   const [cookies] = useCookies()
   const token = cookies.token
   const { id } = useParams()
   const { user } = useContext(AuthContext)
+  const [Sections, setSections] = useState([])
+  const [Teachers, setTeachers] = useState([])
   const [categories, setCategories] = useState([])
-  const [show, setShow] = useState(false)
-  const [showAddCategory, setShowAddCategory] = useState(false)
   const [category, setCategory] = useState([])
+  const [open, setOpen] = useState(false)
+  const [show, setShow] = useState(false)
+  const [ShowDialogue, setShowDialogue] = useState(false)
+  const [showAddCategory, setShowAddCategory] = useState(false)
   const [roomCategory, setRoomCategory] = useState("")
-  const [isOpen, setIsOpen] = useState(false)
   useEffect(() => {
     refreshCategory()
     refreshCategoryById()
@@ -126,7 +122,16 @@ export default function Room() {
     })
   }
   const buttonSubmit = () => {
-    setIsOpen(false)
+    const user_id = $("#userID").val()
+    const room_id = $("#roomID").val()
+    const reason = $("#reason").val()
+    StoreRequest(token, { user_id: user_id, room_id: room_id, reason: reason }).then(res => {
+
+      if (res.ok) {
+        alert("heheh")
+      }
+    }
+    )
   }
   const cat = useMemo(() => {
 
@@ -192,15 +197,25 @@ export default function Room() {
               {cat.map(r =>
                 <div className="mb-7 sm:mb-3">
                   <div>
-                    {user?.map(user=> <div className="">
+                    {user?.map(user => <div className="">
                       {user.role_id == "admin" ?
-                      <AdminPowers1  input={r.id} admin={token} reload={refreshCategory()}/>
-                      : ""}
+                        <AdminPowers1 input={r.id} admin={token} reload={refreshCategory()} />
+                        : ""}
                     </div>
                     )}
                     <p className="text-[40px] font-[100] mt-[40px] mb-4">{r.category}</p>
                   </div>
+                  <div>
+                    {r.room.filter(rsc => rsc.schedules == "").map(room =>
+                      <>
+                        {user?.map(r => 
+                          r.role_id == "teacher" ?
+                          <TeacherReq rooms={room} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
+                          : ""
+                        )}
+                      </>)}
 
+                  </div>
                   <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room != "" ? "border-r-[2px] border-l-[2px] border-gray-600/20 " : ""}`}>
                     {r.room ? r.room != "" ? <>
                       {r.room.map(room => (
@@ -219,38 +234,38 @@ export default function Room() {
                             </div>
                             <div className="mb-2">
                               {room.schedules ? room.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}
-                            </div >
-                          </div >
-                          <div className="z-0">
-                            <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
+                            </div>
                           </div>
+                          <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
+                            <DialogTrigger>
+                              <div className="z-0">
+                                <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
+                              </div>
+                            </DialogTrigger>
+                            <DialogContent>
+                              {categories.map(ct => ct.room.map(r => r.schedules.filter(sc => sc.room_id === r.id).map(scr => scr.name)))}
+                            </DialogContent>
+                          </Dialog>
                         </div >
-                      ))}</> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
-                  </div >
+                      ))}
+                    </> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
+                  </div>
                 </div >
               )}
             </div >
           </div >
         </>}
+
+
       {
         user?.map(r =>
-          <div className="flex">
-            {r.role_id == "teacher" ?
-              teacherReq(isOpen, setIsOpen, rooms, buttonSubmit)
-              : ""
-            }
-          </div>
-        )
-      }
-      {
-        user?.map(r =>
-          <div className="">
+          <div>
             {r.role_id == "admin" ?
               <>
                 {request("", r)}
                 <Dialog open={show} onOpenChange={setShow}>
-                  <DialogTrigger className="">
-                  <CirclePlus className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
+                  <DialogTrigger>
+                    <CirclePlus className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />
                   </DialogTrigger>
                   <DialogContent className="w-auto bg-[#11172E] text-white">
                     <DialogHeader>
