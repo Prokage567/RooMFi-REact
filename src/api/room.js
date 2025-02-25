@@ -1,7 +1,7 @@
 import { URL } from "./config";
 
 export const getRoom = async () => {
-    const res = await fetch(`${URL}/room/`, {
+    const res = await fetch(`${URL}/room`, {
         method: "GET",
         headers: {
             Accept: 'application/json',

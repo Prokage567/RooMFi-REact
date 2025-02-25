@@ -235,15 +235,17 @@ export default function Room() {
                               {room.schedules ? room.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}
                             </div>
                           </div>
-                          <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
-                            <DialogTrigger>
                               <div className="z-0">
                                 <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                               </div>
+                            </div >
+                      ))}
+                       <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
+                            <DialogTrigger>
                             </DialogTrigger>
                             <DialogContent>
                               {categories.map(ct => ct.room.map(r => r.schedules.filter(sc => sc.room_id === r.id).map(scr => (
-                                <>{scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
+                                <>{r.schedules != "" ? scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
                                   <Table>
                                     <TableHeader>
                                       <TableHead className="font-semibold text-[12px] w-[180px]">Day</TableHead>
@@ -266,13 +268,11 @@ export default function Room() {
                                       <TableCell className="w-[20px] text-[9px]">{scr.date}</TableCell>
                                     </TableRow>
                                   </Table>
-                                  :""}
+                                  : "" : ""}
                                 </>
                               ))))}
                             </DialogContent>
                           </Dialog>
-                        </div >
-                      ))}
                     </> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
                   </div>
                 </div >
