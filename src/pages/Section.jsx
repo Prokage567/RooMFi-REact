@@ -132,7 +132,7 @@ export default function section() {
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg] " >
           {inputs.map(room =>
-            <SelectItem  key={room.id} className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Section ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
+            <SelectItem  key={room.id} className="text-sm text-[#242F5B]  hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Section ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
           )}
         </SelectContent>
       </Select>
@@ -152,7 +152,7 @@ export default function section() {
           />
         </div>
         <Dialog open={open} onOpenChange={setOpen} className="rounded-full w-[500px] h-auto text-sm" >
-          {user ? user.map(u => u.role_id == "admin" ? <DialogTrigger key={u.id} className="flex flex-col-reverse">
+          {user ? user.map(u => u.role_id == "admin" ?<div> <DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
           </DialogTrigger> 
           <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
