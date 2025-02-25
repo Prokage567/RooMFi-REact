@@ -80,7 +80,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                         Room Number: {input.name}
                     </DialogDescription>
                     <Label>Replace Room Number:</Label>
-                    <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Room name" />
+                    <Input id="name" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Room name" />
                     <Select onValueChange={setCategoryById} className="font-[NiramitReg]">
                         <SelectTrigger className="h-9 text-[#11124f] bg-white text-[18px] ">
                             <SelectValue placeholder="Select a Room's Category" />

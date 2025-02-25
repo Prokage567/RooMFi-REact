@@ -45,8 +45,14 @@ const router = createBrowserRouter([
                 element: <Room />
             },
             {
-                path: "/section/:id",
-                element: <Section />
+                path: "/section/",
+                element: <Section />,
+                children: [
+                    {
+                        path: "/section/:id",
+                        element: <Section />
+                    }
+                ]
             },
             {
                 path: "/teacher",
