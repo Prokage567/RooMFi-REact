@@ -142,10 +142,10 @@ const  reloadCategory = () =>{
                                     <PopoverContent className="w-[210px] bg-[#0F1A42] border-[#0F1A42] p-3"
 
                                         align="start">
-                                        {user.map(u => <>
+                                        {user.map(u => <div key={u.id}>
                                             <h1 className="text-white font-[NiramitReg] text-[20px]">{u.name}</h1>
                                             <h3 className="text-slate-400 font-[NiramitReg] text-[15px]">{u.role_id}</h3>
-                                        </>
+                                        </div>
                                         )}
 
                                         <div className="flex items-center justify-center mt-2">

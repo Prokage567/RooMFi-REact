@@ -75,7 +75,7 @@ function Calendar({
                 {
                   schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
                     // x.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && x.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
-                    <div className=" ml-1 w-[140px] text-secondary  text-[9px] font-[NiramitReg] h-[30px]  ">
+                    <div key={x.id} className=" ml-1 w-[140px] text-secondary  text-[9px] font-[NiramitReg] h-[30px]  ">
                       <div className="w-[140px] bg-[#90E0FF]  relative">
                         <div className="w-[114px] text-[#0c146e]">
                           {x.room.name} | {x.end_time} - {x.start_time}

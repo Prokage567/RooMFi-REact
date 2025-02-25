@@ -47,6 +47,14 @@ import weekday from 'dayjs/plugin/weekday'
 import { StoreRequest } from "../api/TeacherRequests.js"
 
 export default function Room() {
+  const weekdays = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ]
   dayjs.extend(weekday);
   const [cookies] = useCookies()
   const token = cookies.token
@@ -194,33 +202,30 @@ export default function Room() {
           <div className="mt-[10px] min-w-screen ">
             <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
               {cat.map(r =>
-                <div className="mb-7 sm:mb-3">
-                  <div>
-                    {user?.map(user => <div className="">
+                <div key={r.id} className="mb-7 sm:mb-3">
+                  {user?.map(user =>
+                    <div key={r.id} className="">
                       {user.role_id == "admin" ?
                         <AdminPowers1 input={r.id} admin={token} reload={refreshCategory} />
                         : ""}
                     </div>
-                    )}
-                    <p className="text-[40px] font-[100] ml-20 mt-[40px] mb-4">{r.category}</p>
-                  </div>
+                  )}
+                  <p className="text-[40px] font-[100] ml-20 mt-[40px] mb-4">{r.category}</p>
+
                   <div>
                     {r.room.filter(rsc => rsc.schedules == "").map(room =>
-                      <>
-                        {user?.map(r =>
-                          r.role_id == "teacher" ?
-                            <TeacherReq rooms={room} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
-                            : ""
-                        )}
-                      </>)}
-
+                      user?.map(r =>
+                        r.role_id == "teacher" ?
+                          <TeacherReq rooms={room} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
+                          : ""
+                      ))}
                   </div>
                   <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room != "" ? "border-r-[2px] border-l-[2px] border-gray-600/20 " : ""}`}>
                     {r.room ? r.room != "" ? <>
                       {r.room.map(room => (
-                        <div className=" border relative hover:scale-95 rounded-[20px]">
+                        <div key={room.id} className=" border relative hover:scale-95 rounded-[20px]">
                           {user?.map(user =>
-                            <div>
+                            <div key={user.id}>
                               {user.role_id == "admin" ?
                                 <AdminPowers input={room} admin={token} room={room} category={r.category} />
                                 : ""
@@ -232,47 +237,22 @@ export default function Room() {
                               Room {room.name}
                             </div>
                             <div className="mb-2">
-                              {room.schedules ? room.schedules == "" ? "Available" : "Unavailable" : "Unavailable"}
+                              {room.schedules ? room.schedules == "" ? "Available" : room.schedules.map(src => src.day === weekdays[dayjs().day()]) ? "Available" : "Unavailable" : "Unavailable"}
                             </div>
                           </div>
-                              <div className="z-0">
+                          <div className="z-0">
+                            <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
+                              <DialogTrigger>
                                 <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px]  border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
-                              </div>
-                            </div >
+                              </DialogTrigger>
+                              <DialogContent>
+                                
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                        </div >
                       ))}
-                       <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
-                            <DialogTrigger>
-                            </DialogTrigger>
-                            <DialogContent>
-                              {categories.map(ct => ct.room.map(r => r.schedules.filter(sc => sc.room_id === r.id).map(scr => (
-                                <>{r.schedules != "" ? scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
-                                  <Table>
-                                    <TableHeader>
-                                      <TableHead className="font-semibold text-[12px] w-[180px]">Day</TableHead>
-                                      <TableHead className="font-semibold text-[12px] w-[180px]">Teacher</TableHead>
-                                      <TableHead className="font-semibold text-[12px] w-[180px]">Time</TableHead>
-                                      <TableHead className="font-semibold text-[12px] w-[180px]">Section</TableHead>
-                                      <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
-                                      <TableHead className="font-semibold text-[12px] w-[180px]">Date</TableHead>
-                                    </TableHeader>
-                                    <TableRow className=" no-scrollbar" key={r.id}>
-                                      <TableCell className="w-[20px]">{scr.day}</TableCell>
-                                      {Teachers.filter(x => x.id === scr.teacher_id).map(t =>
-                                        <TableCell className="w-[20px]">{t.name}</TableCell>
-                                      )}
-                                      <TableCell className="w-[30px] text-[10px]">{scr.start_time}-{scr.end_time}</TableCell>
-                                      {Sections.filter(x => x.id === scr.section_id).map(s =>
-                                        <TableCell className="w-[20px]">{s.name}</TableCell>
-                                      )}
-                                      <TableCell className="w-[20px]">{scr.subject}</TableCell>
-                                      <TableCell className="w-[20px] text-[9px]">{scr.date}</TableCell>
-                                    </TableRow>
-                                  </Table>
-                                  : "" : ""}
-                                </>
-                              ))))}
-                            </DialogContent>
-                          </Dialog>
+
                     </> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
                   </div>
                 </div >
@@ -315,7 +295,7 @@ export default function Room() {
                           <SelectContent>
                             <SelectGroup className="w-[380px] text-[#11172E]">
                               {categories.map(cr =>
-                                <SelectItem className="hover:bg-cyan-200" value={cr.id}>{cr.category}</SelectItem>
+                                <SelectItem key={cr.id} className="hover:bg-cyan-200" value={cr.id}>{cr.category}</SelectItem>
                               )}
                             </SelectGroup>
                           </SelectContent>
