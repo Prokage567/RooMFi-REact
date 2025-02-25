@@ -4,6 +4,8 @@ import { DayPicker } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import dayjs from "dayjs"
+import weekday from 'dayjs/plugin/weekday'
+
 function Calendar({
   className,
   classNames,
@@ -12,6 +14,7 @@ function Calendar({
   hihi,
   ...props
 }) {
+  dayjs.extend(weekday)
   return (
     (
       <DayPicker
@@ -68,13 +71,14 @@ function Calendar({
 
             return (<div className={cn("", className)} displaymonth={displayMonth} {...props}>
               <div className=" mt-[30px] h-[65px] overflow-scroll no-scrollbar">
-              <div className="w-[3px] absolute top-1 right-[23px]">{dayjs(props.date).date()}</div>
-              {
-                schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
+                <div className="w-[3px] absolute top-1 right-[23px]">{dayjs(props.date).date()}</div>
+                {
+                  schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
+                    // x.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && x.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
                     <div className=" ml-1 w-[140px] text-secondary  text-[9px] font-[NiramitReg] h-[30px]  ">
                       <div className="w-[140px] bg-[#90E0FF]  relative">
                         <div className="w-[114px] text-[#0c146e]">
-                        {x.room.name} | {x.end_time} - {x.start_time}
+                          {x.room.name} | {x.end_time} - {x.start_time}
                         </div>
                       </div>
                       <div className="flex flex-wrap italic w-[130px] text-[#0c146e] ml-1">
@@ -82,8 +86,9 @@ function Calendar({
                         <div className="ml-1"> {x.subject}</div>
                       </div>
                     </div>
-                ))
-              }
+
+                  ))
+                }
               </div>
             </div>)
           }

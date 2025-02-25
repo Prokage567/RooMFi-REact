@@ -184,7 +184,6 @@ export default function Room() {
                       <TableCell className="w-[20px] pr-5 pl-5">{sc.subject}</TableCell>
                       <TableCell className="w-[20px] pr-5 pl-5">{sc.date}</TableCell>
                     </TableRow>
-                    {console.log(sc.date)}
                   </> : ""}
                   </>
                 ))))}
@@ -199,7 +198,7 @@ export default function Room() {
                   <div>
                     {user?.map(user => <div className="">
                       {user.role_id == "admin" ?
-                        <AdminPowers1 input={r.id} admin={token} reload={refreshCategory()} />
+                        <AdminPowers1 input={r.id} admin={token} reload={refreshCategory} />
                         : ""}
                     </div>
                     )}
@@ -208,10 +207,10 @@ export default function Room() {
                   <div>
                     {r.room.filter(rsc => rsc.schedules == "").map(room =>
                       <>
-                        {user?.map(r => 
+                        {user?.map(r =>
                           r.role_id == "teacher" ?
-                          <TeacherReq rooms={room} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
-                          : ""
+                            <TeacherReq rooms={room} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
+                            : ""
                         )}
                       </>)}
 
@@ -243,7 +242,33 @@ export default function Room() {
                               </div>
                             </DialogTrigger>
                             <DialogContent>
-                              {categories.map(ct => ct.room.map(r => r.schedules.filter(sc => sc.room_id === r.id).map(scr => scr.name)))}
+                              {categories.map(ct => ct.room.map(r => r.schedules.filter(sc => sc.room_id === r.id).map(scr => (
+                                <>{scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
+                                  <Table>
+                                    <TableHeader>
+                                      <TableHead className="font-semibold text-[12px] w-[180px]">Day</TableHead>
+                                      <TableHead className="font-semibold text-[12px] w-[180px]">Teacher</TableHead>
+                                      <TableHead className="font-semibold text-[12px] w-[180px]">Time</TableHead>
+                                      <TableHead className="font-semibold text-[12px] w-[180px]">Section</TableHead>
+                                      <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
+                                      <TableHead className="font-semibold text-[12px] w-[180px]">Date</TableHead>
+                                    </TableHeader>
+                                    <TableRow className=" no-scrollbar" key={r.id}>
+                                      <TableCell className="w-[20px]">{scr.day}</TableCell>
+                                      {Teachers.filter(x => x.id === scr.teacher_id).map(t =>
+                                        <TableCell className="w-[20px]">{t.name}</TableCell>
+                                      )}
+                                      <TableCell className="w-[30px] text-[10px]">{scr.start_time}-{scr.end_time}</TableCell>
+                                      {Sections.filter(x => x.id === scr.section_id).map(s =>
+                                        <TableCell className="w-[20px]">{s.name}</TableCell>
+                                      )}
+                                      <TableCell className="w-[20px]">{scr.subject}</TableCell>
+                                      <TableCell className="w-[20px] text-[9px]">{scr.date}</TableCell>
+                                    </TableRow>
+                                  </Table>
+                                  : ""}
+                                </>
+                              ))))}
                             </DialogContent>
                           </Dialog>
                         </div >

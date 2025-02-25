@@ -20,7 +20,6 @@ export default function AdminPowers1({ input, admin, reload }) {
     const [save, setSave] = useState(false)
     const DelCategoryById = () => {
         const id = input
-        console.log(id)
         return (
             DelCategoryId(id, admin).then(res => {
                 if (res?.ok) {
@@ -32,7 +31,7 @@ export default function AdminPowers1({ input, admin, reload }) {
         )
     }
     const UpdCategoryById = () => {
-        const id = input.id
+        const id = input
         const name = $("#name").val()
         return (
             UpdCategoryId(id, admin, { category: name }).then(res => {
@@ -74,7 +73,7 @@ export default function AdminPowers1({ input, admin, reload }) {
                         Category Name: {input.category}
                     </DialogDescription>
                     <Label>Replace Category Number:</Label>
-                    <Input id="name" maxLength="4" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Category name" />
+                    <Input id="name" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Category name" />
                     <div className="border-t-[1px]">
                         <Button onClick={() => setClose(false)} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
                         <Button onClick={() => UpdCategoryById()} className={"fixed bottom-2 right-12 text-[18px] w-[40px] hover:font-bold font-[NiramitReg]  border-white bg-transparent hover:bg-transparent text-white"}>Yes</Button>
