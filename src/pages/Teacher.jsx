@@ -149,7 +149,7 @@ function Teacher() {
 
         <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
             {teachers.map(t => (
-                <div>
+                <div  key={t.id}>
                     <Card key={t.id}>
                         {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
                             <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={() => replaceSchedule()} setShow={setshow}
@@ -167,29 +167,29 @@ function Teacher() {
                             {t.schedules != "" ?
                                 <>
                                     <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
-                                        <TableRow>
+                                        <TableHeader>
                                             <TableHead>Monday</TableHead>
-                                        </TableRow>
+                                        </TableHeader>
                                         {Filter(t, "Monday")}
-                                        <TableRow>
+                                        <TableHeader>
                                             <TableHead>Tuesday</TableHead>
-                                        </TableRow>
+                                        </TableHeader>
                                         {Filter(t, "Tuesday")}
-                                        <TableRow>
+                                        <TableHeader>
                                             <TableHead>Wednesday</TableHead>
-                                        </TableRow>
+                                        </TableHeader>
                                         {Filter(t, "Wednesday")}
-                                        <TableRow>
+                                        <TableHeader>
                                             <TableHead>Thursday</TableHead>
-                                        </TableRow>
+                                        </TableHeader>
                                         {Filter(t, "Thursday")}
-                                        <TableRow>
+                                        <TableHeader>
                                             <TableHead>Friday</TableHead>
-                                        </TableRow>
+                                        </TableHeader>
                                         {Filter(t, "Friday")}
-                                        <TableRow>
+                                        <TableHeader>
                                             <TableHead>Saturday</TableHead>
-                                        </TableRow>
+                                        </TableHeader>
                                         {Filter(t, "Saturday")}
                                     </Table>
                                 </> :
