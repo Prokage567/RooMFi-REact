@@ -266,7 +266,7 @@ export default function Room() {
                                       <TableCell className="w-[20px] text-[9px]">{scr.date}</TableCell>
                                     </TableRow>
                                   </Table>
-                                  : ""}
+                                  :""}
                                 </>
                               ))))}
                             </DialogContent>
