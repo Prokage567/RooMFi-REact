@@ -86,7 +86,9 @@ export default function AdminPowers({ input, admin, room, category }) {
                             <SelectValue placeholder="Select a Room's Category" />
                         </SelectTrigger>
                         <SelectContent className="font-[NiramitReg]" >
-                            <SelectItem key={room.id} className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={`${room.category_id}`}>{category}</SelectItem>
+                            {[room].forEach(r => {
+                            <SelectItem key={r.id} className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={`${r.category_id}`}>{category}</SelectItem>}
+                            )}
                         </SelectContent>
                     </Select>
 

@@ -72,7 +72,7 @@ export default function AdminPowers1({ input, admin, reload }) {
                     <DialogDescription>
                         Category Name: {input.category}
                     </DialogDescription>
-                    <Label>Replace Category Number:</Label>
+                    <Label>Replace Category:</Label>
                     <Input id="name" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Category name" />
                     <div className="border-t-[1px]">
                         <Button onClick={() => setClose(false)} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
