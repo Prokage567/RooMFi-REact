@@ -52,10 +52,10 @@ export default function AdminPowers({ input, admin, room, category }) {
     }
     return (
         <div>
-            <div className="z-10  hover:rounded-md absolute left-2 top-2 bg-[#0F172A]/70 rounded-[50%] size-8">
+            <div className="z-10  rounded-md absolute left-2 top-2 bg-[#0F172A]/50  size-8">
                 <Dialog open={save} onOpenChange={setSave}>
                     <DialogTrigger>
-                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] " />
+                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] p-[2px] hover:p-0  " />
                     </DialogTrigger>
                     <DialogContent className="bg-[#11172E] h-[200px]">
                         <DialogDescription></DialogDescription>
@@ -70,8 +70,8 @@ export default function AdminPowers({ input, admin, room, category }) {
                 </Dialog>
             </div>
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className=" z-10  right-2 top-2 bg-[#0F172A]/70 absolute hover:rounded-md size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] text-[#ffffff] hover:text-[#fff]/30 " />
+                <DialogTrigger className=" z-10  right-2 top-2 bg-[#0F172A]/50 absolute rounded-md size-8 ">
+                    <Pencil className="ml-[4px] mt-[2px] text-[#ffffff] p-[2px] hover:p-0 " />
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[300px]">

@@ -202,7 +202,7 @@ export default function Room() {
                         : ""}
                     </div>
                     )}
-                    <p className="text-[40px] font-[100] mt-[40px] mb-4">{r.category}</p>
+                    <p className="text-[40px] font-[100] ml-20 mt-[40px] mb-4">{r.category}</p>
                   </div>
                   <div>
                     {r.room.filter(rsc => rsc.schedules == "").map(room =>
@@ -227,7 +227,7 @@ export default function Room() {
                               }
                             </div>
                           )}
-                          <div className="z-10 absolute  justify-items-center grid h-[60px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
+                          <div className="z-10 absolute  justify-items-center grid h-[60px] mb-[5px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
                             <div className=" mt-1 ">
                               Room {room.name}
                             </div>
@@ -236,7 +236,7 @@ export default function Room() {
                             </div>
                           </div>
                               <div className="z-0">
-                                <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px] border-[1px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
+                                <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px]  border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                               </div>
                             </div >
                       ))}

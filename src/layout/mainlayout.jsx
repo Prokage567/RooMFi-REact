@@ -55,7 +55,7 @@ const  reloadCategory = () =>{
             <div className="flex min-h-screen flex-col">
                 <nav className="fixed min-w-full z-20">
                     <div className="bg-[url(../assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
-                        {/* {!user ?
+                        {!user ?
                             <div>
                                 <div>
                                     <Link to="../login" className="absolute w-32 top-7 text-white right-60 font-[NiramitReg] text-[18px] rounded-[100px] bg-[#BFAC88] pr-5 pl-5 hover:bg-[#3F9DC1] h-9 flex justify-center items-center flex-row content-center">
@@ -69,7 +69,7 @@ const  reloadCategory = () =>{
                                 </div>
                             </div> : ""
 
-                        } */}
+                        }
                         <div className="md:[200px] flex flex-row p-3">
                             <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]" />
                             <p className="font-[KronaOne] text-orange-500 md:text-[50px] lg:text-[40px] text-[55px] relative lg:top-[14px] md:top-[16px] top-[18px] lg:block md:block sm:block hidden transition-all">
@@ -159,7 +159,7 @@ const  reloadCategory = () =>{
                                 : ""
                             }
                             </div>
-
+ 
                         </div>
                     </nav>
                     <main className="text-slate-900 w-screen mt-20">

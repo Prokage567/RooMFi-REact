@@ -45,10 +45,10 @@ export default function AdminPowers1({ input, admin, reload }) {
     }
     return (
         <div>
-            <div className="z-10 absolute hover:rounded-md ml-10 m-auto mt-[-30px] bg-[#0F172A]/70 rounded-[50%] size-8">
+            <div className="z-10 absolute hover:rounded-md ml-10 m-auto mt-[15px] size-8">
                 <Dialog open={save} onOpenChange={setSave}>
-                    <DialogTrigger>
-                        <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] " />
+                    <DialogTrigger className="absolute z-10 m-auto hover:bg-slate-200 h-[35px] border-l-[2px] border-l-[#242F5B]/40 w-[35px]">
+                        <Trash2 className="text-[#242F5B] ml-[4px] mt-[4px] h-9 " />
                     </DialogTrigger>
                     <DialogContent className="bg-[#11172E] h-[200px]">
                         <DialogDescription></DialogDescription>
@@ -62,9 +62,11 @@ export default function AdminPowers1({ input, admin, reload }) {
                     </DialogContent>
                 </Dialog>
             </div>
+            <div className='z-10 absolute hover:rounded-md ml-1 m-auto mt-[19px] size-8'>
+
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className="absolute z-10 m-auto mt-[-30px] bg-[#0F172A]/70 hover:rounded-md size-8 rounded-[50%]">
-                    <Pencil className="ml-[4px] mt-[2px] text-[#ffffff] hover:text-[#fff]/30" />
+                <DialogTrigger className="absolute z-10 m-auto hover:bg-slate-200 h-[35px] border-r-[2px] border-r-[#242F5B]/40 w-[35px] ">
+                    <Pencil className="ml-[4px] mt-[2px] text-[#242F5B] h-9 " />
                 </DialogTrigger>
 
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[300px]">
@@ -80,6 +82,7 @@ export default function AdminPowers1({ input, admin, reload }) {
                     </div>
                 </DialogContent>
             </Dialog>
+            </div>
         </div>
     )
 }
