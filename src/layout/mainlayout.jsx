@@ -157,7 +157,7 @@ const  reloadCategory = () =>{
                                 : ""
                             }
                             </div>
-
+ 
                         </div>
                     </nav>
                     <main className="text-slate-900 w-screen mt-20">
