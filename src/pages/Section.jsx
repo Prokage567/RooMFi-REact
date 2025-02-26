@@ -141,7 +141,7 @@ export default function section() {
   }
   return (
     <>
-      <div className="justify-center flex">
+      <div className="justify-center items-center flex">
         <div className=" max-h-screen">
           <Cal
             mode="single"

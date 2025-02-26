@@ -25,7 +25,7 @@ export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button className="z-20 fixed h-[40px] w-[150px] bottom-10 right-12 font-extralight  bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
+                <Button className="z-20 fixed h-[40px] w-[150px] bottom-10 right-12 font-extralight  bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
                     Request Room
                 </Button>
             </DialogTrigger>
@@ -45,12 +45,20 @@ export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
                             </SelectContent>
                     </Select>
                     <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
+                    <div className="z-10 fixed ">
+
                     <Input type="hidden" id="user_id" value={user_id} />
                     <Input type="hidden" id="roomID" value={roomID} />
+                    </div>
+
+                <div className="border-t-[1px] h-7 ">
+                    <div className=" absolute  bottom-4 right-2">
+                        <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
+                    </div>
                 </div>
-                <DialogFooter className="flex justify-between">
-                    <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
-                </DialogFooter>
+
+                </div>
+             
             </DialogContent>
         </Dialog>
     )
