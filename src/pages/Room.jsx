@@ -240,7 +240,7 @@ export default function Room() {
                               {room.schedules ? room.schedules == "" ? "Available" : room.schedules.map(src => src.day === weekdays[dayjs().day()]) || r.schedules != "" ? "Unavailable" : "Available" : "Unavailable"}
                             </div>
                           </div>
-                          <div className="z-0 text-9xl border border-amber-900 text-black">
+                          <div className="z-0 text-9xl text-black">
                             <img src={`../src/assets/images/rooms/${room.name}.jpg`} onClick={() => setShowDialogue(true)} className="w-[300px] border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                           </div>
                           <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
