@@ -146,9 +146,9 @@ function Login() {
                                     paddingTop: "25px"
                                 }}>
                                 </Typography>
-                                    <div className="text-[#fff] ml-6 mb-8  ">
+                                    <div className="text-[#fff] ml-3 mb-3   ">
                                         <div>
-                                            Don"t have an account yet?<Link to="../Register" > <div className="z-10 absolute  bottom-[160px] ml-[200px] hover:underline">Register</div> </Link>
+                                            Don"t have an account yet?<Link to="../Register" > <div className="z-10 absolute  bottom-[111px] ml-[200px] hover:underline">Register</div> </Link>
                                         </div>
                                     </div>
 

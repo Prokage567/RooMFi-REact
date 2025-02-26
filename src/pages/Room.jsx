@@ -232,7 +232,7 @@ export default function Room() {
                               }
                             </div>
                           )}
-                          <div className="z-10 absolute  justify-items-center grid h-[60px] mb-[5px] w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
+                          <div className="z-10 absolute  justify-items-center grid h-[60px]  w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
                             <div className=" mt-1 ">
                               Room {room.name}
                             </div>
