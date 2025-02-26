@@ -210,12 +210,20 @@ function Register() {
                                     fontFamily: "NiramitReg",
                                     paddingBottom: "25px",
                                     paddingTop: "25px"
-                                }}>
-                                    Already have an account?<Link to="../Login" style={{
-                                        textDecoration: "none",
-                                        color: "#D9D9D9"
-                                    }}> back to Login</Link>
+                                }}>      
+                                <div className="mr-20  ">
+
+                                        Already have an account?<Link to="../Login" style={{
+                                            textDecoration: "none",
+                                            color: "#D9D9D9"
+                                        }}> <div className="z-10 -mt-[22px] ml-[205px]  w-[100px] hover:underline ">
+
+                                            back to Login
+                                            </div>
+                                        </Link>
+                                </div>
                                 </Typography>
+                                
                                 <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
 
                                     <Button onClick={register} sx={{

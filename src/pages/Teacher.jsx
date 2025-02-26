@@ -160,7 +160,7 @@ function Teacher() {
                         </div> : "")}
                         <CardHeader className="border-[#242F5B] border-2 rounded-t-lg w-100 h-[80px] bg-[#242F5B]">
                             <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#ffffff] text-center">{t.name}</CardTitle>
-                            <CardDescription className="font-[NiramitReg]  text-center text-[#0F1A42]">{t.subject}</CardDescription>
+                            <CardDescription className="font-[NiramitReg]  text-center text-[#ffffff]">{t.subject}</CardDescription>
                         </CardHeader>
 
                         <CardContent style={{ maxHeight: "175px" }} className="border-[#242F5B] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">

@@ -116,7 +116,8 @@ function Login() {
 
                                 <FormControl sx={customStyle} variant="filled">
                                     <Input id="nameEmail" sx={{
-                                        paddingLeft: "10px"
+                                        paddingLeft: "10px",
+                                       
                                     }}></Input>
                                 </FormControl>
                                 {warn?.name && (<div style={{ fontSize: "15px", color: "red" }}>{warn.name}</div>)}
@@ -139,16 +140,18 @@ function Login() {
 
                                 <Typography color="#D9D9D9" style={{
                                     textAlign: "center",
-                                    fontSize: "10px",
-                                    fontFamily: "kronaOne",
+                                    fontSize: "16px",
+                                    fontFamily: "NiramitReg",
                                     paddingBottom: "25px",
                                     paddingTop: "25px"
                                 }}>
-                                    Don"t have an account yet?<Link to="../Register" style={{
-                                        textDecoration: "none",
-                                        color: "#D9D9D9"
-                                    }}> Register</Link>
                                 </Typography>
+                                    <div className="text-[#fff] ml-6 mb-8  ">
+                                        <div>
+                                            Don"t have an account yet?<Link to="../Register" > <div className="z-10 absolute  bottom-[160px] ml-[200px] hover:underline">Register</div> </Link>
+                                        </div>
+                                    </div>
+
                                 <Box sx={{
                                     display: "flex",
                                     alignItems: "center",
@@ -160,7 +163,8 @@ function Login() {
                                         background: "#000C3D",
                                         color: "white",
                                         width: "150px",
-                                        fontFamily: "kronaOne"
+                                        fontFamily: "NiramitReg",
+                                
                                     }}>
                                         login
                                     </Button>

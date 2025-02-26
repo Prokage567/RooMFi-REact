@@ -143,14 +143,14 @@ const  reloadCategory = () =>{
 
                                         align="start">
                                         {user.map(u => <div key={u.id}>
-                                            <h1 className="text-white font-[NiramitReg] text-[20px]">{u.name}</h1>
+                                            <h1 className="text-white font-[NiramitReg] text-[18px]">{u.name}</h1>
                                             <h3 className="text-slate-400 font-[NiramitReg] text-[15px]">{u.role_id}</h3>
                                         </div>
                                         )}
 
                                         <div className="flex items-center justify-center mt-2">
-                                            <div onClick={logout} className="w-52 top-7 text-white right-20 font-[NiramitReg] text-[18px] rounded-sm bg-slate-900 bg-opacity-75 pr-5 pl-5 hover:bg-slate-900 h-9 flex justify-center items-center flex-row content-center">
-                                                <LogOut strokeWidth={2} className=" h-4" />Log out
+                                            <div onClick={logout} className="w-52 top-7 text-white right-20 font-[NiramitReg] text-[15px] rounded-sm bg-slate-900 bg-opacity-75 pr-5 pl-5 hover:bg-slate-900/40 h-9 flex justify-center items-center flex-row content-center">
+                                                <LogOut strokeWidth={2} className="h-4" />Log out
                                             </div>
                                         </div>
 
