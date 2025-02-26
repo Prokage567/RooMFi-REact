@@ -81,8 +81,8 @@ const  reloadCategory = () =>{
 
                 <div className="flex text-white font-[NiramitReg]  min-h-full">
                     <p className="fixed lg:w-[217px] md:w-[155px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
-                    <nav className=" ">
-                        <div className="overflow-scroll no-scrollbar sticky top-24 mt-[88px] h-[90vh]">
+                    <nav className="fixed overflow-y-scroll">
+                        <div className="  top-24 mt-[88px] h-[90vh]">
                             <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 hover:rounded-[10px] font-[NiramitBold] transition-all ">
                                 <img src={icon} className=" lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-[#3F9DC1]/70 hover:rounded-[10px]" />
                                 <p className="hidden lg:block md:block transition-all relative top-3">
@@ -162,7 +162,7 @@ const  reloadCategory = () =>{
  
                         </div>
                     </nav>
-                    <main className="text-slate-900 w-screen mt-20">
+                    <main className="text-slate-900 absolute w-[85vw] top-20 right-0">
                         <Outlet />
                     </main>
                 </div>
