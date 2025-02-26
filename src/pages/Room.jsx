@@ -6,7 +6,7 @@ import { AuthContext } from "../context/context"
 import AdminPowers from "../components/AdminPowers/AdminEditDeleteRooms.jsx"
 import AdminPowers1 from "../components/AdminPowers/AdminEditDeleteCategory.jsx"
 import { TeacherReq } from "../components/TeacherPowers/TeacherReqs.jsx"
-import { request } from "../components/TeacherPowers/Requests.jsx"
+import { Request } from "../components/TeacherPowers/Requests.jsx"
 import { useCookies } from "react-cookie"
 import {
   Dialog,
@@ -130,7 +130,7 @@ export default function Room() {
     })
   }
   const buttonSubmit = () => {
-    const user_id = $("#userID").val()
+    const user_id = $("#user_id").val()
     const room_id = $("#roomID").val()
     const reason = $("#reason").val()
     StoreRequest(token, { user_id: user_id, room_id: room_id, reason: reason }).then(res => {
@@ -237,22 +237,47 @@ export default function Room() {
                               Room {room.name}
                             </div>
                             <div className="mb-2">
-                              {room.schedules ? room.schedules == "" ? "Available" : room.schedules.map(src => src.day === weekdays[dayjs().day()]) ? "Available" : "Unavailable" : "Unavailable"}
+                              {room.schedules ? room.schedules == "" ? "Available" : room.schedules.map(src => src.day === weekdays[dayjs().day()]) || r.schedules != "" ? "Unavailable" : "Available" : "Unavailable"}
                             </div>
                           </div>
-                          <div className="z-0">
-                            <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
-                              <DialogTrigger>
-                                <img src={`../src/assets/images/rooms/${room.name}.jpg`} className="w-[300px]  border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
-                              </DialogTrigger>
-                              <DialogContent>
-                                
-                              </DialogContent>
-                            </Dialog>
+                          <div className="z-0 text-9xl border border-amber-900 text-black">
+                            <img src={`../src/assets/images/rooms/${room.name}.jpg`} onClick={() => setShowDialogue(true)} className="w-[300px] border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                           </div>
-                        </div >
+                          <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
+                            <DialogContent>
+                              {room.id}
+                              {/* {cat.map(ct=> ct.room.filter(r=> r.schedules!="").map(rm => rm.id === room.id))} */}
+                              {/* {r.schedules == "" ? "nodata" : r.schedules?.map(scr => scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD")) ?
+                                ''
+                                : ""} */}
+                              {/* scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
+                                    <Table>
+                                      <TableHeader>
+                                        <TableHead className="font-semibold text-[12px] w-[180px]">Day</TableHead>
+                                        <TableHead className="font-semibold text-[12px] w-[180px]">Teacher</TableHead>
+                                        <TableHead className="font-semibold text-[12px] w-[180px]">Time</TableHead>
+                                        <TableHead className="font-semibold text-[12px] w-[180px]">Section</TableHead>
+                                        <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
+                                        <TableHead className="font-semibold text-[12px] w-[180px]">Date</TableHead>
+                                      </TableHeader>
+                                      <TableRow className=" no-scrollbar" key={r.id}>
+                                        <TableCell className="w-[20px]">{scr.day}</TableCell>
+                                        {Teachers.filter(x => x.id === scr.teacher_id).map(t =>
+                                          <TableCell key={t.id} className="w-[20px]">{t.name}</TableCell>
+                                        )}
+                                        <TableCell className="w-[30px] text-[10px]">{scr.start_time}-{scr.end_time}</TableCell>
+                                        {Sections.filter(x => x.id === scr.section_id).map(s =>
+                                          <TableCell key={s.id} className="w-[20px]">{s.name}</TableCell>
+                                        )}
+                                        <TableCell className="w-[20px]">{scr.subject}</TableCell>
+                                        <TableCell className="w-[20px] text-[9px]">{scr.date}</TableCell>
+                                      </TableRow>
+                                    </Table>
+                                    : "" */}
+                            </DialogContent>
+                          </Dialog>
+                        </div>
                       ))}
-
                     </> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
                   </div>
                 </div >
@@ -267,7 +292,7 @@ export default function Room() {
           <div>
             {r.role_id == "admin" ?
               <>
-                {request("", r)}
+                <Request pop={""} room={r} token={token} />
                 <Dialog open={show} onOpenChange={setShow}>
                   <DialogTrigger>
                     <CirclePlus className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />

@@ -1,7 +1,7 @@
 import { URL } from "./config";
 
 export const getRequest = async () => {
-    const res = await fetch(`${URL}/request/`, {
+    const res = await fetch(`${URL}/requests`, {
         method: "GET",
         headers: {
             Accept: 'application/json',
@@ -11,7 +11,7 @@ export const getRequest = async () => {
     return await res.json()
 }
 export const getRequestById = async (id, toke, inputs) => {
-    const res = await fetch(`${URL}/request/${id}`, {
+    const res = await fetch(`${URL}/requests/${id}`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
@@ -21,19 +21,18 @@ export const getRequestById = async (id, toke, inputs) => {
     })
     return await res.json()
 }
-export const DelRequestId = async (id, toke, inputs) => {
-    const res = await fetch(`${URL}/request/${id}`, {
+export const DelRequestId = async (id, toke) => {
+    const res = await fetch(`${URL}/requests/${id}`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${toke}`
-        },
-        body: JSON.stringify(inputs)
+        }
     })
     return await res.json()
 }
 export const UpdRequestId = async (id, toke, inputs) => {
-    const res = await fetch(`${URL}/request/${id}`, {
+    const res = await fetch(`${URL}/requests/${id}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
@@ -44,7 +43,7 @@ export const UpdRequestId = async (id, toke, inputs) => {
     return await res.json()
 }
 export const StoreRequest = async ( toke, inputs) => {
-    const res = await fetch(`${URL}/request`, {
+    const res = await fetch(`${URL}/requests`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -54,3 +53,5 @@ export const StoreRequest = async ( toke, inputs) => {
     })
     return await res.json()
 }
+
+

@@ -19,7 +19,7 @@ import {
 import { useState } from "react";
 
 
-export const TeacherReq = (rooms, user_id, buttonSubmit) => {
+export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [roomID, setRoomID] = useState("")
     return (
@@ -40,11 +40,13 @@ export const TeacherReq = (rooms, user_id, buttonSubmit) => {
                             <SelectValue id="roomNumber" placeholder="Choose a room" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem key={rooms.rooms.id} id="room" className="font-[NiramitReg] text-[15px]  text-[#242F5B] hover:bg-[#bce9fc]" value={rooms.rooms.id}>{rooms.name}</SelectItem>
-                        </SelectContent>
+                           
+                                <SelectItem key={rooms.id} id="roomID" className="font-[NiramitReg] text-[15px]  text-[#242F5B] hover:bg-[#bce9fc]" value={rooms.id}>{rooms.name}</SelectItem>
+                            </SelectContent>
                     </Select>
                     <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
                     <Input type="hidden" id="user_id" value={user_id} />
+                    <Input type="hidden" id="roomID" value={roomID} />
                 </div>
                 <DialogFooter className="flex justify-between">
                     <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
