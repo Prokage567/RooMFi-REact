@@ -5,7 +5,9 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import dayjs from "dayjs"
 import weekday from 'dayjs/plugin/weekday'
-
+import { Dialog } from "./dialog"
+import { DialogContent, DialogTrigger } from "@radix-ui/react-dialog"
+import AdminPowers1 from "../AdminPowers/AdminEditDeleteCalendar"
 function Calendar({
   className,
   classNames,
@@ -21,7 +23,7 @@ function Calendar({
         showOutsideDays={showOutsideDays}
         className={cn("p-3 ", className)}
         classNames={{
-          months: "flex flex-col sm:flex-row gap-[45px] space-y-4 sm:space-x-4 sm:space-y-0",
+          months: "flex flex-col sm:flex-row gap-[45px] space-y-3 sm:space-x-3 sm:space-y-0",
           month: "space-y-4",
           caption: "relative top-3 items-center",
           caption_label: "indent-20 text-[#242F5B] text-[25px] font-bold",
@@ -38,7 +40,7 @@ function Calendar({
             " rounded-md w-[70px] sm:w-[80px] md:w-[100px] lg:w-[150px] text-[#242F5B] text-[18px] ",
           row: "flex  w-full",
           cell: cn(
-            "hover:bg-[#8CD7F4]/10 h-[70px] w-[70px] sm:h-[100px] md:h-[90px] lg:h-[100px] sm:w-[80px] md:w-[100px] lg:w-[150px] border-[#242F5B] border-opacity-50 border-[1px] relative p-0 text-end text-[20px] focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+            "hover:bg-[#8CD7F4]/10 h-[70px] w-[70px] sm:h-[100px] md:h-[90px] lg:h-[100px] sm:w-[80px] md:w-[100px] lg:w-[150px] border-[#242F5B] border-opacity-50 border-[1px] relative p-0 text-end text-[15px]  focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected].day-range-end)]:rounded-r-md",
             props.mode === "range"
               ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
               : "[&:has([aria-selected])]:rounded-md"
@@ -75,17 +77,28 @@ function Calendar({
                 {
                   schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
                     // x.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && x.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
-                    <div key={x.id} className=" ml-1 w-[140px] text-secondary  text-[9px] font-[NiramitReg] h-[30px]  ">
-                      <div className="w-[140px] bg-[#90E0FF]  relative">
-                        <div className="w-[114px] text-[#0c146e]">
+                    <>
+                    
+                    <div key={x.id} className=" ml-1 w-[140px]   text-secondary mb-1 text-[11px] font-[NiramitReg]  ">
+                      <div className="w-[140px] bg-[#90E0FF]  hover:rounded-sm  relative">
+                        <div className=" -ml-[6px]   w-[140px] text-[#0c146e]">
+                          <div className="z-20 absolute ml-[6px] -mt-[12px]">
+
+                          <AdminPowers1/>   
+                          </div>
                           {x.room.name} | {x.end_time} - {x.start_time}
                         </div>
                       </div>
-                      <div className="flex flex-wrap italic w-[130px] text-[#0c146e] ml-1">
-                        <div> {x.teacher.name} | </div>
-                        <div className="ml-1"> {x.subject}</div>
-                      </div>
+                 
+
+                        <div className="flex flex-wrap italic  w-[130px] text-[#0c146e] ml-1">
+                          <div> {x.teacher.name} | </div>
+                          <div className="ml-1"> {x.subject}</div>
+                        </div>
+                
                     </div>
+                    
+                    </>
 
                   ))
                 }

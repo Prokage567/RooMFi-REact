@@ -292,7 +292,7 @@ export default function Room() {
           <div>
             {r.role_id == "admin" ?
               <>
-                <Request pop={""} room={r} token={token} />
+                <Request reload={refreshCategory()} token={token} />
                 <Dialog open={show} onOpenChange={setShow}>
                   <DialogTrigger>
                     <CirclePlus className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />

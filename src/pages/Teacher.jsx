@@ -147,88 +147,124 @@ function Teacher() {
     }
     return (
 
-        <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
-            {teachers.map(t => (
-                <div  key={t.id}>
-                    <Card key={t.id}>
-                        {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
-                            <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={() => replaceSchedule()} setShow={setshow}
-                                SelectForSections={selectForAll("Section:", sections, setSection, "Section")}
-                                SelectForRooms={selectForAll("Room:", rooms, setRoom, "Room")}
-                                SelectForSched={selectForAll("Schedule:", t.schedules, setSched, "Schedule")}
-                            />
-                        </div> : "")}
-                        <CardHeader className="border-[#242F5B] border-2 rounded-t-lg w-100 h-[80px] bg-[#242F5B]">
-                            <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#ffffff] text-center">{t.name}</CardTitle>
-                            <CardDescription className="font-[NiramitReg]  text-center text-[#ffffff]">{t.subject}</CardDescription>
-                        </CardHeader>
+        // <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
+        //     {teachers.map(t => (
+        //         <div  key={t.id}>
+        //             <Card key={t.id}>
+        //                 {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
+        //                     <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={() => replaceSchedule()} setShow={setshow}
+        //                         SelectForSections={selectForAll("Section:", sections, setSection, "Section")}
+        //                         SelectForRooms={selectForAll("Room:", rooms, setRoom, "Room")}
+        //                         SelectForSched={selectForAll("Schedule:", t.schedules, setSched, "Schedule")}
+        //                     />
+        //                 </div> : "")}
+        //                 <CardHeader className="border-[#242F5B] border-2 rounded-t-lg w-100 h-[80px] bg-[#242F5B]">
+        //                     <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#ffffff] text-center">{t.name}</CardTitle>
+        //                     <CardDescription className="font-[NiramitReg]  text-center text-[#ffffff]">{t.subject}</CardDescription>
+        //                 </CardHeader>
 
-                        <CardContent style={{ maxHeight: "175px" }} className="border-[#242F5B] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
-                            {t.schedules != "" ?
-                                <>
-                                    <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
-                                        <TableHeader>
-                                            <TableHead>Monday</TableHead>
-                                        </TableHeader>
-                                        {Filter(t, "Monday")}
-                                        <TableHeader>
-                                            <TableHead>Tuesday</TableHead>
-                                        </TableHeader>
-                                        {Filter(t, "Tuesday")}
-                                        <TableHeader>
-                                            <TableHead>Wednesday</TableHead>
-                                        </TableHeader>
-                                        {Filter(t, "Wednesday")}
-                                        <TableHeader>
-                                            <TableHead>Thursday</TableHead>
-                                        </TableHeader>
-                                        {Filter(t, "Thursday")}
-                                        <TableHeader>
-                                            <TableHead>Friday</TableHead>
-                                        </TableHeader>
-                                        {Filter(t, "Friday")}
-                                        <TableHeader>
-                                            <TableHead>Saturday</TableHead>
-                                        </TableHeader>
-                                        {Filter(t, "Saturday")}
-                                    </Table>
-                                </> :
-                                <div className="w-[400px] h-1 font-[NiramitReg] text-5xl text-[#11172E]/30">
-                                    <p className="flex justify-center items-center pt-12">No Schedule</p>
-                                </div>
-                            }
-                        </CardContent>
-                    </Card>
-                </div>
-            ))}
+        //                 <CardContent style={{ maxHeight: "175px" }} className="border-[#242F5B] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
+        //                     {t.schedules != "" ?
+        //                         <>
+        //                             <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
+        //                                 <TableHeader>
+        //                                     <TableHead>Monday</TableHead>
+        //                                 </TableHeader>
+        //                                 {Filter(t, "Monday")}
+        //                                 <TableHeader>
+        //                                     <TableHead>Tuesday</TableHead>
+        //                                 </TableHeader>
+        //                                 {Filter(t, "Tuesday")}
+        //                                 <TableHeader>
+        //                                     <TableHead>Wednesday</TableHead>
+        //                                 </TableHeader>
+        //                                 {Filter(t, "Wednesday")}
+        //                                 <TableHeader>
+        //                                     <TableHead>Thursday</TableHead>
+        //                                 </TableHeader>
+        //                                 {Filter(t, "Thursday")}
+        //                                 <TableHeader>
+        //                                     <TableHead>Friday</TableHead>
+        //                                 </TableHeader>
+        //                                 {Filter(t, "Friday")}
+        //                                 <TableHeader>
+        //                                     <TableHead>Saturday</TableHead>
+        //                                 </TableHeader>
+        //                                 {Filter(t, "Saturday")}
+        //                             </Table>
+        //                         </> :
+        //                         <div className="w-[400px] h-1 font-[NiramitReg] text-5xl text-[#11172E]/30">
+        //                             <p className="flex justify-center items-center pt-12">No Schedule</p>
+        //                         </div>
+        //                     }
+        //                 </CardContent>
+        //             </Card>
+        //         </div>
+        //     ))}
 
-            {user ? user.map(u => u.role_id == "admin" ?
-                <div>
-                    <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
-                        <DialogTrigger>
-                            <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
-                        </DialogTrigger>
-                        <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
-                            <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
-                            <DialogDescription>
-                                Add a Teacher
-                            </DialogDescription>
+        //     {user ? user.map(u => u.role_id == "admin" ?
+        //         <div>
+        //             <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
+        //                 <DialogTrigger>
+        //                     <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
+        //                 </DialogTrigger>
+        //                 <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
+        //                     <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
+        //                     <DialogDescription>
+        //                         Add a Teacher
+        //                     </DialogDescription>
 
-                            <div className="grid w-full max-w-sm items-center gap-1.5">
-                                <Label>Add a Teacher by Name:</Label>
-                                <Input type="text" id="name" className="bg-white text-[#000]" />
-                                <Label>Add their Courses/Major:</Label>
-                                <Input type="text" id="techCourse" className="bg-white text-[#000]" />
-                            </div>
+        //                     <div className="grid w-full max-w-sm items-center gap-1.5">
+        //                         <Label>Add a Teacher by Name:</Label>
+        //                         <Input type="text" id="name" className="bg-white text-[#000]" />
+        //                         <Label>Add their Courses/Major:</Label>
+        //                         <Input type="text" id="techCourse" className="bg-white text-[#000]" />
+        //                     </div>
 
-                            <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
-                                <Button onClick={() => setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
-                                <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
-                            </div>
-                        </DialogContent>
-                    </Dialog>
-                </div>
-                : "") : ""}
+        //                     <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
+        //                         <Button onClick={() => setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
+        //                         <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
+        //                     </div>
+        //                 </DialogContent>
+        //             </Dialog>
+        //         </div>
+        //         : "") : ""}
+        // </div>
+        <div className="border h-[500px] mr-4 mt-4 ml-4">
+
+        <Table>
+            <TableHeader>
+                <TableRow> 
+                    <TableHead>
+                            TeacherName
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader>
+            <TableRow> 
+                    <TableHead>
+                            Teacher
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+            </TableBody>
+        </Table>
         </div>
     )
 }
