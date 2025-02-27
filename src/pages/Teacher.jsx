@@ -230,27 +230,99 @@ function Teacher() {
         //         </div>
         //         : "") : ""}
         // </div>
-        <div className="border h-[500px] mr-4 mt-4 ml-4">
+        
+        <div className="border  mr-4 mt-4 ml-10">
 
-        <Table>
+        <Table >
             <TableHeader>
+                <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] "> 
+                    
+                    <TableHead className="">
+                            Aladin P. Silvestre
+                    </TableHead>
+                    <TableHead className="">
+                            English Major
+                    </TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableHeader className="border-t-2 bg-red-500">
+                <TableRow > 
+                    <TableHead className="">
+                            monday
+                    </TableHead>
+                    
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader>
+                <TableRow > 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                  
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+            <TableHeader className="border-t-2">
                 <TableRow> 
                     <TableHead>
-                            TeacherName
+                            Tuesday
                     </TableHead>
                 </TableRow>
             </TableHeader>
             
             <TableHeader>
-            <TableRow> 
+                <TableRow> 
                     <TableHead>
-                            Teacher
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
                     </TableHead>
                     <TableHead>
                             Subject
                     </TableHead>
                     <TableHead>
-                            Subject
+                            Date
                     </TableHead>
                     <TableHead>
                             
@@ -262,8 +334,173 @@ function Teacher() {
                 <TableRow>
                     <TableCell>hello</TableCell>
                     <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
                 </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
             </TableBody>
+
+            <TableHeader className="border-t-2">
+                <TableRow> 
+                    <TableHead>
+                            Wednesday
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader>
+                <TableRow> 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+            
+            <TableHeader className="border-t-2">
+                <TableRow> 
+                    <TableHead>
+                            Thursday
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader>
+                <TableRow> 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+            <TableHeader className="border-t-2">
+                <TableRow> 
+                    <TableHead>
+                            Friday
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader>
+                <TableRow> 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+            
         </Table>
         </div>
     )
