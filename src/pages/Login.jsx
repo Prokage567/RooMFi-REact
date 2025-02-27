@@ -148,7 +148,7 @@ function Login() {
                                 </Typography>
                                     <div className="text-[#fff] ml-3 mb-3   ">
                                         <div>
-                                            Don"t have an account yet?<Link to="../Register" > <div className="z-10 absolute  bottom-[111px] ml-[200px] hover:underline">Register</div> </Link>
+                                            Don't have an account yet?<Link to="../Register" ><div className="z-10 relative bottom-6 ml-[195px] hover:underline">Register</div> </Link>
                                         </div>
                                     </div>
 

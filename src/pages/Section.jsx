@@ -34,7 +34,7 @@ import { AuthContext } from "../context/context"
 export default function section() {
   const { id } = useParams()
   const reload = () => {
-  getSectionbyId(id)
+    getSectionbyId(id)
   }
   const AddSections = () => {
     const name = $("#name").val()
@@ -50,14 +50,14 @@ export default function section() {
     reload()
     getSections()
     getTeachers()
-   refreshRooms()
+    refreshRooms()
   }, [id])
   const [date, setDate] = useState([])
   const [open, setOpen] = useState(false)
   const [show, setShow] = useState(0)
   const [cookies] = useCookies()
   const token = cookies.token
-  const { user, Sections, getSections, SectionbyId, getSectionbyId, Teachers, getTeachers,Rooms,refreshRooms } = useContext(AuthContext)
+  const { user, Sections, getSections, SectionbyId, getSectionbyId, Teachers, getTeachers, Rooms, refreshRooms } = useContext(AuthContext)
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
   const [section, setSection] = useState("")
@@ -147,8 +147,7 @@ export default function section() {
                       id="subject"
                       placeholder="Input Subject" />
                   </div>
-
-                  <PopUpCalendar className="pt-3" />
+                  <PopUpCalendar className="pt-3"/>
                   <div className="flex flex-row w-[450px] ">
                     <div>
                       <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">

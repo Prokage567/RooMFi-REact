@@ -6,6 +6,7 @@ import { getTeacher } from '../api/teacher';
 import { getSection, getSectionId } from '../api/section';
 import { getCategory, getCategoryId } from '../api/category';
 import { getRoom } from '../api/room';
+import { getSched } from '../api/sched';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -20,6 +21,15 @@ export const AuthProvider = ({ children }) => {
 
   const login = (userData) => {
     setUser(userData);
+  }
+  const refreshSched = () => {
+    getSched().then(res => {
+      if (res.ok) {
+        toast.success(res.message)
+      }
+    }
+
+    )
   }
   const refreshRooms = () => {
     getRoom().then(res => {
@@ -81,11 +91,11 @@ export const AuthProvider = ({ children }) => {
       getTeachers()
       getSections()
       refreshCategory()
-    }, 10000)
+    }, 60000)
     return () => clearInterval(interval)
   }, [])
   return (
-    <AuthContext.Provider value={{ user, login, logout, Teachers, getTeachers, Sections, getSections, categories, refreshCategory, category, refreshCategoryById, SectionbyId, getSectionbyId,Rooms,refreshRooms}}>
+    <AuthContext.Provider value={{ user, login, logout, Teachers, getTeachers, Sections, getSections, categories, refreshCategory, category, refreshCategoryById, SectionbyId, getSectionbyId, Rooms, refreshRooms,refreshSched }}>
       {children}
     </AuthContext.Provider>
   )

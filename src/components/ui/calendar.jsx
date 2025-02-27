@@ -8,12 +8,14 @@ import weekday from 'dayjs/plugin/weekday'
 import { Dialog } from "./dialog"
 import { DialogContent, DialogTrigger } from "@radix-ui/react-dialog"
 import AdminPowers1 from "../AdminPowers/AdminEditDeleteCalendar"
+import { AuthContext } from "../../context/context"
 function Calendar({
   className,
   classNames,
-  schedules, //data comes from the Section in section.jsx
+  schedules,
   showOutsideDays = true,
   hihi,
+  id,
   ...props
 }) {
   dayjs.extend(weekday)
@@ -78,26 +80,25 @@ function Calendar({
                   schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
                     // x.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && x.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
                     <>
-                    
-                    <div key={x.id} className=" ml-1 w-[140px]   text-secondary mb-1 text-[11px] font-[NiramitReg]  ">
-                      <div className="w-[140px] bg-[#90E0FF]  hover:rounded-sm  relative">
-                        <div className=" -ml-[6px]   w-[140px] text-[#0c146e]">
-                          <div className="z-20 absolute ml-[6px] -mt-[12px]">
 
-                          <AdminPowers1/>   
+                      <div key={x.id} className=" ml-1 w-[140px]   text-secondary mb-1 text-[11px] font-[NiramitReg]  ">
+                        <div className="w-[140px] bg-[#90E0FF]  hover:rounded-sm  relative">
+                          <div className=" -ml-[6px] w-[140px] text-[#0c146e]">
+                            <div className="z-20 absolute ml-[6px] -mt-[12px]">
+                              <AdminPowers1 input={x}/>
+                            </div>
+                            {x.room.name} | {x.start_time} - {x.end_time}
                           </div>
-                          {x.room.name} | {x.end_time} - {x.start_time}
                         </div>
-                      </div>
-                 
+
 
                         <div className="flex flex-wrap italic  w-[130px] text-[#0c146e] ml-1">
                           <div> {x.teacher.name} | </div>
                           <div className="ml-1"> {x.subject}</div>
                         </div>
-                
-                    </div>
-                    
+
+                      </div>
+
                     </>
 
                   ))

@@ -83,7 +83,7 @@ export default function AdminPowers({ teacher, admin, Teacher, Show, UpdSched, s
                         <Input id="teacher" type="hidden" value={Teacher.id} className="bg-white text-[#000] "/>
                         <Input id="id" type="hidden" className="bg-white text-[#000] "/>
                     </div>
-                        <PopUpCalendar className="w-[385px]" />
+                        <PopUpCalendar className="w-[385px]" /> {/* put a different auto input */}
                         <div className="flex flex-row w-[385px] -mt-4">
                             <div>
                                 <div className=" w-[385px] border-b-[1px] border-[#fff]/50 pb-2">

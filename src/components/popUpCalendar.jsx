@@ -14,7 +14,7 @@ import { Input } from './ui/input'
 import dayjs from 'dayjs'
 
 export default function PopUpCalendar({
-  className,
+  className
 }) {
   const [date, setDate] = React.useState({})
   return (

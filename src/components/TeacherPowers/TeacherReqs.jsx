@@ -40,9 +40,7 @@ export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
                             <SelectValue id="roomNumber" placeholder="Choose a room" />
                         </SelectTrigger>
                         <SelectContent>
-                        
                                 <SelectItem key={rooms.id} id="roomID" className="font-[NiramitReg] text-[15px]  text-[#242F5B] hover:bg-[#bce9fc]" value={rooms.id}>{rooms.name}</SelectItem>
-                            
                         </SelectContent>
                     </Select>
                     <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
