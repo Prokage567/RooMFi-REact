@@ -1,4 +1,20 @@
 import { React, useContext, useEffect, useState } from "react"
+import { 
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "../components/ui/accordion.jsx"
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuIndicator,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    NavigationMenuViewport,
+  } from "../components/ui/navigation-menu.jsx"
 import {
     Card,
     CardContent,
@@ -145,7 +161,442 @@ function Teacher() {
         </>
         )
     }
-    return (
+    return (<>
+            {user ? user.map(u => u.role_id == "admin" ?
+                <div>
+                    <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
+                        <DialogTrigger>
+                            <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 z-50 right-0" />
+                        </DialogTrigger>
+                        <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
+                            <DialogTitle className="font-thin h-4 w-[250px] border">Edit Room Name</DialogTitle>
+                            <DialogDescription>
+                                Add a Teacher
+                            </DialogDescription>
+
+                            <div className="grid w-full max-w-sm items-center gap-1.5">
+                                <Label>Add a Teacher by Name:</Label>
+                                <Input type="text" id="name" className="bg-white text-[#000]" />
+                                <Label>Add their Courses/Major:</Label>
+                                <Input type="text" id="techCourse" className="bg-white text-[#000]" />
+                            </div>
+
+                            <div className=" mt-[15px] flex border w-[350px] flex-wrap  border-t-[1px] border-[#fff]/40">
+                                <Button onClick={() => setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
+                                <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
+                            </div>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+                : "") : ""}
+
+<div className="relative">
+        <div className="sticky top-24 z-10 ml-10 ">
+            
+            <NavigationMenu>
+                <NavigationMenuList>
+                    <NavigationMenuItem>
+                      
+                        <NavigationMenuTrigger className="w-[150px] text-[20px] border bg-[#1f2950] text-[#fff] hover:text-[#1f2950] ">
+                            Teachers
+                        </NavigationMenuTrigger>
+
+                       <NavigationMenuContent >
+                            
+                            <div className="w-[215px] h-[400px]">
+                                <div className="w-[212px] h-[380px]  flex flex-col  no-scrollbar mt-2 ml-2">
+
+                                    <div className="hover:bg-[#90E0FF]/30 p-2  w-[200px] ">
+                                        <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
+                                            className="h-[25px] -ml-3 pl-8 border-transparent py-2  w-[200px]  focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+                                    </div>
+
+
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                        Aladin P. Silvestre greay hihi
+                                    </div>
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                        Aladin P. Silvestre greay hihi
+                                    </div>
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                        Aladin P. Silvestre greay hihi
+                                    </div>
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                        Aladin P. Silvestre greay hihi
+                                    </div>
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                        Aladin P. Silvestre greay hihi
+                                    </div>
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                        Aladin P. Silvestre greay hihi
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        </NavigationMenuContent>
+                         
+                    </NavigationMenuItem>
+                </NavigationMenuList>
+            </NavigationMenu>
+        </div>
+        
+        <div className="border  mr-4 mt-4 ml-10">
+        <Table >
+            <TableHeader>
+                <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] "> 
+                    
+                    <TableHead className="">
+                            Aladin P. Silvestre
+                    </TableHead>
+                    <TableHead className="">
+                            English Major
+                    </TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead>
+                        
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableHeader className=" bg-[#90E0FF] text-[18px]">
+                <TableRow > 
+                    <TableHead className="">
+                            monday
+                    </TableHead>
+                    
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader className="text-muted-foreground">
+                <TableRow > 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                  
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+
+            <TableHeader className=" bg-[#90E0FF] text-[18px]">
+                <TableRow > 
+                    <TableHead className="">
+                            Tuesday
+                    </TableHead>
+                    
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader  className="text-muted-foreground">
+                <TableRow> 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+
+            <TableHeader className=" bg-[#90E0FF] text-[18px]">
+                <TableRow > 
+                    <TableHead className="">
+                            Wednesday
+                    </TableHead>
+                    
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader  className="text-muted-foreground">
+                <TableRow> 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+            
+            <TableHeader className=" bg-[#90E0FF] text-[18px]">
+                <TableRow > 
+                    <TableHead className="">
+                            Thursday
+                    </TableHead>
+                    
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader  className="text-muted-foreground">
+                <TableRow> 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+            <TableHeader className=" bg-[#90E0FF] text-[18px]">
+                <TableRow > 
+                    <TableHead className="">
+                            Friday
+                    </TableHead>
+                    
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader  className="text-muted-foreground">
+                <TableRow> 
+                    <TableHead>
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+
+            <TableHeader className=" bg-[#90E0FF] text-[18px]">
+                <TableRow > 
+                    <TableHead className="">
+                            Saturday
+                    </TableHead>
+                    
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    <TableHead></TableHead>
+                    
+                </TableRow>
+            </TableHeader>
+            
+            <TableHeader  className="text-muted-foreground" >
+                <TableRow > 
+                    <TableHead >
+                            Section
+                    </TableHead>
+                    <TableHead>
+                            Time
+                    </TableHead>
+                    <TableHead>
+                            Subject
+                    </TableHead>
+                    <TableHead>
+                            Date
+                    </TableHead>
+                    <TableHead>
+                            
+                    </TableHead>
+                </TableRow>
+            </TableHeader>
+
+            <TableBody>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+                <TableRow>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                    <TableCell>hello</TableCell>
+                </TableRow>
+    
+            </TableBody>
+            
+        </Table>
+        </div>
+
+    </div>  
+    </>
 
         // <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
         //     {teachers.map(t => (
@@ -202,307 +653,6 @@ function Teacher() {
         //         </div>
         //     ))}
 
-        //     {user ? user.map(u => u.role_id == "admin" ?
-        //         <div>
-        //             <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
-        //                 <DialogTrigger>
-        //                     <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 right-0" />
-        //                 </DialogTrigger>
-        //                 <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
-        //                     <DialogTitle className="font-thin  p-0 h-[40px] w-[300px]  ml-[30px]">Edit Room Name</DialogTitle>
-        //                     <DialogDescription>
-        //                         Add a Teacher
-        //                     </DialogDescription>
-
-        //                     <div className="grid w-full max-w-sm items-center gap-1.5">
-        //                         <Label>Add a Teacher by Name:</Label>
-        //                         <Input type="text" id="name" className="bg-white text-[#000]" />
-        //                         <Label>Add their Courses/Major:</Label>
-        //                         <Input type="text" id="techCourse" className="bg-white text-[#000]" />
-        //                     </div>
-
-        //                     <div className=" mt-[15px] flex flex-wrap gap-[60px] border-t-[1px] border-[#fff]/40">
-        //                         <Button onClick={() => setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
-        //                         <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
-        //                     </div>
-        //                 </DialogContent>
-        //             </Dialog>
-        //         </div>
-        //         : "") : ""}
-        // </div>
-        
-        <div className="border  mr-4 mt-4 ml-10">
-
-        <Table >
-            <TableHeader>
-                <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] "> 
-                    
-                    <TableHead className="">
-                            Aladin P. Silvestre
-                    </TableHead>
-                    <TableHead className="">
-                            English Major
-                    </TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableHeader className="border-t-2 bg-red-500">
-                <TableRow > 
-                    <TableHead className="">
-                            monday
-                    </TableHead>
-                    
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    
-                </TableRow>
-            </TableHeader>
-            
-            <TableHeader>
-                <TableRow > 
-                    <TableHead>
-                            Section
-                    </TableHead>
-                    <TableHead>
-                            Subject
-                    </TableHead>
-                    <TableHead>
-                            Time
-                    </TableHead>
-                    <TableHead>
-                            Date
-                    </TableHead>
-                  
-                </TableRow>
-            </TableHeader>
-
-            <TableBody>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-    
-            </TableBody>
-            <TableHeader className="border-t-2">
-                <TableRow> 
-                    <TableHead>
-                            Tuesday
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-            
-            <TableHeader>
-                <TableRow> 
-                    <TableHead>
-                            Section
-                    </TableHead>
-                    <TableHead>
-                            Time
-                    </TableHead>
-                    <TableHead>
-                            Subject
-                    </TableHead>
-                    <TableHead>
-                            Date
-                    </TableHead>
-                    <TableHead>
-                            
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableBody>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-    
-            </TableBody>
-
-            <TableHeader className="border-t-2">
-                <TableRow> 
-                    <TableHead>
-                            Wednesday
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-            
-            <TableHeader>
-                <TableRow> 
-                    <TableHead>
-                            Section
-                    </TableHead>
-                    <TableHead>
-                            Time
-                    </TableHead>
-                    <TableHead>
-                            Subject
-                    </TableHead>
-                    <TableHead>
-                            Date
-                    </TableHead>
-                    <TableHead>
-                            
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableBody>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-    
-            </TableBody>
-            
-            <TableHeader className="border-t-2">
-                <TableRow> 
-                    <TableHead>
-                            Thursday
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-            
-            <TableHeader>
-                <TableRow> 
-                    <TableHead>
-                            Section
-                    </TableHead>
-                    <TableHead>
-                            Time
-                    </TableHead>
-                    <TableHead>
-                            Subject
-                    </TableHead>
-                    <TableHead>
-                            Date
-                    </TableHead>
-                    <TableHead>
-                            
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableBody>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-    
-            </TableBody>
-            <TableHeader className="border-t-2">
-                <TableRow> 
-                    <TableHead>
-                            Friday
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-            
-            <TableHeader>
-                <TableRow> 
-                    <TableHead>
-                            Section
-                    </TableHead>
-                    <TableHead>
-                            Time
-                    </TableHead>
-                    <TableHead>
-                            Subject
-                    </TableHead>
-                    <TableHead>
-                            Date
-                    </TableHead>
-                    <TableHead>
-                            
-                    </TableHead>
-                </TableRow>
-            </TableHeader>
-
-            <TableBody>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-                <TableRow>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                    <TableCell>hello</TableCell>
-                </TableRow>
-    
-            </TableBody>
-            
-        </Table>
-        </div>
     )
 }
 export default Teacher
