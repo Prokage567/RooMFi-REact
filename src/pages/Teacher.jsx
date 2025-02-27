@@ -197,14 +197,14 @@ function Teacher() {
                 <NavigationMenuList>
                     <NavigationMenuItem>
                       
-                        <NavigationMenuTrigger className="w-[150px] text-[20px] border bg-[#1f2950] text-[#fff] hover:text-[#1f2950] ">
+                        <NavigationMenuTrigger className="w-[150px] text-[20px] border bg-[#1f2950] text-[#fff]">
                             Teachers
                         </NavigationMenuTrigger>
 
                        <NavigationMenuContent >
                             
                             <div className="w-[215px] h-[400px]">
-                                <div className="w-[212px] h-[380px]  flex flex-col  no-scrollbar mt-2 ml-2">
+                                <div className="w-[212px] h-[380px]  flex flex-col overflow-y-auto no-scrollbar mt-2 ml-2">
 
                                     <div className="hover:bg-[#90E0FF]/30 p-2  w-[200px] ">
                                         <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
@@ -212,24 +212,28 @@ function Teacher() {
                                     </div>
 
 
-                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[200px] ">
                                         Aladin P. Silvestre greay hihi
                                     </div>
-                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[200px] ">
                                         Aladin P. Silvestre greay hihi
                                     </div>
-                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[200px] ">
                                         Aladin P. Silvestre greay hihi
                                     </div>
-                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[200px] ">
                                         Aladin P. Silvestre greay hihi
                                     </div>
-                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[200px] ">
                                         Aladin P. Silvestre greay hihi
                                     </div>
-                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[158px] ">
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[200px] ">
                                         Aladin P. Silvestre greay hihi
                                     </div>
+                                    <div className="hover:bg-[#90E0FF]/30 p-2 border-b-[1px] w-[200px] ">
+                                        Aladin P. Silvestre greay hihi
+                                    </div>
+                                    
                                   
                                 </div>
                             </div>
