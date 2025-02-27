@@ -3,13 +3,15 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Search } from "lucide-react";
 
-const Input = React.forwardRef(({ symbol, className, type, length, placeholder, ...props }, ref) => {
+const Input = React.forwardRef(({ symbol2,symbol, className, type, length, placeholder, ...props }, ref) => {
   return (
     (<>
       <div>
         <div className="relative">
           {symbol ?
             <Search className="text-slate-900 absolute left-4 top-1/2 transform -translate-y-1/2" /> : ""}
+          {symbol2 ?
+            <Search className="text-slate-900 absolute left-[1px] top-1/2 h-[15px] w-[15px] transform -translate-y-1/2" /> : ""}
           <input
             type={type}
             maxLength={length}
