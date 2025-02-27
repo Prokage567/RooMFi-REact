@@ -9,6 +9,7 @@ import { Dialog } from "./dialog"
 import { DialogContent, DialogTrigger } from "@radix-ui/react-dialog"
 import AdminPowers1 from "../AdminPowers/AdminEditDeleteCalendar"
 import { AuthContext } from "../../context/context"
+import { useContext } from "react"
 function Calendar({
   className,
   classNames,
@@ -19,6 +20,7 @@ function Calendar({
   ...props
 }) {
   dayjs.extend(weekday)
+  const { user } = useContext(AuthContext)
   return (
     (
       <DayPicker
@@ -85,7 +87,9 @@ function Calendar({
                         <div className="w-[140px] bg-[#90E0FF]  hover:rounded-sm  relative">
                           <div className=" -ml-[6px] w-[140px] text-[#0c146e]">
                             <div className="z-20 absolute ml-[6px] -mt-[12px]">
-                              <AdminPowers1 input={x}/>
+                             
+                                <AdminPowers1 input={x} />
+                            
                             </div>
                             {x.room.name} | {x.start_time} - {x.end_time}
                           </div>

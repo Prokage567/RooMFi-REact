@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select"
 
 export default function AdminPowers1({ input}) {
-    const { getSectionbyId, Teachers, Sections, Rooms } = useContext(AuthContext)
+    const { getSectionbyId, user, Teachers, Sections, Rooms } = useContext(AuthContext)
     const { id } = useParams()
     const [cookies] = useCookies()
     const token = cookies.token
@@ -66,6 +66,7 @@ export default function AdminPowers1({ input}) {
     }
     const selectForAll = (label, inputs, setvalue, input) => {
         return (<>
+        
             <div className="font-[NiramitReg] text-white text-sm mt-2">{label}</div>
             <Select onValueChange={setvalue} id="room" className="font-[NiramitReg] ">
                 <SelectTrigger className="h-10  text-[#11124f] bg-white text-sm ">
@@ -83,6 +84,7 @@ export default function AdminPowers1({ input}) {
     return (
 
         <div>
+             {user ? user.map(u => u.role_id === "admin" ?
             <div className="z-10 absolute hover:rounded-md m-auto -ml-8 mt-[0px] size-8">
                 <Dialog open={save} onOpenChange={setSave}>
                     <DialogTrigger>
@@ -129,7 +131,7 @@ export default function AdminPowers1({ input}) {
                         </div>
                     </DialogContent>
                 </Dialog>
-            </div>
+            </div> :""):""}
             {/* <div className='z-10 absolute hover:rounded-md ml-1 m-auto mt-[19px] size-8'>
 
                 <Dialog open={close} onOpenChange={setClose}>
