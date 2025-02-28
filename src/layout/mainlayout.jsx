@@ -62,7 +62,7 @@ export default function MainLayout() {
                         }
                         <div className="md:[200px] flex flex-row p-3">
                             <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]" />
-                            <p className="font-[KronaOne] text-orange-500 md:text-[50px] lg:text-[40px] text-[55px] relative lg:top-[14px] md:top-[16px] top-[18px] lg:block md:block sm:block hidden transition-all">
+                            <p className="font-[Ni] text-orange-500 md:text-[50px] lg:text-[40px] text-[55px] relative lg:top-[14px] md:top-[16px] top-[18px] lg:block md:block sm:block hidden transition-all">
                                 RooMFI
                             </p>
                         </div>

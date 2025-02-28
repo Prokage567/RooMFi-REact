@@ -189,7 +189,7 @@ function Teacher() {
                     </Dialog>
                 </div>
                 : "") : ""}
-{/*
+
 <div className="relative">
         <div className="sticky top-24 z-10 ml-10 ">
             
@@ -599,10 +599,10 @@ function Teacher() {
         </Table>
         </div>
 
-    </div>   */}
+    </div>  
             {/* </> */}
 
-            <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
+            {/* <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
                 {teachers.map(t => (
                     <div key={t.id}>
                         <Card key={t.id}>
@@ -656,7 +656,7 @@ function Teacher() {
                         </Card>
                     </div>
                 ))}
-            </div>
+            </div> */}
         </>
         )
     }
