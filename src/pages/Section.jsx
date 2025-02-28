@@ -109,8 +109,8 @@ export default function section() {
           <SelectValue placeholder={`Select a ${input}`} />
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg] " >
-          {inputs.map(room =>
-            <SelectItem key={room.id} className="text-sm text-[#242F5B]  hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Sections ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
+          {inputs.map(option =>
+            <SelectItem key={option.id} className="text-sm text-[#242F5B]  hover:bg-[#bce9fc]" value={option.id}> {inputs == Teachers ? `${option.name} - ${option.subject} ` : inputs == Sections ? option.name : `${option.name} - ${option.category?.category}`} </SelectItem>
           )}
         </SelectContent>
       </Select>
@@ -127,6 +127,7 @@ export default function section() {
           
           <Cal
             mode="single"
+            showOutsideDays="true"
             selected={date}
             onSelect={setDate}
             className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"

@@ -214,12 +214,13 @@ function Teacher() {
                                                 className="h-[25px] relative left-4 border-transparent py-2  w-[200px]  focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
                                         </div>
 
-                                        <div className="border border-bg-black h-10 p-2 w-[13vw]">
                                         {searchInfo?.map(sc => Teachers.filter(t => t.id === sc.id).map(t =>
+                                        <div className="border border-bg-black h-10 p-2 w-[13vw]">
                                             <Link to={`./${t.id}`}>
                                                     {t.name}
-                                            </Link>))}
+                                            </Link>
                                                 </div>
+                                            ))}
                                     </div>
                                 </div>
                             </NavigationMenuContent>
@@ -229,9 +230,37 @@ function Teacher() {
                 </NavigationMenu>
             </div>
 
-            <div className="border  mr-4 mt-4 ml-10">
+            <div className="p-12">
                 <Table>
-                    {Teachers.filter(t => t.id == id)?.map(t => (
+                    {id?Teachers.filter(t => t.id == id).map(t => (
+                        <>
+                            <TableHeader>
+                                <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
+                                    <TableHead className="">
+                                        {t.name}
+                                    </TableHead>
+                                    <TableHead className="">
+                                        {t.subject}
+                                    </TableHead>
+                                    <TableHead></TableHead>
+                                    <TableHead></TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            {dayOfweeks("Monday")}
+                            {Filter(t, "Monday")}
+                            {dayOfweeks("Tuesday")}
+                            {Filter(t, "Tuesday")}
+                            {dayOfweeks("Wednesday")}
+                            {Filter(t, "Wednesday")}
+                            {dayOfweeks("Thursday")}
+                            {Filter(t, "Thursday")}
+                            {dayOfweeks("Friday")}
+                            {Filter(t, "Friday")}
+                            {dayOfweeks("Saturday")}
+                            {Filter(t, "Saturday")}
+                        </>
+                    )
+                    ):Teachers.map(t => (
                         <>
                             <TableHeader>
                                 <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
