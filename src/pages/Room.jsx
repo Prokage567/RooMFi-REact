@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom"
-import { getCategory, getCategoryId } from "../api/category"
 import { useContext, useEffect, useMemo } from "react"
 import { useState } from "react"
 import { AuthContext } from "../context/context"
@@ -36,8 +35,6 @@ import {
   TableRow,
 } from "../components/ui/table.jsx"
 import { CirclePlus, SquareChartGantt } from 'lucide-react'
-import { getTeacher } from "../api/teacher.js"
-import { getSection } from "../api/section.js"
 import { StoreRoom } from "../api/room.js"
 import { storeCategory } from "../api/category.js"
 import { toast } from "react-toastify"
@@ -56,14 +53,13 @@ export default function Room() {
     "Saturday"
   ]
   dayjs.extend(weekday);
+  const refreshCategoryId = () => {
+    refreshCategoryById(id)
+  }
   const [cookies] = useCookies()
   const token = cookies.token
   const { id } = useParams()
-  const { user } = useContext(AuthContext)
-  const [Sections, setSections] = useState([])
-  const [Teachers, setTeachers] = useState([])
-  const [categories, setCategories] = useState([])
-  const [category, setCategory] = useState([])
+  const { user, Teachers, Sections, categories, refreshCategoryById, refreshCategory, category } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [show, setShow] = useState(false)
   const [ShowDialogue, setShowDialogue] = useState(false)
@@ -71,50 +67,17 @@ export default function Room() {
   const [roomCategory, setRoomCategory] = useState("")
   useEffect(() => {
     refreshCategory()
-    refreshCategoryById()
-    getSections()
-    getTeachers()
+    refreshCategoryId()
     document.body.style.background = "white"
   }, [id])
 
-  const getTeachers = () => {
-    getTeacher().then(res => {
-      if (res?.ok) {
-        setTeachers(res.data)
-      }
-    })
-  }
-  const refreshCategory = () => {
-    getCategory().then(res => {
-      if (res?.ok) {
-        setCategories(res.data)
-
-      }
-    })
-  }
-  const getSections = () => {
-    getSection().then(res => {
-      if (res?.ok) {
-        setSections(res.data)
-      }
-    })
-  }
-  const refreshCategoryById = () => {
-    if (id) {
-      getCategoryId(id).then(res => {
-        if (res?.ok) {
-          setCategory([res.data])
-        }
-      })
-    }
-  }
   const storeRoom = () => {
     const name = $("#name").val()
     const category_id = roomCategory
     StoreRoom(token, { name, category_id }).then(res => {
       if (res.ok) {
         toast.success(res?.message, "room has been added!")
-        refreshCategory()
+        refreshCategory
         setShow(false)
       }
     })
@@ -124,7 +87,7 @@ export default function Room() {
     storeCategory(token, { category }).then(res => {
       if (res.ok) {
         toast.success(res?.message, "room has been added!")
-        refreshCategory()
+        refreshCategory
         setShow(false)
       }
     })
@@ -134,9 +97,8 @@ export default function Room() {
     const room_id = $("#roomID").val()
     const reason = $("#reason").val()
     StoreRequest(token, { user_id: user_id, room_id: room_id, reason: reason }).then(res => {
-
       if (res.ok) {
-        alert("heheh")
+        toast.success(res.message)
       }
     }
     )
@@ -213,12 +175,12 @@ export default function Room() {
                   <p className="text-[40px] font-[100] ml-20 mt-[40px] mb-4">{r.category}</p>
 
                   <div>
-                    {r.room.filter(rsc => rsc.schedules == "").map(room =>
-                      user?.map(r =>
-                        r.role_id == "teacher" ?
-                          <TeacherReq rooms={room} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
-                          : ""
-                      ))}
+                   { user?.map(u =>
+                      u.role_id == "teacher" ?
+                    r.room.filter(rsc => rsc.schedules == "").map(rsc =>
+                          <TeacherReq rooms={rsc} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
+                    )
+                        : "")}
                   </div>
                   <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room != "" ? "border-r-[2px] border-l-[2px] border-gray-600/20 " : ""}`}>
                     {r.room ? r.room != "" ? <>
@@ -292,7 +254,7 @@ export default function Room() {
           <div>
             {r.role_id == "admin" ?
               <>
-                <Request reload={refreshCategory()} token={token} />
+                <Request reload={refreshCategory} token={token} />
                 <Dialog open={show} onOpenChange={setShow}>
                   <DialogTrigger>
                     <CirclePlus className=" text-[#ffffff] fixed bottom-5 right-1 p-4 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] rounded-[25px]  hover:bg-[#57c6f2] hover:text-[#0F1A42]" />

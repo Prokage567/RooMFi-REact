@@ -81,9 +81,9 @@ export default function AdminPowers({ teacher, admin, Teacher, Show, UpdSched, s
                         <Label htmlFor="picture" className="pb-1 pt-3">Subject:</Label>
                         <Input id="subject" type="text" className="bg-white text-[#000] placeholder:hello " />
                         <Input id="teacher" type="hidden" value={Teacher.id} className="bg-white text-[#000] "/>
+                        <Input id="teacher" type="hidden" value={Teacher.schedules.date} className="bg-white text-[#000] "/>
                         <Input id="id" type="hidden" className="bg-white text-[#000] "/>
                     </div>
-                        <PopUpCalendar className="w-[385px]" />
                         <div className="flex flex-row w-[385px] -mt-4">
                             <div>
                                 <div className=" w-[385px] border-b-[1px] border-[#fff]/50 pb-2">

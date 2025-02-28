@@ -39,7 +39,8 @@ export function Request({ reload, token }) {
     })
   }
   useEffect(() => {
-    const interval = setInterval(() => { allRequest() }, 60000)
+    allRequest()
+    const interval = setInterval(() => { allRequest() }, 5000)
     categories()
     reloadSections()
     getTeacher().then(res => {
@@ -79,9 +80,9 @@ export function Request({ reload, token }) {
     DelRequestId(id, token).then(res => {
       if (res.ok) {
         toast.success("deleted succesfully")
-        setreqid("")
         allRequest()
       }
+      setreqid("")
     }
     )
   }

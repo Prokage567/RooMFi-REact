@@ -34,3 +34,13 @@ export const UpdSched = async (token,id,inputs) => {
     })
     return await res.json()
 }
+export const delSched = async (token,id) => {
+    const res = await fetch(`${URL}/schedule/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+    return await res.json()
+}
