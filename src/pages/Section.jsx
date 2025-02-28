@@ -1,6 +1,8 @@
 
 import { React, useContext, useState } from "react"
 import { Calendar as Cal } from "../components/ui/calendar"
+
+
 import {
   Select,
   SelectContent,
@@ -141,8 +143,12 @@ export default function section() {
   }
   return (
     <>
+      <Button className="fixed right-8 mt-[2px] w-[130px] text-[16px] bg-[#242F5B] hover:bg-[#242F5B] hover:text-[17px] p-1">
+        Week view
+      </Button>
       <div className="justify-center items-center flex">
         <div className=" max-h-screen">
+          
           <Cal
             mode="single"
             selected={date}
@@ -150,6 +156,10 @@ export default function section() {
             className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
             schedules={SectionbyId?.schedules}
           />
+         
+
+
+
         </div>
         <Dialog open={open} onOpenChange={setOpen} className="rounded-full w-[500px] h-auto text-sm" >
           {user ? user.map(u => u.role_id == "admin" ?<div> <DialogTrigger className="flex flex-col-reverse">

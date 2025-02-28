@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from "react"
-import { 
+import {
     Accordion,
     AccordionContent,
     AccordionItem,
@@ -14,7 +14,7 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
     NavigationMenuViewport,
-  } from "../components/ui/navigation-menu.jsx"
+} from "../components/ui/navigation-menu.jsx"
 import {
     Card,
     CardContent,
@@ -132,15 +132,15 @@ function Teacher() {
             t?.schedules?.filter(sc => sc.day === `${input}`).map(sc =>
                 <>
                     {sc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && sc.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
-                    <TableBody key={sc.id}>
-                        <TableRow>
-                            <TableCell className="w-auto ">{sc.subject}</TableCell>
-                            <TableCell className="w-auto  text-[11px]">{sc.date}</TableCell>
-                            <TableCell className="w-auto  text-[11px]">{sc.start_time}-{sc.end_time}</TableCell>
-                            <TableCell>{sc.section.name}</TableCell>
-                        </TableRow>
-                    </TableBody>
-                    :""} 
+                        <TableBody key={sc.id}>
+                            <TableRow>
+                                <TableCell className="w-auto ">{sc.subject}</TableCell>
+                                <TableCell className="w-auto  text-[11px]">{sc.date}</TableCell>
+                                <TableCell className="w-auto  text-[11px]">{sc.start_time}-{sc.end_time}</TableCell>
+                                <TableCell>{sc.section.name}</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        : ""}
                 </>
             )
         )
@@ -189,7 +189,7 @@ function Teacher() {
                     </Dialog>
                 </div>
                 : "") : ""}
-
+{/*
 <div className="relative">
         <div className="sticky top-24 z-10 ml-10 ">
             
@@ -599,64 +599,66 @@ function Teacher() {
         </Table>
         </div>
 
-    </div>  
-    </>
+    </div>   */}
+            {/* </> */}
 
-        // <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
-        //     {teachers.map(t => (
-        //         <div  key={t.id}>
-        //             <Card key={t.id}>
-        //                 {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
-        //                     <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={() => replaceSchedule()} setShow={setshow}
-        //                         SelectForSections={selectForAll("Section:", sections, setSection, "Section")}
-        //                         SelectForRooms={selectForAll("Room:", rooms, setRoom, "Room")}
-        //                         SelectForSched={selectForAll("Schedule:", t.schedules, setSched, "Schedule")}
-        //                     />
-        //                 </div> : "")}
-        //                 <CardHeader className="border-[#242F5B] border-2 rounded-t-lg w-100 h-[80px] bg-[#242F5B]">
-        //                     <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#ffffff] text-center">{t.name}</CardTitle>
-        //                     <CardDescription className="font-[NiramitReg]  text-center text-[#ffffff]">{t.subject}</CardDescription>
-        //                 </CardHeader>
+            <div className=" justify-center items-center flex flex-1 flex-wrap gap-5 py-20 ">
+                {teachers.map(t => (
+                    <div key={t.id}>
+                        <Card key={t.id}>
+                            {user?.map(u => u.role_id == "admin" ? <div className="relative top-0">
+                                <AdminPowers teacherId={t.id} admin={token} Teacher={t} Show={show} UpdSched={() => replaceSchedule()} setShow={setshow}
+                                    SelectForSections={selectForAll("Section:", sections, setSection, "Section")}
+                                    SelectForRooms={selectForAll("Room:", rooms, setRoom, "Room")}
+                                    SelectForSched={selectForAll("Schedule:", t.schedules, setSched, "Schedule")}
+                                />
+                            </div> : "")}
+                            <CardHeader className="border-[#242F5B] border-2 rounded-t-lg w-100 h-[80px] bg-[#242F5B]">
+                                <CardTitle className="font-normal text-[22px] font-[NiramitReg] text-[#ffffff] text-center">{t.name}</CardTitle>
+                                <CardDescription className="font-[NiramitReg]  text-center text-[#ffffff]">{t.subject}</CardDescription>
+                            </CardHeader>
 
-        //                 <CardContent style={{ maxHeight: "175px" }} className="border-[#242F5B] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
-        //                     {t.schedules != "" ?
-        //                         <>
-        //                             <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
-        //                                 <TableHeader>
-        //                                     <TableHead>Monday</TableHead>
-        //                                 </TableHeader>
-        //                                 {Filter(t, "Monday")}
-        //                                 <TableHeader>
-        //                                     <TableHead>Tuesday</TableHead>
-        //                                 </TableHeader>
-        //                                 {Filter(t, "Tuesday")}
-        //                                 <TableHeader>
-        //                                     <TableHead>Wednesday</TableHead>
-        //                                 </TableHeader>
-        //                                 {Filter(t, "Wednesday")}
-        //                                 <TableHeader>
-        //                                     <TableHead>Thursday</TableHead>
-        //                                 </TableHeader>
-        //                                 {Filter(t, "Thursday")}
-        //                                 <TableHeader>
-        //                                     <TableHead>Friday</TableHead>
-        //                                 </TableHeader>
-        //                                 {Filter(t, "Friday")}
-        //                                 <TableHeader>
-        //                                     <TableHead>Saturday</TableHead>
-        //                                 </TableHeader>
-        //                                 {Filter(t, "Saturday")}
-        //                             </Table>
-        //                         </> :
-        //                         <div className="w-[400px] h-1 font-[NiramitReg] text-5xl text-[#11172E]/30">
-        //                             <p className="flex justify-center items-center pt-12">No Schedule</p>
-        //                         </div>
-        //                     }
-        //                 </CardContent>
-        //             </Card>
-        //         </div>
-        //     ))}
+                            <CardContent style={{ maxHeight: "175px" }} className="border-[#242F5B] border-2 w-90 h-[400px] bg-[#ffffff] rounded-b-lg overflow-scroll no-scrollbar">
+                                {t.schedules != "" ?
+                                    <>
+                                        <Table className="text-[12px] w-[400px] font-[NiramitReg] text-[#11172E]">
+                                            <TableHeader>
+                                                <TableHead>Monday</TableHead>
+                                            </TableHeader>
+                                            {Filter(t, "Monday")}
+                                            <TableHeader>
+                                                <TableHead>Tuesday</TableHead>
+                                            </TableHeader>
+                                            {Filter(t, "Tuesday")}
+                                            <TableHeader>
+                                                <TableHead>Wednesday</TableHead>
+                                            </TableHeader>
+                                            {Filter(t, "Wednesday")}
+                                            <TableHeader>
+                                                <TableHead>Thursday</TableHead>
+                                            </TableHeader>
+                                            {Filter(t, "Thursday")}
+                                            <TableHeader>
+                                                <TableHead>Friday</TableHead>
+                                            </TableHeader>
+                                            {Filter(t, "Friday")}
+                                            <TableHeader>
+                                                <TableHead>Saturday</TableHead>
+                                            </TableHeader>
+                                            {Filter(t, "Saturday")}
+                                        </Table>
+                                    </> :
+                                    <div className="w-[400px] h-1 font-[NiramitReg] text-5xl text-[#11172E]/30">
+                                        <p className="flex justify-center items-center pt-12">No Schedule</p>
+                                    </div>
+                                }
+                            </CardContent>
+                        </Card>
+                    </div>
+                ))}
+            </div>
+        </>
+        )
+    }
 
-    )
-}
-export default Teacher
+    export default Teacher
