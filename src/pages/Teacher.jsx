@@ -112,18 +112,20 @@ function Teacher() {
     }, [id])
     const dayOfweeks = (day) => {
         return (<>
-            <TableHeader className="text-[18px] bg-[#90E0FF]">
+            <TableHeader className="text-[23px] bg-[#90E0FF]/50">
                 <TableHead >{day}</TableHead>
+                <TableHead ></TableHead>
                 <TableHead ></TableHead>
                 <TableHead ></TableHead>
                 <TableHead ></TableHead>
             </TableHeader>
             <TableHeader>
                 <TableRow>
-                    <TableCell className="w-auto ">Subject</TableCell>
-                    <TableCell className="w-auto  text-[11px]">Date</TableCell>
-                    <TableCell className="w-auto  text-[11px]">Time</TableCell>
-                    <TableCell className="w-auto  text-[11px]">Section</TableCell>
+                    <TableCell className="w-[250px] text-[20px]  text-black/40" >Subject</TableCell>
+                    <TableCell className="w-[200px] text-[20px]  text-black/40 indent-2">Room</TableCell>
+                    <TableCell className="w-[200px] text-[20px] text-black/40">Date</TableCell>
+                    <TableCell className="w-[250px] text-[20px]  text-black/40">Time</TableCell>
+                    <TableCell className="w-[200px] text-[20px]  text-black/40">Section</TableCell>
                 </TableRow>
             </TableHeader>
         </>
@@ -137,10 +139,11 @@ function Teacher() {
                     {sc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && sc.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
                         < >
                             <TableRow>
-                                <TableCell className="w-auto ">{sc.subject}</TableCell>
-                                <TableCell className="w-auto  text-[11px]">{sc.date}</TableCell>
-                                <TableCell className="w-auto  text-[11px]">{sc.start_time}-{sc.end_time}</TableCell>
-                                <TableCell>{sc.section.name}</TableCell>
+                                <TableCell className="w-auto text-[15px]">{sc.subject}</TableCell>
+                                <TableCell className="w-auto text-[15px] indent-2">{[sc.room].filter(rc=> rc.id==sc.room_id).map(rc=>rc.name)}</TableCell>
+                                <TableCell className="w-auto text-[15px]">{sc.date}</TableCell>
+                                <TableCell className="w-auto  text-[15px]">{sc.start_time}-{sc.end_time}</TableCell>
+                                <TableCell className="w-auto text-[15px]">{sc.section.name}</TableCell>
                             </TableRow>
                         </>
                         : ""}
@@ -206,20 +209,21 @@ function Teacher() {
 
                             <NavigationMenuContent >
 
-                                <div className="w-[215px]">
-                                    <div className="w-[212px] flex flex-col overflow-y-auto no-scrollbar justify-center items-center p-2 gap-2">
+                                <div className="">
+                                    <div className="w-auto flex flex-col overflow-y-auto no-scrollbar justify-center items-start p-2 gap-2">
 
-                                        <div className="hover:bg-[#90E0FF]/30 p-2 w-[200px] ">
+                                        <div className="hover:bg-[#90E0FF]/30 p-2">
                                             <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
-                                                className="h-[25px] relative left-4 border-transparent py-2  w-[200px]  focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+                                                className="h-[25px] relative left-4 border-transparent py-2  w-[200px] focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
                                         </div>
 
-                                        <div className="border border-bg-black h-10 p-2 w-[13vw]">
                                         {searchInfo?.map(sc => Teachers.filter(t => t.id === sc.id).map(t =>
+                                        <div className="h-auto p-2 w-[210px] break-words hover:bg-[#90E0FF]/40">
                                             <Link to={`./${t.id}`}>
                                                     {t.name}
-                                            </Link>))}
+                                            </Link >
                                                 </div>
+                                        ))}
                                     </div>
                                 </div>
                             </NavigationMenuContent>
@@ -235,12 +239,13 @@ function Teacher() {
                         <>
                             <TableHeader>
                                 <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
-                                    <TableHead className="">
+                                    <TableCell className="w-auto">
                                         {t.name}
-                                    </TableHead>
+                                    </TableCell>
                                     <TableHead className="">
                                         {t.subject}
                                     </TableHead>
+                                    <TableHead></TableHead>
                                     <TableHead></TableHead>
                                     <TableHead></TableHead>
                                 </TableRow>

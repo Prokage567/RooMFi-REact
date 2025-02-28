@@ -8,7 +8,7 @@ import icon3 from "../assets/images/icon3.svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { getSection } from "../api/section"
 import { getCategory } from "../api/category"
-import { LogOut, User, UserRoundPlus, CircleUserRound, ChevronUp, ChevronLeft, ChevronRight } from "lucide-react"
+import { LogOut, User, UserRoundPlus, CircleUserRound, House, ChevronRight, DoorClosed, Users, ContactRound } from "lucide-react"
 import { checkToken } from "../api/auth"
 import { useCookies } from "react-cookie"
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
@@ -61,7 +61,7 @@ export default function MainLayout() {
 
                         }
                         <div className="md:[200px] flex flex-row p-3">
-                            <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]" />
+                            <img src={logo} className="w-[85px] md:w-[75px] lg:w-[65px]"/>
                             <p className="font-[KronaOne] text-orange-500 md:text-[50px] lg:text-[40px] text-[55px] relative lg:top-[14px] md:top-[16px] top-[18px] lg:block md:block sm:block hidden transition-all">
                                 RooMFI
                             </p>
@@ -72,9 +72,9 @@ export default function MainLayout() {
                 <div className="flex text-white font-[NiramitReg]  min-h-full">
                     <p className="fixed lg:w-[217px] md:w-[155px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
                     <nav className="fixed overflow-y-scroll no-scrollbar">
-                        <div className="  top-24 mt-[88px] h-[90vh]">
-                            <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 hover:rounded-[10px] font-[NiramitBold] transition-all ">
-                                <img src={icon} className=" lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-[#3F9DC1]/70 hover:rounded-[10px]" />
+                        <div className="  top-24 mt-[86px] h-[90vh]">
+                            <Link to="/homepage" className="no-underline flex pb-[10px] items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 font-[NiramitBold] transition-all ">
+                                <House size={40} className="ml-3 mt-5 mr-2" />
                                 <p className="hidden lg:block md:block transition-all relative top-3">
                                     Home
                                 </p>
@@ -82,7 +82,7 @@ export default function MainLayout() {
 
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-1" className="lg:w-[217px] md:w-[155px] w-[70px]">  
-                                    <AccordionTrigger input={true} img={icon2} className="whitespace-pre">Room    </AccordionTrigger>
+                                    <AccordionTrigger input={true} icon={<DoorClosed size={30} className="ml-4 -mr-10"/>}>Room</AccordionTrigger>
                                         
                                     <Link to="/room">
                                         <AccordionContent className="focus:border-blue-600 ml-0 md:ml-3 lg:ml-9">All</AccordionContent>
@@ -99,7 +99,7 @@ export default function MainLayout() {
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-2" className="lg:w-[217px] md:w-[155px] w-[70px]">
                                     <Link to="/section">
-                                    <AccordionTrigger input={true} img={icon2}>Section</AccordionTrigger>
+                                    <AccordionTrigger input={true} icon={<Users size={30} className="ml-4 -mr-12"/>}>Section</AccordionTrigger>
                                     </Link>
                                     {Sections.map(s => (
                                         //here we throw thr section"s id from the section and uses it to go from one data to another
@@ -114,7 +114,7 @@ export default function MainLayout() {
                             <Accordion type="single" collapsible>
                                 <AccordionItem value="item-3" className="lg:w-[217px] md:w-[155px] w-[70px]">
                                     <Link to="/teacher" className="flex flex-col">
-                                        <AccordionTrigger img={icon3}>Teacher</AccordionTrigger>
+                                        <AccordionTrigger icon={<ContactRound size={30} className="ml-4 -mr-12"/>}>Teacher</AccordionTrigger>
                                     </Link>
                                 </AccordionItem>
                             </Accordion>
