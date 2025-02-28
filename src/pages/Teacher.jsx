@@ -1,6 +1,5 @@
 import { React, useContext, useEffect, useState } from "react"
 import {
-import {
     Accordion,
     AccordionContent,
     AccordionItem,
@@ -16,14 +15,6 @@ import {
     NavigationMenuTrigger,
     NavigationMenuViewport,
 } from "../components/ui/navigation-menu.jsx"
-} from "../components/ui/navigation-menu.jsx"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "../components/ui/card.jsx"
 import {
     Select,
     SelectContent,
