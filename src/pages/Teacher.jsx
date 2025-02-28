@@ -57,7 +57,7 @@ import { Link, useParams } from "react-router-dom"
 function Teacher() {
     dayjs.extend(weekday);
     const { id } = useParams()
-    const { user, Teachers, getTeachers, Sections, getSections,Rooms, refreshRooms } = useContext(AuthContext)
+    const { user, Teachers, getTeachers, Sections, getSections, Rooms, refreshRooms } = useContext(AuthContext)
     const [cookies] = useCookies()
     const token = cookies.token
     const [show, setshow] = useState(false)
@@ -206,16 +206,20 @@ function Teacher() {
 
                             <NavigationMenuContent >
 
-                                <div className="w-[215px] h-[400px]">
-                                    <div className="w-[212px] h-[380px]  flex flex-col overflow-y-auto no-scrollbar mt-2 ml-2">
+                                <div className="w-[215px]">
+                                    <div className="w-[212px] flex flex-col overflow-y-auto no-scrollbar justify-center items-center p-2 gap-2">
 
-                                        <div className="hover:bg-[#90E0FF]/30 p-2  w-[200px] ">
+                                        <div className="hover:bg-[#90E0FF]/30 p-2 w-[200px] ">
                                             <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
-                                                className="h-[25px] -ml-3 pl-8 border-transparent py-2  w-[200px]  focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+                                                className="h-[25px] relative left-4 border-transparent py-2  w-[200px]  focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
                                         </div>
 
+                                        <div className="border border-bg-black h-10 p-2 w-[13vw]">
                                         {searchInfo?.map(sc => Teachers.filter(t => t.id === sc.id).map(t =>
-                                            < Link to={`./${t.id}`}>{t.name}</Link>))}
+                                            <Link to={`./${t.id}`}>
+                                                    {t.name}
+                                            </Link>))}
+                                                </div>
                                     </div>
                                 </div>
                             </NavigationMenuContent>
