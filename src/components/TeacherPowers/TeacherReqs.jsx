@@ -40,25 +40,24 @@ export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
                             <SelectValue id="roomNumber" placeholder="Choose a room" />
                         </SelectTrigger>
                         <SelectContent>
-                           
                                 <SelectItem key={rooms.id} id="roomID" className="font-[NiramitReg] text-[15px]  text-[#242F5B] hover:bg-[#bce9fc]" value={rooms.id}>{rooms.name}</SelectItem>
-                            </SelectContent>
+                        </SelectContent>
                     </Select>
                     <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
                     <div className="z-10 fixed ">
 
-                    <Input type="hidden" id="user_id" value={user_id} />
-                    <Input type="hidden" id="roomID" value={roomID} />
+                        <Input type="hidden" id="user_id" value={user_id} />
+                        <Input type="hidden" id="roomID" value={roomID} />
                     </div>
 
-                <div className="border-t-[1px] h-7 ">
-                    <div className=" absolute  bottom-4 right-2">
-                        <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
+                    <div className="border-t-[1px] h-7 ">
+                        <div className=" absolute  bottom-4 right-2">
+                            <Button className="hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]" onClick={buttonSubmit}>Submit Request</Button>
+                        </div>
                     </div>
-                </div>
 
                 </div>
-             
+
             </DialogContent>
         </Dialog>
     )

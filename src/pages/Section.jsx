@@ -1,6 +1,8 @@
 
 import { React, useContext, useState } from "react"
 import { Calendar as Cal } from "../components/ui/calendar"
+
+
 import {
   Select,
   SelectContent,
@@ -34,18 +36,7 @@ import { AuthContext } from "../context/context"
 export default function section() {
   const { id } = useParams()
   const reload = () => {
-    getSectionId(id).then(res => {
-      if (res?.ok) {
-        setSectionsById(res.data)
-      }
-    })
-  }
-  const reloadSections = () => {
-    getSection().then(res => {
-      if (res?.ok) {
-        setSections(res.data)
-      }
-    })
+    getSectionbyId(id)
   }
   const AddSections = () => {
     const name = $("#name").val()
@@ -53,44 +44,31 @@ export default function section() {
       if (res?.ok) {
         toast.success(name + res.message)
         setOpen(false)
-        reloadSections()
+        getSections()
       }
     })
   }
   useEffect(() => {
     reload()
-    reloadSections()
-    getTeacher().then(res => {
-      if (res?.ok) {
-        setTeachers(res.data)
-      }
-    })
-    getRoom().then(res => {
-      if (res?.ok) {
-        setRooms(res.data)
-      }
-    })
+    getSections()
+    getTeachers()
+    refreshRooms()
   }, [id])
-  const [SectionbyId, setSectionsById] = useState([])
-  const [Section, setSections] = useState([])
-  const [Teachers, setTeachers] = useState([])
-  const [Rooms, setRooms] = useState([])
-  console.log(Rooms.map(r=>r))
   const [date, setDate] = useState([])
   const [open, setOpen] = useState(false)
   const [show, setShow] = useState(0)
   const [cookies] = useCookies()
   const token = cookies.token
-  const { user } = useContext(AuthContext)
+  const { user, Sections, getSections, SectionbyId, getSectionbyId, Teachers, getTeachers, Rooms, refreshRooms } = useContext(AuthContext)
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
   const [section, setSection] = useState("")
   const [sectionId, setSectionId] = useState("")
   const DelSectionById = () => {
     const id = sectionId
-    AddSection().then(res => {
+    AddSection(id).then(res => {
       if (res?.ok) {
-        setSectionsById(res.data)
+        toast.success(res.message)
       }
     })
   }
@@ -132,7 +110,7 @@ export default function section() {
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg] " >
           {inputs.map(room =>
-            <SelectItem  key={room.id} className="text-sm text-[#242F5B]  hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Section ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
+            <SelectItem key={room.id} className="text-sm text-[#242F5B]  hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Sections ? room.name : `${room.name} - ${room.category?.category}`} </SelectItem>
           )}
         </SelectContent>
       </Select>
@@ -141,8 +119,12 @@ export default function section() {
   }
   return (
     <>
+      <Button className="fixed right-8 mt-[2px] w-[130px] text-[16px] bg-[#242F5B] hover:bg-[#242F5B] hover:text-[17px] p-1">
+        Week view
+      </Button>
       <div className="justify-center items-center flex">
         <div className=" max-h-screen">
+          
           <Cal
             mode="single"
             selected={date}
@@ -150,56 +132,59 @@ export default function section() {
             className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
             schedules={SectionbyId?.schedules}
           />
+         
+
+
+
         </div>
         <Dialog open={open} onOpenChange={setOpen} className="rounded-full w-[500px] h-auto text-sm" >
-          {user ? user.map(u => u.role_id == "admin" ?<div> <DialogTrigger className="flex flex-col-reverse">
+          {user ? user.map(u => u.role_id == "admin" ? <div> <DialogTrigger className="flex flex-col-reverse">
             <img src={Add} className="w-[50px] h-[50px] fixed right-5 bottom-8" />
-          </DialogTrigger> 
-          <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
-            <DialogHeader className="text-[20px]">Add Event</DialogHeader>
-            <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
-            <div >
-              {!show ? <>
-                {selectForAll("Room No.", Rooms, setRoom, "Room")}
-                {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
-                {selectForAll("Section", Section, setSection, "Sections")}
+          </DialogTrigger>
+            <DialogContent className="bg-slate-900 border-none text-[#fff] pb-2">
+              <DialogHeader className="text-[20px]">Add Event</DialogHeader>
+              <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
+              <div >
+                {!show ? <>
+                  {selectForAll("Room No.", Rooms, setRoom, "Room")}
+                  {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
+                  {selectForAll("Section", Sections, setSection, "Sections")}
 
-                <div className="pt-3 ">
-                  <Label>Subject</Label>
-                  <Input autofocus e={false}
-                    className="   bg-white  text-[#0F172A]"
-                    id="subject"
-                    placeholder="Input Subject" />
-                </div>
-
-                <PopUpCalendar className="pt-3" />
-                <div className="flex flex-row w-[450px] ">
-                  <div>
-                    <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
-                      <Label className="text-[17px] ">Time</Label>
-                    </div>
-                    <div className="flex justify-around">
-                      <div className="pt-2">
-                        <Label className="" >From:</Label>
-                        <Input id="strTime" className="border-none focus:outline-white " type="time" />
+                  <div className="pt-3 ">
+                    <Label>Subject</Label>
+                    <Input autofocus e={false}
+                      className="   bg-white  text-[#0F172A]"
+                      id="subject"
+                      placeholder="Input Subject" />
+                  </div>
+                  <PopUpCalendar className="pt-3"/>
+                  <div className="flex flex-row w-[450px] ">
+                    <div>
+                      <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
+                        <Label className="text-[17px] ">Time</Label>
                       </div>
+                      <div className="flex justify-around">
+                        <div className="pt-2">
+                          <Label className="" >From:</Label>
+                          <Input id="strTime" className="border-none focus:outline-white " type="time" />
+                        </div>
 
-                      <div className="pt-2">
-                        <Label>To:</Label>
-                        <Input id="endTime" className="border-none text-slate-50" type="time" />
+                        <div className="pt-2">
+                          <Label>To:</Label>
+                          <Input id="endTime" className="border-none text-slate-50" type="time" />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </> : <div className="pt-2">
-                <Label>Section's Name:</Label>
-                <Input id="name" className=" bg-white  text-[#0F172A]" type="text" />
-              </div>}
-              <Button onClick={!show ? () => schedule() : () => AddSections()} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
-              <Button onClick={!show ? () => setShow(1) : () => setShow(0)} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]">{show ? "Add Schedule" : "Add a Section"}</Button>
-            </div>
+                </> : <div className="pt-2">
+                  <Label>Section's Name:</Label>
+                  <Input id="name" className=" bg-white  text-[#0F172A]" type="text" />
+                </div>}
+                <Button onClick={!show ? () => schedule() : () => AddSections()} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]"> Save </Button>
+                <Button onClick={!show ? () => setShow(1) : () => setShow(0)} className="mt-4 justify-center flex w-full flex-row border border-green-100 items-center hover:font-extrabold hover:bg-transparent font-[10] font-[NiramitReg] bg-transparent text-[20px]">{show ? "Add Schedule" : "Add a Section"}</Button>
+              </div>
 
-          </DialogContent></div>: "") : ""}
+            </DialogContent></div> : "") : ""}
         </Dialog>
 
       </div>

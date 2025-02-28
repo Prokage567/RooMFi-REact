@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import img from "@/assets/images/image.svg"
@@ -8,21 +8,16 @@ import $ from 'jquery'
 import { Search } from "../api/room"
 import { Link } from "react-router-dom"
 import { Popover, PopoverAnchor } from "@radix-ui/react-popover"
-import { getCategory } from "../api/category"
+import { AuthContext } from "../context/context"
 
 
 function Homepage() {
+    const { categories } = useContext(AuthContext)
     useEffect(() => {
-        getCategory().then(res => {
-            if (res?.ok) {
-                setRoomsuggestion(res.data)
-            }
-        })
         document.body.style.background = "white"
     }, [])
     const [Pop, setPop] = useState(0)
     const [searchInfo, setSearchInfo] = useState([])
-    const [roomSuggestion, setRoomsuggestion] = useState([])
     const keyword = $('#input').val()
     const onHandleClick = () => {
         const keyword = $('#input').val()
@@ -56,11 +51,11 @@ function Homepage() {
 
     return (
         <>
-            <div className="items-center h-auto flex-col justify-center flex">
-                <div className="flex sticky mt-9 h-auto top-24 -mb-14 flex-row">
+            <div className="items-center flex-col justify-center flex ">
+               <div className="sticky top-24 -mb-14 ">
                     <Input id="input" symbol={true} type="text" placeholder="Search room by number... eg.203,209,111"
-                        className="h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1]" onChange={() => onHandleClick()} />
-                </div>
+                        className=" h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1]" onChange={() => onHandleClick()} />
+            </div>
                 <div className="sticky top-[86px] ">
                     <Popover>
                         <PopoverAnchor className="flex justify-center items-center flex-col">
@@ -80,7 +75,7 @@ function Homepage() {
                                                     : searchInfo
                                                         ? <div className=" h-auto overflow-scroll no-scrollbar">
                                                             <p className="sticky top-0 bg-white text-gray-500/40">Suggestion... </p>
-                                                            {suggestion(roomSuggestion)}
+                                                            {suggestion(categories)}
                                                         </div>
                                                         : <p className="text-gray-500/40">Loading...</p>
                                                 : <p className="text-gray-500/40">No result... </p>

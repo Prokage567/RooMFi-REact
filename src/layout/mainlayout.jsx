@@ -16,21 +16,11 @@ import { Button } from "@/components/ui/button"
 
 export default function MainLayout() {
 
-    const { user, login, logout } = useContext(AuthContext)
+    const { user, login, logout,Sections,getSections} = useContext(AuthContext)
     const [cookies] = useCookies()
     const token = cookies.token
-    const [Sections, setSection] = useState([])
     const [roomTypes, setRoomTypes] = useState([])
-const  reloadSection = () =>{
-    return(
-        getSection().then(res => {
-            if (res?.ok) {
-                setSection(res.data)
-            }
-        })
-    )
-}
-const  reloadCategory = () =>{
+    const  reloadCategory = () =>{
    return(
     getCategory().then(res => {
         if (res?.ok) {
@@ -41,7 +31,7 @@ const  reloadCategory = () =>{
    ) 
 }
     useEffect(() => {  
-        reloadSection()
+        getSections()
         reloadCategory()
         checkToken(token).then(res => {
             if (res?.ok) {
@@ -52,7 +42,7 @@ const  reloadCategory = () =>{
     }, [])
     return (
         <>
-            <div className="flex min-h-screen flex-col">
+            <div className="flex flex-col">
                 <nav className="fixed min-w-full z-20">
                     <div className="bg-[url(../assets/images/head.svg)] bg-cover bg-no-repeat bg-shadow-[0_7px_5px_rgba(0,0,0,0.25)]">
                         {!user ?
@@ -81,7 +71,7 @@ const  reloadCategory = () =>{
 
                 <div className="flex text-white font-[NiramitReg]  min-h-full">
                     <p className="fixed lg:w-[217px] md:w-[155px] w-[70px] bg-[#242F5B] min-h-full shadow-[5px_0_10px_rgba(0,0,0,0.35)]" />
-                    <nav className="fixed overflow-y-scroll">
+                    <nav className="fixed overflow-y-scroll no-scrollbar">
                         <div className="  top-24 mt-[88px] h-[90vh]">
                             <Link to="/homepage" className="no-underline flex pb-[10px] p-2 items-center text-[20px]/[19.4px] hover:none md:hover:bg-[#3F9DC1]/70 lg:hover:bg-[#3F9DC1]/70 hover:rounded-[10px] font-[NiramitBold] transition-all ">
                                 <img src={icon} className=" lg:w-[55px] p-[3.5px] w-[45px] transition-all hover:bg-[#3F9DC1]/70 hover:rounded-[10px]" />
@@ -162,7 +152,7 @@ const  reloadCategory = () =>{
  
                         </div>
                     </nav>
-                    <main className="text-slate-900 absolute w-[85vw] top-20 right-0">
+                    <main className="text-slate-900 absolute w-[85vw] -z-10 top-20 right-0">
                         <Outlet />
                     </main>
                 </div>

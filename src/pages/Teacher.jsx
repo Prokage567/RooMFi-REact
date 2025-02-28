@@ -1,5 +1,21 @@
 import { React, useContext, useEffect, useState } from "react"
 import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "../components/ui/accordion.jsx"
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuIndicator,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+    NavigationMenuViewport,
+} from "../components/ui/navigation-menu.jsx"
+import {
     Card,
     CardContent,
     CardDescription,
@@ -116,15 +132,15 @@ function Teacher() {
             t?.schedules?.filter(sc => sc.day === `${input}`).map(sc =>
                 <>
                     {sc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && sc.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
-                    <TableBody key={sc.id}>
-                        <TableRow>
-                            <TableCell className="w-auto ">{sc.subject}</TableCell>
-                            <TableCell className="w-auto  text-[11px]">{sc.date}</TableCell>
-                            <TableCell className="w-auto  text-[11px]">{sc.start_time}-{sc.end_time}</TableCell>
-                            <TableCell>{sc.section.name}</TableCell>
-                        </TableRow>
-                    </TableBody>
-                    :""} 
+                        <TableBody key={sc.id}>
+                            <TableRow>
+                                <TableCell className="w-auto ">{sc.subject}</TableCell>
+                                <TableCell className="w-auto  text-[11px]">{sc.date}</TableCell>
+                                <TableCell className="w-auto  text-[11px]">{sc.start_time}-{sc.end_time}</TableCell>
+                                <TableCell>{sc.section.name}</TableCell>
+                            </TableRow>
+                        </TableBody>
+                        : ""}
                 </>
             )
         )
