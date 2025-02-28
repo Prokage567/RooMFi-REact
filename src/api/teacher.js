@@ -10,6 +10,16 @@ export const getTeacher = async () => {
     })
     return await res.json()
 }
+export const searchTeacher = async (id) => {
+    const res = await fetch(`${URL}/teacher/search/${id}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    return await res.json()
+}
 export const getTeacherById = async (token,type,inputs) => {
     const res = await fetch(`${URL}/teacher`, {
         method: type,
