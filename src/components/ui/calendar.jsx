@@ -82,6 +82,10 @@ function Calendar({
                   schedules?.filter(x => x.date === dayjs(props.date).format("YYYY-MM-DD"))?.map(x => (
                     // x.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && x.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
                     <>
+                    {/* <div key={x.id} className=" ml-1 w-[140px]   text-secondary mb-1 text-[11px] font-[NiramitReg]  ">
+                      <div className="w-[140px] bg-[#90E0FF]  hover:rounded-sm  relative">
+                        <div className=" -ml-[6px]   w-[140px] text-[#0c146e]">
+                          <div className="z-20 absolute ml-[6px] -mt-[12px]"> */}
 
                       <div key={x.id} className=" ml-1 w-[140px]   text-secondary mb-1 text-[11px] font-[NiramitReg]  ">
                         <div className="w-[140px] bg-[#90E0FF]  hover:rounded-sm  relative">
