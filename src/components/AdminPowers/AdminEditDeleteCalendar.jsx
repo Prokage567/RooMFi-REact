@@ -132,27 +132,6 @@ export default function AdminPowers1({ input}) {
                     </DialogContent>
                 </Dialog>
             </div> :""):""}
-            {/* <div className='z-10 absolute hover:rounded-md ml-1 m-auto mt-[19px] size-8'>
-
-                <Dialog open={close} onOpenChange={setClose}>
-                    <DialogTrigger className="absolute z-10 m-auto hover:bg-slate-200 h-[35px] border-r-[2px] border-r-[#242F5B]/40 w-[35px] ">
-                        <Pencil className="ml-[4px] mt-[2px] text-[#242F5B] h-9 " />
-                    </DialogTrigger>
-
-                    <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-[300px]">
-                        <DialogTitle className="font-thin">Edit Category</DialogTitle>
-                        <DialogDescription>
-                            Category Name: {input?.category}
-                        </DialogDescription>
-                        <Label>Replace Category:</Label>
-                        <Input id="name" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Category name" />
-                        <div className="border-t-[1px]">
-                            <Button onClick={() => setClose(false)} className={"fixed bottom-2 left-12 w-[50px] font-[NiramitReg] text-[18px] border-white bg-transparent hover:bg-transparent text-white hover:font-bold"}>Cancel</Button>
-                            <Button onClick={() => UpdCategoryById()} className={"fixed bottom-2 right-12 text-[18px] w-[40px] hover:font-bold font-[NiramitReg]  border-white bg-transparent hover:bg-transparent text-white"}>Yes</Button>
-                        </div>
-                    </DialogContent>
-                </Dialog>
-            </div> */}
         </div>
     )
 }
