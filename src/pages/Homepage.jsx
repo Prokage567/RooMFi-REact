@@ -86,12 +86,12 @@ function Homepage() {
                 </div>
                 <div className="justify-center flex flex-wrap pt-[100px]">
                     <div>
-                        <p className="font-[NiramitReg] lg:text-[20px] text-[17px]">MFI’s Room Management System: Room Scheduling and Individual Tracking
+                        <p className="font-[NiramitReg] lg:text-[20px] text-[17px]">MFI's Room Management System: A Room Availability and Scheduling Platform
                         </p>
                         <h4 className="font-[KronaOne] lg:text-[60px] text-[40px] pt-6">
                             RooMFI
                         </h4><p className="font-[NiramitReg] lg:text-[25px] pl-1 text-[25px] w-[560px]">
-                            A Smooth and organized system where MFIers can efficiently manage or view room schedules, along with a tracker providing information on the sections and teachers assigned to each room.
+                            A smooth and organized system that allows MFIers to efficiently manage and view room schedules while providing information on the sections and teachers assigned to each room.
                         </p>
                     </div>
                     <img src={img} alt="" width="520px" />

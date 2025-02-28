@@ -1,8 +1,6 @@
 
 import { React, useContext, useState } from "react"
 import { Calendar as Cal } from "../components/ui/calendar"
-
-
 import {
   Select,
   SelectContent,
@@ -133,8 +131,6 @@ export default function section() {
             className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
             schedules={SectionbyId?.schedules}
           />
-         
-
 
 
         </div>

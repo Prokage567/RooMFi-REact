@@ -11,7 +11,10 @@ const Input = React.forwardRef(({ symbol2,symbol, className, type, length, place
           {symbol ?
             <Search className="text-slate-900 absolute left-4 top-1/2 transform -translate-y-1/2" /> : ""}
           {symbol2 ?
-            <Search className="text-slate-900 absolute left-[1px] top-1/2 h-[15px] w-[15px] transform -translate-y-1/2" /> : ""}
+            <Search strokeWidth={3} 
+            className="text-[#11172E] absolute left-[1px]  top-1/2 h-[15px] w-[15px] transform -translate-y-1/2" /> : ""}
+
+         
           <input
             type={type}
             maxLength={length}

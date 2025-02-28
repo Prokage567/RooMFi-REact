@@ -11,7 +11,7 @@ const AccordionItem = React.forwardRef(({  className, ...props }, ref) => (
 ))
 AccordionItem.displayName = "AccordionItem"
 
-const AccordionTrigger = React.forwardRef(({img, input,className, children, ...props}, ref) => (
+const AccordionTrigger = React.forwardRef(({icon, img, input,className, children, ...props}, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
@@ -20,6 +20,7 @@ const AccordionTrigger = React.forwardRef(({img, input,className, children, ...p
         className
       )}
       {...props}>
+        <div className="relative" >{icon}</div>
       <img src={img} width="35px" className="px-[3px] relative lg:left-5 md:-left-7 left-2 pt-1 pb-1" />
       <div className="hidden lg:block md:block md:-indent-[8px] lg:indent-[30px]">
         {children}
