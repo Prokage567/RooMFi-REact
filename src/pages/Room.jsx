@@ -121,7 +121,14 @@ export default function Room() {
 
   return (
     <>
-      <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" size-6 fixed z-20 top-[100px] right-2 font-extralight h-[45px] w-[45px] bg-transparent font-[NiramitReg] text-[18px] text-[#5bc8ff] hover:text-[#5bc8ff]/70 flex items-center justify-center" />
+   
+  
+      <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end  right-0 mt-[15px]">
+          <Input id="input" symbol2={  true  }   type="text" placeholder="Search teacher"
+              className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px]   py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+      </div>
+      <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" hover:h-[53px] hover:w-[53px] p-[8px] size-6 fixed z-20 top-[98px] right-1 font-extralight h-[55px] w-[55px]  font-[NiramitReg] text-[18px] text-[#5bc8ff]  flex items-center justify-center" />
+
       {open ? <>
         <div className=" flex flex-col items-center w-full max-h-screen p-6 rounded-b-2xl shadow-lg overflow-auto sticky z-10 top-20 bg-[#11172E] text-white">
           <h2 className="text-2xl font-semibold">Schedule Overview</h2>
@@ -161,7 +168,7 @@ export default function Room() {
         </Table>
       </>
         : <>
-          <div className="mt-[10px] min-w-screen ">
+          <div className="mt-[10px] min-w-screen z-0 absolute ">
             <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
               {cat.map(r =>
                 <div key={r.id} className="mb-7 sm:mb-3">
@@ -172,7 +179,7 @@ export default function Room() {
                         : ""}
                     </div>
                   )}
-                  <p className="text-[40px] font-[100] ml-20 mt-[40px] mb-4">{r.category}</p>
+                  <p className="text-[40px] font-[100] ml-20 mt-[20px] mb-4">{r.category}</p>
 
                   <div>
                    { user?.map(u =>
