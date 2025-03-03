@@ -65,12 +65,16 @@ export default function Room() {
   const [ShowDialogue, setShowDialogue] = useState(false)
   const [showAddCategory, setShowAddCategory] = useState(false)
   const [roomCategory, setRoomCategory] = useState("")
+  const [roomID, setRoomID] = useState("")
   useEffect(() => {
     refreshCategory()
     refreshCategoryId()
     document.body.style.background = "white"
   }, [id])
-
+  const onHandleClickDialog = (e) => {
+    setRoomID(e)
+    setShowDialogue(true)
+  }
   const storeRoom = () => {
     const name = $("#name").val()
     const category_id = roomCategory
@@ -104,11 +108,9 @@ export default function Room() {
     )
   }
   const cat = useMemo(() => {
-
     if (categories.length != 0) {
       if (id) {
         return category.filter(x => x.room.map(x => x.category_id === id))
-
       } else {
         return categories
       }
@@ -121,11 +123,9 @@ export default function Room() {
 
   return (
     <>
-   
-  
       <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end  right-0 mt-[15px]">
-          <Input id="input" symbol2={  true  }   type="text" placeholder="Search teacher"
-              className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px]   py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+        <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
+          className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px]   py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
       </div>
       <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" hover:h-[53px] hover:w-[53px] p-[8px] size-6 fixed z-20 top-[98px] right-1 font-extralight h-[55px] w-[55px]  font-[NiramitReg] text-[18px] text-[#5bc8ff]  flex items-center justify-center" />
 
@@ -170,7 +170,7 @@ export default function Room() {
         : <>
           <div className="mt-[10px] min-w-screen z-0 absolute ">
             <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
-              {cat.map(r =>
+            {cat.map(r =>
                 <div key={r.id} className="mb-7 sm:mb-3">
                   {user?.map(user =>
                     <div key={r.id} className="">
@@ -182,25 +182,25 @@ export default function Room() {
                   <p className="text-[40px] font-[100] ml-20 mt-[20px] mb-4">{r.category}</p>
 
                   <div>
-                   { user?.map(u =>
+                    {user?.map(u =>
                       u.role_id == "teacher" ?
-                    r.room.filter(rsc => rsc.schedules == "").map(rsc =>
+                        r.room.filter(rsc => rsc.schedules == "").map(rsc =>
                           <TeacherReq rooms={rsc} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
-                    )
+                        )
                         : "")}
                   </div>
+                      {user?.map(user =>
+                        <div key={user.id}>
+                          {user.role_id == "admin" ?
+                            <AdminPowers input={room} admin={token} room={room} category={r.category} />
+                            : ""
+                          }
+                        </div>
+                      )}
                   <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room != "" ? "border-r-[2px] border-l-[2px] border-gray-600/20 " : ""}`}>
                     {r.room ? r.room != "" ? <>
                       {r.room.map(room => (
                         <div key={room.id} className=" border relative hover:scale-95 rounded-[20px]">
-                          {user?.map(user =>
-                            <div key={user.id}>
-                              {user.role_id == "admin" ?
-                                <AdminPowers input={room} admin={token} room={room} category={r.category} />
-                                : ""
-                              }
-                            </div>
-                          )}
                           <div className="z-10 absolute  justify-items-center grid h-[60px]  w-full rounded-b-[20px] bg-[#0F172A]/70 bottom-0">
                             <div className=" mt-1 ">
                               Room {room.name}
@@ -210,47 +210,21 @@ export default function Room() {
                             </div>
                           </div>
                           <div className="z-0 text-9xl text-black">
-                            <img src={`../src/assets/images/rooms/${room.name}.jpg`} onClick={() => setShowDialogue(true)} className="w-[300px] border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
+                            <img src={`../src/assets/images/rooms/${room.name}.jpg`} onClick={() => onHandleClickDialog(room.id)} className="w-[300px] border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                           </div>
-                          <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
-                            <DialogContent>
-                              {room.id}
-                              {/* {cat.map(ct=> ct.room.filter(r=> r.schedules!="").map(rm => rm.id === room.id))} */}
-                              {/* {r.schedules == "" ? "nodata" : r.schedules?.map(scr => scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD")) ?
-                                ''
-                                : ""} */}
-                              {/* scr.date >= dayjs().weekday(-7).format("YYYY-MM-DD") && scr.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
-                                    <Table>
-                                      <TableHeader>
-                                        <TableHead className="font-semibold text-[12px] w-[180px]">Day</TableHead>
-                                        <TableHead className="font-semibold text-[12px] w-[180px]">Teacher</TableHead>
-                                        <TableHead className="font-semibold text-[12px] w-[180px]">Time</TableHead>
-                                        <TableHead className="font-semibold text-[12px] w-[180px]">Section</TableHead>
-                                        <TableHead className="font-semibold text-[12px] w-[180px]">Subject</TableHead>
-                                        <TableHead className="font-semibold text-[12px] w-[180px]">Date</TableHead>
-                                      </TableHeader>
-                                      <TableRow className=" no-scrollbar" key={r.id}>
-                                        <TableCell className="w-[20px]">{scr.day}</TableCell>
-                                        {Teachers.filter(x => x.id === scr.teacher_id).map(t =>
-                                          <TableCell key={t.id} className="w-[20px]">{t.name}</TableCell>
-                                        )}
-                                        <TableCell className="w-[30px] text-[10px]">{scr.start_time}-{scr.end_time}</TableCell>
-                                        {Sections.filter(x => x.id === scr.section_id).map(s =>
-                                          <TableCell key={s.id} className="w-[20px]">{s.name}</TableCell>
-                                        )}
-                                        <TableCell className="w-[20px]">{scr.subject}</TableCell>
-                                        <TableCell className="w-[20px] text-[9px]">{scr.date}</TableCell>
-                                      </TableRow>
-                                    </Table>
-                                    : "" */}
-                            </DialogContent>
-                          </Dialog>
                         </div>
                       ))}
                     </> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}
                   </div>
                 </div >
               )}
+              <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
+                <DialogContent>
+                  {categories.map(ct => ct.room.filter(r => r.id == roomID).map(r => r.schedules == "" ? <div className="text-[56px] text-black/35">No Schedule</div> : r.schedules.map(rc => <li>{rc.date}</li>)
+                  )
+                  )}
+                </DialogContent>
+              </Dialog>
             </div >
           </div >
         </>}

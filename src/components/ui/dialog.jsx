@@ -36,7 +36,7 @@ const DialogContent = React.forwardRef(({ className, children, show, fn, div_pro
       {...props}>
       {children}
       <DialogPrimitive.Close
-        className="focus:ring-2 focus:ring-ring focus:ring-offset-2  ring-offset-background transition-opacity disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+        className=" focus:ring-ring focus:ring-offset-2  ring-offset-background transition-opacity disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
         <X className="absolute opacity-70 hover:opacity-100 focus:outline-none right-4 top-4 h-4 w-4" />
       </DialogPrimitive.Close>
     </DialogPrimitive.Content >

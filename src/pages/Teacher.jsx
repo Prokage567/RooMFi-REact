@@ -69,9 +69,8 @@ function Teacher() {
 
     const onHandleClick = () => {
         const keyword = $("#input").val()
-        searchTeacher(keyword).then(res => {
-            setSearchInfo(res.data)
-        })
+
+        return (setSearchInfo(Teachers.filter(teacher => teacher.name.toLowerCase().includes(keyword))))
     }
     const addTeacher = () => {
         const name = $("#name").val().toUpperCase()
@@ -105,9 +104,9 @@ function Teacher() {
     }
 
     useEffect(() => {
-        getTeachers
-        getSections
-        refreshRooms
+        getTeachers()
+        getSections()
+        refreshRooms()
         document.body.style.background = "white"
     }, [id])
     const dayOfweeks = (day) => {
@@ -121,7 +120,7 @@ function Teacher() {
             </TableHeader>
             <TableHeader>
                 <TableRow>
-                    <TableCell className="w-[250px] text-[20px]  text-black/40" >Subject</TableCell>
+                    <TableCell className="w-[200px] text-[20px]  text-black/40" >Subject</TableCell>
                     <TableCell className="w-[200px] text-[20px]  text-black/40 indent-2">Room</TableCell>
                     <TableCell className="w-[200px] text-[20px] text-black/40">Date</TableCell>
                     <TableCell className="w-[250px] text-[20px]  text-black/40">Time</TableCell>
@@ -139,11 +138,11 @@ function Teacher() {
                     {sc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && sc.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
                         < >
                             <TableRow>
-                                <TableCell className="w-auto text-[15px]">{sc.subject}</TableCell>
-                                <TableCell className="w-auto text-[15px] indent-2">{[sc.room].filter(rc=> rc.id==sc.room_id).map(rc=>rc.name)}</TableCell>
-                                <TableCell className="w-auto text-[15px]">{sc.date}</TableCell>
-                                <TableCell className="w-auto  text-[15px]">{sc.start_time}-{sc.end_time}</TableCell>
-                                <TableCell className="w-auto text-[15px]">{sc.section.name}</TableCell>
+                                <TableCell className="w-[250px] text-[15px]">{sc.subject}</TableCell>
+                                <TableCell className="w-[250px] text-[15px] indent-2">{[sc.room].filter(rc => rc.id == sc.room_id).map(rc => rc.name)}</TableCell>
+                                <TableCell className="w-[250px] text-[15px]">{sc.date}</TableCell>
+                                <TableCell className="w-[250px] text-[15px]">{sc.start_time}-{sc.end_time}</TableCell>
+                                <TableCell className="w-[250px] text-[15px]">{sc.section.name}</TableCell>
                             </TableRow>
                         </>
                         : ""}
@@ -168,135 +167,96 @@ function Teacher() {
         )
     }
     return (<>
-        {user ? user.map(u => u.role_id == "admin" ?
-            <div>
-                <Dialog open={open} onOpenChange={setopen} className="rounded-full w-[500px] z-0" >
-                    <DialogTrigger>
-                        <img src={Add} className="w-[50px] mt-2 h-[50px] mr-[10px] mb-[10px] fixed bottom-0 z-50 right-0" />
-                    </DialogTrigger>
-                    <DialogContent className="bg-[#11172E] font-[NiramitReg] text-[#fff]">
-                        <DialogTitle className="font-thin h-4 w-[250px] border">Edit Room Name</DialogTitle>
-                        <DialogDescription>
-                            Add a Teacher
-                        </DialogDescription>
-
-                        <div className="grid w-full max-w-sm items-center gap-1.5">
-                            <Label>Add a Teacher by Name:</Label>
-                            <Input type="text" id="name" className="bg-white text-[#000]" />
-                            <Label>Add their Courses/Major:</Label>
-                            <Input type="text" id="techCourse" className="bg-white text-[#000]" />
-                        </div>
-
-                        <div className=" mt-[15px] flex border w-[350px] flex-wrap  border-t-[1px] border-[#fff]/40">
-                            <Button onClick={() => setopen(false)} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold">Cancel</Button>
-                            <Button onClick={() => addTeacher()} className=" w-[200px]  font-[NiramitReg] hover:text-[15px] border-white bg-transparent hover:bg-transparent hover:font-bold"> Add Teacher</Button>
-                        </div>
-                    </DialogContent>
-                </Dialog>
-            </div>
-            : "") : ""}
-
-        <div className="relative">
-            <div className="sticky top-24 z-10 ml-10 ">
-
-                <NavigationMenu>
-                    <NavigationMenuList>
-                        <NavigationMenuItem>
-
-                            <NavigationMenuTrigger className="w-[150px] text-[20px] border bg-[#1f2950] text-[#fff]">
-                                Teachers
-                            </NavigationMenuTrigger>
-
-                            <NavigationMenuContent >
-
-                                <div className="">
-                                    <div className="w-auto flex flex-col overflow-y-auto no-scrollbar justify-center items-start p-2 gap-2">
-
-                                        <div className="hover:bg-[#90E0FF]/30 p-2">
-                                            <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
-                                                className="h-[25px] relative left-4 border-transparent py-2  w-[200px] focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
-                                        </div>
-
-                                        {searchInfo?.map(sc => Teachers.filter(t => t.id === sc.id).map(t =>
-                                        <div className="h-auto p-2 w-[210px] break-words hover:bg-[#90E0FF]/40">
-                                            <Link to={`./${t.id}`}>
-                                                    {t.name}
-                                            </Link >
-                                                </div>
-                                        ))}
-                                    </div>
+        <div className="fixed top-24 left-60 z-10 ">
+            <NavigationMenu>
+                <NavigationMenuList>
+                    <NavigationMenuItem>
+                        <NavigationMenuTrigger className="w-[150px] text-[20px] border bg-[#1f2950] text-[#fff]">
+                            Teachers
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent>
+                            <div className="w-auto flex flex-col overflow-y-auto no-scrollbar justify-center items-start p-2 gap-2">
+                                <div className="hover:bg-[#90E0FF]/30 p-2">
+                                    <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
+                                        className="h-[25px] relative left-4 border-transparent py-2  w-[200px] focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
                                 </div>
-                            </NavigationMenuContent>
+                                {searchInfo?.map(sc => Teachers.filter(t => t.id === sc.id).map(t =>
+                                    <Link to={`./${t.id}`}>
+                                        <div className="h-auto p-2 w-[210px] break-words hover:bg-[#90E0FF]/40">
+                                            {t.name}
+                                        </div>
+                                    </Link >
+                                ))}
+                            </div>
+                        </NavigationMenuContent>
+                    </NavigationMenuItem>
+                </NavigationMenuList>
+            </NavigationMenu>
+        </div>
 
-                        </NavigationMenuItem>
-                    </NavigationMenuList>
-                </NavigationMenu>
-            </div>
-
-            <div className="p-12">
-                <Table>
-                    {id?Teachers.filter(t => t.id == id).map(t => (
-                        <>
-                            <TableHeader>
-                                <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
-                                    <TableCell className="w-auto">
-                                        {t.name}
-                                    </TableCell>
-                                    <TableHead className="">
-                                        {t.subject}
-                                    </TableHead>
-                                    <TableHead></TableHead>
-                                    <TableHead></TableHead>
-                                    <TableHead></TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            {dayOfweeks("Monday")}
-                            {Filter(t, "Monday")}
-                            {dayOfweeks("Tuesday")}
-                            {Filter(t, "Tuesday")}
-                            {dayOfweeks("Wednesday")}
-                            {Filter(t, "Wednesday")}
-                            {dayOfweeks("Thursday")}
-                            {Filter(t, "Thursday")}
-                            {dayOfweeks("Friday")}
-                            {Filter(t, "Friday")}
-                            {dayOfweeks("Saturday")}
-                            {Filter(t, "Saturday")}
-                        </>
-                    )
-                    ):Teachers.map(t => (
-                        <>
-                            <TableHeader>
-                                <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
-                                    <TableCell className="w-auto">
-                                        {t.name}
-                                    </TableCell>
-                                    <TableHead className="">
-                                        {t.subject}
-                                    </TableHead>
-                                    <TableHead></TableHead>
-                                    <TableHead></TableHead>
-                                    <TableHead></TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            {dayOfweeks("Monday")}
-                            {Filter(t, "Monday")}
-                            {dayOfweeks("Tuesday")}
-                            {Filter(t, "Tuesday")}
-                            {dayOfweeks("Wednesday")}
-                            {Filter(t, "Wednesday")}
-                            {dayOfweeks("Thursday")}
-                            {Filter(t, "Thursday")}
-                            {dayOfweeks("Friday")}
-                            {Filter(t, "Friday")}
-                            {dayOfweeks("Saturday")}
-                            {Filter(t, "Saturday")}
-                        </>
-                    )
-                    )}
-                </Table>
-            </div>
-        </div >
+        <div  className="relative left-7 h-[100vh] top-14">
+            <Table>
+                {id ? Teachers.filter(t => t.id == id).map(t => (
+                    <div  >
+                        <TableHeader>
+                            <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
+                                <TableCell>
+                                    {t.name}
+                                </TableCell>
+                                <TableHead>
+                                    {t.subject}
+                                </TableHead>
+                                <TableHead></TableHead>
+                                <TableHead></TableHead>
+                                <TableHead></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        {dayOfweeks("Monday")}
+                        {Filter(t, "Monday")}
+                        {dayOfweeks("Tuesday")}
+                        {Filter(t, "Tuesday")}
+                        {dayOfweeks("Wednesday")}
+                        {Filter(t, "Wednesday")}
+                        {dayOfweeks("Thursday")}
+                        {Filter(t, "Thursday")}
+                        {dayOfweeks("Friday")}
+                        {Filter(t, "Friday")}
+                        {dayOfweeks("Saturday")}
+                        {Filter(t, "Saturday")}
+                    </div>
+                )
+                ) : Teachers.map(t => (
+                    <div className="">
+                        <TableHeader>
+                            <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
+                                <TableCell>
+                                    {t.name}
+                                </TableCell>
+                                <TableHead>
+                                    {t.subject}
+                                </TableHead>
+                                <TableHead></TableHead>
+                                <TableHead></TableHead>
+                                <TableHead></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        {dayOfweeks("Monday")}
+                        {Filter(t, "Monday")}
+                        {dayOfweeks("Tuesday")}
+                        {Filter(t, "Tuesday")}
+                        {dayOfweeks("Wednesday")}
+                        {Filter(t, "Wednesday")}
+                        {dayOfweeks("Thursday")}
+                        {Filter(t, "Thursday")}
+                        {dayOfweeks("Friday")}
+                        {Filter(t, "Friday")}
+                        {dayOfweeks("Saturday")}
+                        {Filter(t, "Saturday")}
+                    </div>
+                )
+                )}
+            </Table>
+        </div>
     </>
     )
 }

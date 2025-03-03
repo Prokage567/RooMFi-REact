@@ -27,7 +27,7 @@ function Homepage() {
         } else (
             setPop(1)
         )
-        setSearchInfo(Rooms.filter(room=>room.name === keyword))
+        setSearchInfo(Rooms.filter(room=>room.name.includes(keyword)))
     }
     const suggestion = (input) => {
         return (
