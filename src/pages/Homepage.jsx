@@ -12,8 +12,9 @@ import { AuthContext } from "../context/context"
 
 
 function Homepage() {
-    const { categories } = useContext(AuthContext)
+    const { categories, refreshRooms, Rooms } = useContext(AuthContext)
     useEffect(() => {
+        refreshRooms()
         document.body.style.background = "white"
     }, [])
     const [Pop, setPop] = useState(0)
@@ -26,10 +27,7 @@ function Homepage() {
         } else (
             setPop(1)
         )
-        Search(keyword).then(res => {
-            setSearchInfo(res.data)
-        }
-        ), [Pop, searchInfo]
+        setSearchInfo(Rooms.filter(room=>room.name.includes(keyword)))
     }
     const suggestion = (input) => {
         return (
@@ -52,10 +50,10 @@ function Homepage() {
     return (
         <>
             <div className="items-center flex-col justify-center flex ">
-               <div className="sticky top-24 -mb-14 ">
+                <div className="sticky top-24 -mb-14 ">
                     <Input id="input" symbol={true} type="text" placeholder="Search room by number... eg.203,209,111"
                         className=" h-[45px] border-2 bg-slate border-blue-950 pl-10 pr-4 py-2 rounded-full w-[500px] focus:border-[1]" onChange={() => onHandleClick()} />
-            </div>
+                </div>
                 <div className="sticky top-[86px] ">
                     <Popover>
                         <PopoverAnchor className="flex justify-center items-center flex-col">
@@ -70,7 +68,7 @@ function Homepage() {
                                         )}
                                         <div>
                                             {searchInfo != ""
-                                                ? keyword != null && !searchInfo
+                                                ? keyword.length != null && !searchInfo
                                                     ? <p className="text-gray-500/40">Loading...</p>
                                                     : searchInfo
                                                         ? <div className=" h-auto overflow-scroll no-scrollbar">
