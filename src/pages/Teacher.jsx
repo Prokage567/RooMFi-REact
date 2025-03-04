@@ -194,7 +194,7 @@ function Teacher() {
             </NavigationMenu>
         </div>
 
-        <div  className="relative h-[100vh] top-14">
+        <div  className="absolute h-[100vh]  top-14">
             <Table>
                 {id ? Teachers.filter(t => t.id == id).map(t => (
                     <div  >
