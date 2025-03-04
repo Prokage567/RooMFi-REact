@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }) => {
         toast.success(res.message)
       }
     }
-
     )
   }
   const refreshRooms = () => {
@@ -95,7 +94,7 @@ export const AuthProvider = ({ children }) => {
     return () => clearInterval(interval)
   }, [])
   return (
-    <AuthContext.Provider value={{ user, login, logout, Teachers, getTeachers, Sections, getSections, categories, refreshCategory, category, refreshCategoryById, SectionbyId, getSectionbyId, Rooms, refreshRooms,refreshSched }}>
+    <AuthContext.Provider value={{ user, login, logout, Teachers, getTeachers, Sections, getSections, categories, refreshCategory, category, refreshCategoryById, SectionbyId, getSectionbyId, Rooms, refreshRooms, refreshSched }}>
       {children}
     </AuthContext.Provider>
   )

@@ -59,7 +59,7 @@ export default function Room() {
   const [cookies] = useCookies()
   const token = cookies.token
   const { id } = useParams()
-  const { user, Teachers, Sections, categories, refreshCategoryById, refreshCategory, category } = useContext(AuthContext)
+  const { user, Teachers, Sections, categories, refreshCategoryById, refreshCategory, category,Rooms } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [show, setShow] = useState(false)
   const [ShowDialogue, setShowDialogue] = useState(false)
@@ -189,14 +189,6 @@ export default function Room() {
                         )
                         : "")}
                   </div>
-                      {user?.map(user =>
-                        <div key={user.id}>
-                          {user.role_id == "admin" ?
-                            <AdminPowers input={room} admin={token} room={room} category={r.category} />
-                            : ""
-                          }
-                        </div>
-                      )}
                   <div className={`mr-[40px] text-[#fff] ml-[50px] min-w-screen overflow-y-auto flex flex-col items-start flex-wrap h-[205px] no-scrollbar gap-[20px] ${r.room != "" ? "border-r-[2px] border-l-[2px] border-gray-600/20 " : ""}`}>
                     {r.room ? r.room != "" ? <>
                       {r.room.map(room => (
@@ -212,6 +204,14 @@ export default function Room() {
                           <div className="z-0 text-9xl text-black">
                             <img src={`../src/assets/images/rooms/${room.name}.jpg`} onClick={() => onHandleClickDialog(room.id)} className="w-[300px] border-[0.5px] border-[#0F172A]/80 h-[200px] rounded-[20px] z-0 " alt="" />
                           </div>
+                          {user?.map(user =>
+                            <div key={user.id}>
+                              {user.role_id == "admin" ?
+                                <AdminPowers input={room} admin={token} room={room} category={r.category} reload={refreshCategory}/>
+                                : ""
+                              }
+                            </div>
+                          )}
                         </div>
                       ))}
                     </> : <p className="text-3xl text-center mt-11 text-gray-500">No Rooms Yet</p> : <p className="text-3xl mt-11 text-gray-500">No Rooms Yet</p>}

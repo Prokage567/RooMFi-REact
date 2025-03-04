@@ -6,7 +6,7 @@ import {
     , VisibilityOff
 } from "@mui/icons-material";
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext} from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import Typography from "@mui/material/Typography";
 import { Link, useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const customFonts = {
 
 function Login() {
 
-    const { login } = React.useContext(AuthContext)
+    const { login } = useContext(AuthContext)
     const [cookies, setCookie, removeCookie] = useCookies()
     useEffect(() => {
         Theme()

@@ -22,7 +22,7 @@ import { Button } from '../ui/button';
 import { useState } from 'react';
 
 
-export default function AdminPowers({ input, admin, room, category }) {
+export default function AdminPowers({ input, admin, room, category,reload }) {
     const [categoryById, setCategoryById] = useState("")
     const [close, setClose] = useState(false)
     const [save, setSave] = useState(false)
@@ -33,6 +33,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                 if (res?.ok) {
                     toast.success(res.message)
                     setSave(false)
+                    reload()
                 }
             })
         )
@@ -46,6 +47,7 @@ export default function AdminPowers({ input, admin, room, category }) {
                 if (res?.ok) {
                     toast.success(res.message)
                     setClose(false)
+                    reload()
                 }
             })
         )

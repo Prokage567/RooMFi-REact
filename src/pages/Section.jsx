@@ -30,6 +30,7 @@ import { toast } from "react-toastify"
 import { DialogHeader } from "../components/ui/dialog"
 import { DialogDescription } from "@radix-ui/react-dialog"
 import { AuthContext } from "../context/context"
+import  WeekView  from "../components/ui/weekView"
 
 export default function section() {
   const { id } = useParams()
@@ -51,9 +52,11 @@ export default function section() {
     getSections()
     getTeachers()
     refreshRooms()
+    document.body.style.background = "white"
   }, [id])
   const [date, setDate] = useState([])
   const [open, setOpen] = useState(false)
+  const [showWeek, setShowWeek] = useState(0)
   const [show, setShow] = useState(0)
   const [cookies] = useCookies()
   const token = cookies.token
@@ -117,21 +120,22 @@ export default function section() {
   }
   return (
     <>
-      <Button className="fixed right-8 mt-[2px] w-[130px] text-[16px] bg-[#242F5B] hover:bg-[#242F5B] hover:text-[17px] p-1">
+      <Button onClick={showWeek == 0 ? () => setShowWeek(1) : () => setShowWeek(0)} className="fixed right-8 mt-[2px] w-[130px] text-[16px] bg-[#242F5B] hover:bg-[#242F5B] hover:text-[17px] p-1">
         Week view
       </Button>
       <div className="justify-center items-center flex">
         <div className=" max-h-screen">
-          
-          <Cal
-            mode="single"
-            showOutsideDays="true"
-            selected={date}
-            onSelect={setDate}
-            className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
-            schedules={SectionbyId?.schedules}
-          />
-
+          {showWeek == 0 ?
+            <Cal
+              mode="single"
+              showOutsideDays="true"
+              selected={date}
+              onSelect={setDate}
+              className="rounded-md font-[NiramitReg] scroll-auto text-[#242F5B] border-none"
+              schedules={SectionbyId?.schedules}
+            />
+            :
+         <WeekView/>}
 
         </div>
         <Dialog open={open} onOpenChange={setOpen} className="rounded-full w-[500px] h-auto text-sm" >
@@ -154,7 +158,7 @@ export default function section() {
                       id="subject"
                       placeholder="Input Subject" />
                   </div>
-                  <PopUpCalendar className="pt-3"/>
+                  <PopUpCalendar className="pt-3" />
                   <div className="flex flex-row w-[450px] ">
                     <div>
                       <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">

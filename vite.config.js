@@ -4,12 +4,6 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
   plugins: [react()],
-  server:
-   {
-    host: true,
-    allowedHosts:true
-   }
-  ,
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
