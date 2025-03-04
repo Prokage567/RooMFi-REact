@@ -7,6 +7,7 @@ import { getSection, getSectionId } from '../api/section';
 import { getCategory, getCategoryId } from '../api/category';
 import { getRoom } from '../api/room';
 import { getSched } from '../api/sched';
+import { getRequest } from '../api/TeacherRequests';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -18,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [category, setCategory] = useState([])
   const [categories, setCategories] = useState([])
   const [Rooms, setRooms] = useState([])
+  const [Requests, setRequests] = useState([])
 
   const login = (userData) => {
     setUser(userData);
@@ -74,6 +76,13 @@ export const AuthProvider = ({ children }) => {
       }
     })
   }
+  const refreshRequests = () => {
+    getRequest().then(res => {
+      if (res?.ok) {
+        setRequests(res.data)
+      }
+    })
+  }
   const logout = () => {
     lg(cookies.token).then(
       toast.success("successfully Logout!")
@@ -83,6 +92,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   useEffect(() => {
+    refreshRequests()
     getTeachers()
     getSections()
     refreshCategory()
@@ -94,7 +104,7 @@ export const AuthProvider = ({ children }) => {
     return () => clearInterval(interval)
   }, [])
   return (
-    <AuthContext.Provider value={{ user, login, logout, Teachers, getTeachers, Sections, getSections, categories, refreshCategory, category, refreshCategoryById, SectionbyId, getSectionbyId, Rooms, refreshRooms, refreshSched }}>
+    <AuthContext.Provider value={{ user, login, logout, Teachers, getTeachers, Sections, getSections, categories, refreshCategory, category, refreshCategoryById, SectionbyId, getSectionbyId, Rooms, refreshRooms, refreshSched, refreshRequests, Requests}}>
       {children}
     </AuthContext.Provider>
   )

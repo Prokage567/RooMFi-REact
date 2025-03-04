@@ -12,7 +12,7 @@ import { Label } from "../ui/label.jsx";
 import { Input } from "../ui/input.jsx";
 import { Button } from "../ui/button.jsx";
 import { DelRequestId, getRequest } from "../../api/TeacherRequests.js";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getCategory } from "../../api/category.js";
 import { toast } from "react-toastify";
 import $ from "jquery"
@@ -27,60 +27,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { getSection } from "../../api/section.js";
 import { postSched } from "../../api/sched.js";
+import { AuthContext } from "../../context/context.jsx";
 
 export function Request({ reload, token }) {
-  const reloadSections = () => {
-    getSection().then(res => {
-      if (res?.ok) {
-        setSections(res.data)
-      }
-    })
-  }
+  const { refreshCategory, categories,getSections, Sections, getTeachers, Teachers, refreshRooms, refreshRequests, Requests } = useContext(AuthContext)
   useEffect(() => {
-    allRequest()
-    const interval = setInterval(() => { allRequest() }, 5000)
-    categories()
-    reloadSections()
-    getTeacher().then(res => {
-      if (res?.ok) {
-        setTeachers(res.data)
-      }
-    })
-    getRoom().then(res => {
-      if (res?.ok) {
-        setRooms(res.data)
-      }
-    })
+    const interval = setInterval(() => {
+      refreshRequests()
+      getSections()
+      refreshCategory()
+      getTeachers()
+      refreshRooms()
+    }, 5000)
+    refreshCategory()
     return () => clearInterval(interval)
   }, [])
+  console.log(Requests)
   const [All, setAll] = useState([])
-  const [Allcategories, setAllCategories] = useState([])
-  const allRequest = () => {
-    getRequest().then(res => {
-      if (res.ok) {
-        setAll(res.data)
-      }
-    }
-    )
-  }
   const [open, setOpen] = useState(false)
-  const categories = () => {
-    getCategory().then(res => {
-      if (res.ok) {
-        setAllCategories(res.data)
-      }
-    }
-    )
-  }
   const [reqid, setreqid] = useState("")
   const deleteRequest = () => {
     const id = reqid
     DelRequestId(id, token).then(res => {
       if (res.ok) {
         toast.success("deleted succesfully")
-        allRequest()
+        refreshRequests()
       }
       setreqid("")
     }
@@ -113,7 +85,7 @@ export function Request({ reload, token }) {
         setOpen(false)
         deleteRequest()
         setreqid("")
-        allRequest()
+        refreshRequests()
       }
     })
   }
@@ -126,9 +98,6 @@ export function Request({ reload, token }) {
     deleteRequest()
     setreqid(i)
   }
-  const [Section, setSections] = useState([])
-  const [Teachers, setTeachers] = useState([])
-  const [Rooms, setRooms] = useState([])
   const [show, setShow] = useState(0)
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
@@ -144,7 +113,7 @@ export function Request({ reload, token }) {
         </SelectTrigger>
         <SelectContent id="room" className=" font-[NiramitReg] " >
           {inputs.map(room =>
-            <SelectItem key={room.id} className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Section ? room.name : ""} </SelectItem>
+            <SelectItem key={room.id} className="text-sm text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}> {inputs == Teachers ? `${room.name} - ${room.subject} ` : inputs == Sections ? room.name : ""} </SelectItem>
           )}
         </SelectContent>
       </Select>
@@ -176,7 +145,7 @@ export function Request({ reload, token }) {
         </Dialog> */}
       <Popover className="h-[350px]">
         <div className=" fixed bottom-[132px] text-[14px] right-[2px] z-10 grid justify-items-center border-[2px] border-[#fff] bg-[#c3f8ff] h-[28px] w-[28px] rounded-[50px]">
-          <div className="mt-[2px]">20</div>
+          <div className="mt-[2px]">{Requests.length}</div>
         </div>
         <PopoverTrigger className="fixed bottom-[90px] right-1 font-extralight h-[60px] w-[60px] bg-[#0F1A42] font-[NiramitReg] text-[18px] text-white rounded-[25px] shadow-lg hover:bg-[#57c6f2] hover:text-[#0F1A42] flex items-center justify-center">
           <SquareLibrary className="w-[30px] h-[30px] z-0" />
@@ -186,7 +155,7 @@ export function Request({ reload, token }) {
           <AC type="single" collapsible className="w-[250px] text-[14px]  font-[NiramitReg] bg-[#0F1A42] border-b-[1px] border-[#fff]/90 text-[#fff]">
             <div className="overflow-auto no-scrollbar  h-[300px] ">
 
-              {All.map(req => (<>
+              {Requests.map(req => (<>
                 <AI value={req.id} key={req}>
                   <AT className="border-b-[1px]  border-[#fff]/30">
                     <div>
@@ -196,7 +165,7 @@ export function Request({ reload, token }) {
                     </div>
                   </AT>
                   <ACC className="h-[90px] overflow-auto no-scrollbar">
-                    {Allcategories.map(ct => ct.room.filter(r => r.id === req?.room_id).map(r => <>
+                    {categories.map(ct => ct.room.filter(r => r.id === req?.room_id).map(r => <>
                       <div className="mr-[30px] border-b-[1px] border-[#fff]/30 w-[70px]">
                         {r?.name}
                       </div>
@@ -227,7 +196,7 @@ export function Request({ reload, token }) {
           <DialogDescription className="text-[#fff]/80">Add an event for the sections schedule</DialogDescription>
           <div >
             {selectForAll("Teacher", Teachers, setTeacher, "Teacher")}
-            {selectForAll("Section", Section, setSection, "Sections")}
+            {selectForAll("Section", Sections, setSection, "Sections")}
 
             <div className="pt-3 ">
               <Label>Subject</Label>
