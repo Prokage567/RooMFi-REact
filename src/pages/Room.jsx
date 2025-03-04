@@ -44,6 +44,7 @@ import weekday from 'dayjs/plugin/weekday'
 import { StoreRequest } from "../api/TeacherRequests.js"
 import { Popover, PopoverAnchor } from "../components/ui/popover.jsx"
 import { DialogClose } from "@radix-ui/react-dialog"
+import WeekView from "../components/ui/weekView.jsx"
 
 export default function Room() {
   const weekdays = [
@@ -283,154 +284,12 @@ export default function Room() {
               )}
               <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
                 <DialogContent className="bg-[#11172E] h-[600px] w-[850px]  font-[NiramitReg] ">
-                 
-                  {/* {categories.map(ct => ct.room.filter(r => r.id == roomID).map(r => r.schedules == "" ? <div className="text-[56px] text-black/35">No Schedule</div> : r.schedules.map(rc => <li>{rc.date}</li>)
+                  {categories.map(ct => ct.room.filter(r => r.id == roomID).map(r => r.schedules == "" ? <div className="text-[56px] text-black/35">No Schedule</div> :
+                    <div className=" h-[500px] border-b-[3px] border-[#fff]  overflow-auto  no-scrollbar">
+                      <WeekView schedules={r.schedules} showDialogue={ShowDialogue} />
+                    </div>
                   )
-                  )} */}
-                  <div className=" h-[500px] border-b-[3px] border-[#fff]  overflow-auto  no-scrollbar">
-
-                  <Table className="  mt-[20px] text-white">
-
-                <TableHeader className=" h-[10px] text-[18px] text-white  bg-[#2c4f7c]  ">
-                    <TableRow >
-                    <TableHead> 202</TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead className=" text-right">11/12/23</TableHead>
-                    </TableRow>
-                </TableHeader>
-
-                <TableHeader className=" h-[10px] text-black bg-[#fff]  ">
-                    <TableRow >
-                    <TableHead className=" ">Monday</TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                    <TableRow className="text-white/60 "> 
-                    <TableCell className="text-center border-b-[2px] w-[110px] ">Section</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[110px]  ">Subject</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[90px]">Time</TableCell>
-                    <TableCell className="text-center border-b-[2px] ">Teacher</TableCell>
-                    </TableRow>
-                </TableBody>
-
-                <TableBody>
-                    <TableRow > 
-                    <TableCell className="text-center   break-normal  ">Komunikasyon at Pananaliksik sa Wika at Kulturang Pilipino</TableCell>
-                    <TableCell className="text-center break-normal ">Araling khergies iruhisuhdrf oerhfouer sofdhiudshrfu Panlipunan</TableCell>
-                    <TableCell className="text-center">11:00am-11:00pm</TableCell>
-                    <TableCell className="text-center">Aladin P. Silvestre</TableCell>
-                    </TableRow>
-                    <TableRow > 
-                    <TableCell className="text-center ">1H1</TableCell>
-                    <TableCell className="text-center">Araling Panlipunan</TableCell>
-                    <TableCell className="text-center">11:00am-11:00pm</TableCell>
-                    <TableCell className="text-center">Aladin P. Silvestre</TableCell>
-                    </TableRow>
-                    <TableRow > 
-                    <TableCell className="text-center">DRF</TableCell>
-                    <TableCell className="text-center">Araling Panlipunan</TableCell>
-                    <TableCell className="text-center">11:00am-11:00pm</TableCell>
-                    <TableCell className="text-center">Aladin P. Silvestre</TableCell>
-                    </TableRow>
-                </TableBody>
-
-                <TableHeader className=" h-[10px] text-black bg-[#FFF]  ">
-                    <TableRow >
-                    <TableHead className=" ">Tuesday</TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                    <TableRow className="text-white/60 "> 
-                    <TableCell className="text-center border-b-[2px]  w-[90px]">Section</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[110px]  ">Subject</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[90px]">Time</TableCell>
-                    <TableCell className="text-center border-b-[2px] ">Teacher</TableCell>
-                    </TableRow>
-                </TableBody>
-
-                <TableHeader className=" h-[10px] text-black bg-[#FFF]  ">
-                    <TableRow >
-                    <TableHead className=" ">Wednesday</TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                    <TableRow className="text-white/60 "> 
-                    <TableCell className="text-center border-b-[2px]  w-[90px]">Section</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[110px]  ">Subject</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[90px]">Time</TableCell>
-                    <TableCell className="text-center border-b-[2px] ">Teacher</TableCell>
-                    </TableRow>
-                </TableBody>
-
-                <TableHeader className=" h-[10px] text-black bg-[#FFF]  ">
-                    <TableRow >
-                    <TableHead className=" ">Thursday</TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                    <TableRow className="text-white/60 "> 
-                    <TableCell className="text-center border-b-[2px]  w-[90px]">Section</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[110px]  ">Subject</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[90px]">Time</TableCell>
-                    <TableCell className="text-center border-b-[2px] ">Teacher</TableCell>
-                    </TableRow>
-                </TableBody>
-
-                <TableHeader className=" h-[10px] text-black bg-[#FFF]  ">
-                    <TableRow >
-                    <TableHead className=" ">Friday</TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                    <TableRow className="text-white/60 "> 
-                    <TableCell className="text-center border-b-[2px]  w-[90px]">Section</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[110px]  ">Subject</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[90px]">Time</TableCell>
-                    <TableCell className="text-center border-b-[2px] ">Teacher</TableCell>
-                    </TableRow>
-                </TableBody>
-
-                <TableHeader className=" h-[10px] text-black bg-[#FFF]  ">
-                    <TableRow >
-                    <TableHead className=" ">Saturday</TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    <TableHead></TableHead>
-                    </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                    <TableRow className="text-white/60 "> 
-                    <TableCell className="text-center border-b-[2px]  w-[90px]">Section</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[110px]  ">Subject</TableCell>
-                    <TableCell className="text-center border-b-[2px] w-[90px]">Time</TableCell>
-                    <TableCell className="text-center border-b-[2px] ">Teacher</TableCell>
-                    </TableRow>
-                </TableBody>
-                  </Table>
-                  </div>
-
+                  )}
                   <DialogClose className=" h-[20px] text-[#fff] text-[20px] hover:font-bold text-right mr-4">Close</DialogClose>
                 </DialogContent>
               </Dialog>

@@ -64,15 +64,6 @@ export default function section() {
   const [room, setRoom] = useState("")
   const [teacher, setTeacher] = useState("")
   const [section, setSection] = useState("")
-  const [sectionId, setSectionId] = useState("")
-  const DelSectionById = () => {
-    const id = sectionId
-    AddSection(id).then(res => {
-      if (res?.ok) {
-        toast.success(res.message)
-      }
-    })
-  }
   const schedule = () => {
     const teacher_id = teacher
     const room_id = room

@@ -8,19 +8,26 @@ import {
     TableRow,
 } from "./table.jsx"
 import weekday from 'dayjs/plugin/weekday'
-export default function WeekView({ schedules, sectionName }) {
+import { AuthContext } from "../../context/context.jsx"
+import { useContext } from "react"
+import { Input } from "./input.jsx"
+import $ from "jquery"
+export default function WeekView({ schedules, showDialogue }) {
     dayjs.extend(weekday)
+    const { Sections, Rooms, Teachers } = useContext(AuthContext)
+    const scId = $("#name").val()
+    console.log()
     const dayOfweeks = (input, date) => {
         return (<>
-            <TableHeader className="bg-[#242F5B] text-white text-[18px] ">
+            <TableHeader className={`${showDialogue ? "bg-[#2c4f7c]" : "bg-[#242F5B]"} text-white text-[18px]`}>
                 <TableRow >
-                    <TableHead></TableHead>
+                    <TableHead>{Rooms.filter(r => r.id == scId).map(rc => rc.name)}</TableHead>
                     <TableHead></TableHead>
                     <TableHead></TableHead>
                     <TableHead>{date}</TableHead>
                 </TableRow>
             </TableHeader>
-            <TableHeader className=" h-[10px] bg-[#C7EFFF]  ">
+            <TableHeader className={`${showDialogue ? "bg-[#fff] " : "bg-[#C7EFFF]"} h-[10px]  `}>
                 <TableRow >
                     <TableHead>{input}</TableHead>
                     <TableHead></TableHead>
@@ -29,8 +36,8 @@ export default function WeekView({ schedules, sectionName }) {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow className="text-black/60 ">
-                    <TableCell className="text-center border-b-[2px] w-[150px]">Room NO.</TableCell>
+                <TableRow className={`${showDialogue ? "text-white/60" : "text-black/60 "}`}>
+                    <TableCell className="text-center border-b-[2px] w-[150px]">{showDialogue ? "Section" : "Room NO."}</TableCell>
                     <TableCell className="text-center border-b-[2px]">Subject</TableCell>
                     <TableCell className="text-center border-b-[2px] w-[150px]">Time</TableCell>
                     <TableCell className="text-center border-b-[2px] ">Teacher</TableCell>
@@ -39,33 +46,27 @@ export default function WeekView({ schedules, sectionName }) {
             {schedules?.filter(x => x.date >= dayjs().weekday(1).format("YYYY-MM-DD") && x.date <= dayjs().weekday(6).format("YYYY-MM-DD"))?.map(x =>
                 x.day === input && x.date === date ?
                     <TableBody>
-                        <TableRow>
-                            <TableCell className="text-center ">{x.room.name}</TableCell>
-                            <TableCell className="text-center">{x.subject}</TableCell>
-                            <TableCell className="text-center">{x.time}</TableCell>
-                            <TableCell className="text-center">{x.teacher.name}</TableCell>
+                        <TableRow className={`${showDialogue ? "text-white " : "text-black"}`}>
+                            {x.room?.name ?
+                                <>
+                                    <TableCell className="text-center ">{x.room.name}</TableCell>
+                                    <TableCell className="text-center">{x.subject}</TableCell>
+                                    <TableCell className="text-center">{`${x.start_time} - ${x.end_time}`}</TableCell>
+                                    <TableCell className="text-center">{x.teacher.name}</TableCell>
+                                </>
+                                : <>
+                                    <TableCell className="text-center ">{Sections.filter(s => x.section_id === s.id).map(s => s.name)}</TableCell>
+                                    <TableCell className="text-center">{x.subject}</TableCell>
+                                    <TableCell className="text-center">{`${x.start_time} - ${x.end_time}`}</TableCell>
+                                    <TableCell className="text-center">{Teachers.filter(t => x.teacher_id === t.id).map(t => t.name)}</TableCell>
+                                </>}
+                            <Input type="hidden" id="name" value={x.room_id} />
                         </TableRow>
                     </TableBody>
                     : ""
             )}
         </>
 
-        )
-    }
-    const Filter = (t, input) => {
-        return (
-            t?.schedules?.filter(sc => sc.day === `${input}`).map(sc => {
-                sc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && sc.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
-                    <TableRow>
-                        <TableCell className="w-[250px] text-[15px]">{sc.subject}</TableCell>
-                        <TableCell className="w-[250px] text-[15px] indent-2">{[sc.room].filter(rc => rc.id == sc.room_id).map(rc => rc.name)}</TableCell>
-                        <TableCell className="w-[250px] text-[15px]">{sc.date}</TableCell>
-                        <TableCell className="w-[250px] text-[15px]">{sc.start_time}-{sc.end_time}</TableCell>
-                        <TableCell className="w-[250px] text-[15px]">{sc.section.name}</TableCell>
-                    </TableRow>
-                    : ""
-            }
-            )
         )
     }
     return (

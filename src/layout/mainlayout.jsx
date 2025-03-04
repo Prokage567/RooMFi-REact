@@ -1,12 +1,12 @@
 import { useContext, useState, useEffect } from "react"
-import { Link, Outlet, useNavigate } from "react-router-dom"
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "../context/context"
 import logo from "../assets/images/logo.svg"
 import icon from "../assets/images/homeIcon.svg"
 import icon2 from "../assets/images/icon2.svg"
 import icon3 from "../assets/images/icon3.svg"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { getSection } from "../api/section"
+import { delSection, getSection, setSectionId } from "../api/section"
 import { getCategory } from "../api/category"
 import { LogOut, User, UserRoundPlus, CircleUserRound, House, ChevronRight, DoorClosed, Users, ContactRound, Trash2, Pencil } from "lucide-react"
 import { checkToken } from "../api/auth"
@@ -16,10 +16,12 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogDescription, DialogTrigger } from "@radix-ui/react-dialog"
 import { DialogHeader } from "../components/ui/dialog"
 import { Input } from "../components/ui/input"
-import { Label } from "@mui/icons-material"
+import $ from "jquery"
+import { toast } from "react-toastify"
 
 export default function MainLayout() {
     const navigate = useNavigate()
+    const { id } = useParams()
     const { user, login, logout, Sections, getSections } = useContext(AuthContext)
     const [cookies] = useCookies()
     const token = cookies.token
@@ -34,6 +36,7 @@ export default function MainLayout() {
                 if (res?.ok) {
                     setRoomTypes(res.data)
                 }
+                setRoomTypes(res.data)
             }
             )
         )
@@ -48,6 +51,25 @@ export default function MainLayout() {
         }
         )
     }, [])
+    const DelSectionById = () => {
+        const id1 = id
+        delSection(token, id1).then(res => {
+            if (res?.ok) {
+                toast.success(res.message)
+                getSections()
+            }
+        })
+    }
+    const updSectionName = () => {
+        const id1 = id
+        const name = $("#name").val()
+        setSectionId(id1, token ,{ name }).then(res => {
+            if (res?.ok) {
+                toast.success(res.message)
+                getSections()
+            }
+        })
+    }
     return (
         <>
             <div className="flex flex-col">
@@ -109,86 +131,87 @@ export default function MainLayout() {
                                     <Link to="/section">
                                         <AccordionTrigger input={true} icon={<Users size={30} className="lg:ml-4 md:-ml-4 ml-4 -mr-12" />}>Section</AccordionTrigger>
                                     </Link>
-                                   
-                                             {Sections.map(s => (
-                                            
-                                                <Link key={s.id} to={`/section/${s.id}`}>
-                                                    <AccordionContent className="ml-0 md:ml-3 lg:ml-9 ">
-                                                        <Dialog>
-                                                        <Popover>
-                                                            <PopoverTrigger>
-                                                                <div className="hover:text-[16px]">
+
+                                    {Sections.map(s => (
+
+                                        <Link key={s.id} to={`/section/${s.id}`}>
+                                            <AccordionContent className="ml-0 md:ml-3 lg:ml-9 ">
+                                                <Dialog>
+                                                    <Popover>
+                                                        <PopoverTrigger>
+                                                            <div className="hover:text-[16px]">
                                                                 {s.name}
-                                                                </div>
-                                                            </PopoverTrigger>
-                                                            <PopoverContent className="h-[100px] w-[200px] ">
-                                                            
-                                                                    <div className="h-[90px] w-[180px] -mt-2 -ml-2 ">
-                                                                    
-                                                                        <div className="hover:bg-[#DDF6FF] h-[40px]">
-                                                                            <div className="place-self-center pt-[6px]">
-                                                                                <Popover >
-                                                                                    <PopoverTrigger className="text-[#242F5B]">
-                                                                                         Delete
-                                                                                    </PopoverTrigger>
+                                                            </div>
+                                                        </PopoverTrigger>
+                                                        <PopoverContent className="h-[100px] w-[200px] ">
 
-                                                                                    <PopoverContent className="h-[120px] font-[NiramitReg] text-[#242F5B]">
-                                                                                        <div className=" h-[100px]">
-                                                                                            <div>
-                                                                                                Are you sure you want to delete {s.name}?
-                                                                                            </div>
+                                                            <div className="h-[90px] w-[180px] -mt-2 -ml-2 ">
 
-                                                                                            <div className=" mt-2 h-[38px] flex justify-between border-t-[2px]">
-                                                                                            <Button className="w-[100px] text-[#242F5B] hover:font-bold  shadow-none bg-transparent hover:bg-transparent">
+                                                                <div className="hover:bg-[#DDF6FF] h-[40px]">
+                                                                    <div className="place-self-center pt-[6px]">
+                                                                        <Popover >
+                                                                            <PopoverTrigger className="text-[#242F5B]">
+                                                                                Delete
+                                                                            </PopoverTrigger>
+
+                                                                            <PopoverContent className="h-[120px] font-[NiramitReg] text-[#242F5B]">
+                                                                                <div className=" h-[100px]">
+                                                                                    <div>
+                                                                                        Are you sure you want to delete {s.name}?
+                                                                                    </div>
+
+                                                                                    <div className=" mt-2 h-[38px] flex justify-between border-t-[2px]">
+                                                                                        <Button className="w-[100px] text-[#242F5B] hover:font-bold  shadow-none bg-transparent hover:bg-transparent">
                                                                                             Cancel
-                                                                                            </Button>
-                                                                                            <Button className="w-[100px] hover:font-bold text-[#ff1818] shadow-none bg-transparent hover:bg-transparent">
+                                                                                        </Button>
+                                                                                        <Button onClick={() => DelSectionById()} className="w-[100px] hover:font-bold text-[#ff1818] shadow-none bg-transparent hover:bg-transparent">
                                                                                             Delete
-                                                                                            </Button>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </PopoverContent>
-                                                                                </Popover>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div className="hover:bg-[#DDF6FF] h-[40px]   ">
-                                                                            <div className="place-self-center  pt-[6px] ">
-                                                                                <Popover>
-                                                                                    <PopoverTrigger className="font-[NiramitReg] text-[#242F5B]">Edit</PopoverTrigger>
-
-                                                                                    <PopoverContent>
-                                                                                            <div className="font-[NiramitReg] text-[#242F5B] text-[20px]">Edit {s.name}</div>
-                                                                                            
-                                                                                            <div className="font-[NiramitReg] text-[#242F5B] mt-1">New Section Name: </div>
-                                                                                            <Input 
-                                                                                            placeholder="Section Name"
-                                                                                            className="font-[NiramitReg] text-[#242F5B]"/>
-
-                                                                                            <div className=" mt-4 h-[38px] flex justify-between border-t-2 ">
-                                                                                            <Button className="w-[100px] font-[NiramitReg] hover:font-bold text-[#242F5B] shadow-none bg-transparent hover:bg-transparent">
-                                                                                            Cancel
-                                                                                            </Button>
-                                                                                            <Button className="w-[100px] font-[NiramitReg] hover:font-bold text-[#242F5B] shadow-none bg-transparent hover:bg-transparent">
-                                                                                            Save
-                                                                                            </Button>
-                                                                                            </div>
-                                                                                    </PopoverContent>
-                                                                                </Popover>
-                                                                                
-                                                                            </div>
-                                                                        </div>
-                                                                        
+                                                                                        </Button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </PopoverContent>
+                                                                        </Popover>
                                                                     </div>
-                                                             
-                                                            </PopoverContent>
-                                                        </Popover>
-                                                        </Dialog>
-                                                    </AccordionContent>
-                                                </Link>
-                                                ))
-                                                }
-                                        
+                                                                </div>
+
+                                                                <div className="hover:bg-[#DDF6FF] h-[40px]   ">
+                                                                    <div className="place-self-center  pt-[6px] ">
+                                                                        <Popover>
+                                                                            <PopoverTrigger className="font-[NiramitReg] text-[#242F5B]">Edit</PopoverTrigger>
+
+                                                                            <PopoverContent>
+                                                                                <div className="font-[NiramitReg] text-[#242F5B] text-[20px]">Edit {s.name}</div>
+
+                                                                                <div className="font-[NiramitReg] text-[#242F5B] mt-1">New Section Name: </div>
+                                                                                <Input
+                                                                                    id="name"
+                                                                                    placeholder="Section Name"
+                                                                                    className="font-[NiramitReg] text-[#242F5B]" />
+
+                                                                                <div className=" mt-4 h-[38px] flex justify-between border-t-2 ">
+                                                                                    <Button className="w-[100px] font-[NiramitReg] hover:font-bold text-[#242F5B] shadow-none bg-transparent hover:bg-transparent">
+                                                                                        Cancel
+                                                                                    </Button>
+                                                                                    <Button onClick={() => updSectionName()} className="w-[100px] font-[NiramitReg] hover:font-bold text-[#242F5B] shadow-none bg-transparent hover:bg-transparent">
+                                                                                        Save
+                                                                                    </Button>
+                                                                                </div>
+                                                                            </PopoverContent>
+                                                                        </Popover>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                        </PopoverContent>
+                                                    </Popover>
+                                                </Dialog>
+                                            </AccordionContent>
+                                        </Link>
+                                    ))
+                                    }
+
 
                                 </AccordionItem>
                             </Accordion>

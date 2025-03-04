@@ -31,15 +31,16 @@ import { postSched } from "../../api/sched.js";
 import { AuthContext } from "../../context/context.jsx";
 
 export function Request({ reload, token }) {
-  const { refreshCategory, categories,getSections, Sections, getTeachers, Teachers, refreshRooms, refreshRequests, Requests } = useContext(AuthContext)
+  const { refreshCategory, categories, getSections, Sections, getTeachers, Teachers, refreshRooms, refreshRequests, Requests } = useContext(AuthContext)
   useEffect(() => {
+    refreshRequests()
+    getSections()
+    refreshCategory()
+    getTeachers()
+    refreshRooms()
     const interval = setInterval(() => {
       refreshRequests()
-      getSections()
-      refreshCategory()
-      getTeachers()
-      refreshRooms()
-    }, 5000)
+    }, 60000)
     refreshCategory()
     return () => clearInterval(interval)
   }, [])
