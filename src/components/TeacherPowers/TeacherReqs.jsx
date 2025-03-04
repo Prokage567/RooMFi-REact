@@ -48,7 +48,7 @@ export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
                         )}
                         </SelectContent>
                     </Select>
-                    <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px]  bg-white font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
+                    <Input className="focus:outline-double h-10 placeholder:font-extralight placeholder:text-[19px] md:text-[20px]  bg-white font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
                     <div className="z-10 fixed ">
 
                         <Input type="hidden" id="user_id" value={user_id} />
