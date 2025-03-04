@@ -111,7 +111,7 @@ function Login() {
                         }}>
                             <form >
                                 <Typography variat="overline" sx={customFonts}>
-                                    Username or Emaild Address:
+                                    Username or Email Address:
                                 </Typography>
 
                                 <FormControl sx={customStyle} variant="filled">

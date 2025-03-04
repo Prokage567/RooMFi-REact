@@ -112,7 +112,6 @@ export default function MainLayout() {
                                    
                                              {Sections.map(s => (
                                             
-                                                //here we throw thr section"s id from the section and uses it to go from one data to another
                                                 <Link key={s.id} to={`/section/${s.id}`}>
                                                     <AccordionContent className="ml-0 md:ml-3 lg:ml-9 ">
                                                         <Dialog>
