@@ -250,9 +250,11 @@ function Teacher() {
                     {dayOfweeks("Saturday")}
                     {Filter(t, "Saturday")}
                     <TableRow>
-                        <TableCell className="opacity-0">space</TableCell>
+                        <TableCell className="">
+                            <div className="h-[2px] bg-gray-500 w-full my-2"></div>
+                        </TableCell> 
                     </TableRow>
-                    </TableBody> 
+                    </TableBody>
                 </Table>
             )
             )}
