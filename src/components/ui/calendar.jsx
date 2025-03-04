@@ -19,12 +19,10 @@ function Calendar({
   ...props
 }) {
   dayjs.extend(weekday)
-  const disableWeekends = { daysOfWeek: [0, 6] };
   return (
     (
       <DayPicker
         showOutsideDays={showOutsideDays}
-        day_disabled={disableWeekends}
         className={cn("p-3 ", className)}
         classNames={{
           months: "flex flex-col sm:flex-row gap-[45px] space-y-3 sm:space-x-3 sm:space-y-0",

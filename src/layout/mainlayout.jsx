@@ -155,7 +155,7 @@ export default function MainLayout() {
                             </div>
                         </div>
                     </nav>
-                    <main className="text-slate-900 absolute w-[85vw] -z-10 top-20 right-0">
+                    <main className="text-slate-900 absolute w-[84.8vw] -z-10 top-20 left-[217px]">
                         <Outlet />
                     </main>
                 </div>

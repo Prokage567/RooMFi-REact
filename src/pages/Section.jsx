@@ -135,7 +135,7 @@ export default function section() {
               schedules={SectionbyId?.schedules}
             />
             :
-         <WeekView/>}
+         <WeekView schedules={SectionbyId?.schedules}/>}
 
         </div>
         <Dialog open={open} onOpenChange={setOpen} className="rounded-full w-[500px] h-auto text-sm" >
