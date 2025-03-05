@@ -17,6 +17,8 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react";
+import PopUpCalendar from "../popUpCalendar";
+import { DialogDescription } from "@radix-ui/react-dialog";
 
 
 export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
@@ -33,6 +35,7 @@ export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
                 <DialogHeader>
                     <DialogTitle className="text-[25px]">Request a Room</DialogTitle>
                 </DialogHeader>
+                <DialogDescription className="text-white/50">Request a room to be used </DialogDescription>
                 <div className="flex flex-col gap-4">
                     <Label className="text-[20px]" htmlFor="room">Select Room</Label>
                     <Select onValueChange={setRoomID}>
@@ -40,15 +43,37 @@ export const TeacherReq = ({ rooms, user_id, buttonSubmit }) => {
                             <SelectValue id="roomNumber" placeholder="Choose a room" />
                         </SelectTrigger>
                         <SelectContent>
-                                <SelectItem key={rooms.id} id="roomID" className="font-[NiramitReg] text-[15px]  text-[#242F5B] hover:bg-[#bce9fc]" value={rooms.id}>{rooms.name}</SelectItem>
+                        {rooms.map((room)=>
+                        <SelectItem key={room.id} id="roomID" className="font-[NiramitReg] text-[15px]  text-[#242F5B] hover:bg-[#bce9fc]" value={room.id}>{room.name}</SelectItem>
+                        )}
                         </SelectContent>
                     </Select>
-                    <Input className="focus:outline-double h-10 placeholder:font-extralight md:text-[20px] bg-white [18px] font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
+                    <Input className="focus:outline-double h-10 placeholder:font-extralight placeholder:text-[19px] md:text-[20px]  bg-white font-[NiramitReg] text-[#11124f] text-[20px]" id="reason" type="text" placeholder="Enter reason for request" />
                     <div className="z-10 fixed ">
 
                         <Input type="hidden" id="user_id" value={user_id} />
                         <Input type="hidden" id="roomID" value={roomID} />
                     </div>
+
+                    <PopUpCalendar className="pt-3" />
+                        <div className="flex flex-row w-[450px] ">
+                        <div>
+                            <div className=" w-[465px] border-b-[1px] border-[#fff]/50 pb-2">
+                            <Label className="text-[17px] ">Time</Label>
+                            </div>
+                            <div className="flex justify-around">
+                            <div className="pt-2">
+                                <Label className="" >From:</Label>
+                                <Input id="strTime" className="border-none focus:outline-white " type="time" />
+                            </div>
+    
+                            <div className="pt-2">
+                                <Label>To:</Label>
+                                <Input id="endTime" className="border-none text-slate-50" type="time" />
+                            </div>
+                            </div>
+                        </div>
+                        </div>
 
                     <div className="border-t-[1px] h-7 ">
                         <div className=" absolute  bottom-4 right-2">

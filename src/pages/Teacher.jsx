@@ -69,7 +69,6 @@ function Teacher() {
 
     const onHandleClick = () => {
         const keyword = $("#input").val()
-
         return (setSearchInfo(Teachers.filter(teacher => teacher.name.toLowerCase().includes(keyword))))
     }
     const addTeacher = () => {

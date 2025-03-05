@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { useContext, useEffect, useMemo } from "react"
 import { useState } from "react"
 import { AuthContext } from "../context/context"
@@ -34,7 +34,7 @@ import {
   TableHeader,
   TableRow,
 } from "../components/ui/table.jsx"
-import { CirclePlus, SquareChartGantt } from 'lucide-react'
+import { CirclePlus, SquareChartGantt, X } from 'lucide-react'
 import { StoreRoom } from "../api/room.js"
 import { storeCategory } from "../api/category.js"
 import { toast } from "react-toastify"
@@ -42,6 +42,9 @@ import $ from "jquery"
 import dayjs from "dayjs"
 import weekday from 'dayjs/plugin/weekday'
 import { StoreRequest } from "../api/TeacherRequests.js"
+import { Popover, PopoverAnchor } from "../components/ui/popover.jsx"
+import { DialogClose } from "@radix-ui/react-dialog"
+import WeekView from "../components/ui/weekView.jsx"
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -58,10 +61,21 @@ export default function Room() {
   const refreshCategoryId = () => {
     refreshCategoryById(id)
   }
+  const [Pop, setPop] = useState(0)
+  const [searchInfo, setSearchInfo] = useState([])
+  const keyword = $("#input").val()
+  const onHandleClick = () => {
+    if (keyword == "") {
+      setPop(0)
+    } else (
+      setPop(1)
+    )
+    return (setSearchInfo(Rooms.filter(room => room.name.includes(keyword))))
+  }
   const [cookies] = useCookies()
   const token = cookies.token
   const { id } = useParams()
-  const { user, Teachers, Sections, categories, refreshCategoryById, refreshCategory, category,Rooms } = useContext(AuthContext)
+  const { user, Teachers, Sections, categories, refreshCategoryById, refreshCategory, category, refreshRooms, Rooms } = useContext(AuthContext)
   const [open, setOpen] = useState(false)
   const [show, setShow] = useState(false)
   const [ShowDialogue, setShowDialogue] = useState(false)
@@ -71,6 +85,7 @@ export default function Room() {
   useEffect(() => {
     refreshCategory()
     refreshCategoryId()
+    refreshRooms()
     document.body.style.background = "white"
   }, [id])
   const onHandleClickDialog = (e) => {
@@ -98,11 +113,30 @@ export default function Room() {
       }
     })
   }
+  const suggestion = (input) => {
+    return (
+      input.map(rooms => (rooms.room.map(room => (
+        <div>
+          <Link to={`../room/${room.category_id}`}>
+            <div key={room.id} className="flex justify-between rounded p-1 hover:bg-[#3F9DC1]/10">
+              <p className="pt-1">Room: {room.name}</p>
+              {room.schedules == "" ? room.schedules
+                ? <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white  bg-green-500">Available</p>
+                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unavailable</p>
+                : <p className="border border-[#3F9DC1]/70 p-1 rounded-[10px] text-white bg-red-500">Unavailable</p>}
+            </div>
+          </Link>
+        </div>
+      ))))
+    )
+  }
   const buttonSubmit = () => {
     const user_id = $("#user_id").val()
     const room_id = $("#roomID").val()
+    const start_time = $("#strTime").val()
+    const end_time = $("#endTime").val()
     const reason = $("#reason").val()
-    StoreRequest(token, { user_id: user_id, room_id: room_id, reason: reason }).then(res => {
+    StoreRequest(token, { user_id: user_id, room_id: room_id, reason: reason, start_time: start_time, end_time: end_time }).then(res => {
       if (res.ok) {
         toast.success(res.message)
       }
@@ -149,6 +183,36 @@ export default function Room() {
       <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end  right-0 mt-[15px]">
         <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
           className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+        <div className="sticky top-[86px] ">
+          <Popover>
+            <PopoverAnchor className="flex justify-center items-center flex-col">
+              <div className={`absolute w-96 min-h-auto top-[56px] ${Pop == 1 ? "bg-white z-20 border-gray-800/30 border" : ""} p-2 transition-all`}>
+                {Pop == 1 ?
+                  <div>
+                    {searchInfo?.map(sc => (
+                      <Link key={sc.id} to={`../room/${sc.category_id}`}>
+                        <div key={sc.id} className="my-1 rounded p-1  hover:bg-[#3F9DC1]/10">Room: {sc.name}</div>
+                      </Link>
+                    )
+                    )}
+                    <div>
+                      {searchInfo != ""
+                        ? keyword.length != null && !searchInfo
+                          ? <p className="text-gray-500/40">Loading...</p>
+                          : searchInfo
+                            ? <div className=" h-auto overflow-scroll no-scrollbar">
+                              <p className="sticky top-0 bg-white text-gray-500/40">Suggestion... </p>
+                              {suggestion(categories)}
+                            </div>
+                            : <p className="text-gray-500/40">Loading...</p>
+                        : <p className="text-gray-500/40">No result... </p>
+                      }
+                    </div>
+                  </div> : ""}
+              </div>
+            </PopoverAnchor>
+          </Popover>
+        </div>
       </div>
       <SquareChartGantt onClick={open == true ? () => setOpen(false) : () => setOpen(true)} className=" hover:h-[53px] hover:w-[53px] p-[8px] size-6 fixed z-20 top-[98px] right-1 font-extralight h-[55px] w-[55px]  font-[NiramitReg] text-[18px] text-[#5bc8ff]  flex items-center justify-center" />
 
@@ -193,7 +257,7 @@ export default function Room() {
         : <>
           <div className="mt-[10px] min-w-screen z-0 absolute ">
             <div className="ml-3 mr-3 sm:ml-2 sm:mr-0 flex flex-col items-start">
-            {cat.map(r =>
+              {cat.map(r =>
                 <div key={r.id} className="mb-7 sm:mb-3">
                   {user?.map(user =>
                     <div key={r.id} className="">
@@ -207,8 +271,8 @@ export default function Room() {
                   <div>
                     {user?.map(u =>
                       u.role_id == "teacher" ?
-                        r.room.filter(rsc => rsc.schedules == "").map(rsc =>
-                          <TeacherReq rooms={rsc} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
+                        r.room.map(rsc =>
+                          <TeacherReq rooms={r.room} user_id={r.id} buttonSubmit={() => buttonSubmit()} />
                         )
                         : "")}
                   </div>
@@ -230,7 +294,7 @@ export default function Room() {
                           {user?.map(user =>
                             <div key={user.id}>
                               {user.role_id == "admin" ?
-                                <AdminPowers input={room} admin={token} room={room} category={r.category} reload={refreshCategory}/>
+                                <AdminPowers input={room} admin={token} category={categories} reload={refreshCategory} />
                                 : ""
                               }
                             </div>
@@ -242,10 +306,14 @@ export default function Room() {
                 </div >
               )}
               <Dialog open={ShowDialogue} onOpenChange={setShowDialogue}>
-                <DialogContent>
-                  {categories.map(ct => ct.room.filter(r => r.id == roomID).map(r => r.schedules == "" ? <div className="text-[56px] text-black/35">No Schedule</div> : r.schedules.map(rc => <li>{rc.date}</li>)
+                <DialogContent className="bg-[#11172E] h-[600px] w-[850px]  font-[NiramitReg] ">
+                  {categories.map(ct => ct.room.filter(r => r.id == roomID).map(r => r.schedules == "" ? <div className="text-[56px] text-black/35">No Schedule</div> :
+                    <div className=" h-[500px] border-b-[3px] border-[#fff]  overflow-auto  no-scrollbar">
+                      <WeekView schedules={r.schedules} showDialogue={ShowDialogue} />
+                    </div>
                   )
                   )}
+                  <DialogClose className=" h-[20px] text-[#fff] text-[20px] hover:font-bold text-right mr-4">Close</DialogClose>
                 </DialogContent>
               </Dialog>
             </div >

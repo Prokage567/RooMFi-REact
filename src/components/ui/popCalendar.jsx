@@ -45,7 +45,7 @@ function Calendar({
           day_range_start: "day-range-start focus:bg-[#90E0FF]",
           day_range_end: "day-range-end",
           day_selected:
-            " text-[#242F5B]focus:h-[40px] focus:w-[40px] focus:bg-[#90E0FF]/40 focus:text-[#242F5B]",
+            " text-[#242F5B] focus:h-[40px] h-[40px] w-[40px] focus:w-[40px] bg-[#90E0FF]/40 focus:bg-[#90E0FF]/40 focus:text-[#242F5B]",
           day_today: "font-extrabold",
           day_outside:
             "day-outside text-[#D9D9D9]/100 ",

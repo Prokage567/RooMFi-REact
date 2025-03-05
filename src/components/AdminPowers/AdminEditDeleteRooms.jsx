@@ -22,7 +22,7 @@ import { Button } from '../ui/button';
 import { useState } from 'react';
 
 
-export default function AdminPowers({ input, admin, room, category,reload }) {
+export default function AdminPowers({ input, admin, category, reload }) {
     const [categoryById, setCategoryById] = useState("")
     const [close, setClose] = useState(false)
     const [save, setSave] = useState(false)
@@ -88,8 +88,8 @@ export default function AdminPowers({ input, admin, room, category,reload }) {
                             <SelectValue placeholder="Select a Room's Category" />
                         </SelectTrigger>
                         <SelectContent className="font-[NiramitReg]" >
-                            {[room].forEach(r => {
-                            <SelectItem key={r.id} className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={`${r.category_id}`}>{category}</SelectItem>}
+                            {category.map(category=>
+                                <SelectItem key={category.id} className="text-[18px] text-[#242F5B] hover:bg-[#bce9fc]" value={`${category.id}`}>{category.category}</SelectItem>
                             )}
                         </SelectContent>
                     </Select>
