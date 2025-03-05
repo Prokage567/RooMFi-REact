@@ -16,7 +16,7 @@ import { Label } from '../ui/label';
 import PopUpCalendar from '../popUpCalendar';
 
 
-export default function AdminPowers({ teacher, admin, Teacher, Show, UpdSched, setShow, SelectForSections, SelectForRooms, SelectForSched}) {
+export default function AdminPowers({ teacher, admin, Teacher, Show, UpdSched, setShow, SelectForSections, SelectForRooms, SelectForSched }) {
     const [categoryById, setCategoryById] = useState("")
     const [close, setClose] = useState(false)
     const [save, setSave] = useState(false)
@@ -46,7 +46,7 @@ export default function AdminPowers({ teacher, admin, Teacher, Show, UpdSched, s
     }
     return (
         <div>
-            <div className="z-50 hover:rounded-md absolute left-2 top-2 bg-transparent rounded-[50%] size-8 ">
+            <div className="z-50 hover:rounded-md absolute right-10 top-1 bg-transparent rounded-[50%] size-8 ">
                 <Dialog open={save} onOpenChange={setSave} className="font-[NiramitReg] text-[#fff]">
                     <DialogTrigger className=" hover:bg-[#fff]/25 h-[30px] w-[35px] rounded-[20px]" >
                         <Trash2 className="text-[#ffffff] ml-[4px] mt-[4px] hove:text-blue" />
@@ -63,7 +63,7 @@ export default function AdminPowers({ teacher, admin, Teacher, Show, UpdSched, s
                 </Dialog>
             </div>
             <Dialog open={close} onOpenChange={setClose}>
-                <DialogTrigger className=" hover:bg-[#fff]/25 z-10  right-2 top-2 absolute  bg-transparent size-8 rounded-[20px] ">
+                <DialogTrigger className=" hover:bg-[#fff]/25 z-10  right-2 top-1 absolute  bg-transparent size-8 rounded-[20px] ">
                     <Pencil className="ml-[4px] mt-[2px] p-[2px] text-[#ffffff]" />
                 </DialogTrigger>
                 <DialogContent show="true" className="bg-[#11172E] font-[NiramitReg] text-[#fff] w-[430px] h-auto">
@@ -74,16 +74,16 @@ export default function AdminPowers({ teacher, admin, Teacher, Show, UpdSched, s
                         </DialogDescription>
                         <Input id="name" type="text" className="bg-white text-[#000] placeholder-input" placeholder="Teacher Name" />
                     </> : <>
-                    <div className="grid w-full max-w-sm items-center gap-1">
-                        {SelectForSections}
-                        {SelectForRooms}
-                        {SelectForSched}
-                        <Label htmlFor="picture" className="pb-1 pt-3">Subject:</Label>
-                        <Input id="subject" type="text" className="bg-white text-[#000] placeholder:hello " />
-                        <Input id="teacher" type="hidden" value={Teacher.id} className="bg-white text-[#000] "/>
-                        <Input id="teacher" type="hidden" value={Teacher.schedules.date} className="bg-white text-[#000] "/>
-                        <Input id="id" type="hidden" className="bg-white text-[#000] "/>
-                    </div>
+                        <div className="grid w-full max-w-sm items-center gap-1">
+                            {SelectForSections}
+                            {SelectForRooms}
+                            {SelectForSched}
+                            <Label htmlFor="picture" className="pb-1 pt-3">Subject:</Label>
+                            <Input id="subject" type="text" className="bg-white text-[#000] placeholder:hello " />
+                            <Input id="teacher" type="hidden" value={Teacher.id} className="bg-white text-[#000] " />
+                            <Input id="teacher" type="hidden" value={Teacher.schedules.date} className="bg-white text-[#000] " />
+                            <Input id="id" type="hidden" className="bg-white text-[#000] " />
+                        </div>
                         <div className="flex flex-row w-[385px] -mt-4">
                             <div>
                                 <div className=" w-[385px] border-b-[1px] border-[#fff]/50 pb-2">

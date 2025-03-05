@@ -63,7 +63,7 @@ export default function Room() {
   const [searchInfo, setSearchInfo] = useState([])
   const keyword = $("#input").val()
   const onHandleClick = () => {
-    if (keyword == "") {
+    if (keyword === "") {
       setPop(0)
     } else (
       setPop(1)
@@ -159,11 +159,11 @@ export default function Room() {
     <>
       <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end right-0 mt-[15px]">
         <Input id="input" symbol2={true} type="text" placeholder="Search Room"
-          className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+          className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent" onClick={Pop == 0 ? () => setPop(1) : () => setPop(0)} onChange={() => onHandleClick()} />
         <div className="sticky top-[86px] ">
           <Popover>
             <PopoverAnchor className="flex justify-center items-center flex-col">
-              <div className={`absolute w-96 min-h-auto top-[56px] ${Pop == 1 ? "bg-white z-20 border-gray-800/30 border" : ""} p-2 transition-all`}>
+              <div className={`absolute w-96 min-h-auto right-10 top-[56px] ${Pop == 1 ? "bg-white z-20 border-gray-800/30 border" : ""} p-2 transition-all`}>
                 {Pop == 1 ?
                   <div>
                     {searchInfo?.map(sc => (

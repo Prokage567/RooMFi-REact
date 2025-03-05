@@ -24,7 +24,7 @@ export default function WeekView({ schedules, showDialogue }) {
                     <TableHead>{Rooms.filter(r => r.id == scId).map(rc => rc.name)}</TableHead>
                     <TableHead></TableHead>
                     <TableHead></TableHead>
-                    <TableHead>{date}</TableHead>
+                    <TableHead className="w-[200px]">{date}</TableHead>
                 </TableRow>
             </TableHeader>
             <TableHeader className={`${showDialogue ? "bg-[#fff] " : "bg-[#C7EFFF]"} h-[10px]  `}>

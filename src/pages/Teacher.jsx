@@ -53,7 +53,6 @@ import { UpdSched } from "../api/sched.js"
 import dayjs from "dayjs"
 import weekday from 'dayjs/plugin/weekday'
 import { Link, useParams } from "react-router-dom"
-
 function Teacher() {
     dayjs.extend(weekday);
     const { id } = useParams()
@@ -130,17 +129,16 @@ function Teacher() {
     }
     const Filter = (t, input) => {
         return (
-            t?.schedules?.filter(sc => sc.day === `${input}`).map(sc => {
+            t?.schedules?.filter(sc => sc.day === `${input}`).map(sc =>
                 sc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && sc.date <= dayjs().weekday(6).format("YYYY-MM-DD") ?
                     <TableRow>
-                        <TableCell className="w-[250px] text-[15px]">{sc.subject}</TableCell>
+                        <TableCell className="w-[250px] text-[18px]">{sc.subject}</TableCell>
                         <TableCell className="w-[250px] text-[15px] indent-2">{[sc.room].filter(rc => rc.id == sc.room_id).map(rc => rc.name)}</TableCell>
                         <TableCell className="w-[250px] text-[15px]">{sc.date}</TableCell>
                         <TableCell className="w-[250px] text-[15px]">{sc.start_time}-{sc.end_time}</TableCell>
-                        <TableCell className="w-[250px] text-[15px]">{sc.section.name}</TableCell>
+                        <TableCell className="w-[250px] text-[18px]">{sc.section.name}</TableCell>
                     </TableRow>
                     : ""
-            }
             )
         )
     }
@@ -191,33 +189,35 @@ function Teacher() {
         <div className="relative h-[80vh] top-14 px-2 pt-5">
             {id ? Teachers.filter(t => t.id == id).map(t => (
                 <Table>
-                    <TableHeader>
-                        <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
-                            <TableHead>
-                                {t.name}
-                            </TableHead>
-                            <TableHead>
-                                {t.subject}
-                            </TableHead>
-                            <TableHead></TableHead>
-                            <TableHead></TableHead>
-                            <TableHead></TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                    {dayOfweeks("Monday")}
-                    {Filter(t, "Monday")}
-                    {dayOfweeks("Tuesday")}
-                    {Filter(t, "Tuesday")}
-                    {dayOfweeks("Wednesday")}
-                    {Filter(t, "Wednesday")}
-                    {dayOfweeks("Thursday")}
-                    {Filter(t, "Thursday")}
-                    {dayOfweeks("Friday")}
-                    {Filter(t, "Friday")}
-                    {dayOfweeks("Saturday")}
-                    {Filter(t, "Saturday")}
-                    </TableBody> 
+                    <>
+                        <TableHeader>
+                            <TableRow className="bg-[#242F5B] font-light text-[#fff] text-[18px] ">
+                                <TableHead>
+                                    {t.name}
+                                </TableHead>
+                                <TableHead>
+                                    {t.subject}
+                                </TableHead>
+                                <TableHead></TableHead>
+                                <TableHead></TableHead>
+                                <TableHead></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {dayOfweeks("Monday")}
+                            {Filter(t, "Monday")}
+                            {dayOfweeks("Tuesday")}
+                            {Filter(t, "Tuesday")}
+                            {dayOfweeks("Wednesday")}
+                            {Filter(t, "Wednesday")}
+                            {dayOfweeks("Thursday")}
+                            {Filter(t, "Thursday")}
+                            {dayOfweeks("Friday")}
+                            {Filter(t, "Friday")}
+                            {dayOfweeks("Saturday")}
+                            {Filter(t, "Saturday")}
+                        </TableBody>
+                    </>
                 </Table>
             )
             ) : Teachers.map(t => (
@@ -235,23 +235,27 @@ function Teacher() {
                             <TableHead></TableHead>
                         </TableRow>
                     </TableHeader>
+
                     <TableBody>
-                    {dayOfweeks("Monday")}
-                    {Filter(t, "Monday")}
-                    {dayOfweeks("Tuesday")}
-                    {Filter(t, "Tuesday")}
-                    {dayOfweeks("Wednesday")}
-                    {Filter(t, "Wednesday")}
-                    {dayOfweeks("Thursday")}
-                    {Filter(t, "Thursday")}
-                    {dayOfweeks("Friday")}
-                    {Filter(t, "Friday")}
-                    {dayOfweeks("Saturday")}
-                    {Filter(t, "Saturday")}
-                    <TableRow>
-                        <TableCell className="opacity-0">space</TableCell>
-                    </TableRow>
-                    </TableBody> 
+                        {dayOfweeks("Monday")}
+                        {Filter(t, "Monday")}
+                        {dayOfweeks("Tuesday")}
+                        {Filter(t, "Tuesday")}
+                        {dayOfweeks("Wednesday")}
+                        {Filter(t, "Wednesday")}
+                        {dayOfweeks("Thursday")}
+                        {Filter(t, "Thursday")}
+                        {dayOfweeks("Friday")}
+                        {Filter(t, "Friday")}
+                        {dayOfweeks("Saturday")}
+                        {Filter(t, "Saturday")}
+                        <TableRow>
+                            <TableCell className="opacity-0">space</TableCell>
+                        </TableRow>
+                    </TableBody>
+                    {[t].map(t => t.schedules.filter(tc => tc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && tc.date <= dayjs().weekday(6).format("YYYY-MM-DD")).map(tc =>
+                        <AdminPowers teacher={t.id} admin={token} Teacher={t} UpdSched={replaceSchedule} setShow={setshow} Show={show} SelectForSections={selectForAll("Sections", Sections, setSection, "Select a Section")} SelectForRooms={selectForAll("Rooms", Rooms, setRoom, "Select a Room")} SelectForSched={selectForAll("Schedule", t.schedules, setSched, "Select a Schedule")} />
+                    ))}
                 </Table>
             )
             )}
