@@ -253,9 +253,14 @@ function Teacher() {
                             <TableCell className="opacity-0">space</TableCell>
                         </TableRow>
                     </TableBody>
-                    {[t].map(t => t.schedules.filter(tc => tc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && tc.date <= dayjs().weekday(6).format("YYYY-MM-DD")).map(tc =>
-                        <AdminPowers teacher={t.id} admin={token} Teacher={t} UpdSched={replaceSchedule} setShow={setshow} Show={show} SelectForSections={selectForAll("Sections", Sections, setSection, "Select a Section")} SelectForRooms={selectForAll("Rooms", Rooms, setRoom, "Select a Room")} SelectForSched={selectForAll("Schedule", t.schedules, setSched, "Select a Schedule")} />
-                    ))}
+                    {user.map(u =>
+                        u.role_id == "admin" ?
+                            
+                                [t].map(t => t.schedules.filter(tc => tc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && tc.date <= dayjs().weekday(6).format("YYYY-MM-DD")).map(tc =>
+                                    <AdminPowers teacher={t.id} admin={token} Teacher={t} UpdSched={replaceSchedule} setShow={setshow} Show={show} SelectForSections={selectForAll("Sections", Sections, setSection, "Select a Section")} SelectForRooms={selectForAll("Rooms", Rooms, setRoom, "Select a Room")} SelectForSched={selectForAll("Schedule", t.schedules, setSched, "Select a Schedule")} />
+                                ))
+                            : ""
+                    )}
                 </Table>
             )
             )}
