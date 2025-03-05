@@ -253,7 +253,7 @@ function Teacher() {
                             <TableCell className="opacity-0">space</TableCell>
                         </TableRow>
                     </TableBody>
-                    {user.map(u =>
+                    {user?.map(u =>
                         u.role_id == "admin" ?
                             
                                 [t].map(t => t.schedules.filter(tc => tc.date >= dayjs().weekday(1).format("YYYY-MM-DD") && tc.date <= dayjs().weekday(6).format("YYYY-MM-DD")).map(tc =>

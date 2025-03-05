@@ -16,12 +16,13 @@ export default function WeekView({ schedules, showDialogue }) {
     dayjs.extend(weekday)
     const { Sections, Rooms, Teachers } = useContext(AuthContext)
     const scId = $("#name").val()
+    const scId2 = $("#name1").val()
     console.log()
     const dayOfweeks = (input, date) => {
         return (<>
             <TableHeader className={`${showDialogue ? "bg-[#2c4f7c]" : "bg-[#242F5B]"} text-white text-[18px]`}>
                 <TableRow >
-                    <TableHead>{Rooms.filter(r => r.id == scId).map(rc => rc.name)}</TableHead>
+                    <TableHead>{showDialogue ? Rooms.filter(r => r.id == scId).map(rc => rc.name): Sections.filter(r => r.id == scId2).map(rc => rc.name)}</TableHead>
                     <TableHead></TableHead>
                     <TableHead></TableHead>
                     <TableHead className="w-[200px]">{date}</TableHead>
@@ -61,6 +62,7 @@ export default function WeekView({ schedules, showDialogue }) {
                                     <TableCell className="text-center">{Teachers.filter(t => x.teacher_id === t.id).map(t => t.name)}</TableCell>
                                 </>}
                             <Input type="hidden" id="name" value={x.room_id} />
+                            <Input type="hidden" id="name1" value={x.section_id} />
                         </TableRow>
                     </TableBody>
                     : ""
@@ -70,7 +72,7 @@ export default function WeekView({ schedules, showDialogue }) {
         )
     }
     return (
-        <div className="mt-14 overflow-auto no-scrollbar">
+        <div className="mt-14 overflow-auto no-scrollbar w-[80vw]">
 
             <Table>
                 {dayOfweeks("Monday", dayjs().weekday(1).format("YYYY-MM-DD"))}

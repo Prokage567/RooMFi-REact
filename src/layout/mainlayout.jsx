@@ -26,6 +26,7 @@ export default function MainLayout() {
     const [cookies] = useCookies()
     const token = cookies.token
     const [roomTypes, setRoomTypes] = useState([])
+    const [pop, setPop] = useState(0)
     const loGout = () => {
         logout(token)
         navigate("./homepage")
@@ -63,7 +64,7 @@ export default function MainLayout() {
     const updSectionName = () => {
         const id1 = id
         const name = $("#name").val()
-        setSectionId(id1, token ,{ name }).then(res => {
+        setSectionId(id1, token, { name }).then(res => {
             if (res?.ok) {
                 toast.success(res.message)
                 getSections()
@@ -139,17 +140,17 @@ export default function MainLayout() {
                                                 <Dialog>
                                                     <Popover>
                                                         <PopoverTrigger>
-                                                            <div className="hover:text-[16px]">
+                                                            <div onClick={() => setPop(0)} className="hover:text-[16px]">
                                                                 {s.name}
                                                             </div>
                                                         </PopoverTrigger>
-                                                        <PopoverContent className="h-[100px] w-[200px] ">
+                                                        {pop == 0 ? <PopoverContent className="h-[100px] w-[200px] ">
 
                                                             <div className="h-[90px] w-[180px] -mt-2 -ml-2 ">
 
                                                                 <div className="hover:bg-[#DDF6FF] h-[40px]">
                                                                     <div className="place-self-center pt-[6px]">
-                                                                        <Popover >
+                                                                        <Popover>
                                                                             <PopoverTrigger className="text-[#242F5B]">
                                                                                 Delete
                                                                             </PopoverTrigger>
@@ -161,7 +162,7 @@ export default function MainLayout() {
                                                                                     </div>
 
                                                                                     <div className=" mt-2 h-[38px] flex justify-between border-t-[2px]">
-                                                                                        <Button className="w-[100px] text-[#242F5B] hover:font-bold  shadow-none bg-transparent hover:bg-transparent">
+                                                                                        <Button onClick={() => setPop(1)} className="w-[100px] text-[#242F5B] hover:font-bold  shadow-none bg-transparent hover:bg-transparent">
                                                                                             Cancel
                                                                                         </Button>
                                                                                         <Button onClick={() => DelSectionById()} className="w-[100px] hover:font-bold text-[#ff1818] shadow-none bg-transparent hover:bg-transparent">
@@ -178,18 +179,14 @@ export default function MainLayout() {
                                                                     <div className="place-self-center  pt-[6px] ">
                                                                         <Popover>
                                                                             <PopoverTrigger className="font-[NiramitReg] text-[#242F5B]">Edit</PopoverTrigger>
-
                                                                             <PopoverContent>
                                                                                 <div className="font-[NiramitReg] text-[#242F5B] text-[20px]">Edit {s.name}</div>
 
                                                                                 <div className="font-[NiramitReg] text-[#242F5B] mt-1">New Section Name: </div>
-                                                                                <Input
-                                                                                    id="name"
-                                                                                    placeholder="Section Name"
-                                                                                    className="font-[NiramitReg] text-[#242F5B]" />
+                                                                                <input type="text" id="name" />
 
                                                                                 <div className=" mt-4 h-[38px] flex justify-between border-t-2 ">
-                                                                                    <Button className="w-[100px] font-[NiramitReg] hover:font-bold text-[#242F5B] shadow-none bg-transparent hover:bg-transparent">
+                                                                                    <Button onClick={() => setPop(1)} className="w-[100px] font-[NiramitReg] hover:font-bold text-[#242F5B] shadow-none bg-transparent hover:bg-transparent">
                                                                                         Cancel
                                                                                     </Button>
                                                                                     <Button onClick={() => updSectionName()} className="w-[100px] font-[NiramitReg] hover:font-bold text-[#242F5B] shadow-none bg-transparent hover:bg-transparent">
@@ -204,7 +201,7 @@ export default function MainLayout() {
 
                                                             </div>
 
-                                                        </PopoverContent>
+                                                        </PopoverContent> : ""}
                                                     </Popover>
                                                 </Dialog>
                                             </AccordionContent>

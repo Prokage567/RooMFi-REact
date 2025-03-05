@@ -111,7 +111,7 @@ export default function section() {
   }
   return (
     <>
-      <Button onClick={showWeek == 0 ? () => setShowWeek(1) : () => setShowWeek(0)} className="fixed right-8 mt-[2px] w-[130px] text-[16px] bg-[#242F5B] hover:bg-[#242F5B] hover:text-[17px] p-1">
+      <Button onClick={showWeek == 0 ? () => setShowWeek(1) : () => setShowWeek(0)} className="fixed z-50 right-8 mt-[2px] w-[130px] text-[16px] bg-[#242F5B] hover:bg-[#242F5B] hover:text-[17px] p-1">
         Week view
       </Button>
       <div className="justify-center items-center flex">

@@ -65,12 +65,14 @@ export default function Room() {
   const [searchInfo, setSearchInfo] = useState([])
   const keyword = $("#input").val()
   const onHandleClick = () => {
-    if (keyword === "") {
+    const keyword = $("#input").val()
+    console.log(keyword)
+    if (keyword == "") {
       setPop(0)
     } else (
       setPop(1)
     )
-    return (setSearchInfo(Rooms.filter(room => room.name.includes(keyword))))
+    setSearchInfo(Rooms.filter(room => room.name.includes(keyword)))
   }
   const [cookies] = useCookies()
   const token = cookies.token
@@ -98,7 +100,7 @@ export default function Room() {
     StoreRoom(token, { name, category_id }).then(res => {
       if (res.ok) {
         toast.success(res?.message, "room has been added!")
-        refreshCategory
+        refreshCategory()
         setShow(false)
       }
     })
@@ -108,7 +110,7 @@ export default function Room() {
     storeCategory(token, { category }).then(res => {
       if (res.ok) {
         toast.success(res?.message, "room has been added!")
-        refreshCategory
+        refreshCategory()
         setShow(false)
       }
     })
@@ -163,20 +165,16 @@ export default function Room() {
 
   return (
     <>
-      <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end right-0 mt-[15px]">
-        <Input id="input" symbol2={true} type="text" placeholder="Search Room"
-          className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent" onClick={Pop == 0 ? () => setPop(1) : () => setPop(0)} onChange={() => onHandleClick()} />
-      </div>
       <div className="absolute z-10 flex">
         <Drawer>
           <DrawerTrigger asChild>
             <Button className="ml-5 font-[NiramitReg] bg-[#11172E] hover:bg-[#1b2240]">View Available Rooms</Button>
           </DrawerTrigger>
-          <DrawerContent className={`p-4 ${rooms.length > 5 ? "max-h-[50vh] overflow-y-auto font-[NiramitReg] bg-[#11172E] border-0 text-white" : "font-[NiramitReg] bg-[#11172E] border-0 text-white"}`}>
+          <DrawerContent className={`p-4 ${Rooms.length > 5 ? "max-h-[50vh] overflow-y-auto font-[NiramitReg] bg-[#11172E] border-0 text-white" : "font-[NiramitReg] bg-[#11172E] border-0 text-white"}`}>
             <h2 className="text-lg font-extrabold mb-2">Available Rooms</h2>
             <ul className="list-disc pl-4">
-              {rooms.length > 0 ? (
-                rooms.map((room, index) => <li key={index}>{room}</li>)
+              {Rooms.length > 0 ? (
+                Rooms.map(r => categories.map(ct => ct.room.filter(rc => rc.id == r.id && rc.schedules == "").map(room => <li key={room.id}>{room.name}</li>)))
               ) : (
                 <p>No available rooms at the moment.</p>
               )}
@@ -186,7 +184,7 @@ export default function Room() {
       </div>
       <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end  right-0 mt-[15px]">
         <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
-          className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
+          className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent" onChange={() => onHandleClick()} />
         <div className="sticky top-[86px] ">
           <Popover>
             <PopoverAnchor className="flex justify-center items-center flex-col">
