@@ -101,7 +101,7 @@ function Homepage() {
                     <div className="relative left-[0px] lg:left-[320px] md:-mb-[290px] md:-top-[315px] -z-20 lg:-top-[450px] lg:-mb-[430px] 2xl:-mb-[500px] 2xl:-top-[525px]">
                         <div className="md:h-[475px] lg:h-[575px] w-[470px] bg-cyan-500 text-zinc-100 p-12">
                             <h2 className="font-[KronaOne] pb-6 text-[20px]">
-                                Room Management & Individual Tracks
+                                Availability of Rooms and Scheduling Platform
                             </h2>
                             <ul className="list-disc list-outside flex md:text-[14px] lg:text-[20px] flex-col flex-wrap gap-12 justify-center items-center ">
                                 <li>

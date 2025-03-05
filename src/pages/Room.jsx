@@ -45,6 +45,8 @@ import { StoreRequest } from "../api/TeacherRequests.js"
 import { Popover, PopoverAnchor } from "../components/ui/popover.jsx"
 import { DialogClose } from "@radix-ui/react-dialog"
 import WeekView from "../components/ui/weekView.jsx"
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer"
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Room() {
   const weekdays = [
@@ -154,12 +156,37 @@ export default function Room() {
     }
   }, [categories, category])
 
+  const rooms = [
+    "Room 101", "Room 102", "Room 103", "Room 104", "Room 105",
+    "Room 201", "Room 202", "Room 203", "Room 204", "Room 205",
+  ];
 
   return (
     <>
       <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end right-0 mt-[15px]">
         <Input id="input" symbol2={true} type="text" placeholder="Search Room"
           className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent" onClick={Pop == 0 ? () => setPop(1) : () => setPop(0)} onChange={() => onHandleClick()} />
+      </div>
+      <div className="absolute z-10 flex">
+        <Drawer>
+          <DrawerTrigger asChild>
+            <Button className="ml-5 font-[NiramitReg] bg-[#11172E] hover:bg-[#1b2240]">View Available Rooms</Button>
+          </DrawerTrigger>
+          <DrawerContent className={`p-4 ${rooms.length > 5 ? "max-h-[50vh] overflow-y-auto font-[NiramitReg] bg-[#11172E] border-0 text-white" : "font-[NiramitReg] bg-[#11172E] border-0 text-white"}`}>
+            <h2 className="text-lg font-extrabold mb-2">Available Rooms</h2>
+            <ul className="list-disc pl-4">
+              {rooms.length > 0 ? (
+                rooms.map((room, index) => <li key={index}>{room}</li>)
+              ) : (
+                <p>No available rooms at the moment.</p>
+              )}
+            </ul>
+          </DrawerContent>
+        </Drawer>
+      </div>
+      <div className=" p-2 py-3  border-l-white  z-20 fixed bg-[#11172E] rounded-l-[18px] w-[430px] flex justify-end  right-0 mt-[15px]">
+        <Input id="input" symbol2={true} type="text" placeholder="Search teacher"
+          className="border-[#11172E] bg-white h-[40px] border-[2px] -ml-3 pl-8 mr-[53px] py-2  w-[350px] rounded-full focus-visible:ring-0 shadow-transparent " onChange={() => onHandleClick()} />
         <div className="sticky top-[86px] ">
           <Popover>
             <PopoverAnchor className="flex justify-center items-center flex-col">
